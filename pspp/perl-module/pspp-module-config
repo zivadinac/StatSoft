@@ -1,0 +1,4 @@
+%Locations = (
+  SourceDir => '/home/statsoft/StatSoft/pspp',
+  BuildDir => '/home/statsoft/StatSoft/pspp'
+);

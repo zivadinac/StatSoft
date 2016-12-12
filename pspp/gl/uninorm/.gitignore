@@ -1,0 +1,15 @@
+/canonical-decomposition.c
+/compat-decomposition.c
+/decompose-internal.c
+/decompose-internal.h
+/decomposing-form.c
+/decomposition-table.c
+/decomposition-table.h
+/decomposition-table1.h
+/decomposition-table2.h
+/decomposition.c
+/nfd.c
+/nfkd.c
+/normalize-internal.h
+/u-normalize-internal.h
+/u8-normalize.c

@@ -1,0 +1,419 @@
+AT_BANNER([DATA LIST])
+
+AT_SETUP([DATA LIST LIST with empty fields])
+AT_DATA([data-list.pspp], [dnl
+DATA LIST LIST NOTABLE /A B C (F1.0).
+BEGIN DATA.
+,,
+,,3
+,2,
+,2,3
+1,,
+1,,3
+1,2,
+1,2,3
+END DATA.
+
+LIST.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+Table: Data List
+A,B,C
+.,.,.
+.,.,3
+.,2,.
+.,2,3
+1,.,.
+1,.,3
+1,2,.
+1,2,3
+])
+AT_CLEANUP
+
+
+AT_SETUP([DATA LIST LIST with explicit delimiters])
+AT_DATA([data-list.pspp], [dnl
+data list list ('|','X') /A B C D.
+begin data.
+1|23X45|2.03x
+2X22|34|23|
+3|34|34X34
+end data.
+
+list.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+A,F8.0
+B,F8.0
+C,F8.0
+D,F8.0
+
+data-list.pspp:3.9-3.13: warning: Data for variable D is not valid as format F: Number followed by garbage.
+
+Table: Data List
+A,B,C,D
+1.00,23.00,45.00,.  @&t@
+2.00,22.00,34.00,23.00
+3.00,34.00,34.00,34.00
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST FREE with SKIP])
+AT_DATA([data-list.pspp], [dnl
+data list free skip=1/A B C D.
+begin data.
+# This record is ignored.
+,1,2,x
+,4,,5
+6
+7,
+8 9
+0,1 ,,,
+,,,,
+2
+
+3
+4
+5
+end data.
+list.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+data-list.pspp:4.6: warning: Data for variable D is not valid as format F: Field contents are not numeric.
+
+Table: Data List
+A,B,C,D
+.  ,1.00,2.00,.  @&t@
+.  ,4.00,.  ,5.00
+6.00,7.00,8.00,9.00
+.00,1.00,.  ,.  @&t@
+.  ,.  ,.  ,.  @&t@
+2.00,3.00,4.00,5.00
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST LIST with SKIP and tab delimiter])
+AT_DATA([data-list.pspp], [dnl
+data list list (tab) notable skip=2/A B C D.
+begin data.
+# These records
+# are skipped.
+1	2	3	4
+1	2	3	@&t@
+1	2		4
+1	2		@&t@
+1		3	4
+1		3	@&t@
+1			4
+1			@&t@
+	2	3	4
+	2	3	@&t@
+	2		4
+	2		@&t@
+		3	4
+		3	@&t@
+			4
+			@&t@
+end data.
+list.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+Table: Data List
+A,B,C,D
+1.00,2.00,3.00,4.00
+1.00,2.00,3.00,.  @&t@
+1.00,2.00,.  ,4.00
+1.00,2.00,.  ,.  @&t@
+1.00,.  ,3.00,4.00
+1.00,.  ,3.00,.  @&t@
+1.00,.  ,.  ,4.00
+1.00,.  ,.  ,.  @&t@
+.  ,2.00,3.00,4.00
+.  ,2.00,3.00,.  @&t@
+.  ,2.00,.  ,4.00
+.  ,2.00,.  ,.  @&t@
+.  ,.  ,3.00,4.00
+.  ,.  ,3.00,.  @&t@
+.  ,.  ,.  ,4.00
+.  ,.  ,.  ,.  @&t@
+])
+AT_CLEANUP
+
+dnl Results of this test were confirmed with SPSS 21:
+dnl http://lists.gnu.org/archive/html/pspp-dev/2013-09/msg00003.html
+AT_SETUP([DATA LIST FREE with explicit delimiter at end of line])
+AT_DATA([data-list.pspp], [dnl
+DATA LIST FREE(',')/x y z.
+BEGIN DATA.
+1,2,3
+4,5,6
+7,8,9
+END DATA.
+LIST.
+
+DATA LIST FREE(',')/x y z.
+BEGIN DATA.
+11,12,13,
+14,15,16,
+17,18,19,
+END DATA.
+LIST.
+
+DATA LIST FREE(TAB)/x y z.
+BEGIN DATA.
+21	22	23
+24	25	26
+27	28	29
+END DATA.
+LIST.
+
+DATA LIST FREE(TAB)/x y z.
+BEGIN DATA.
+31	32	33	@&t@
+34	35	36	@&t@
+37	38	39	@&t@
+END DATA.
+LIST.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+Table: Data List
+x,y,z
+1.00,2.00,3.00
+4.00,5.00,6.00
+7.00,8.00,9.00
+
+Table: Data List
+x,y,z
+11.00,12.00,13.00
+14.00,15.00,16.00
+17.00,18.00,19.00
+
+Table: Data List
+x,y,z
+21.00,22.00,23.00
+24.00,25.00,26.00
+27.00,28.00,29.00
+
+Table: Data List
+x,y,z
+31.00,32.00,33.00
+34.00,35.00,36.00
+37.00,38.00,39.00
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST FIXED with multiple records per case])
+AT_DATA([data-list.pspp], [dnl
+data list fixed notable
+        /1 start 1-20 (adate)
+        /2 end 1-20 (adate)
+        /3 count 1-3.
+begin data.
+07-22-2007
+10-06-2007
+x
+07-14-1789
+08-26-1789
+xy
+01-01-1972
+12-31-1999
+682
+end data.
+list.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+data-list.pspp:8.1-8.3: warning: Data for variable count is not valid as format F: Field contents are not numeric.
+
+data-list.pspp:11.1-11.3: warning: Data for variable count is not valid as format F: Field contents are not numeric.
+
+Table: Data List
+start,end,count
+07/22/2007,10/06/2007,.
+07/14/1789,08/26/1789,.
+01/01/1972,12/31/1999,682
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST FIXED with empty trailing record])
+AT_DATA([data-list.pspp], [dnl
+data list fixed notable records=2/x 1 y 2.
+begin data.
+12
+
+34
+
+56
+
+78
+
+90
+
+end data.
+list.
+])
+AT_CHECK([pspp -O format=csv data-list.pspp], [0], [dnl
+Table: Data List
+x,y
+1,2
+3,4
+5,6
+7,8
+9,0
+])
+AT_CLEANUP
+
+dnl Test that PSPP accepts LF and CR LF as line ends, but
+dnl treats isolated CR as linear whitespace.
+AT_SETUP([DATA LIST with various line-ends])
+AT_DATA([data-list.sps], [dnl
+data list list notable file='input.txt'/a b c.
+list.
+])
+printf '1 2 3\n4 5 6\r\n7\r8\r9\r\n10 11 12\n13 14 15 \r\n16\r\r17\r18\n' > input.txt
+dnl Make sure that input.txt actually received the data that we expect.
+dnl It might not have, if we're running on a system that translates \n
+dnl into some other sequence.
+AT_CHECK([cksum input.txt], [0], [1732021750 50 input.txt
+])
+AT_CHECK([pspp -o pspp.csv data-list.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Data List
+a,b,c
+1.00,2.00,3.00
+4.00,5.00,6.00
+7.00,8.00,9.00
+10.00,11.00,12.00
+13.00,14.00,15.00
+16.00,17.00,18.00
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST properly expands tabs in input])
+AT_DATA([data-list.sps], [dnl
+data list notable /X 1-50 (a).
+begin data.
+	1	12	123	1234	12345    .
+end data.
+print /x.
+print outfile='print.txt' /x.
+write outfile='write.txt' /x.
+execute.
+])
+AT_CHECK([sed -n '/12345/l' data-list.sps], [0], [dnl
+\t1\t12\t123\t1234\t12345    .$
+])
+AT_CHECK([pspp -o pspp.csv data-list.sps])
+dnl The CSV driver drops leading spaces so they don't appear here:
+AT_CHECK([cat pspp.csv], [0], [dnl
+1       12      123     1234    12345    . @&t@
+])
+dnl But they do appear in print.txt.  The PRINT command also puts a space
+dnl at the beginning of the line and after the variable:
+AT_CHECK([cat print.txt], [0], [dnl
+         1       12      123     1234    12345    . @&t@
+])
+dnl WRITE doesn't add spaces at the beginning or end of lines:
+AT_CHECK([cat write.txt], [0], [dnl
+        1       12      123     1234    12345    .
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST FREE and LIST report missing delimiters])
+AT_DATA([data-list.sps], [dnl
+DATA LIST FREE NOTABLE/s (a10).
+LIST.
+BEGIN DATA.
+'y'z
+END DATA.
+])
+AT_CHECK([pspp -O format=csv data-list.sps], [0], [dnl
+data-list.sps:4: warning: Missing delimiter following quoted string.
+
+Table: Data List
+s
+y         @&t@
+z         @&t@
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST FREE and LIST assume a width if omitted])
+AT_DATA([data-list.sps], [dnl
+DATA LIST FREE TABLE/s (a) d (datetime) f (f).
+])
+AT_CHECK([pspp -O format=csv data-list.sps], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+s,A1
+d,DATETIME17.0
+f,F1.0
+])
+AT_CLEANUP
+
+AT_SETUP([DATA LIST Decimal comma])
+AT_DATA([data-list.sps], [dnl
+SET DECIMAL=COMMA.
+
+DATA LIST NOTABLE LIST /A *.
+BEGIN DATA
+1
+2
+3
+3,5
+4
+4,5
+5
+6
+END DATA
+
+LIST /FORMAT=NUMBERED.
+])
+
+AT_CHECK([pspp -O format=csv data-list.sps], [0], [dnl
+Table: Data List
+Case Number,A
+1,"1,00"
+2,"2,00"
+3,"3,00"
+4,"3,50"
+5,"4,00"
+6,"4,50"
+7,"5,00"
+8,"6,00"
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([DATA LIST - Negative SKIP])
+AT_DATA([data-list.sps], [dnl
+DATA LIST LIST FILE='f.in' NOTABLE SKIP=-1 /a b c d.
+
+EXECUTE.
+])
+
+AT_CHECK([pspp -O format=csv data-list.sps], [1], [dnl
+data-list.sps:1: error: DATA LIST: The SKIP value must be nonnegative.
+
+data-list.sps:3: error: Stopping syntax file processing here to avoid a cascade of dependent command failures.
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([DATA LIST - Negative RECORDS])
+AT_DATA([data-list.sps], [dnl
+DATA LIST LIST FILE='f.in' NOTABLE RECORDS=-1 /a b c d.
+
+EXECUTE.
+])
+
+AT_CHECK([pspp -O format=csv data-list.sps], [1], [dnl
+data-list.sps:1: error: DATA LIST: The RECORDS value must be nonnegative.
+
+data-list.sps:3: error: Stopping syntax file processing here to avoid a cascade of dependent command failures.
+])
+
+AT_CLEANUP
+

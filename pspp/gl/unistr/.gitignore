@@ -1,0 +1,17 @@
+/u-cmp2.h
+/u-cpy.h
+/u8-check.c
+/u8-cmp.c
+/u8-cmp2.c
+/u8-cpy.c
+/u8-mblen.c
+/u8-mbtouc-aux.c
+/u8-mbtouc-unsafe-aux.c
+/u8-mbtouc-unsafe.c
+/u8-mbtouc.c
+/u8-mbtoucr.c
+/u8-strlen.c
+/u8-strmbtouc.c
+/u8-strncat.c
+/u8-uctomb-aux.c
+/u8-uctomb.c

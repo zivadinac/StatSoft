@@ -1,0 +1,6 @@
+src/libpspp/src_libpspp_liblibpspp_la-copyleft.lo: src/libpspp/copyleft.c \
+ /usr/include/stdc-predef.h config.h
+
+/usr/include/stdc-predef.h:
+
+config.h:

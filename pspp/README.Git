@@ -1,0 +1,133 @@
+Prerequisites for Building PSPP from Git
+----------------------------------------
+
+To build this project from the sources direct from the Git archive,
+you must install the prerequisites listed in README, plus the
+following:
+
+	* Autoconf 2.60 (or later).
+
+	* Automake 1.10 (or later).
+
+	* Gettext 0.17 (or later).
+
+	* GNU M4 1.4.9 (or later).
+
+	* pkg-config 0.21 (or later).
+
+        * gperf 3.0.1 (or later).
+
+	* Gnulib (see below for details).
+
+	* libtool 1.5.22 (or later).
+
+	* Texinfo 5.2 or later, to build the documentation.
+
+	* Gimp --  2.8.2 is known to work
+
+After you install PSPP's prerequisites, you must obtain a copy of
+Gnulib, then bootstrap the tree, as described in the sections below.
+After that, you may follow the procedure described in INSTALL.
+
+Obtaining Gnulib
+----------------
+
+This version of PSPP should work with the Gnulib commit shown below.
+Gnulib does not maintain a stable API or ABI, so it is possible that
+PSPP will not work with older or newer versions of Gnulib.
+
+	commit baef0a4b9433d00e59c586b9eaad67d8461d7324
+	Author: Karl Berry <karl@freefriends.org>
+	Date:   Tue Jun 14 09:05:27 2016 -0700
+
+	    autoupdate
+
+To clone Gnulib into a directory named "gnulib" using Git, and then
+check out this particular commit, run these commands:
+	git clone git://git.savannah.gnu.org/gnulib.git gnulib
+	cd gnulib
+	git checkout $COMMIT
+where $COMMIT should be replaced by the commit number listed above
+(usually it is sufficient to just type the first 6 or so digits).
+
+If you do not have Git installed, then you may alternately download
+http://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=snapshot;h=$COMMIT;sf=tgz
+where $COMMIT is, again, at least the first few digits of the commit
+number listed above.  This download will yield a tar.gz file that you
+may extract with "gunzip" and "tar" to yield identical results.
+
+Bootstrapping
+-------------
+
+Once you have Gnulib installed, PSPP must be "bootstrapped" using the
+following command:
+	make -f Smake
+If you checked Gnulib out in a directory named `gnulib' at the same
+level as PSPP, then this is sufficient.  Otherwise, provide the
+location of GNULIB on the `make' command line:
+	make -f Smake GNULIB=/gnulib/base/directory/name
+
+After executing Smake, follow the procedure described in INSTALL to
+build and install PSPP.  On some systems this may be as simple as:
+	./configure
+	make
+
+Once PSPP is built, you may run its self-tests with:
+	make check
+or for a more thorough test:
+	make distcheck
+
+Glade UI Design
+---------------
+
+The ui files in src/ui/gui may be viewed (maybe changed) with Glade. For this
+you need
+
+	* libgladeui 2.0 or later
+
+Then you need to run
+
+        configure --with-gui-tools
+	make
+	make install
+
+psppire uses some self defined widgets. To use glade these widgets have
+to be announced to glade such that you can view the interface.
+The install process will install the psppire glade library, icons and
+psppire.xml files in the appropiate system locations. You cannot override
+this with --prefix. After that you can run "glade" and open the ui files.
+
+Building from git on Mac OS
+---------------------------
+
+You can build on MacOS in the macports environment. After installing all
+required packages to resolve library dependencies and autotools e.t.c, you
+run make -f Smake as described above.
+
+The macports system provides the libraries and header files in a separate
+location from the MacOS system libraries. The typical locations are
+
+Libraries: /opt/local/lib
+Headers:   /opt/local/include
+
+pspp under macports will be linked against the macports libraries. The configure
+script has to be informed about the library and header locations. Assume the following
+directory structure for an out of tree build:
+
+~/mypspp
+  |----pspp    (This is the pspp git directory)
+  |----install (The install location containing also ui files for psppire)
+  |----build   (The build directory)
+  |----gnulib  (The gnulib directory as described above)
+
+Then you can build with the following commands:
+
+    cd ~/mypspp/pspp
+    make -f Smake
+    cd ../build
+    ../pspp/configure --prefix=/Users/USER/mypspp/install \
+                  LDFLAGS=-L/opt/local/lib \
+		  CPPFLAGS=-I/opt/local/include
+    make
+    make install
+    ../install/bin/psppire (If everything worked, you should see psppire...)

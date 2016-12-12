@@ -1,0 +1,105 @@
+AT_BANNER([variable display attributes])
+
+AT_SETUP([variable display attribute commands])
+AT_DATA([var-display.sps], [dnl
+DATA LIST FREE /x y z.
+VARIABLE ALIGNMENT x (LEFT)/y (RIGHT)/z (CENTER).
+VARIABLE WIDTH x (10)/y (12)/z (14).
+VARIABLE LEVEL x (SCALE)/y (ORDINAL)/z (NOMINAL).
+VARIABLE ROLE /TARGET x /BOTH y /NONE z.
+DISPLAY DICTIONARY.
+])
+AT_CHECK([pspp -o pspp.csv var-display.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Variable,Description,Position
+x,"Format: F8.2
+Measure: Scale
+Role: Output
+Display Alignment: Left
+Display Width: 10",1
+y,"Format: F8.2
+Measure: Ordinal
+Role: Both
+Display Alignment: Right
+Display Width: 12",2
+z,"Format: F8.2
+Measure: Nominal
+Role: None
+Display Alignment: Center
+Display Width: 14",3
+])
+AT_CLEANUP
+
+
+AT_BANNER([VARIABLE LABELS])
+
+AT_SETUP([variable labels])
+
+dnl The following test is to make sure the TVARS command works and that
+dnl variables are displayed accordingly.
+AT_DATA([var-labels.sps], [dnl
+DATA LIST LIST NOTABLE /x * y *.
+BEGIN DATA.
+1 100
+2 200
+3 300
+4 400
+END DATA.
+
+* While no labels have been set, the TVARS is irrelevant.
+SET TVARS=NAMES.
+DESCRIPTIVES ALL.
+
+SET TVARS=LABELS.
+DESCRIPTIVES ALL.
+
+SET TVARS=BOTH.
+DESCRIPTIVES ALL.
+
+VARIABLE LABEL x 'foo' y 'bar'.
+
+* Now, the TVARS setting should have effect
+
+SET TVARS=NAMES.
+DESCRIPTIVES ALL.
+
+SET TVARS=LABELS.
+DESCRIPTIVES ALL.
+
+SET TVARS=BOTH.
+DESCRIPTIVES ALL.
+])
+
+AT_CHECK([pspp -O format=csv var-labels.sps], [0],[dnl
+Table: Valid cases = 4; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+x,4,2.50,1.29,1.00,4.00
+y,4,250.00,129.10,100.00,400.00
+
+Table: Valid cases = 4; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+x,4,2.50,1.29,1.00,4.00
+y,4,250.00,129.10,100.00,400.00
+
+Table: Valid cases = 4; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+x,4,2.50,1.29,1.00,4.00
+y,4,250.00,129.10,100.00,400.00
+
+Table: Valid cases = 4; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+x,4,2.50,1.29,1.00,4.00
+y,4,250.00,129.10,100.00,400.00
+
+Table: Valid cases = 4; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+foo,4,2.50,1.29,1.00,4.00
+bar,4,250.00,129.10,100.00,400.00
+
+Table: Valid cases = 4; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+foo (x),4,2.50,1.29,1.00,4.00
+bar (y),4,250.00,129.10,100.00,400.00
+])
+
+AT_CLEANUP

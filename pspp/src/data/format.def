@@ -1,0 +1,66 @@
+/* PSPP - a program for statistical analysis.
+   Copyright (C) 1997-9, 2000, 2006, 2010 Free Software Foundation, Inc.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+/* Basic numeric formats. */
+FMT (F,        number,  1,  1,  5, FMT_CAT_BASIC)
+FMT (COMMA,    number,  1,  1,  3, FMT_CAT_BASIC)
+FMT (DOT,      number,  1,  1, 32, FMT_CAT_BASIC)
+FMT (DOLLAR,   number,  1,  2,  4, FMT_CAT_BASIC)
+FMT (PCT,      number,  1,  2, 31, FMT_CAT_BASIC)
+FMT (E,        number,  1,  6, 17, FMT_CAT_BASIC)
+
+/* Custom currency formats. */
+FMT (CCA,      number, -1,  2, 33, FMT_CAT_CUSTOM)
+FMT (CCB,      number, -1,  2, 34, FMT_CAT_CUSTOM)
+FMT (CCC,      number, -1,  2, 35, FMT_CAT_CUSTOM)
+FMT (CCD,      number, -1,  2, 36, FMT_CAT_CUSTOM)
+FMT (CCE,      number, -1,  2, 37, FMT_CAT_CUSTOM)
+
+/* Legacy numeric formats. */
+FMT (N,        N,       1,  1, 16, FMT_CAT_LEGACY)
+FMT (Z,        Z,       1,  1, 15, FMT_CAT_LEGACY)
+
+/* Binary and hexadecimal formats. */
+FMT (P,        P,       1,  1,  8, FMT_CAT_BINARY)
+FMT (PK,       PK,      1,  1, 10, FMT_CAT_BINARY)
+FMT (IB,       IB,      1,  1,  6, FMT_CAT_BINARY)
+FMT (PIB,      PIB,     1,  1,  9, FMT_CAT_BINARY)
+FMT (PIBHEX,   PIBHEX,  2,  2,  7, FMT_CAT_HEXADECIMAL)
+FMT (RB,       RB,      2,  2, 11, FMT_CAT_BINARY)
+FMT (RBHEX,    RBHEX,   4,  4, 12, FMT_CAT_HEXADECIMAL)
+
+/* Time and date formats. */
+FMT (DATE,     date,	8,  9, 20, FMT_CAT_DATE)
+FMT (ADATE,    date,	8,  8, 23, FMT_CAT_DATE)
+FMT (EDATE,    date,	8,  8, 38, FMT_CAT_DATE)
+FMT (JDATE,    date,	5,  5, 24, FMT_CAT_DATE)
+FMT (SDATE,    date,	8,  8, 39, FMT_CAT_DATE)
+FMT (QYR,      date,	4,  6, 29, FMT_CAT_DATE)
+FMT (MOYR,     date,	6,  6, 28, FMT_CAT_DATE)
+FMT (WKYR,     date,	6,  8, 30, FMT_CAT_DATE)
+FMT (DATETIME, date,   17, 17, 22, FMT_CAT_DATE)
+FMT (TIME,     date,	5,  5, 21, FMT_CAT_TIME)
+FMT (DTIME,    date,	8,  8, 25, FMT_CAT_TIME)
+
+/* Date component formats. */
+FMT (WKDAY,    WKDAY,   2,  2, 26, FMT_CAT_DATE_COMPONENT)
+FMT (MONTH,    MONTH,   3,  3, 27, FMT_CAT_DATE_COMPONENT)
+
+/* String formats. */
+FMT (A,        A,       1,  1,  1, FMT_CAT_STRING)
+FMT (AHEX,     AHEX,    2,  2,  2, FMT_CAT_STRING)
+
+#undef FMT

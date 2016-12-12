@@ -1,0 +1,332 @@
+@c Generated from ./src/language/command.def by get-commands.pl
+@c Do not modify!
+
+@table @asis
+@item @cmd{2SLS}
+Two stage least squares regression
+
+@item @cmd{ACF}
+Autocorrelation function
+
+@item @cmd{ALSCAL}
+Multidimensional scaling
+
+@item @cmd{ANACOR}
+Correspondence analysis
+
+@item @cmd{ANOVA}
+Factorial analysis of variance
+
+@item @cmd{CASEPLOT}
+Plot time series
+
+@item @cmd{CASESTOVARS}
+Restructure complex data
+
+@item @cmd{CATPCA}
+Categorical principle components analysis
+
+@item @cmd{CATREG}
+Categorical regression
+
+@item @cmd{CCF}
+Time series cross correlation
+
+@item @cmd{CLEAR TRANSFORMATIONS}
+Clears transformations from active dataset
+
+@item @cmd{CLUSTER}
+Hierarchical clustering
+
+@item @cmd{CONJOINT}
+Analyse full concept data
+
+@item @cmd{CORRESPONDENCE}
+Show correspondence
+
+@item @cmd{COXREG}
+Cox proportional hazards regression
+
+@item @cmd{CREATE}
+Create time series data
+
+@item @cmd{CSDESCRIPTIVES}
+Complex samples descriptives
+
+@item @cmd{CSGLM}
+Complex samples GLM
+
+@item @cmd{CSLOGISTIC}
+Complex samples logistic regression
+
+@item @cmd{CSPLAN}
+Complex samples design
+
+@item @cmd{CSSELECT}
+Select complex samples
+
+@item @cmd{CSTABULATE}
+Tabulate complex samples
+
+@item @cmd{CTABLES}
+Display complex samples
+
+@item @cmd{CURVEFIT}
+Fit curve to line plot
+
+@item @cmd{DATE}
+Create time series data
+
+@item @cmd{DEFINE}
+Syntax macros
+
+@item @cmd{DETECTANOMALY}
+Find unusual cases
+
+@item @cmd{DISCRIMINANT}
+Linear discriminant analysis
+
+@item @cmd{EDIT}
+obsolete
+
+@item @cmd{END FILE TYPE}
+Ends complex data input
+
+@item @cmd{FILE TYPE}
+Complex data input
+
+@item @cmd{FIT}
+Goodness of Fit
+
+@item @cmd{GENLOG}
+Categorical model fitting
+
+@item @cmd{GET TRANSLATE}
+Read other file formats
+
+@item @cmd{GGRAPH}
+Custom defined graphs
+
+@item @cmd{HILOGLINEAR}
+Hierarchical loglinear models
+
+@item @cmd{HOMALS}
+Homogeneity analysis
+
+@item @cmd{IGRAPH}
+Interactive graphs
+
+@item @cmd{INFO}
+Local Documentation
+
+@item @cmd{KEYED DATA LIST}
+Read nonsequential data
+
+@item @cmd{KM}
+Kaplan-Meier
+
+@item @cmd{LOGLINEAR}
+General model fitting
+
+@item @cmd{MANOVA}
+Multivariate analysis of variance
+
+@item @cmd{MAPS}
+Geographical display
+
+@item @cmd{MATRIX}
+Matrix processing
+
+@item @cmd{MATRIX DATA}
+Matrix data input
+
+@item @cmd{MCONVERT}
+Convert covariance/correlation matrices
+
+@item @cmd{MIXED}
+Mixed linear models
+
+@item @cmd{MODEL CLOSE}
+Close server connection
+
+@item @cmd{MODEL HANDLE}
+Define server connection
+
+@item @cmd{MODEL LIST}
+Show existing models
+
+@item @cmd{MODEL NAME}
+Specify model label
+
+@item @cmd{MULTIPLE CORRESPONDENCE}
+Multiple correspondence analysis
+
+@item @cmd{MULT RESPONSE}
+Multiple response analysis
+
+@item @cmd{MVA}
+Missing value analysis
+
+@item @cmd{NAIVEBAYES}
+Small sample bayesian prediction
+
+@item @cmd{NLR}
+Non Linear Regression
+
+@item @cmd{NOMREG}
+Multinomial logistic regression
+
+@item @cmd{NONPAR CORR}
+Nonparametric correlation
+
+@item @cmd{NUMBERED}
+
+
+@item @cmd{OLAP CUBES}
+On-line analytical processing
+
+@item @cmd{OMS}
+Output management
+
+@item @cmd{ORTHOPLAN}
+Orthogonal effects design
+
+@item @cmd{OVERALS}
+Nonlinear canonical correlation
+
+@item @cmd{PACF}
+Partial autocorrelation
+
+@item @cmd{PARTIAL CORR}
+Partial correlation
+
+@item @cmd{PLANCARDS}
+Conjoint analysis planning
+
+@item @cmd{PLUM}
+Estimate ordinal regression models
+
+@item @cmd{POINT}
+Marker in keyed file
+
+@item @cmd{PPLOT}
+Plot time series variables
+
+@item @cmd{PREDICT}
+Specify forecast period
+
+@item @cmd{PREFSCAL}
+Multidimensional unfolding
+
+@item @cmd{PRINCALS}
+PCA by alternating least squares
+
+@item @cmd{PROBIT}
+Probit analysis
+
+@item @cmd{PROCEDURE OUTPUT}
+Specify output file
+
+@item @cmd{PROXIMITIES}
+Pairwise similarity
+
+@item @cmd{PROXSCAL}
+Multidimensional scaling of proximity data
+
+@item @cmd{RATIO STATISTICS}
+Descriptives of ratios
+
+@item @cmd{READ MODEL}
+Read new model
+
+@item @cmd{RECORD TYPE}
+Defines a type of record within FILE TYPE
+
+@item @cmd{REFORMAT}
+Read obsolete files
+
+@item @cmd{REPEATING DATA}
+Specify multiple cases per input record
+
+@item @cmd{REPORT}
+Pretty print working file
+
+@item @cmd{RMV}
+Replace missing values
+
+@item @cmd{SCRIPT}
+Run script file
+
+@item @cmd{SEASON}
+Estimate seasonal factors
+
+@item @cmd{SELECTPRED}
+Select predictor variables
+
+@item @cmd{SPCHART}
+Plot control charts
+
+@item @cmd{SPECTRA}
+Plot spectral density
+
+@item @cmd{STEMLEAF}
+Plot stem-and-leaf display
+
+@item @cmd{SUMMARIZE}
+Univariate statistics
+
+@item @cmd{SURVIVAL}
+Survival analysis
+
+@item @cmd{TDISPLAY}
+Display active models
+
+@item @cmd{TREE}
+Create classification tree
+
+@item @cmd{TSAPPLY}
+Apply time series model
+
+@item @cmd{TSET}
+Set time sequence variables
+
+@item @cmd{TSHOW}
+Show time sequence variables
+
+@item @cmd{TSMODEL}
+Estimate time series model
+
+@item @cmd{TSPLOT}
+Plot time sequence variables
+
+@item @cmd{TWOSTEP CLUSTER}
+Cluster observations
+
+@item @cmd{UNIANOVA}
+Univariate analysis
+
+@item @cmd{UNNUMBERED}
+obsolete
+
+@item @cmd{VALIDATEDATA}
+Identify suspicious cases
+
+@item @cmd{VARCOMP}
+Estimate variance
+
+@item @cmd{VARSTOCASES}
+Restructure complex data
+
+@item @cmd{VERIFY}
+Report time series
+
+@item @cmd{WLS}
+Weighted least squares regression
+
+@item @cmd{XGRAPH}
+High resolution charts
+
+@end table
+@c Local Variables:
+@c buffer-read-only: t
+@c End:

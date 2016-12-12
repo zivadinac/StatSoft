@@ -1,0 +1,196 @@
+AT_BANNER([INSERT])
+
+dnl Create a file "batch.sps" that is valid syntax only in batch mode.
+m4_define([CREATE_BATCH_SPS], 
+  [AT_DATA([batch.sps], [dnl
+input program
+loop #i = 1 to 5
++  compute z = #i
++  end case
+end loop
+end file
+end input program
+])])
+
+AT_SETUP([INSERT SYNTAX=INTERACTIVE])
+CREATE_BATCH_SPS
+AT_DATA([insert.sps], [dnl
+INSERT 
+  FILE='batch.sps'
+  SYNTAX=interactive.
+LIST.
+])
+AT_CHECK([pspp -o pspp.csv insert.sps], [1], [dnl
+batch.sps:2.1-2.4: error: INPUT PROGRAM: Syntax error at `loop': expecting end of command.
+batch.sps:3: error: COMPUTE: COMPUTE is allowed only after the active dataset has been defined or inside INPUT PROGRAM.
+batch.sps:4: error: END CASE: END CASE is allowed only inside INPUT PROGRAM.
+insert.sps:4: error: LIST: LIST is allowed only after the active dataset has been defined.
+])
+AT_CLEANUP
+
+AT_SETUP([INSERT SYNTAX=BATCH])
+CREATE_BATCH_SPS
+AT_DATA([insert.sps], [dnl
+INSERT 
+  FILE='batch.sps'
+  SYNTAX=BATCH.
+LIST.
+])
+AT_CHECK([pspp -o pspp.csv insert.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Data List
+z
+1.00
+2.00
+3.00
+4.00
+5.00
+])
+AT_CLEANUP
+
+AT_SETUP([INSERT CD=NO])
+AT_DATA([insert.sps], [INSERT FILE='Dir1/foo.sps'.
+LIST.
+])
+mkdir Dir1
+AT_DATA([Dir1/foo.sps], [INSERT FILE='bar.sps' CD=NO.
+])
+AT_DATA([Dir1/bar.sps],
+  [DATA LIST LIST /x *.
+BEGIN DATA.
+1
+2
+3
+END DATA.
+])
+AT_CHECK([pspp -o pspp.csv insert.sps], [1], [dnl
+Dir1/foo.sps:1: error: INSERT: Can't find `bar.sps' in include file search path.
+insert.sps:2: error: LIST: LIST is allowed only after the active dataset has been defined.
+])
+AT_CLEANUP
+
+AT_SETUP([INSERT CD=YES])
+AT_DATA([insert.sps], [INSERT FILE='Dir1/foo.sps' CD=YES.
+LIST.
+])
+mkdir Dir1
+AT_DATA([Dir1/foo.sps], [INSERT FILE='bar.sps'.
+])
+AT_DATA([Dir1/bar.sps],
+  [DATA LIST LIST /x *.
+BEGIN DATA.
+1
+2
+3
+END DATA.
+])
+AT_CHECK([pspp -o pspp.csv insert.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+x,F8.0
+
+Table: Data List
+x
+1.00
+2.00
+3.00
+])
+AT_CLEANUP
+
+m4_define([CREATE_ERROR_SPS],
+  [AT_DATA([error.sps], [dnl
+DATA LIST NOTABLE LIST /x *.
+BEGIN DATA.
+1
+2
+3
+END DATA.
+
+* The following line is erroneous
+
+DISPLAY AKSDJ.
+LIST.
+])])
+
+AT_SETUP([INSERT ERROR=STOP])
+CREATE_ERROR_SPS
+AT_DATA([insert.sps], [INSERT FILE='error.sps' ERROR=STOP.
+])
+AT_CHECK([pspp -o pspp.csv insert.sps], [1], [dnl
+error.sps:10: error: DISPLAY: AKSDJ is not a variable name.
+warning: Error encountered while ERROR=STOP is effective.
+])
+AT_CLEANUP
+
+AT_SETUP([INSERT ERROR=CONTINUE])
+CREATE_ERROR_SPS
+AT_DATA([insert.sps], [INSERT FILE='error.sps' ERROR=CONTINUE.
+])
+AT_CHECK([pspp -o pspp.csv insert.sps], [1], [dnl
+error.sps:10: error: DISPLAY: AKSDJ is not a variable name.
+])
+AT_CHECK([cat pspp.csv], [0], [dnl
+error.sps:10: error: DISPLAY: AKSDJ is not a variable name.
+
+Table: Data List
+x
+1.00
+2.00
+3.00
+])
+AT_CLEANUP
+
+dnl Test for regression against bug #24569 in which PSPP crashed
+dnl upon attempt to insert a nonexistent file.
+AT_SETUP([INSERT nonexistent file])
+AT_DATA([insert.sps], [dnl
+INSERT 
+  FILE='nonexistent'
+  ERROR=CONTINUE.
+  .
+
+LIST.
+])
+AT_CHECK([pspp -O format=csv insert.sps], [1], [dnl
+insert.sps:2: error: INSERT: Can't find `nonexistent' in include file search path.
+
+insert.sps:6: error: LIST: LIST is allowed only after the active dataset has been defined.
+])
+AT_CLEANUP
+
+
+dnl A test to check the INCLUDE command complete with the 
+dnl syntax and function of the ENCODING subcommand.
+AT_SETUP([INCLUDE full check])
+AT_DATA([two-utf8.sps], [dnl
+echo 'Äpfelfölfaß'.
+])
+
+AT_DATA([include.sps], [dnl
+echo 'ONE'.
+
+include FILE='two-latin1.sps' ENCODING='ISO_8859-1'.
+])
+
+AT_CHECK([iconv -f UTF-8 -t iso-8859-1 two-utf8.sps > two-latin1.sps], [0], [])
+
+AT_CHECK([pspp -O format=csv include.sps], [0], [dnl
+ONE
+
+Äpfelfölfaß
+])
+AT_CLEANUP
+
+
+
+
+dnl Test for a bug where insert crashed on an unterminated string input
+AT_SETUP([INSERT unterminated string])
+
+AT_DATA([insert.sps], [INSERT FILE=7bar.sps' CD=NO.
+])
+
+AT_CHECK([pspp -O format=csv insert.sps], [1], [ignore])
+
+AT_CLEANUP

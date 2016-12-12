@@ -1,0 +1,44 @@
+# Generated from src/ui/gui/gen-dot-desktop.sh        -*- buffer-read-only: t -*-
+
+[Desktop Entry]
+Name=GNU PSPP
+GenericName=Statistical Software
+GenericName[ca]=Programari estadístic
+GenericName[de]=Statistische Software
+GenericName[el]=Στατιστικό Πρόγραμμα
+GenericName[es]=Programario Estadístico
+GenericName[fr]=Logiciel Statistique
+GenericName[gl]=Software estatístico
+GenericName[hu]=Statisztikai szoftver
+GenericName[ja]=統計ソフトウェア
+GenericName[lt]=Statistinė programinė įranga
+GenericName[nl]=Statistische software
+GenericName[pl]=Oprogramowanie Statystyczne
+GenericName[ru]=Статистическое программное обеспечение
+GenericName[cs]=Statistický program
+GenericName[tr]=İstatistiksel Yazılım
+GenericName[uk]=Статистичне програмне забезпечення
+GenericName[zh_CN]=统计软件
+Comment=Analyze statistical data with a free alternative to SPSS
+Comment[ca]= Analitza dades estadístiques amb una alternativa lliure a SPSS
+Comment[de]= Analyse statistischer Daten mit einer freien Alternative zu SPSS
+Comment[el]= Ανάλυση στατιστικών δεδομένων με Δωρεάν πρόγραμμα, παρόμοιο του SPSS
+Comment[es]= Analiza datos estadísticos con una alternativa libre a SPSS
+Comment[fr]= Analyse des données statistiques avec une alternative libre à SPSS
+Comment[gl]= Analizar datos estatísticos cunha alternativa libre a SPSS
+Comment[hu]= Statisztikai adatok elemzése az SPSS szabad alternatívájával
+Comment[ja]= フリーな SPSS 代替ソフトウェアによる統計データ分析
+Comment[lt]= Statistinių duomenų analizavimas su nemokama SPSS alternatyva
+Comment[nl]= Analyseer statistische data met een vrij alternatief van SPSS
+Comment[ru]= Анализ статистических данных в свободной альтернативе SPSS
+Comment[cs]= Analyzuj statistická data se svobodnou variantou SPSS
+Comment[en_GB]= Analyse statistical data with a free alternative to SPSS
+Comment[uk]= Аналіз статистичних даних у вільній альтернативі SPSS
+Comment[zh_CN]= 替代SPSS的免费数据统计分析软件
+Exec=psppire %F
+Icon=pspp
+Terminal=false
+Type=Application
+Categories=GTK;Education;Science;Math;
+MimeType=application/x-spss-sav;application/x-spss-por;
+StartupNotify=false

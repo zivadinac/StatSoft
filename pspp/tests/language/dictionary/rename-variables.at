@@ -1,0 +1,118 @@
+AT_BANNER([RENAME VARIABLES])
+
+AT_SETUP([RENAME VARIABLES])
+AT_DATA([rename-variables.sps], [dnl
+DATA LIST LIST /brakeFluid y auxiliary warp (F2.0).
+BEGIN DATA.
+1 3 5 9
+2 3 6 10
+3 3 7 11
+4 3 8 11
+END DATA.
+
+LIST.
+
+RENAME VARIABLES brakeFluid=applecarts y=bananamobiles.
+RENAME VARIABLES (warp auxiliary=foobar xyzzy).
+
+LIST.
+
+SAVE /OUTFILE='rename.sav'.
+])
+AT_CHECK([pspp -O format=csv rename-variables.sps], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+brakeFluid,F2.0
+y,F2.0
+auxiliary,F2.0
+warp,F2.0
+
+Table: Data List
+brakeFluid,y,auxiliary,warp
+1,3,5,9
+2,3,6,10
+3,3,7,11
+4,3,8,11
+
+Table: Data List
+applecarts,bananamobiles,xyzzy,foobar
+1,3,5,9
+2,3,6,10
+3,3,7,11
+4,3,8,11
+])
+AT_CHECK([grep '[bB][rR][aA][kK][eE]' rename.sav], [1], [ignore-nolog])
+AT_CLEANUP
+
+
+AT_SETUP([RENAME VARIABLES -- multiple sets])
+AT_DATA([rename-variables.sps], [dnl
+data list list /a b c d  e *.
+begin data.
+1 2 3 4 5
+end data.
+
+rename variables (a b=x y) (c d e=z zz zzz).
+
+list.
+])
+
+AT_CHECK([pspp -O format=csv rename-variables.sps], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+a,F8.0
+b,F8.0
+c,F8.0
+d,F8.0
+e,F8.0
+
+Table: Data List
+x,y,z,zz,zzz
+1.00,2.00,3.00,4.00,5.00
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([RENAME VARIABLES -- invalid syntax 1])
+
+AT_DATA([rename-variables.sps], [dnl
+DATA LIST LIST /brakeFluid y auxiliary warp (F2.0).
+RENAME VARIABLES warp auxiliary=foobar xyzzy.
+])
+
+AT_CHECK([pspp -o pspp.csv rename-variables.sps], [1], [dnl
+rename-variables.sps:2.23-2.31: error: RENAME VARIABLES: Syntax error at `auxiliary': expecting `='.
+])
+AT_CLEANUP
+
+AT_SETUP([RENAME VARIABLES -- invalid syntax 2])
+AT_DATA([rename-variables.sps], [dnl
+DATA LIST LIST /brakeFluid y auxiliary warp (F2.0).
+RENAME VARIABLES (brakeFluid=applecarts y=bananamobiles).
+])
+
+AT_CHECK([pspp -o pspp.csv rename-variables.sps], [1], [dnl
+rename-variables.sps:2: error: RENAME VARIABLES: Differing number of variables in old name list (1) and in new name list (2).
+])
+AT_CLEANUP
+
+
+
+
+AT_SETUP([RENAME VARIABLES -- invalid syntax 3])
+AT_DATA([rename-variables.sps], [dnl
+DATA LIST NOTABLE LIST /z y p q (F2.0).
+BEGIN DATA.
+4 3 8 11
+END DATA.
+
+RENAME VARIABLES z=a y}bqnanamobiles.
+
+LIST.
+])
+
+AT_CHECK([pspp -O format=csv rename-variables.sps], [1], [ignore])
+
+
+AT_CLEANUP

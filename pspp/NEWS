@@ -1,0 +1,1167 @@
+PSPP NEWS -- history of user-visible changes.
+Copyright (C) 1996-2000, 2008-2016 Free Software Foundation, Inc.
+See the end for copying conditions.
+
+Please send PSPP bug reports to bug-gnu-pspp@gnu.org.
+
+Changes from 0.10.2 to 0.10.4:
+
+ * Gtk+3.14.5 or later must now be used when building.
+
+ * The AUTORECODE command now accepts an optional / before INTO.
+
+ * The short form of the VECTOR command can now create string variables.
+
+Changes from 0.10.1 to 0.10.2:
+
+ * CROSSTABS implements a new COUNT subcommand to round case or cell
+   weights.
+
+ * Help will be opened as HTML in default browser if yelp
+   is not available.
+
+ * When plotting scatterplots with only one dataset (the simple case)
+   the colour used for the dataset is now black.  The previous default
+   from the Tango palette was too faint to see easily.
+
+ * The varible info dialog could previously only paste a single variable.
+   Now it can paste multiple variables.
+
+ * Bug fixes, including the following:
+
+   - T-test with independent samples GUI crashed with string
+     type variable as group variable.
+
+   - The variable info dialog showed the previous selected variable
+     superimposed with the currently selected one.
+
+   - The GLM command did not properly deal with missing values.  This
+     has been fixed.
+
+Changes from 0.10.0 to 0.10.1:
+
+ * Bug fixes, including the following:
+
+   - A bug where certain dialog boxes could not be properly populated
+     has been fixed.
+
+   - Various commands have been hardened against errors when called
+     with invalid syntax.
+
+ * Translation updates.  Thanks to our translators!
+
+Changes from 0.8.5 to 0.10.0:
+
+ * The QUICK CLUSTER command has a  /PRINT subcommand which shows
+   the initial cluster centres and the final cluster membership of
+   each case.  The clustering algorithm has also been updated, so
+   as to produce better separated clusters.
+
+ * A Russian localisation has been contributed.
+
+ * The GRAPH command now has a /BAR subcommand to draw barcharts.
+
+ * If the DECIMAL character is set to COMMA then the ',' character
+   will not be treated as a separator by DATA LIST.
+
+ * The graphical user interface (psppire) has been changed as follows:
+
+   - It now uses Gtk+ version 3 instead of version 2.  Accordingly, it has a 
+     somewhat different look and feel.
+
+   - There is now a Graphs menu to access the GRAPH command.
+
+   - The status of dialog box widgets are now preserved between calls
+     to the same dialog box for the same dataset.
+
+   - The dialog box for the Logistic Regression command will now
+     infer that string variables or any varible with a "measure"
+     of Nominal or Ordinal are to be treated as categorical variables
+     and will generate syntax accordingly.
+
+ * The pspp-convert utility can now decrypt encrypted syntax files.
+   The encrypted syntax file format is unacceptably insecure, so to
+   discourage its use PSPP and PSPPIRE do not directly read or write
+   this format.
+
+ * New commands:
+
+   - SORT VARIABLES.
+
+ * The following functions for transformation expressions are new:
+
+   - REPLACE, for search-and-replace of one string with another.
+
+   - STRUNC, to truncate a string and trim trailing spaces.
+
+   - MEDIAN, to compute the median of its arguments.
+
+   - The TRUNC function in expressions now supports additional arguments
+     for truncating to values other than integers and to indicate a level
+     of rounding fuzz.  The default rounding fuzz may now be controlled
+     and displayed with SET FUZZBITS and SHOW FUZZBITS, respectively.
+
+ * Bug fixes, including the following notable ones:
+
+   - The correlation coefficient in the paired samples t-test
+     procedure is now correctly calculated when presented with
+     weighted data.
+
+   - The ESCAPE subcommand has been removed from GET DATA /TYPE=TXT.
+     For compatibility, the behavior that ESCAPE enabled is now the
+     default and only supported behavior.
+
+   - Rendering of the variable and data sheets in right-to-left locales
+     now works properly.
+
+   - The Mann-Whitney test, when run on a dataset containing values
+     of the group variable, other than those defining the test groups,
+     would incorrectly calculate the ranks.  This has been corrected.
+
+ * The IMPORTCASES subcommand on GET DATA is now ignored, for
+   compatibility.
+
+Changes from 0.8.4 to 0.8.5:
+
+ * The FREQUENCIES and CROSSTABS commands can now generate barcharts.
+
+ * The FACTOR command can now perform PROMAX rotations.
+
+ * SPSS/PC+ system files are now supported on GET and other commands
+   that read SPSS system files.  The pspp-convert program can now read
+   SPSS/PC+ system files.  Writing the obsolete SPSS/PC+ system file
+   format is not supported.
+
+ * SYSFILE INFO can now read SPSS/PC+ system files and SPSS portable
+   files.
+
+ * FREQUENCIES: A bug was fixed where an assertion failure occured
+   when an empty dataset was presented.
+
+ * The GRAPH command is now available.  Initially it supports
+   scatterplots and histograms.
+
+ * The RND operator in expressions now supports additional operands
+   for rounding to values other than integers and to indicate a level
+   of rounding fuzz.  The default rounding fuzz may now be controlled
+   and displayed with SET FUZZBITS and SHOW FUZZBITS, respectively.
+
+Changes from 0.8.3 to 0.8.4:
+
+ * Formatting of SYSFILE INFO output was made easier to read.
+
+ * Bug fixes, including the following notable ones:
+
+   - FREQUENCIES works properly for string variables.  (This bug was
+     introduced in 0.8.2.)
+
+   - CROSSTABS now correctly computes all of the measures that it
+     offers.  Some measures have been removed because they were not
+     computed correctly.
+
+   - The NPAR TESTS calculation of significance for the RUNS
+     subcommand has been corrected.
+
+   - Planned comparisons in ONEWAY ANOVA now correctly handle negative
+     T-values.
+
+   - The COUNT command now correctly treats missing values as
+     documented.
+
+   - Conformance fixes to Open Document output format.
+
+Changes from 0.8.2 to 0.8.3:
+
+ * Independent T-Tests displayed the standard error of the difference
+   and the confidence interval for the unequal variances case, where
+   the equal variances case should have been.  This has been fixed.
+
+ * REGRESSION now recognises /STATISTICS=CI(x) which causes confidence
+   intervals for the coefficients to be printed.
+
+ * When DESCRIPTIVES calculates Z scores, it now omits cases filtered
+   by the current FILTER settings.
+
+ * PSPPIRE graphical user interface improvements:
+
+   - Dialog boxes with source  variable lists can now choose the sort
+     order;  right click and select from the popup menu.
+
+   - File|Open now allows an encoding to be selected for opening
+     system files.
+
+   - File|Display Data File Information|External File... now allows an
+     encoding to be selected.
+
+   - A problem with the Means dialog has been resolved (bug #41433).
+
+   - Several problems related to the input of spreadsheets have been
+     fixed (bug #41657, #41620
+
+ * System file related improvements:
+
+   - With ENCODING="DETECT", SYSFILE INFO can now help the user to
+     pick an encoding for reading a system file that does not identify
+     its own encoding
+
+   - SYSFILE INFO now accepts an ENCODING subcommand to specify the
+     character encoding of string data in the system file.
+
+   - Variable labels over 255 bytes long are now accepted without
+     truncation (bug #41863).
+
+   - System files that contain duplicate variable names may now be
+     read successfully (bug #41475).
+
+Changes from 0.8.1 to 0.8.2:
+
+ * Charts are now rendered with colours from the Tango palette instead
+   of fully saturated primaries.
+
+ * Support for new system file variants:
+
+   - PSPP can now read and write ZCOMPRESSED system files, which
+     compress data much more effectively than older "compressed"
+     files.  (The older format is still supported.)
+
+   - PSPP can now decrypt encrypted system files, using the new
+     pspp-convert utility.  The encrypted system file format is
+     unacceptably insecure, so to discourage its use PSPP and PSPPIRE
+     do not directly read or write this format.
+
+ * Missing values for long string variables are now read from and
+   written to system files in an SPSS-compatible fashion.
+
+   (Earlier versions of PSPP that supported missing values for long
+   string variables wrote them to system files in an SPSS-incompatible
+   way.  To fix the problem, read the system file with this version of
+   PSPP and then save a new copy of it.)
+
+ * pspp-convert, a new standalone utility for converting SPSS system
+   and portable files to other formats, is now included.  The initial
+   version supports comma-separated value files as output format.
+   pspp-convert can also decrypt encrypted system files.
+
+ * Build changes:
+
+   - zlib is now a required dependency.  (Previously it was optional.)
+
+Changes from 0.8.0 to 0.8.1:
+
+ * New commands:
+
+   - VARIABLE ROLE.
+
+ * Changes to existing commands:
+
+   - CROSSTABS: The requirement that one expected count must be less than five
+	before Fishers Exact Test will be reported has been removed.
+
+ * PSPPIRE graphical user interface improvements:
+
+   - A new set of icons has been contributed.
+
+   - Syntax windows now parse syntax in "auto" mode, which in practice
+     should mean that both "batch" and "interactive" syntax now works,
+     instead of just "interactive" syntax.
+
+   - The variable pane of data windows now include a Role column.
+
+ * Notable bug fixes:
+
+   - System files written by IBM SPSS 21 are now read without warnings.
+
+   - System files written by "VOXCO INTERVIEWER 4.3" are now read
+     without warnings.
+
+   - PSPPIRE should now more gracefully handle syntax files that contain
+     errors.
+
+Changes from 0.6.2 to 0.8.0:
+
+ * New commands:
+
+   - ADD FILES
+   - CORRELATIONS
+   - DATAFILE ATTRIBUTES
+   - DATASET ACTIVATE
+   - DATASET CLOSE
+   - DATASET COPY
+   - DATASET DECLARE
+   - DATASET DISPLAY
+   - DATASET NAME
+   - LOGISTIC REGRESSION
+   - MATCH FILES
+   - MEANS
+   - MRSETS
+   - PRESERVE and RESTORE
+   - QUICK CLUSTER
+   - RELIABILITY
+   - ROC
+   - SAVE TRANSLATE to CSV and tab-delimited files
+   - UPDATE
+   - VARIABLE ATTRIBUTES
+
+ * Changes to existing commands:
+
+   - AUTORECODE has a new GROUP subcommand.
+
+   - CROSSTABS has been re-implemented to fix numerous bugs.
+
+   - EXAMINE: /MISSING=LISTWISE is now the default.
+
+   - DO REPEAT command has been reimplemented.  Now, when DO REPEAT
+     contains an INCLUDE or INSERT command, substitutions are not
+     applied to the included file.
+  
+   - FILE HANDLE has a new ENDS subcommand to select CR or CRLF new-lines.
+
+   - HOST has been updated to use more modern syntax.
+
+   - Most commands that work with data files now support a new
+     ENCODING subcommand.
+
+   - MISSING VALUES can now assign missing values to long string
+     variables.
+
+   - ONEWAY: the POSTHOC subcommand is now implemented.
+
+   - The following new subcommands to NPAR TESTS have been implemented:
+     COCHRAN, FRIEDMAN, JONCKHEERE-TERPSTRA, KENDALL, KRUSKAL-WALLIS, MANN-WHITNEY, 
+     MCNEMAR, SIGN, WILCOXON, and RUNS
+
+   - SET and SHOW no longer have ENDCMD, NULLINE, PROMPT, CPROMPT, and
+     DPROMPT subcommands.  The defaults are now fixed values.
+
+   - SHOW now has a JOURNAL subcommand, to show the location of the
+     journal file.
+
+   - VALUE LABELS can now assign value labels to long string
+     variables.
+
+ * Other language changes:
+
+   - The new DATASET commands replace the "scratch file" PSPP
+     extension, which is no longer supported.
+
+   - Strings may now include arbitrary Unicode code points specified
+     in hexadecimal, using the syntax U'hhhh'.  For example, Unicode
+     code point U+1D11E, the musical G clef character, may be
+     expressed as U'1D11E'.
+
+     See the "Tokens" section in the PSPP manual for more information.
+
+   - In previous versions of PSPP, in a string expressed in
+     hexadecimal with X'hh' syntax, the hexadecimal digits expressed
+     bytes in the locale encoding.  In this version of PSPP, X'hh'
+     syntax always expresses bytes in UTF-8 encoding.
+
+     See the "Tokens" section in the PSPP manual for more information.
+
+ * PSPPIRE graphical user interface improvements:
+
+   - Added support for non-ASCII characters in strings, labels and
+     variable names.
+
+   - A "Split Window" function is available, which makes it easier to
+     see different parts of a large data file.
+
+   - Data files can now be opened by specifing their name as the first
+     argument.  This means that on a properly configured desktop, double
+     clicking on an icon will open the file.
+
+   - Foreign formats, such as Gnumeric, OpenDocument and CSV can be imported
+     via using an "intelligent" application assistant dialog.
+
+ * Output changes:
+
+   - The new "cairo" output driver supports output in PostScript, PDF,
+     and SVG formats.  Its functionality is a superset of that of the
+     "postscript" driver, which has been removed.  You must have Cairo
+     and Pango installed to build the "cairo" driver.
+
+   - Charts are now produced with Cairo and Pango, instead of libplot.
+     Without them, the new graphing features will not work.  If you do
+     not have Cairo and Pango installed, you must run `configure' with
+     --without-cairo.
+
+   - The plain text output driver now properly supports multibyte UTF-8
+     characters, including double-width characters and combining
+     accents.
+
+   - Output to OpenDocument format is now supported.
+
+   - The HTML output is much improved.
+
+ * The "pspp" program has a new option --batch (or -b) that selects
+   "batch" syntax mode.  In previous versions of PSPP this syntax mode
+   was the default.  Now a new "auto" syntax mode is the default.  In
+   "auto" mode, PSPP interprets most syntax files correctly regardless
+   of their intended syntax mode.
+
+   See the "Syntax Variants" section in the PSPP manual for more
+   information.
+
+ * The "pspp" program has a new option --syntax-encoding that
+   specifies the encoding for syntax files listed on the command line,
+   as well as the default encoding for syntax files included with
+   INCLUDE or INSERT.  The default is to accept the system locale
+   encoding, UTF-8, UTF-16, or UTF-32, automatically detecting which
+   one the system file uses.
+
+   See the documentation for the INSERT command in the PSPP manual for
+   more information.
+
+ * Text data files that PRINT and WRITE creates now use the system
+   native line ends by default (CRLF on Windows, LF only elsewhere).
+   Use the new ENDS subcommand on FILE HANDLE to override the default.
+
+ * A new Perl module allows Perl programs to read and write PSPP
+   system files.
+
+ * A tutorial chapter has been added to the user manual.
+
+Changes from 0.6.1 to 0.6.2:
+
+  * New translations:
+
+    - Dutch, thanks to Harry Thijssen.
+
+    - Brazilian Portuguese, thanks to Michel Boaventura.
+
+    Thanks for translations are also due to the coordinators at
+    translationproject.org.
+
+  * Statistical bug fixes:
+
+    - REGRESSION: Report correct standard error of the estimate (bug
+      #25677).
+
+    - T-TEST: Report correct significance of paired sample T-test in
+      the common case (bug #26936) and corner cases.  Thanks to Mike
+      Griffiths and Matej Cepl for reporting these bugs.
+
+  * Build fixes and changes:
+
+    - Fix build with GTK+ 2.17.4 and later.
+
+    - Make running "make" after running "configure" with different
+      settings reliably rebuild version.c.
+
+    - Cygwin and MinGW build fixes.
+
+    - Fixes for building with recent gnulib.
+
+    - The Makefile now honors two new variables, PSPP_LDFLAGS and
+      PSPPIRE_LDFLAGS, that affect linking of the PSPP and PSPPIRE
+      binaries, respectively.  This makes building easier for some
+      packagers.
+
+    - Fixes for "configure --enable-relocatable" (bug #25508).
+
+  * Data file bug fixes and changes:
+
+    - Fix reading text data files that contain a mix of white space
+      and commas.  Now "a ,b" is treated as two fields containing "a"
+      and "b"; previously it was treated as three, with an empty field
+      in the middle.
+
+    - Fix writing corrupted .sav files on Windows.
+
+    - Fix writing variable labels longer than 252 bytes to save files.
+      Thanks to Robert Westlund for reporting this bug.
+
+    - Fix writing corrupted .por files (bug #26034).
+
+    - Fix reading .por files whose initial lines are not padded out
+      with spaces as expected.
+
+    - PSPP will no longer issue warnings about some .sav file records
+      or values that it does not understand.  These warnings were
+      harmless, but needlessly alarmed some users.
+
+    - Fix crash reading empty string fields from PostgreSQL databases.
+
+  * Bug fixes that affect PSPP and PSPPIRE:
+
+    - Users may now control precision of output statistics.  Instead
+      of hard coding the width and decimals of output numbers, respect
+      the default format in most instances.  Counts are now normally
+      displayed with the format of the weight variable, if any.
+
+    - Fix crash when an INSERT command specifies the name of a file
+      that does not exist (bug #24569).
+
+    - Fix crash when CROSSTABS specifies a long-string variable (bugs
+      #24557 and #26131).
+
+    - Fix crash drawing pie charts with many segments.
+
+    - Fix crash when NUMERIC specifies an invalid format.
+
+  * PSPPIRE bug fixes and changes:
+
+    - On Windows, write the output file to the user's home directory
+      instead of the current directory, to better match user
+      expectations.
+
+    - Some data editor fixes.
+
+  * Documentation:
+
+    - Fix typo in BINOMIAL section of user manual (bug #25892).
+
+Changes from 0.6.0 to 0.6.1:
+
+  * Statistical bug fixes:
+
+    - Report correct standardized regression coefficients in linear
+      regression output (bug #23567).
+
+  * Bug fixes that affect PSPP and PSPPIRE:
+
+    - Avoid crash with pie charts (bug #24014).
+
+    - Don't append % to count totals (bug #24003).
+
+    - Don't crash on bad input (bug #24031).
+
+    - Don't crash if "end data." is not left aligned (bug #24115).
+
+    - Change default workspace value to 64 MB, to avoid unnecessary
+      disk accesses on modern machines.
+
+  * PSPPIRE bug fixes:
+
+    - Add ".sav" or ".por" suffix to filename when saving with Save_As
+      (bug #23137).
+
+    - Make it possible to reopen the output window on Windows (bug
+      #24033).
+
+    - A POSIX regular expression library is now included and used
+      automatically if the host does not have one or has one that is
+      inadequate.
+
+  * Build fixes and changes:
+
+    - Work around bug in GSL that prevented build with recent GCC
+      versions without manually adding -fgnu89-inline to CFLAGS.
+
+    - Also warn about missing prerequisites as we encounter them (bug
+      #24445).
+
+    - Distribute necessary files to allow users working from the
+      distributed tarball to configure with --enable-gui-tools.
+
+    - Append $(EXEEXT_FOR_BUILD) to output file name when building
+      q2c, fixing build problems on Windows.
+
+    - GSL 1.8 or later is now required.
+
+    - Build errors with --enable-relocatable were fixed.
+
+  * The German translations were removed, since native German speakers
+    found them too poor to be useful.
+
+Changes from 0.4.0 to 0.6.0:
+
+  * The PSPP license is now version 3 or later of the GNU General
+    Public License.  Previously, it was version 2 or later.
+
+  * PSPP now has a graphical interface, called PSPPIRE.  This
+    interface allows you to enter data and variable definitions
+    interactively.  Commands may be executed in syntax form, or by
+    using the interactive dialog boxes available from the dropdown
+    menus.
+
+  * A few sample syntax files are now included in the `examples'
+    directory.
+
+  * Numerous major and minor bugs have been fixed.
+
+  Build changes:
+
+    * The INSTALL file now reflects the details of how to install
+      PSPP.  It is a tailored version of the generic installation
+      instructions, instead of a verbatim copy.
+
+    * iconv, which is ordinarily installed as part of a Unix-like
+      system, is now required.  If you don't have it already, you can
+      install GNU libiconv (http://www.gnu.org/software/libiconv/).
+
+    * libxml2 and zlib are new optional dependencies.  They are
+      required to use PSPP's support for reading Gnumeric files.
+
+  Statistical procedure changes:
+
+    * REGRESSION is a new procedure for fitting linear models to data
+      via least-squares estimation.
+
+    * NPAR TESTS is a new procedure for non-parametric tests.  In this
+      release, it supports binomial and chi-square tests.
+
+    * RANK is a new procedure to rank variables.  It supports numerous
+      forms of ranking.
+
+    * FREQUENCIES can now output histograms and pie charts.  These
+      features were present in earlier releases, but not documented.
+
+  User interface changes:
+
+    * In many situations where PSPP once terminated with a fatal
+      error, PSPP now recovers and continues execution.
+
+    * PSPP is now able to start up and run even if it cannot find its
+      configuration files.
+
+    * Journaling of interactive commands to a disk file is now
+      implemented.  By default, journaling is enabled, to a file named
+      `pspp.jnl' in the current directory.  SET JOURNAL may be used to
+      control journaling.
+
+    * The use of `+' between syntax file names on the command line to
+      prevent the dictionary from being cleared between their
+      executions is no longer supported.  All syntax files are now
+      executed as if `+' had been specified.
+
+    * The -d/--define and -u/--undef command line options are no
+      longer supported.  Instead, use /usr/bin/env or shell primitives
+      to define or clear environment variables before invoking PSPP.
+
+    * If a syntax file named named `rc' is found in a configuration
+      directory (such as $HOME/.pspp), it is executed before any
+      syntax file specified on the command line.  The -r or
+      --no-statrc command line option may be used to disable this
+      behavior.
+
+  Output changes:
+
+    * Output configuration options have changed.  Please refer to the
+      manual for a full description of the available options.
+
+      In consequence, you will need to reinstall your "devices" file.
+      "make install" will do this for you.
+
+    * Most error messages are now written to PSPP output files by
+      default.  SET ERROR can be used to disable this behavior.
+
+    * When invoked interactively, PSPP now by default produces output
+      on the terminal, piping it through the "more" program.
+      Previously, by default output was written only to file
+      pspp.list.  On most terminals, the page length used for output
+      automatically adapts to the terminal size, even if the terminal
+      is resized.
+
+    * ASCII driver:
+
+      - This driver now supports charts in output.  Charts are written
+        as separate files that the main output file refers to.  By
+        default, charts are written in PNG format to files named
+        pspp-1.png, pspp-2.png, and so on.
+
+      - Configurations are provided that use VT100 (and xterm)
+        line-drawing characters in tables.  The option "-o list-vt100"
+        requests use of this device for output to pspp.list.
+
+    * PostScript driver:
+
+      - The default paper size is now determined using the PAPERSIZE
+        environment variable, or the LC_PAPER locale category on
+        systems that support it.  If these are not set, the default is
+        now A4, instead of US letter.  To make US letter the default,
+        set PAPERSIZE to "letter" in your environment.
+
+      - Font metrics are now read from AFM files, instead of
+        Groff-format metrics files.  PostScript fonts can now be
+        embedded in output.
+
+        In consequence, you will need to install an AFM file for each
+        font used in PostScript output.  "make install" will install
+        AFM files for the standard PostScript fonts, including the
+        ones that the PostScript driver uses by default.
+
+      - Standard paper sizes no longer need to be specified through a
+        configuration file.  The "papersize" configuration file is no
+        longer needed, or supported.
+
+      - The PostScript prologue is no longer obtained from the
+        "ps-prologue" configuration file.  This configuration file is
+        no longer needed, or supported.
+
+    * HTML driver:
+
+      - The HTML prologue is no longer obtained from the
+        "html-prologue" configuration file.  This configuration file
+        is no longer needed, or supported.
+
+  Command language changes:
+
+    * The following commands are new:
+
+      - GET DATA, which currently supports reading Gnumeric files and
+        text data files.  It will be extended later to read other
+        types of foreign data.
+
+      - CD, to change the current directory.
+
+      - INSERT, to execute a syntax file.
+
+      - DELETE VARIABLES, to remove variables from the active file
+        dictionary.
+
+      - ADD DOCUMENT, to add text to active file documents.
+
+      - CLOSE FILE HANDLE (a PSPP extension; see below).
+
+      - XEXPORT, a PSPP extension that is a transformation equivalent
+        to EXPORT.
+
+    * The following functions for transformation expressions are new:
+
+      - DATEDIFF, for computing the difference of two dates.
+
+      - DATESUM, for advancing a date by a specified duration.
+
+      - VALUELABEL, to obtain the value label for a value.
+
+    * PSPP now supports very long string variables (over 255 bytes
+      long).
+
+    * MATCH FILES now supports the FIRST and LAST subcommands.
+
+    * Previous versions of PSPP prohibited using commands to both read and
+      write a single file at the same time.  Now, PSPP allows this, and
+      the new version of the file atomically replaces the old version.
+
+    * The following commands are no longer available.  They will be
+      re-implemented in a later release:
+
+      - CLEAR TRANSFORMATIONS
+
+      - MATRIX DATA
+
+      - REPEATING DATA
+
+    * The PROCESS IF command, which was deprecated, has been removed.
+      You may replace any usage of it by SELECT IF following
+      TEMPORARY, which has the same effect.
+
+    * The output format for variables created by VECTOR may now be
+      specified as part of the VECTOR syntax.
+
+  "Scratch files", a new PSPP extension:
+
+    A scratch file, like a system file, consists of a dictionary and
+    any number of cases.  Small scratch files are stored in memory;
+    one that grows too large is written to disk.  By default, any file
+    handle whose name begins with # is assumed to refer to a scratch
+    file.
+
+    Scratch files can be used just about anywhere a system or portable
+    file can be used.  Also, portable files are now allowed in most
+    places that system files were allowed in previous PSPP version.
+
+    A new CLOSE FILE HANDLE command allows the storage associated with
+    scratch files to be freed.  It also allows file handles to be
+    reassigned to new files.
+
+    For more information on scratch files, refer to the "File Handles"
+    section in the PSPP manual.  For specifics of what commands now
+    allow what kinds of files to be specified, refer to the
+    documentation on those particular commands.
+
+  Data access changes:
+
+    * Binary formats and IBM/360 formats, including ASCII/EBCDIC
+      translation, are now supported.  Use FILE HANDLE to specify the
+      format of these files.
+
+    * Little-endian, big-endian, and VAX-endian formats are now
+      supported for integer binary formats when reading and writing
+      data files.  The new RIB and WIB subcommands on the SET command
+      control endianness of integer data.  The default is the host's
+      native endianness.
+
+    * IEEE 754, VAX, and IBM hexadecimal formats are now supported for
+      floating point binary formats when reading and writing data
+      files.  The new RRB and WRB subcommands on the SET command
+      control the floating point format.  The default is the host's
+      native floating point format.
+
+    * DATA LIST now supports the SKIP subcommand, to skip records at
+      the beginning of a file.  For compatibility, DATA LIST now
+      treats N format as F format for FREE and LIST format input.
+
+    * The SAVE and XSAVE commands now support the UNSELECTED,
+      PERMISSIONS, NAMES, and MAP subcommands.
+
+    * The EXPORT command has been re-implemented to obtain better
+      results.  Support for the UNSELECTED, DIGITS, and TYPE
+      subcommands has been added.
+
+    * For compatibility, PRINT now inserts a space at the beginning of
+      every output line, even lines that would otherwise be blank,
+      when OUTFILE is specified.  (The behavior of WRITE is
+      unchanged.)
+
+    * For compatibility, PRINT EJECT now inserts the digit `1' at the
+      beginning of each line that should begin a new page.
+
+    * For compatibility, WRITE now outputs the system-missing value as
+      a field filled with spaces.  Binary formats are an exception.
+      (The behavior of PRINT is unchanged.)
+
+  Documentation:
+
+    * Input and output format descriptions have been rewritten.  They
+      now precisely describe what is accepted on input and written on
+      output.
+
+    * The descriptions of the PSPP system and portable file formats
+      have been extensively revised and improved.
+
+  For developers, the build system now requires Autoconf 2.60 and
+  Automake 1.10.
+
+Changes from 0.3.0 to 0.4.0:
+
+  Changes in build dependencies:
+
+    * The GNU Scientific Library (libgsl), version 1.6 or later, is
+      now required.
+
+    * libplot from GNU plotutils is optional.  Without it, the new
+      graphing features will not work.  If you do not have it
+      installed, you must run `configure' with --without-libplot.
+
+    * libgmp2 is no longer a dependency.
+
+  Newly implemented commands and statistical features:
+
+    * EXAMINE, including its graphing features.
+
+    * FREQUENCIES now supports percentiles.
+
+    * ONEWAY.
+
+    * PERMISSIONS.
+
+    * SHOW.
+
+    * SORT CASES now sorts stably, that is, two cases with equal sort
+      criteria will be in the same relative order before and after the
+      sort.
+
+    * T-TEST (re-written).
+
+    * DATE and USE.  These commands are parsed but otherwise ignored,
+      to enhance compatibility with certain command files that invoke
+      them unnecessarily.
+
+    * VARIABLE WIDTH, VARIABLE ALIGNMENT, and VARIABLE LEVEL.  These
+      currently have no effect on PSPP output, but their values are
+      written to and read from system files and thus may affect
+      third-party software.
+
+    * SET EPOCH implemented.
+
+    * DATA LIST FREE and DATA LIST LIST now support arbitrary field
+      delimiters.
+
+    * FILE HANDLE now supports custom tab widths.
+
+  Long variable names (and other identifiers) are now supported.  Up
+  to the first 64 bytes of each identifier is significant.  PSPP now
+  reads and writes system files compatible with SPSS version 12.
+
+  New --algorithm and --syntax command line options allow
+  SPSS-compatible or enhanced modes to be selected.
+
+  Support for transformation expressions has been rewritten and
+  significantly improved.  Refer to the manual for details.
+
+  Calculation of moments (mean, standard deviation, kurtosis,
+  skewness) has been rewritten and should now be more accurate.  In
+  --algorithm=enhanced mode moments may be more accurate than SPSS in
+  some cases.
+
+  Numerous bugs have been fixed, too many to mention here.  Many new
+  tests have been added, leading to the discovery and fixing of many
+  of these bugs.
+
+  The ASCII output driver can now squeeze multiple blank lines into
+  single blank lines.
+
+  Much of the code has been rewritten and refactored.  It is now much
+  cleaner.
+
+  The FILE TYPE and REPEATING DATA commands have been disabled for
+  this release because their implementations were deemed too buggy to
+  be useful.  They will be fixed and replaced in a future release.
+
+  New pspp-mode for Emacs (in pspp-mode.el).
+
+  Added rudimentary command-line completion for interactive input.
+
+  lib/julcal and lib/dcdflib are no longer used, so they have been
+  removed.
+
+  For developers, the build system now requires Autoconf 2.58 and
+  Automake 1.7.  The included gettext has been updated to version
+  0.12.1.
+
+  Some reports state that Texinfo 4.8, the latest version, may be
+  necessary to successfully format the documentation on some systems.
+
+Version 0.3.0 changes since 0.2.3:
+
+  Bugs fixed:
+
+    * Using alphanumeric variables in functions under AGGREGATE
+      segfaulted.  Fixed.
+
+    * Under certain circumstances, the final case would be omitted
+      from the results of an AGGREGATE operation.  Fixed.
+
+    * Undefined behavior was invoked by referencing a freed pointer
+      under certain circumstances.  Fixed.
+
+    * A wrong record size was displayed when paging the active file to
+      disk.  Fixed.
+
+    * Not having enough temporary space for sorting caused a core
+      dump.  Fixed.
+
+    * Syntax errors in function descriptions on AGGREGATE caused core
+      dumps.  Fixed.
+
+    * A null pointer was dereferenced, causing a core dump, when
+      PERCENTILES was specified on FREQUENCIES.  This fixes the
+      problem, but PSPP still doesn't calculate percentiles.
+
+    * SORT always sorted in ascending order.  Fixed.
+
+    * Some minor memory leaks in the expression parser were removed.
+
+    * Many assertions fixed for strict ANSI C compliance.
+
+  New features:
+
+    * SET ECHO ON now implemented, but turned off by default.
+
+    * PRINT specifier supported on END REPEAT.
+
+  Other:
+
+    * System libgmp2 library is used if installed instead of
+      unconditionally using the included libgmp2 subset.
+
+    * Extensive code cleanup, which continues.
+
+    * Added CORRELATIONS command parser, but not implemented.
+
+Version 0.2.3 changes since 0.2.2:
+
+  Bugs fixed:
+
+    * SPLIT FILE with a string variable caused a core dump.  Fixed.
+
+    * Nested INCLUDEs didn't work.  Fixed.
+
+    * The MATCH FILES procedure set the values of variables not present
+      to 0.  It should have been SYSMIS.  This is now fixed.
+
+    * The REMARK command was too aggressive about skipping lines.  It
+      didn't like being the last command in a file.
+
+    * Comment parsing wasn't consistent with the rest of the code in its
+      idea of where one command ends and another starts.  This meant
+      that sometimes commands would be mysteriously ignored.  Thanks to
+      Dr. Dirk Melcher <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * The TABLE subcommand on MATCH FILES worked only erratically at
+      best.  This fixes it.  Thanks to Dr. Dirk Melcher
+      <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * VARIABLE LABELS rejected a slash before the first variable
+      specification, contradicting the documentation.  Thanks to Walter
+      M. Gray <graywm@northernc.on.ca> for reporting this bug.
+
+    * Because of an incorrect optimization in memory allocation,
+      CROSSTABS sometimes segfaulted when asked to output multiple
+      tables.  Thanks to Walter M. Gray <graywm@northernc.on.ca> for
+      reporting this bug.
+
+    * CROSSTABS didn't display value labels for column and row
+      variables.  Thanks to Walter M. Gray <graywm@northernc.on.ca> for
+      reporting this bug.
+
+    * WRITE didn't write line ends.  Fixed.  Thanks to Dr. Dirk Melcher
+      <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * The TABLE subcommand on MATCH FILES worked only erratically at
+      best.  This fixes it.  Thanks to Dr. Dirk Melcher
+      <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * VARIABLE LABELS rejected a slash before the first variable
+      specification, contradicting the documentation.  Thanks to Walter
+      M. Gray <graywm@northernc.on.ca> for reporting this bug.
+
+    * Because of an incorrect optimization in memory allocation,
+      CROSSTABS sometimes segfaulted when asked to output multiple
+      tables.  Thanks to Walter M. Gray <graywm@northernc.on.ca> for
+      reporting this bug.
+
+    * CROSSTABS didn't display value labels for column and row
+      variables.  Thanks to Walter M. Gray <graywm@northernc.on.ca> for
+      reporting this bug.
+
+    * WRITE didn't write line ends.  Fixed.  Thanks to Dr. Dirk Melcher
+      <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * MATCH FILES corrupted memory and dumped core on some syntax
+      errors.  Fixed.
+
+    * MATCH FILES should set numeric values not available to the
+      system-missing value, not to 0.  Thanks to Dr. Dirk Melcher
+      <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * KEEP didn't work properly on the SAVE procedure.  Fixed.  Thanks
+      to Ralf Geschke <ralf@kuerbis.org> for reporting this bug.
+
+    * Memory leak fix.
+
+    * Some systems didn't like the way open_file was coded.  Thanks to
+      Hankin <hankin@rogue.consultco.com> for pointing this out.
+
+    * The SAVE procedure didn't save long string variables properly.
+      Fixed by this patch.  Thanks to Hankin
+      <hankin@rogue.consultco.com> for this patch.
+
+    * Minor documentation fixes for MATCH FILES.
+
+Version 0.2.2 changes since 0.2.1:
+
+  Bugs fixed:
+
+    * Fix behavior of PRINT SPACE for negative arguments.
+
+    * Fix reading some unusual system files.
+
+    * Fix LIST problems with very long variables.  Thanks to Hankin
+      <hankin@dunno.com> for this bug report.
+
+    * Fix problems with some string format specifiers.
+
+    * Fix use of $CASENUM in expressions.  Thanks to Dirk Melcher
+      <BZN-mdksh@t-online.de> for reporting this bug.
+
+    * Additional DATA LIST FREE and DATA LIST LIST fixes.  Thanks to
+      Hankin <hankin@dunno.com> again on this one.
+
+    * Sometimes you may encounter a PSPP script that has to be
+      interpreted in interactive mode.  Now you can use the -i flag to
+      do this.
+
+    * Warnings for egcs 1.1.1 cleaned up.  (However you'll get lots of
+      `unused variable' warnings under gcc 2.7.2.3, fixing this will
+      take more effort.)
+
+    * Tests fixed.
+
+    * The files in gmp need the internationalization directory in
+      their include path.  Thanks to OKUJI Yoshinori
+      <okuji@kuicr.kyoto-u.ac.jp> for pointing this out.
+
+Version 0.2.1 changes since 0.2.0:
+
+  Bugs fixed:
+
+    * Remember to include examples/ directory in distribution :-)
+
+    * Fixed gmp compile problems for some non-i386 architectures.
+      Thanks to Hans Olav Eggestad <olav@jordforsk.nlh.no> and others
+      for reporting this.
+
+    * DATA LIST FREE and DATA LIST LIST parsing of input files is now
+      matches the documented behavior exactly, and error messages are
+      more helpful.  Thanks to Mark H. Wood <mwood@IUPUI.Edu>.
+
+Version 0.2.0 changes since 0.1.0:
+
+  Procedures now implemented:
+    * CROSSTABS.  Please see documentation for caveats.
+
+  Transformations and utilities now implemented:
+    * AGGREGATE
+    * APPLY DICTIONARY
+    * CLEAR TRANSFORMATIONS
+    * DISPLAY (all subcommands).
+    * ERASE
+    * FLIP
+    * EXPORT
+    * HOST
+    * IMPORT
+    * MATCH FILES
+    * MATRIX DATA
+    * NEW FILE
+    * REPEATING DATA
+
+  Support for input and output through pipes: "|command" and
+  "command|" filenames; support for special filenames "-", "stdin",
+  "stdout", "stderr".
+
+  New command-line features:
+    * New option --testing-mode: Invoke heuristics to assist testing.
+    * New option --safer, -s: Don't allow certain unsafe operations.
+    * New option --command=CMD, -c CMD: Perform literal command CMD.
+    * rc file ~/.pspp/rc is executed before any other files.
+    * Now multiple syntax files can be specified.
+
+  Operator LAG is now implemented.
+
+  Added missing FILE subcommand to REREAD.
+
+  Table output manager completely rewritten.
+
+  Device configuration file syntax changed.  You will need to
+  reinstall your `devices' file.
+
+  New output driver for HTML.
+
+  PostScript driver and prologue simplified.
+
+  Many bugs fixed.  General source-code cleanup.
+
+  Added Texinfo documentation for:
+    * PSPP system file format
+    * PSPP portable file format
+    * How to write input for q2c parser generator
+    * HTML driver
+
+  PSPP language is now fully documented.  Please report any
+  inaccuracies or omissions in the documentation.
+
+Changes for version 0.1.0:
+
+  First public release.  For changes from unreleased development
+  versions, please see ONEWS.
+
+----------------------------------------------------------------------
+Copyright information:
+
+   Permission is granted to anyone to make or distribute verbatim
+   copies of this document as received, in any medium, provided that
+   the copyright notice and this permission notice are preserved, thus
+   giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions of this
+   document, or of portions of it, under the above conditions,
+   provided also that they carry prominent notices stating who last
+   changed them.
+
+Local variables:
+version-control: never
+mode: indented-text
+end:

@@ -1,0 +1,269 @@
+@node Data Selection
+@chapter Selecting data for analysis
+
+This chapter documents @pspp{} commands that temporarily or permanently
+select data records from the active dataset for analysis.
+
+@menu
+* FILTER::                      Exclude cases based on a variable.
+* N OF CASES::                  Limit the size of the active dataset.
+* SAMPLE::                      Select a specified proportion of cases.
+* SELECT IF::                   Permanently delete selected cases.
+* SPLIT FILE::                  Do multiple analyses with one command.
+* TEMPORARY::                   Make transformations' effects temporary.
+* WEIGHT::                      Weight cases by a variable.
+@end menu
+
+@node FILTER
+@section FILTER
+@vindex FILTER
+
+@display
+FILTER BY @var{var_name}.
+FILTER OFF.
+@end display
+
+@cmd{FILTER} allows a boolean-valued variable to be used to select
+cases from the data stream for processing.
+
+To set up filtering, specify @subcmd{BY} and a variable name.  Keyword
+BY is optional but recommended.  Cases which have a zero or system- or
+user-missing value are excluded from analysis, but not deleted from the
+data stream.  Cases with other values are analyzed.
+To filter based on a different condition, use
+transformations such as @cmd{COMPUTE} or @cmd{RECODE} to compute a
+filter variable of the required form, then specify that variable on
+@cmd{FILTER}.
+
+@code{FILTER OFF} turns off case filtering.
+
+Filtering takes place immediately before cases pass to a procedure for
+analysis.  Only one filter variable may be active at a time.  Normally,
+case filtering continues until it is explicitly turned off with @code{FILTER
+OFF}.  However, if @cmd{FILTER} is placed after @cmd{TEMPORARY}, it filters only
+the next procedure or procedure-like command.
+
+@node N OF CASES
+@section N OF CASES
+@vindex N OF CASES
+
+@display
+N [OF CASES] @var{num_of_cases} [ESTIMATED].
+@end display
+
+@cmd{N OF CASES} limits the number of cases processed by any
+procedures that follow it in the command stream.  @code{N OF CASES
+100}, for example, tells @pspp{} to disregard all cases after the first
+100.
+
+When @cmd{N OF CASES} is specified after @cmd{TEMPORARY}, it affects
+only the next procedure (@pxref{TEMPORARY}).  Otherwise, cases beyond
+the limit specified are not processed by any later procedure.
+
+If the limit specified on @cmd{N OF CASES} is greater than the number
+of cases in the active dataset, it has no effect.
+
+When @cmd{N OF CASES} is used along with @cmd{SAMPLE} or @cmd{SELECT
+IF}, the case limit is applied to the cases obtained after sampling or
+case selection, regardless of how @cmd{N OF CASES} is placed relative
+to @cmd{SAMPLE} or @cmd{SELECT IF} in the command file.  Thus, the
+commands @code{N OF CASES 100} and @code{SAMPLE .5} will both randomly
+sample approximately half of the active dataset's cases, then select the
+first 100 of those sampled, regardless of their order in the command
+file.
+
+@cmd{N OF CASES} with the @code{ESTIMATED} keyword gives an estimated
+number of cases before @cmd{DATA LIST} or another command to read in
+data.  @code{ESTIMATED} never limits the number of cases processed by
+procedures.  @pspp{} currently does not make use of case count estimates.
+
+@node SAMPLE
+@section SAMPLE
+@vindex SAMPLE
+
+@display
+SAMPLE @var{num1} [FROM @var{num2}].
+@end display
+
+@cmd{SAMPLE} randomly samples a proportion of the cases in the active
+file.  Unless it follows @cmd{TEMPORARY}, it operates as a
+transformation, permanently removing cases from the active dataset.
+
+The proportion to sample can be expressed as a single number between 0
+and 1.  If @var{k} is the number specified, and @var{N} is the number
+of currently-selected cases in the active dataset, then after
+@subcmd{SAMPLE @var{k}.}, approximately @var{k}*@var{N} cases will be
+selected.
+
+The proportion to sample can also be specified in the style @subcmd{SAMPLE
+@var{m} FROM @var{N}}.  With this style, cases are selected as follows:
+
+@enumerate
+@item
+If @var{N} is equal to the number of currently-selected cases in the
+active dataset, exactly @var{m} cases will be selected.
+
+@item
+If @var{N} is greater than the number of currently-selected cases in the
+active dataset, an equivalent proportion of cases will be selected.
+
+@item
+If @var{N} is less than the number of currently-selected cases in the
+active, exactly @var{m} cases will be selected @emph{from the first
+@var{N} cases in the active dataset.}
+@end enumerate
+
+@cmd{SAMPLE} and @cmd{SELECT IF} are performed in
+the order specified by the syntax file.
+
+@cmd{SAMPLE} is always performed before @code{N OF CASES}, regardless
+of ordering in the syntax file (@pxref{N OF CASES}).
+
+The same values for @cmd{SAMPLE} may result in different samples.  To
+obtain the same sample, use the @code{SET} command to set the random
+number seed to the same value before each @cmd{SAMPLE}.  Different
+samples may still result when the file is processed on systems with
+differing endianness or floating-point formats.  By default, the
+random number seed is based on the system time.
+
+@node SELECT IF
+@section SELECT IF
+@vindex SELECT IF
+
+@display
+SELECT IF @var{expression}.
+@end display
+
+@cmd{SELECT IF} selects cases for analysis based on the value of
+@var{expression}.  Cases not selected are permanently eliminated
+from the active dataset, unless @cmd{TEMPORARY} is in effect
+(@pxref{TEMPORARY}).
+
+Specify a boolean expression (@pxref{Expressions}).  If the value of the
+expression is true for a particular case, the case will be analyzed.  If
+the expression has a false or missing value, then the case will be
+deleted from the data stream.
+
+Place @cmd{SELECT IF} as early in the command file as
+possible.  Cases that are deleted early can be processed more
+efficiently in time and space.
+
+When @cmd{SELECT IF} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+
+@node SPLIT FILE
+@section SPLIT FILE
+@vindex SPLIT FILE
+
+@display
+SPLIT FILE [@{LAYERED, SEPARATE@}] BY @var{var_list}.
+SPLIT FILE OFF.
+@end display
+
+@cmd{SPLIT FILE} allows multiple sets of data present in one data
+file to be analyzed separately using single statistical procedure
+commands.
+
+Specify a list of variable names to analyze multiple sets of
+data separately.  Groups of adjacent cases having the same values for these
+variables are analyzed by statistical procedure commands as one group.
+An independent analysis is carried out for each group of cases, and the
+variable values for the group are printed along with the analysis.
+
+When a list of variable names is specified, one of the keywords
+@subcmd{LAYERED} or @subcmd{SEPARATE} may also be specified.  If provided, either
+keyword are ignored.
+
+Groups are formed only by @emph{adjacent} cases.  To create a split 
+using a variable where like values are not adjacent in the working file,
+you should first sort the data by that variable (@pxref{SORT CASES}).
+
+Specify @subcmd{OFF} to disable @cmd{SPLIT FILE} and resume analysis of the
+entire active dataset as a single group of data.
+
+When @cmd{SPLIT FILE} is specified after @cmd{TEMPORARY}, it affects only
+the next procedure (@pxref{TEMPORARY}).
+
+@node TEMPORARY
+@section TEMPORARY
+@vindex TEMPORARY
+
+@display
+TEMPORARY.
+@end display
+
+@cmd{TEMPORARY} is used to make the effects of transformations
+following its execution temporary.  These transformations will
+affect only the execution of the next procedure or procedure-like
+command.  Their effects will not be saved to the active dataset.
+
+The only specification on @cmd{TEMPORARY} is the command name.
+
+@cmd{TEMPORARY} may not appear within a @cmd{DO IF} or @cmd{LOOP}
+construct.  It may appear only once between procedures and
+procedure-like commands.
+
+Scratch variables cannot be used following @cmd{TEMPORARY}.
+
+An example may help to clarify:
+
+@example
+DATA LIST /X 1-2.
+BEGIN DATA.
+ 2
+ 4
+10
+15
+20
+24
+END DATA.
+
+COMPUTE X=X/2.
+
+TEMPORARY.
+COMPUTE X=X+3.
+
+DESCRIPTIVES X.
+DESCRIPTIVES X.
+@end example
+
+The data read by the first @cmd{DESCRIPTIVES} are 4, 5, 8,
+10.5, 13, 15.  The data read by the first @cmd{DESCRIPTIVES} are 1, 2,
+5, 7.5, 10, 12.
+
+@node WEIGHT
+@section WEIGHT
+@vindex WEIGHT
+
+@display
+WEIGHT BY @var{var_name}.
+WEIGHT OFF.
+@end display
+
+@cmd{WEIGHT} assigns cases varying weights,
+changing the frequency distribution of the active dataset.  Execution of
+@cmd{WEIGHT} is delayed until data have been read.
+
+If a variable name is specified, @cmd{WEIGHT} causes the values of that
+variable to be used as weighting factors for subsequent statistical
+procedures.  Use of keyword @subcmd{BY} is optional but recommended.  Weighting
+variables must be numeric.  Scratch variables may not be used for
+weighting (@pxref{Scratch Variables}).
+
+When @subcmd{OFF} is specified, subsequent statistical procedures will weight all
+cases equally.
+
+A positive integer weighting factor @var{w} on a case will yield the
+same statistical output as would replicating the case @var{w} times.
+A weighting factor of 0 is treated for statistical purposes as if the
+case did not exist in the input.  Weighting values need not be
+integers, but negative and system-missing values for the weighting
+variable are interpreted as weighting factors of 0.  User-missing
+values are not treated specially.
+
+When @cmd{WEIGHT} is specified after @cmd{TEMPORARY}, it affects only
+the next procedure (@pxref{TEMPORARY}).
+
+@cmd{WEIGHT} does not cause cases in the active dataset to be
+replicated in memory.

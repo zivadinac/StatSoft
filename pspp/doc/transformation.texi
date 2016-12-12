@@ -1,0 +1,707 @@
+@node Data Manipulation
+@chapter Data transformations
+@cindex transformations
+
+The @pspp{} procedures examined in this chapter manipulate data and
+prepare the active dataset for later analyses.  They do not produce output,
+as a rule.
+
+@menu
+* AGGREGATE::                   Summarize multiple cases into a single case.
+* AUTORECODE::                  Automatic recoding of variables.
+* COMPUTE::                     Assigning a variable a calculated value.
+* COUNT::                       Counting variables with particular values.
+* FLIP::                        Exchange variables with cases.
+* IF::                          Conditionally assigning a calculated value.
+* RECODE::                      Mapping values from one set to another.
+* SORT CASES::                  Sort the active dataset.
+@end menu
+
+@node AGGREGATE
+@section AGGREGATE
+@vindex AGGREGATE
+
+@display
+AGGREGATE 
+        OUTFILE=@{*,'@var{file_name}',@var{file_handle}@} [MODE=@{REPLACE, ADDVARIABLES@}]
+        /PRESORTED
+        /DOCUMENT
+        /MISSING=COLUMNWISE
+        /BREAK=@var{var_list}
+        /@var{dest_var}['@var{label}']@dots{}=@var{agr_func}(@var{src_vars}, @var{args}@dots{})@dots{}
+@end display
+
+@cmd{AGGREGATE} summarizes groups of cases into single cases.
+Cases are divided into groups that have the same values for one or more
+variables called @dfn{break variables}.  Several functions are available
+for summarizing case contents.
+
+The @subcmd{OUTFILE} subcommand is required and must appear first.  Specify a
+system file or portable file by file name or file
+handle (@pxref{File Handles}), or a dataset by its name
+(@pxref{Datasets}).
+The aggregated cases are written to this file.  If @samp{*} is
+specified, then the aggregated cases replace the active dataset's data.
+Use of @subcmd{OUTFILE} to write a portable file is a @pspp{} extension.
+
+If @subcmd{OUTFILE=*} is given, then the subcommand @subcmd{MODE} may also be
+specified.
+The mode subcommand has two possible values: @subcmd{ADDVARIABLES} or @subcmd{REPLACE}.
+In @subcmd{REPLACE} mode, the entire active dataset is replaced by a new dataset
+which contains just the break variables and the destination varibles.
+In this mode, the new file will contain as many cases as there are
+unique combinations of the break variables.
+In @subcmd{ADDVARIABLES} mode, the destination variables will be appended to 
+the existing active dataset.
+Cases which have identical combinations of values in their break
+variables, will receive identical values for the destination variables.
+The number of cases in the active dataset will remain unchanged.
+Note that if @subcmd{ADDVARIABLES} is specified, then the data @emph{must} be
+sorted on the break variables.
+
+By default, the active dataset will be sorted based on the break variables
+before aggregation takes place.  If the active dataset is already sorted
+or otherwise grouped in terms of the break variables, specify
+@subcmd{PRESORTED} to save time.
+@subcmd{PRESORTED} is assumed if @subcmd{MODE=ADDVARIABLES} is used.
+
+Specify @subcmd{DOCUMENT} to copy the documents from the active dataset into the
+aggregate file (@pxref{DOCUMENT}).  Otherwise, the aggregate file will
+not contain any documents, even if the aggregate file replaces the
+active dataset.
+
+Normally, only a single case (for @subcmd{SD} and @subcmd{SD}., two cases) need be
+non-missing in each group for the aggregate variable to be
+non-missing.  Specifying @subcmd{/MISSING=COLUMNWISE} inverts this behavior, so
+that the aggregate variable becomes missing if any aggregated value is
+missing.
+
+If @subcmd{PRESORTED}, @subcmd{DOCUMENT}, or @subcmd{MISSING} are specified, they must appear
+between @subcmd{OUTFILE} and @subcmd{BREAK}.
+
+At least one break variable must be specified on @subcmd{BREAK}, a
+required subcommand.  The values of these variables are used to divide
+the active dataset into groups to be summarized.  In addition, at least
+one @var{dest_var} must be specified.
+
+One or more sets of aggregation variables must be specified.  Each set
+comprises a list of aggregation variables, an equals sign (@samp{=}),
+the name of an aggregation function (see the list below), and a list
+of source variables in parentheses.  Some aggregation functions expect
+additional arguments following the source variable names.
+
+Aggregation variables typically are created with no variable label,
+value labels, or missing values.  Their default print and write
+formats depend on the aggregation function used, with details given in
+the table below.  A variable label for an aggregation variable may be
+specified just after the variable's name in the aggregation variable
+list.
+
+Each set must have exactly as many source variables as aggregation
+variables.  Each aggregation variable receives the results of applying
+the specified aggregation function to the corresponding source
+variable.  The @subcmd{MEAN}, @subcmd{MEDIAN}, @subcmd{SD}, and @subcmd{SUM}
+aggregation functions may only be
+applied to numeric variables.  All the rest may be applied to numeric
+and string variables.
+
+The available aggregation functions are as follows:
+
+@table @asis
+@item @subcmd{FGT(@var{var_name}, @var{value})}
+Fraction of values greater than the specified constant.  The default
+format is F5.3.
+
+@item @subcmd{FIN(@var{var_name}, @var{low}, @var{high})}
+Fraction of values within the specified inclusive range of constants.
+The default format is F5.3.
+
+@item @subcmd{FLT(@var{var_name}, @var{value})}
+Fraction of values less than the specified constant.  The default
+format is F5.3.
+
+@item @subcmd{FIRST(@var{var_name})}
+First non-missing value in break group.  The aggregation variable
+receives the complete dictionary information from the source variable.
+The sort performed by @cmd{AGGREGATE} (and by @cmd{SORT CASES}) is stable, so that
+the first case with particular values for the break variables before
+sorting will also be the first case in that break group after sorting.
+
+@item @subcmd{FOUT(@var{var_name}, @var{low}, @var{high})}
+Fraction of values strictly outside the specified range of constants.
+The default format is F5.3.
+
+@item @subcmd{LAST(@var{var_name})}
+Last non-missing value in break group.  The aggregation variable
+receives the complete dictionary information from the source variable.
+The sort performed by @cmd{AGGREGATE} (and by @cmd{SORT CASES}) is stable, so that
+the last case with particular values for the break variables before
+sorting will also be the last case in that break group after sorting.
+
+@item @subcmd{MAX(@var{var_name})}
+Maximum value.  The aggregation variable receives the complete
+dictionary information from the source variable.
+
+@item @subcmd{MEAN(@var{var_name})}
+Arithmetic mean.  Limited to numeric values.  The default format is
+F8.2.
+
+@item @subcmd{MEDIAN(@var{var_name})}
+The median value.  Limited to numeric values.  The default format is F8.2.
+
+@item @subcmd{MIN(@var{var_name})}
+Minimum value.  The aggregation variable receives the complete
+dictionary information from the source variable.
+
+@item @subcmd{N(@var{var_name})}
+Number of non-missing values.  The default format is F7.0 if weighting
+is not enabled, F8.2 if it is (@pxref{WEIGHT}).
+
+@item @subcmd{N}
+Number of cases aggregated to form this group.  The default format is
+F7.0 if weighting is not enabled, F8.2 if it is (@pxref{WEIGHT}).
+
+@item @subcmd{NMISS(@var{var_name})}
+Number of missing values.  The default format is F7.0 if weighting is
+not enabled, F8.2 if it is (@pxref{WEIGHT}).
+
+@item @subcmd{NU(@var{var_name})}
+Number of non-missing values.  Each case is considered to have a weight
+of 1, regardless of the current weighting variable (@pxref{WEIGHT}).
+The default format is F7.0.
+
+@item @subcmd{NU}
+Number of cases aggregated to form this group.  Each case is considered
+to have a weight of 1, regardless of the current weighting variable.
+The default format is F7.0.
+
+@item @subcmd{NUMISS(@var{var_name})}
+Number of missing values.  Each case is considered to have a weight of
+1, regardless of the current weighting variable.  The default format is F7.0.
+
+@item @subcmd{PGT(@var{var_name}, @var{value})}
+Percentage between 0 and 100 of values greater than the specified
+constant.  The default format is F5.1.
+
+@item @subcmd{PIN(@var{var_name}, @var{low}, @var{high})}
+Percentage of values within the specified inclusive range of
+constants.  The default format is F5.1.
+
+@item @subcmd{PLT(@var{var_name}, @var{value})}
+Percentage of values less than the specified constant.  The default
+format is F5.1.
+
+@item @subcmd{POUT(@var{var_name}, @var{low}, @var{high})}
+Percentage of values strictly outside the specified range of
+constants.  The default format is F5.1.
+
+@item @subcmd{SD(@var{var_name})}
+Standard deviation of the mean.  Limited to numeric values.  The
+default format is F8.2.
+
+@item @subcmd{SUM(@var{var_name})}
+Sum.  Limited to numeric values.  The default format is F8.2.
+@end table
+
+Aggregation functions compare string values in terms of internal
+character codes.
+On most modern computers, this is  @acronym{ASCII} or a superset thereof.
+
+The aggregation functions listed above exclude all user-missing values
+from calculations.  To include user-missing values, insert a period
+(@samp{.}) at the end of the function name.  (e.g.@: @samp{SUM.}).
+(Be aware that specifying such a function as the last token on a line
+will cause the period to be interpreted as the end of the command.)
+
+@cmd{AGGREGATE} both ignores and cancels the current @cmd{SPLIT FILE}
+settings (@pxref{SPLIT FILE}).
+
+@node AUTORECODE
+@section AUTORECODE
+@vindex AUTORECODE
+
+@display
+AUTORECODE VARIABLES=@var{src_vars} INTO @var{dest_vars}
+        [ /DESCENDING ]
+        [ /PRINT ]
+        [ /GROUP ]
+        [ /BLANK = @{VALID, MISSING@} ]
+@end display
+
+The @cmd{AUTORECODE} procedure considers the @var{n} values that a variable
+takes on and maps them onto values 1@dots{}@var{n} on a new numeric
+variable.
+
+Subcommand @subcmd{VARIABLES} is the only required subcommand and must come
+first.  Specify @subcmd{VARIABLES}, an equals sign (@samp{=}), a list of source
+variables, @subcmd{INTO}, and a list of target variables.  There must the same
+number of source and target variables.  The target variables must not
+already exist.
+
+By default, increasing values of a source variable (for a string, this
+is based on character code comparisons) are recoded to increasing values
+of its target variable.  To cause increasing values of a source variable
+to be recoded to decreasing values of its target variable (@var{n} down
+to 1), specify @subcmd{DESCENDING}.
+
+@subcmd{PRINT} is currently ignored.
+
+The @subcmd{GROUP} subcommand is relevant only if more than one variable is to be
+recoded.   It causes a single mapping between source and target values to
+be used, instead of one map per variable.
+
+If @subcmd{/BLANK=MISSING} is given, then string variables which contain only 
+whitespace are recoded as SYSMIS.  If @subcmd{/BLANK=VALID} is given then they
+will be allocated a value like any other.  @subcmd{/BLANK} is not relevant
+to numeric values. @subcmd{/BLANK=VALID} is the default.
+
+@cmd{AUTORECODE} is a procedure.  It causes the data to be read.
+
+@node COMPUTE
+@section COMPUTE
+@vindex COMPUTE
+
+@display
+COMPUTE @var{variable} = @var{expression}.
+@end display
+  or
+@display
+COMPUTE vector(@var{index}) = @var{expression}.
+@end display
+
+@cmd{COMPUTE} assigns the value of an expression to a target
+variable.  For each case, the expression is evaluated and its value
+assigned to the target variable.  Numeric and string
+variables may be assigned.  When a string expression's width differs
+from the target variable's width, the string result of the expression
+is truncated or padded with spaces on the right as necessary.  The
+expression and variable types must match.
+
+For numeric variables only, the target variable need not already
+exist.  Numeric variables created by @cmd{COMPUTE} are assigned an
+@code{F8.2} output format.  String variables must be declared before
+they can be used as targets for @cmd{COMPUTE}.
+
+The target variable may be specified as an element of a vector
+(@pxref{VECTOR}).  In this case, an expression @var{index} must be
+specified in parentheses following the vector name.  The expression @var{index}
+must evaluate to a numeric value that, after rounding down
+to the nearest integer, is a valid index for the named vector.
+
+Using @cmd{COMPUTE} to assign to a variable specified on @cmd{LEAVE}
+(@pxref{LEAVE}) resets the variable's left state.  Therefore,
+@code{LEAVE} should be specified following @cmd{COMPUTE}, not before.
+
+@cmd{COMPUTE} is a transformation.  It does not cause the active dataset to be
+read.
+
+When @cmd{COMPUTE} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+
+@node COUNT
+@section COUNT
+@vindex COUNT
+
+@display
+COUNT @var{var_name} = @var{var}@dots{} (@var{value}@dots{}).
+
+Each @var{value} takes one of the following forms:
+        @var{number}
+        @var{string}
+        @var{num1} THRU @var{num2}
+        MISSING
+        SYSMIS
+where @var{num1} is a numeric expression or the words @subcmd{LO}  or @subcmd{LOWEST}
+      and @var{num2} is a numeric expression  or @subcmd{HI} or @subcmd{HIGHEST}.
+@end display
+
+@cmd{COUNT} creates or replaces a numeric @dfn{target} variable that
+counts the occurrence of a @dfn{criterion} value or set of values over
+one or more @dfn{test} variables for each case.
+
+The target variable values are always nonnegative integers.  They are
+never missing.  The target variable is assigned an F8.2 output format.
+@xref{Input and Output Formats}.  Any variables, including
+string variables, may be test variables.
+
+User-missing values of test variables are treated just like any other
+values.  They are @strong{not} treated as system-missing values.
+User-missing values that are criterion values or inside ranges of
+criterion values are counted as any other values.  However (for numeric
+variables), keyword @subcmd{MISSING} may be used to refer to all system-
+and user-missing values.
+
+@cmd{COUNT} target variables are assigned values in the order
+specified.  In the command @subcmd{COUNT @var{A}=@var{A} @var{B}(1) /@var{B}=@var{A} @var{B}(2).}, the
+following actions occur:
+
+@itemize @minus
+@item
+The number of occurrences of 1 between @var{A} and @var{B} is counted.
+
+@item
+@var{A} is assigned this value.
+
+@item
+The number of occurrences of 1 between @var{B} and the @strong{new}
+value of @var{A} is counted.
+
+@item
+@var{B} is assigned this value.
+@end itemize
+
+Despite this ordering, all @cmd{COUNT} criterion variables must exist
+before the procedure is executed---they may not be created as target
+variables earlier in the command!  Break such a command into two
+separate commands.
+
+The examples below may help to clarify.
+
+@enumerate A
+@item
+Assuming @code{Q0}, @code{Q2}, @dots{}, @code{Q9} are numeric variables,
+the following commands:
+
+@enumerate
+@item
+Count the number of times the value 1 occurs through these variables
+for each case and assigns the count to variable @code{QCOUNT}.  
+
+@item
+Print out the total number of times the value 1 occurs throughout
+@emph{all} cases using @cmd{DESCRIPTIVES}.  @xref{DESCRIPTIVES}, for
+details.
+@end enumerate
+
+@example
+COUNT QCOUNT=Q0 TO Q9(1).
+DESCRIPTIVES QCOUNT /STATISTICS=SUM.
+@end example
+
+@item
+Given these same variables, the following commands:
+
+@enumerate
+@item
+Count the number of valid values of these variables for each case and
+assigns the count to variable @code{QVALID}.
+
+@item
+Multiplies each value of @code{QVALID} by 10 to obtain a percentage of
+valid values, using @cmd{COMPUTE}.  @xref{COMPUTE}, for details.
+
+@item
+Print out the percentage of valid values across all cases, using
+@cmd{DESCRIPTIVES}.  @xref{DESCRIPTIVES}, for details.
+@end enumerate
+
+@example
+COUNT QVALID=Q0 TO Q9 (LO THRU HI).
+COMPUTE QVALID=QVALID*10.
+DESCRIPTIVES QVALID /STATISTICS=MEAN.
+@end example
+@end enumerate
+
+@node FLIP
+@section FLIP
+@vindex FLIP
+
+@display
+FLIP /VARIABLES=@var{var_list} /NEWNAMES=@var{var_name}.
+@end display
+
+@cmd{FLIP} transposes rows and columns in the active dataset.  It
+causes cases to be swapped with variables, and vice versa.
+
+All variables in the transposed active dataset are numeric.  String
+variables take on the system-missing value in the transposed file.
+
+@subcmd{N} subcommands are required.  If specified, the @subcmd{VARIABLES} subcommand
+selects variables to be transformed into cases, and variables not
+specified are discarded.  If the @subcmd{VARIABLES} subcommand is omitted, all
+variables are selected for transposition.
+
+The variables specified by @subcmd{NEWNAMES}, which must be a
+string variable, is
+used to give names to the variables created by @cmd{FLIP}.  Only the
+first 8 characters of the variable are used.  If
+@subcmd{NEWNAMES} is not
+specified then the default is a variable named CASE_LBL, if it exists.
+If it does not then the variables created by @cmd{FLIP} are named VAR000
+through VAR999, then VAR1000, VAR1001, and so on.
+
+When a @subcmd{NEWNAMES} variable is available, the names must be canonicalized
+before becoming variable names.  Invalid characters are replaced by
+letter @samp{V} in the first position, or by @samp{_} in subsequent
+positions.  If the name thus generated is not unique, then numeric
+extensions are added, starting with 1, until a unique name is found or
+there are no remaining possibilities.  If the latter occurs then the
+@cmd{FLIP} operation aborts.
+
+The resultant dictionary contains a CASE_LBL variable, a string
+variable of width 8, which stores the names of the variables in the
+dictionary before the transposition.  Variables names longer than 8
+characters are truncated.  If the active dataset is subsequently
+transposed using @cmd{FLIP}, this variable can be used to recreate the
+original variable names.
+
+@cmd{FLIP} honors @cmd{N OF CASES} (@pxref{N OF CASES}).  It ignores
+@cmd{TEMPORARY} (@pxref{TEMPORARY}), so that ``temporary''
+transformations become permanent.
+
+@node IF
+@section IF
+@vindex IF
+
+@display
+IF @var{condition} @var{variable}=@var{expression}.
+@end display
+  or
+@display
+IF @var{condition} vector(@var{index})=@var{expression}.
+@end display
+
+The @cmd{IF} transformation conditionally assigns the value of a target
+expression to a target variable, based on the truth of a test
+expression.
+
+Specify a boolean-valued expression (@pxref{Expressions}) to be tested
+following the @cmd{IF} keyword.  This expression is evaluated for each case.
+If the value is true, then the value of the expression is computed and
+assigned to the specified variable.  If the value is false or missing,
+nothing is done.  Numeric and string variables may be
+assigned.  When a string expression's width differs from the target
+variable's width, the string result of the expression is truncated or
+padded with spaces on the right as necessary.  The expression and
+variable types must match.
+
+The target variable may be specified as an element of a vector
+(@pxref{VECTOR}).  In this case, a vector index expression must be
+specified in parentheses following the vector name.  The index
+expression must evaluate to a numeric value that, after rounding down
+to the nearest integer, is a valid index for the named vector.
+
+Using @cmd{IF} to assign to a variable specified on @cmd{LEAVE}
+(@pxref{LEAVE}) resets the variable's left state.  Therefore,
+@code{LEAVE} should be specified following @cmd{IF}, not before.
+
+When @cmd{IF} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+
+@node RECODE
+@section RECODE
+@vindex RECODE
+
+The @cmd{RECODE} command is used to transform existing values into other,
+user specified values.
+The general form is:
+
+@display
+RECODE @var{src_vars}
+        (@var{src_value} @var{src_value} @dots{} = @var{dest_value})
+        (@var{src_value} @var{src_value} @dots{} = @var{dest_value})
+        (@var{src_value} @var{src_value} @dots{} = @var{dest_value}) @dots{}
+         [INTO @var{dest_vars}].
+@end display
+
+Following the @cmd{RECODE} keyword itself comes @var{src_vars} which is a list
+of variables whose values are to be transformed.
+These variables may be string variables or they may be numeric.
+However the list must be homogeneous; you may not mix string variables and
+numeric variables in the same recoding.
+
+After the list of source variables, there should be one or more @dfn{mappings}.
+Each mapping is enclosed in parentheses, and contains the source values and
+a destination value separated by a single @samp{=}.
+The source values are used to specify the values in the dataset which 
+need to change, and the destination value specifies the new value
+to which they should be changed.
+Each @var{src_value} may take one of the following forms:
+@table @asis
+@item @var{number}
+If the source variables are numeric then @var{src_value} may be a literal
+number.
+@item @var{string}
+If the source variables are string variables then @var{src_value} may be a
+literal string (like all strings, enclosed in single or double quotes).
+@item @var{num1} THRU @var{num2}
+This form is valid only when the source variables are numeric.
+It specifies all values in the range between @var{num1} and @var{num2},
+including both endpoints of the range.  By convention, @var{num1}
+should be less than @var{num2}.
+Open-ended ranges may be specified using @samp{LO} or @samp{LOWEST} 
+for @var{num1}
+or @samp{HI} or @samp{HIGHEST} for @var{num2}.
+@item @samp{MISSING}
+The literal keyword @samp{MISSING} matches both system missing and user
+missing values.
+It is valid for both numeric and string variables.
+@item @samp{SYSMIS}
+The literal keyword @samp{SYSMIS} matches system missing
+values.
+It is valid for both numeric variables only.
+@item @samp{ELSE}
+The @samp{ELSE} keyword may be used to match any values which are
+not matched by any other @var{src_value} appearing in the command.
+If this keyword appears, it should be used in the last mapping of the 
+command.
+@end table
+
+After the source variables comes an @samp{=} and then the @var{dest_value}.
+The @var{dest_value} may take any of the following forms:
+@table @asis
+@item @var{number}
+A literal numeric value to which the source values should be changed.
+This implies the destination variable must be numeric.
+@item @var{string}
+A literal string value (enclosed in quotation marks) to which the source
+values should be changed.
+This implies the destination variable must be a string variable.
+@item @samp{SYSMIS}
+The keyword @samp{SYSMIS} changes the value to the system missing value.
+This implies the destination variable must be numeric.
+@item @samp{COPY}
+The special keyword @samp{COPY} means that the source value should not be
+modified, but
+copied directly to the destination value.
+This is meaningful only if @samp{INTO @var{dest_vars}} is specified.
+@end table
+
+Mappings are considered from left to right.
+Therefore, if a value is matched by a @var{src_value} from more than 
+one mapping, the first (leftmost) mapping which matches will be considered.
+Any subsequent matches will be ignored.
+
+The clause @samp{INTO @var{dest_vars}} is optional.
+The behaviour of the command is slightly different depending on whether it
+appears or not.
+
+If @samp{INTO @var{dest_vars}} does not appear, then values will be recoded
+``in place''.
+This means that the recoded values are written back to the
+source variables from whence the original values came.
+In this case, the @var{dest_value} for every mapping must imply a value which
+has the same type as the @var{src_value}.
+For example, if the source value is a string value, it is not permissible for
+@var{dest_value} to be @samp{SYSMIS} or another forms which implies a numeric
+result.
+It is also not permissible for @var{dest_value} to be  longer than the width
+of the source variable.
+
+The following example two numeric variables @var{x} and @var{y} are recoded
+in place.
+Zero is recoded to 99, the values 1 to 10 inclusive are unchanged,
+values 1000 and higher are recoded to the system-missing value and all other
+values are changed to 999:
+@example
+recode @var{x} @var{y} 
+        (0 = 99)
+        (1 THRU 10 = COPY)
+        (1000 THRU HIGHEST = SYSMIS)
+        (ELSE = 999).
+@end example
+
+If @samp{INTO @var{dest_vars}} is given, then recoded values are written
+into the variables specified in @var{dest_vars}, which must therefore
+ contain a list of valid variable names.
+The number of variables in @var{dest_vars} must be the same as the number
+of variables in @var{src_vars}
+and the respective order of the variables in @var{dest_vars} corresponds to 
+the order of @var{src_vars}.
+That is to say, recoded values whose 
+original value came from the @var{n}th variable in @var{src_vars} will be
+placed into the @var{n}th variable in @var{dest_vars}.
+The source variables will be unchanged.
+If any mapping implies a string as its destination value, then the respective
+destination variable must already exist, or 
+have been declared using @cmd{STRING} or another transformation.
+Numeric variables however will be automatically created if they don't already
+exist.
+The following example deals with two source variables, @var{a} and @var{b}
+which contain string values.  Hence there are two destination variables
+@var{v1} and @var{v2}.
+Any cases where @var{a} or @var{b} contain the values @samp{apple}, 
+@samp{pear} or @samp{pomegranate} will result in @var{v1} or @var{v2} being
+filled with the string @samp{fruit} whilst cases with 
+@samp{tomato}, @samp{lettuce} or @samp{carrot} will result in @samp{vegetable}.
+Any other values will produce the result @samp{unknown}:
+@example
+string @var{v1} (a20).
+string @var{v2} (a20).
+
+recode @var{a} @var{b} 
+        ("apple" "pear" "pomegranate" = "fruit")
+        ("tomato" "lettuce" "carrot" = "vegetable")
+        (ELSE = "unknown")
+        into @var{v1} @var{v2}.
+@end example
+
+There is one very special mapping, not mentioned above.
+If the source variable is a string variable
+then a mapping may be specified as @samp{(CONVERT)}.
+This mapping, if it appears must be the last mapping given and
+the @samp{INTO @var{dest_vars}} clause must also be given and 
+must not refer to a string variable. 
+@samp{CONVERT} causes a number specified as a string to
+be converted to a numeric value. 
+For example it will convert the string @samp{"3"} into the numeric
+value 3 (note that it will not convert @samp{three} into 3).
+If the string cannot be parsed as a number, then the system-missing value
+is assigned instead.
+In the following example, cases where the value of @var{x} (a string variable)
+is the empty string, are recoded to 999 and all others are converted to the
+numeric equivalent of the input value.  The results are placed into the 
+numeric variable @var{y}:
+@example
+recode @var{x} 
+       ("" = 999)
+        (convert)
+        into @var{y}.
+@end example
+
+It is possible to specify multiple recodings on a single command.
+Introduce additional recodings with a slash (@samp{/}) to
+separate them from the previous recodings:
+@example
+recode 
+        @var{a}  (2 = 22) (else = 99) 
+        /@var{b} (1 = 3) into @var{z}
+        .
+@end example
+@noindent Here we have two recodings. The first affects the source variable
+@var{a} and recodes in-place the value 2 into 22 and all other values to 99.
+The second recoding copies the values of @var{b} into the variable @var{z}, 
+changing any instances of 1 into 3.
+
+@node SORT CASES
+@section SORT CASES
+@vindex SORT CASES
+
+@display
+SORT CASES BY @var{var_list}[(@{D|A@}] [ @var{var_list}[(@{D|A@}] ] ...
+@end display
+
+@cmd{SORT CASES} sorts the active dataset by the values of one or more
+variables.
+
+Specify @subcmd{BY} and a list of variables to sort by.  By default, variables
+are sorted in ascending order.  To override sort order, specify @subcmd{(D)} or
+@subcmd{(DOWN)} after a list of variables to get descending order, or @subcmd{(A)} or @subcmd{(UP)}
+for ascending order.  These apply to all the listed variables
+up until the preceding @subcmd{(A)}, @subcmd{(D)}, @subcmd{(UP)} or @subcmd{(DOWN)}.
+
+The sort algorithms used by @cmd{SORT CASES} are stable.  That is,
+records that have equal values of the sort variables will have the
+same relative order before and after sorting.  As a special case,
+re-sorting an already sorted file will not affect the ordering of
+cases.
+
+@cmd{SORT CASES} is a procedure.  It causes the data to be read.
+
+@cmd{SORT CASES} attempts to sort the entire active dataset in main memory.
+If workspace is exhausted, it falls back to a merge sort algorithm that
+involves creates numerous temporary files.
+
+@cmd{SORT CASES} may not be specified following @cmd{TEMPORARY}.  

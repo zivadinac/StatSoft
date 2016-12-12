@@ -1,0 +1,5 @@
+/config.libpath
+/config.rpath
+/gitlog-to-changelog
+/install-reloc
+/reloc-ldflags

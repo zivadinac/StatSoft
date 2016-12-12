@@ -1,0 +1,289 @@
+AT_BANNER([AGGREGATE procedure])
+
+dnl CHECK_AGGREGATE(OUTFILE, SORT, MISSING)
+dnl
+dnl Checks the AGGREGATE procedure with the specified combination of:
+dnl
+dnl - OUTFILE: One of "dataset", "active", or "external" according to
+dnl   where AGGREGATE's output should be directed.
+dnl 
+dnl - SORT: Either "presorted" or "unsorted" according to whether
+dnl   AGGREGATE should received presorted input.
+dnl
+dnl - MISSING: Either "itemwise" or "columnwise" according to the basis
+dnl   on which missing values should be eliminated.
+dnl
+m4_define([CHECK_AGGREGATE], [
+  AT_SETUP([AGGREGATE $2 data to $1 file, $3 missing])
+  AT_DATA([aggregate.data],
+  [2 42
+1001
+4 41
+3112
+1112
+2661
+1221
+2771
+1331
+1441
+2881
+1551
+])
+  AT_DATA([aggregate.sps],
+    [DATA LIST NOTABLE FILE='aggregate.data' /G N 1-2 S 3(a) W 4.
+WEIGHT BY w.
+MISSING VALUES n(4) s('4').
+m4_if([$1], [dataset], [DATASET DECLARE aggregate.])
+m4_if([$2], [presorted], [SORT CASES BY g.])
+AGGREGATE dnl
+m4_if([$1], [active], [OUTFILE=*],
+      [$1], [external], [OUTFILE='aggregate.sys'],
+      [outfile=aggregate]) dnl
+m4_if([$2], [presorted], [/PRESORTED]) dnl
+m4_if([$3], [columnwise], [/MISSING=COLUMNWISE])
+	/DOCUMENT
+	/BREAK=g
+	/N = n
+	/NI = n./
+	NU = nu
+	/NUI = nu./
+	NFGT2 = fgt(n, 2)
+	/NFGT2I = fgt.(n, 2)
+	/SFGT2 = fgt(s, '2')
+	/SFGT2I = fgt.(s, '2')
+	/NFIN23 = fin(n, 2, 3)
+	/NFIN23I = fin.(n, 2, 3)
+	/SFIN23 = fin(s, '2', '3')
+	/SFIN23I = fin.(s, '2', '3')
+	/NFLT2 = flt(n, 2)
+	/NFLT2I = flt.(n, 2)
+	/SFLT2 = flt(s, '2')
+	/SFLT2I = flt.(s, '2')
+	/NFIRST = first(n)
+	/NFIRSTI = first.(n)
+	/SFIRST = first(s)
+	/SFIRSTI = first.(s)
+	/NFOUT23 = fout(n, 3, 2)
+	/NFOUT23I = fout.(n, 3, 2)
+	/SFOUT23 = fout(s, '3', '2')
+	/SFOUT23I = fout.(s, '3', '2')
+	/NLAST = last(n)
+	/NLASTI = last.(n)
+	/SLAST = last(s)
+	/SLASTI = last.(s)
+	/NMAX = max(n)
+	/NMAXI = max.(n)
+	/SMAX = max(s)
+	/SMAXI = max.(s)
+	/NMEAN = mean(n)
+	/NMEANI = mean.(n)
+	/NMIN = min(n)
+	/NMINI = min.(n)
+	/SMIN = min(s)
+	/SMINI = min.(s)
+	/NN = n(n)
+	/NNI = n.(n)
+	/SN = n(s)
+	/SNI = n.(s)
+	/NNMISS = nmiss(n)
+	/NNMISSI = nmiss.(n)
+	/SNMISS = nmiss(s)
+	/SNMISSI = nmiss.(s)
+	/NNU = nu(n)
+	/NNUI = nu.(n)
+	/SNU = nu(s)
+	/SNUI = nu.(s)
+	/NNUMISS = numiss(n)
+	/NNUMISSI = numiss.(n)
+	/SNUMISS = numiss(s)
+	/SNUMISSI = numiss.(s)
+	/NPGT2 = pgt(n, 2)
+	/NPGT2I = pgt.(n, 2)
+	/SPGT2 = pgt(s, '2')
+	/SPGT2I = pgt.(s, '2')
+	/NPIN23 = pin(n, 2, 3)
+	/NPIN23I = pin.(n, 2, 3)
+	/SPIN23 = pin(s, '2', '3')
+	/SPIN23I = pin.(s, '2', '3')
+	/NPLT2 = plt(n, 2)
+	/NPLT2I = plt.(n, 2)
+	/SPLT2 = plt(s, '2')
+	/SPLT2I = plt.(s, '2')
+	/NPOUT23 = pout(n, 2, 3)
+	/NPOUT23I = pout.(n, 2, 3)
+	/SPOUT23 = pout(s, '2', '3')
+	/SPOUT23I = pout.(s, '2', '3')
+	/NMEDIAN = median(n)
+	/NMEDIANI = median.(n)
+	/NSD = sd(n)
+	/NSDI = sd.(n)
+	/NSUM = sum(n)
+	/NSUMI = sum.(n).
+m4_if([$1], [external], [GET FILE='aggregate.sys'.],
+      [$1], [dataset], [DATASET ACTIVATE aggregate.])
+LIST.
+])
+  AT_CHECK([pspp -O format=csv aggregate.sps], [0], [stdout])
+  AT_CHECK([[sed 's/^[^:]*:[0-9]*: //' < stdout]], [0],
+    [m4_if([$3], [itemwise],
+      [warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+Table: Data List
+G,N,NI,NU,NUI,NFGT2,NFGT2I,SFGT2,SFGT2I,NFIN23,NFIN23I,SFIN23,SFIN23I,NFLT2,NFLT2I,SFLT2,SFLT2I,NFIRST,NFIRSTI,SFIRST,SFIRSTI,NFOUT23,NFOUT23I,SFOUT23,SFOUT23I,NLAST,NLASTI,SLAST,SLASTI,NMAX,NMAXI,SMAX,SMAXI,NMEAN,NMEANI,NMIN,NMINI,SMIN,SMINI,NN,NNI,SN,SNI,NNMISS,NNMISSI,SNMISS,SNMISSI,NNU,NNUI,SNU,SNUI,NNUMISS,NNUMISSI,SNUMISS,SNUMISSI,NPGT2,NPGT2I,SPGT2,SPGT2I,NPIN23,NPIN23I,SPIN23,SPIN23I,NPLT2,NPLT2I,SPLT2,SPLT2I,NPOUT23,NPOUT23I,SPOUT23,SPOUT23I,NMEDIAN,NMEDIANI,NSD,NSDI,NSUM,NSUMI
+1,7.00,7.00,6,6,.333,.429,.333,.429,.333,.286,.333,.286,.500,.429,.500,.429,0,0,0,0,.667,.714,.667,.714,5,5,5,5,5,5,5,5,2.00,2.29,0,0,0,0,6.00,7.00,6.00,7.00,1.00,.00,1.00,.00,5,6,5,6,1,0,1,0,33.3,42.9,33.3,42.9,33.3,28.6,33.3,28.6,50.0,42.9,50.0,42.9,66.7,71.4,66.7,71.4,1.50,2.00,1.79,1.80,12.00,16.00
+2,5.00,5.00,4,4,1.000,1.000,1.000,1.000,.000,.000,.000,.000,.000,.000,.000,.000,6,6,6,4,1.000,1.000,1.000,1.000,8,8,8,8,8,8,8,8,7.00,7.00,6,6,6,4,3.00,3.00,3.00,5.00,2.00,2.00,2.00,.00,3,3,3,4,1,1,1,0,100.0,100.0,100.0,100.0,.0,.0,.0,.0,.0,.0,.0,.0,100.0,100.0,100.0,100.0,7.00,7.00,1.00,1.00,21.00,21.00
+3,2.00,2.00,1,1,.000,.000,.000,.000,.000,.000,.000,.000,1.000,1.000,1.000,1.000,1,1,1,1,1.000,1.000,1.000,1.000,1,1,1,1,1,1,1,1,1.00,1.00,1,1,1,1,2.00,2.00,2.00,2.00,.00,.00,.00,.00,1,1,1,1,0,0,0,0,.0,.0,.0,.0,.0,.0,.0,.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,1.00,1.00,.00,.00,2.00,2.00
+4,1.00,1.00,1,1,.   ,.   ,.   ,1.000,.   ,.   ,.   ,.000,.   ,.   ,.   ,.000,.,.,,4,.   ,.   ,.   ,1.000,.,.,,4,.,.,,4,.  ,.  ,.,.,,4,.00,.00,.00,1.00,1.00,1.00,1.00,.00,0,0,0,1,1,1,1,0,. ,. ,. ,100.0,. ,. ,. ,.0,. ,. ,. ,.0,. ,. ,. ,100.0,NaN,NaN,.  ,.  ,.  ,.  @&t@
+],
+      [warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+warning: AGGREGATE: The value arguments passed to the FOUT function are out-of-order.  They will be treated as if they had been specified in the correct order.
+
+Table: Data List
+G,N,NI,NU,NUI,NFGT2,NFGT2I,SFGT2,SFGT2I,NFIN23,NFIN23I,SFIN23,SFIN23I,NFLT2,NFLT2I,SFLT2,SFLT2I,NFIRST,NFIRSTI,SFIRST,SFIRSTI,NFOUT23,NFOUT23I,SFOUT23,SFOUT23I,NLAST,NLASTI,SLAST,SLASTI,NMAX,NMAXI,SMAX,SMAXI,NMEAN,NMEANI,NMIN,NMINI,SMIN,SMINI,NN,NNI,SN,SNI,NNMISS,NNMISSI,SNMISS,SNMISSI,NNU,NNUI,SNU,SNUI,NNUMISS,NNUMISSI,SNUMISS,SNUMISSI,NPGT2,NPGT2I,SPGT2,SPGT2I,NPIN23,NPIN23I,SPIN23,SPIN23I,NPLT2,NPLT2I,SPLT2,SPLT2I,NPOUT23,NPOUT23I,SPOUT23,SPOUT23I,NMEDIAN,NMEDIANI,NSD,NSDI,NSUM,NSUMI
+1,7.00,7.00,6,6,.   ,.429,.   ,.429,.   ,.286,.   ,.286,.   ,.429,.   ,.429,.,0,,0,.   ,.714,.   ,.714,.,5,,5,.,5,,5,.  ,2.29,.,0,,0,6.00,7.00,6.00,7.00,1.00,.00,1.00,.00,5,6,5,6,1,0,1,0,. ,42.9,. ,42.9,. ,28.6,. ,28.6,. ,42.9,. ,42.9,. ,71.4,. ,71.4,.  ,2.00,.  ,1.80,.  ,16.00
+2,5.00,5.00,4,4,.   ,.   ,.   ,1.000,.   ,.   ,.   ,.000,.   ,.   ,.   ,.000,.,.,,4,.   ,.   ,.   ,1.000,.,.,,8,.,.,,8,.  ,.  ,.,.,,4,3.00,3.00,3.00,5.00,2.00,2.00,2.00,.00,3,3,3,4,1,1,1,0,. ,. ,. ,100.0,. ,. ,. ,.0,. ,. ,. ,.0,. ,. ,. ,100.0,.  ,.  ,.  ,.  ,.  ,.  @&t@
+3,2.00,2.00,1,1,.000,.000,.000,.000,.000,.000,.000,.000,1.000,1.000,1.000,1.000,1,1,1,1,1.000,1.000,1.000,1.000,1,1,1,1,1,1,1,1,1.00,1.00,1,1,1,1,2.00,2.00,2.00,2.00,.00,.00,.00,.00,1,1,1,1,0,0,0,0,.0,.0,.0,.0,.0,.0,.0,.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,1.00,1.00,.00,.00,2.00,2.00
+4,1.00,1.00,1,1,.   ,.   ,.   ,1.000,.   ,.   ,.   ,.000,.   ,.   ,.   ,.000,.,.,,4,.   ,.   ,.   ,1.000,.,.,,4,.,.,,4,.  ,.  ,.,.,,4,.00,.00,.00,1.00,1.00,1.00,1.00,.00,0,0,0,1,1,1,1,0,. ,. ,. ,100.0,. ,. ,. ,.0,. ,. ,. ,.0,. ,. ,. ,100.0,.  ,.  ,.  ,.  ,.  ,.  @&t@
+])])
+  AT_CLEANUP])
+
+CHECK_AGGREGATE([dataset], [presorted], [itemwise])
+CHECK_AGGREGATE([dataset], [presorted], [columnwise])
+CHECK_AGGREGATE([dataset], [unsorted], [itemwise])
+CHECK_AGGREGATE([dataset], [unsorted], [columnwise])
+CHECK_AGGREGATE([active], [presorted], [itemwise])
+CHECK_AGGREGATE([active], [presorted], [columnwise])
+CHECK_AGGREGATE([active], [unsorted], [itemwise])
+CHECK_AGGREGATE([active], [unsorted], [columnwise])
+CHECK_AGGREGATE([external], [presorted], [itemwise])
+CHECK_AGGREGATE([external], [presorted], [columnwise])
+CHECK_AGGREGATE([external], [unsorted], [itemwise])
+CHECK_AGGREGATE([external], [unsorted], [columnwise])
+
+AT_SETUP([AGGREGATE crash with MAX function])
+AT_DATA([aggregate.sps], 
+  [DATA LIST LIST /X (F8.2) Y (a25).
+
+BEGIN DATA.
+87.50 foo
+87.34 bar
+1 bar
+END DATA.
+
+AGGREGATE OUTFILE=* /BREAK=y /X=MAX(x).
+LIST /x y.
+])
+AT_CHECK([pspp -O format=csv aggregate.sps], [0],
+  [Table: Reading free-form data from INLINE.
+Variable,Format
+X,F8.2
+Y,A25
+
+Table: Data List
+X,Y
+87.34,bar                      @&t@
+87.50,foo                      @&t@
+])
+AT_CLEANUP
+
+AT_SETUP([AGGREGATE crash with invalid syntax])
+AT_DATA([aggregate.sps],
+  [INPUT PROGRAM.
+LOOP c=1 TO 20.
+  COMPUTE x=UNIFORM(10)
+  END CASE.
+END LOOP.
+END FILE.
+END INPUT PROGRAM.
+
+AGGREGATE /BREAK=x .
+])
+AT_CHECK([pspp -O format=csv aggregate.sps], [1], [ignore], [])
+AT_CLEANUP
+
+
+AT_SETUP([AGGREGATE mode=addvariables])
+AT_DATA([addvariables.sps],
+  [data list notable list /x * cn * y *.
+begin data.
+1 1 2
+3 2 3
+3 3 4
+5 4 6
+7 5 8
+7 6 9
+7 7 20
+9 8 11
+end data.
+
+aggregate outfile=* mode=addvariables
+	/break = x
+	/sum = sum(y)
+	/mean = mean (y)
+	/median = median (y).
+
+list.
+])
+
+AT_CHECK([pspp -O format=csv addvariables.sps], [0],
+  [Table: Data List
+x,cn,y,sum,mean,median
+1.00,1.00,2.00,2.00,2.00,2.00
+3.00,2.00,3.00,7.00,3.50,3.50
+3.00,3.00,4.00,7.00,3.50,3.50
+5.00,4.00,6.00,6.00,6.00,6.00
+7.00,5.00,8.00,37.00,12.33,9.00
+7.00,6.00,9.00,37.00,12.33,9.00
+7.00,7.00,20.00,37.00,12.33,9.00
+9.00,8.00,11.00,11.00,11.00,11.00
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([AGGREGATE buggy duplicate variables])
+dnl Test for a bug which crashed when duplicated
+dnl variables were attempted.
+AT_DATA([dup-variables.sps],
+  [DATA LIST NOTABLE LIST /x * .
+begin data
+1
+1
+1
+1
+2
+2
+2
+3
+3
+3
+3
+3
+3
+end data.
+
+AGGREGATE OUTFILE=* MODE=ADDVARIABLES
+	/BREAK= x
+	/N_BREAK = N.
+
+AGGREGATE OUTFILE=* MODE=ADDVARIABLES
+	/BREAK= x
+	/N_BREAK = N.
+])
+
+AT_CHECK([pspp -O format=csv dup-variables.sps], [1],
+["dup-variables.sps:24: error: AGGREGATE: Variable name N_BREAK is not unique within the aggregate file dictionary, which contains the aggregate variables and the break variables."
+])
+
+AT_CLEANUP

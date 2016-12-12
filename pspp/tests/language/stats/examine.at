@@ -1,0 +1,1117 @@
+AT_BANNER([EXAMINE])
+
+AT_SETUP([EXAMINE])
+AT_DATA([examine.sps], [
+DATA LIST LIST /QUALITY * W * BRAND * .
+BEGIN DATA
+3  1  1
+2  2  1
+1  2  1
+1  1  1
+4  1  1
+4  1  1
+5  1  2
+2  1  2
+4  4  2
+2  1  2
+3  1  2
+7  1  3
+4  2  3
+5  3  3
+3  1  3
+6  1  3
+END DATA
+
+WEIGHT BY w.
+
+VARIABLE LABELS brand   'Manufacturer'.
+VARIABLE LABELS quality 'Breaking Strain'.
+
+VALUE LABELS /brand 1 'Aspeger' 2 'Bloggs' 3 'Charlies'.
+
+LIST /FORMAT=NUMBERED.
+
+EXAMINE
+	quality BY brand
+	/STATISTICS descriptives extreme(3)
+	.
+])
+
+
+dnl In the following data, only the extreme values have been checked.
+dnl The descriptives have been blindly pasted.
+AT_CHECK([pspp -O format=csv examine.sps], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+QUALITY,F8.0
+W,F8.0
+BRAND,F8.0
+
+Table: Data List
+Case Number,QUALITY,W,BRAND
+1,3.00,1.00,1.00
+2,2.00,2.00,1.00
+3,1.00,2.00,1.00
+4,1.00,1.00,1.00
+5,4.00,1.00,1.00
+6,4.00,1.00,1.00
+7,5.00,1.00,2.00
+8,2.00,1.00,2.00
+9,4.00,4.00,2.00
+10,2.00,1.00,2.00
+11,3.00,1.00,2.00
+12,7.00,1.00,3.00
+13,4.00,2.00,3.00
+14,5.00,3.00,3.00
+15,3.00,1.00,3.00
+16,6.00,1.00,3.00
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+Breaking Strain,24.00,100%,.00,0%,24.00,100%
+
+Table: Extreme Values
+,,,Case Number,Value
+Breaking Strain,Highest,1,12,7.00
+,,2,16,6.00
+,,3,14,5.00
+,Lowest,1,3,1.00
+,,2,4,1.00
+,,3,2,2.00
+
+Table: Descriptives
+,,,Statistic,Std. Error
+Breaking Strain,Mean,,3.54,.32
+,95% Confidence Interval for Mean,Lower Bound,2.87,
+,,Upper Bound,4.21,
+,5% Trimmed Mean,,3.50,
+,Median,,4.00,
+,Variance,,2.52,
+,Std. Deviation,,1.59,
+,Minimum,,1.00,
+,Maximum,,7.00,
+,Range,,6.00,
+,Interquartile Range,,2.75,
+,Skewness,,.06,.47
+,Kurtosis,,-.36,.92
+
+Table: Case Processing Summary
+,,Cases,,,,,
+,,Valid,,Missing,,Total,
+,Manufacturer,N,Percent,N,Percent,N,Percent
+Breaking Strain,Aspeger,8.00,100%,.00,0%,8.00,100%
+,Bloggs,8.00,100%,.00,0%,8.00,100%
+,Charlies,8.00,100%,.00,0%,8.00,100%
+
+Table: Extreme Values
+,Manufacturer,,,Case Number,Value
+Breaking Strain,Aspeger,Highest,1,6,4.00
+,,,2,5,4.00
+,,,3,1,3.00
+,,Lowest,1,3,1.00
+,,,2,4,1.00
+,,,3,2,2.00
+,Bloggs,Highest,1,7,5.00
+,,,2,9,4.00
+,,,3,11,3.00
+,,Lowest,1,8,2.00
+,,,2,10,2.00
+,,,3,11,3.00
+,Charlies,Highest,1,12,7.00
+,,,2,16,6.00
+,,,3,14,5.00
+,,Lowest,1,15,3.00
+,,,2,13,4.00
+,,,3,14,5.00
+
+Table: Descriptives
+,Manufacturer,,,Statistic,Std. Error
+Breaking Strain,Aspeger,Mean,,2.25,.45
+,,95% Confidence Interval for Mean,Lower Bound,1.18,
+,,,Upper Bound,3.32,
+,,5% Trimmed Mean,,2.22,
+,,Median,,2.00,
+,,Variance,,1.64,
+,,Std. Deviation,,1.28,
+,,Minimum,,1.00,
+,,Maximum,,4.00,
+,,Range,,3.00,
+,,Interquartile Range,,2.75,
+,,Skewness,,.47,.75
+,,Kurtosis,,-1.55,1.48
+,Bloggs,Mean,,3.50,.38
+,,95% Confidence Interval for Mean,Lower Bound,2.61,
+,,,Upper Bound,4.39,
+,,5% Trimmed Mean,,3.50,
+,,Median,,4.00,
+,,Variance,,1.14,
+,,Std. Deviation,,1.07,
+,,Minimum,,2.00,
+,,Maximum,,5.00,
+,,Range,,3.00,
+,,Interquartile Range,,1.75,
+,,Skewness,,-.47,.75
+,,Kurtosis,,-.83,1.48
+,Charlies,Mean,,4.88,.44
+,,95% Confidence Interval for Mean,Lower Bound,3.83,
+,,,Upper Bound,5.92,
+,,5% Trimmed Mean,,4.86,
+,,Median,,5.00,
+,,Variance,,1.55,
+,,Std. Deviation,,1.25,
+,,Minimum,,3.00,
+,,Maximum,,7.00,
+,,Range,,4.00,
+,,Interquartile Range,,1.75,
+,,Skewness,,.30,.75
+,,Kurtosis,,.15,1.48
+])
+
+AT_CLEANUP
+
+AT_SETUP([EXAMINE -- extremes])
+AT_DATA([examine.sps], [dnl
+data list free /V1 W
+begin data.
+1  1
+2  1
+3  2
+3  1
+4  1
+5  1
+6  1
+7  1
+8  1
+9  1
+10 1
+11 1
+12 1
+13 1
+14 1
+15 1
+16 1
+17 1
+18 2
+19 1
+20 1
+end data.
+
+weight by w.
+
+examine v1 
+ /statistics=extreme(6)
+ .
+])
+
+AT_CHECK([pspp -O format=csv examine.sps], [0],[dnl
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+V1,23.00,100%,.00,0%,23.00,100%
+
+Table: Extreme Values
+,,,Case Number,Value
+V1,Highest,1,21,20.00
+,,2,20,19.00
+,,3,19,18.00
+,,4,18,17.00
+,,5,17,16.00
+,,6,16,15.00
+,Lowest,1,1,1.00
+,,2,2,2.00
+,,3,3,3.00
+,,4,4,3.00
+,,5,5,4.00
+,,6,6,5.00
+])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([EXAMINE -- extremes with fractional weights])
+AT_DATA([extreme.sps], [dnl
+set format=F20.3.
+data list notable list /w * x *.
+begin data.
+ 0.88  300000
+ 0.86  320000
+ 0.98  480000
+ 0.93  960000
+ 1.35  960000
+ 1.31  960000
+ 0.88  960000
+ 0.88  1080000
+ 0.88  1080000
+ 0.95  1200000
+ 1.47  1200000
+ 0.93  1200000
+ 0.98  1320000
+ 1.31  1380000
+ 0.93  1440000
+ 0.88  1560000
+ 1.56  1560000
+ 1.47  1560000
+end data.
+
+weight by w.
+
+
+EXAMINE
+        x
+        /STATISTICS = DESCRIPTIVES EXTREME (5)
+        .
+])
+
+AT_CHECK([pspp -O format=csv  extreme.sps], [0], [dnl
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+x,19.430,100%,.000,0%,19.430,100%
+
+Table: Extreme Values
+,,,Case Number,Value
+x,Highest,1,18,1560000.000
+,,2,17,1560000.000
+,,3,16,1560000.000
+,,4,15,1440000.000
+,,5,14,1380000.000
+,Lowest,1,1,300000.000
+,,2,2,320000.000
+,,3,3,480000.000
+,,4,4,960000.000
+,,5,5,960000.000
+
+Table: Descriptives
+,,,Statistic,Std. Error
+x,Mean,,1120010.293,86222.178
+,95% Confidence Interval for Mean,Lower Bound,939166.693,
+,,Upper Bound,1300853.894,
+,5% Trimmed Mean,,1141017.899,
+,Median,,1200000.000,
+,Variance,,144447748124.869,
+,Std. Deviation,,380062.821,
+,Minimum,,300000.000,
+,Maximum,,1560000.000,
+,Range,,1260000.000,
+,Interquartile Range,,467258.065,
+,Skewness,,-.887,.519
+,Kurtosis,,.340,1.005
+])
+
+AT_CLEANUP
+
+dnl Test the PERCENTILES subcommand of the EXAMINE command.
+dnl In particular test that it behaves properly when there are only 
+dnl a few cases.
+AT_SETUP([EXAMINE -- percentiles])
+AT_DATA([examine.sps], [dnl
+DATA LIST LIST /X *.
+BEGIN DATA.
+2.00 
+8.00 
+5.00 
+END DATA.
+
+EXAMINE /x
+	/PERCENTILES=HAVERAGE.
+
+EXAMINE /x
+	/PERCENTILES=WAVERAGE.
+
+EXAMINE /x
+	/PERCENTILES=ROUND.
+
+EXAMINE /x
+	/PERCENTILES=EMPIRICAL.
+
+EXAMINE /x
+	/PERCENTILES=AEMPIRICAL.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+X,F8.0
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,3,100%,0,0%,3,100%
+
+Table: Percentiles
+,,Percentiles,,,,,,
+,,5,10,25,50,75,90,95
+X,HAverage,.40,.80,2.00,5.00,8.00,8.00,8.00
+,Tukey's Hinges,,,3.50,5.00,6.50,,
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,3,100%,0,0%,3,100%
+
+Table: Percentiles
+,,Percentiles,,,,,,
+,,5,10,25,50,75,90,95
+X,Weighted Average,.30,.60,1.50,3.50,5.75,7.10,7.55
+,Tukey's Hinges,,,3.50,5.00,6.50,,
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,3,100%,0,0%,3,100%
+
+Table: Percentiles
+,,Percentiles,,,,,,
+,,5,10,25,50,75,90,95
+X,Rounded,.00,.00,2.00,5.00,5.00,8.00,8.00
+,Tukey's Hinges,,,3.50,5.00,6.50,,
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,3,100%,0,0%,3,100%
+
+Table: Percentiles
+,,Percentiles,,,,,,
+,,5,10,25,50,75,90,95
+X,Empirical,2.00,2.00,2.00,5.00,8.00,8.00,8.00
+,Tukey's Hinges,,,3.50,5.00,6.50,,
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,3,100%,0,0%,3,100%
+
+Table: Percentiles
+,,Percentiles,,,,,,
+,,5,10,25,50,75,90,95
+X,Empirical with averaging,2.00,2.00,2.00,5.00,8.00,8.00,8.00
+,Tukey's Hinges,,,3.50,5.00,6.50,,
+])
+AT_CLEANUP
+
+AT_SETUP([EXAMINE -- missing values])
+AT_DATA([examine.sps], [dnl
+DATA LIST LIST /x * y *.
+BEGIN DATA.
+1   1 
+2   1
+3   1
+4   1
+5   2
+6   2
+.   2
+END DATA
+
+EXAMINE /x by y
+        /MISSING = PAIRWISE
+        .
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+x,F8.0
+y,F8.0
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+x,6,85.7143%,1,14.2857%,7,100%
+
+Table: Case Processing Summary
+,,Cases,,,,,
+,,Valid,,Missing,,Total,
+,y,N,Percent,N,Percent,N,Percent
+x,1.00,4,100%,0,0%,4,100%
+,2.00,2,66.6667%,1,33.3333%,3,100%
+])
+AT_CLEANUP
+
+
+AT_SETUP([EXAMINE -- user missing values])
+AT_DATA([examine-m.sps], [dnl
+DATA LIST notable LIST /x * y *.
+BEGIN DATA.
+1                   2
+9999999999          2
+9999999999          99
+END DATA.
+
+MISSING VALUES x (9999999999).
+MISSING VALUES y (99).
+
+EXAMINE
+	/VARIABLES= x y
+	/MISSING=PAIRWISE.
+])
+AT_CHECK([pspp -O format=csv examine-m.sps], [0], [dnl
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+x,1,33.3333%,2,66.6667%,3,100%
+y,2,66.6667%,1,33.3333%,3,100%
+])
+AT_CLEANUP
+
+AT_SETUP([EXAMINE -- missing values and percentiles])
+AT_DATA([examine.sps], [dnl
+DATA LIST LIST /X *.
+BEGIN DATA.
+99
+99
+5.00
+END DATA.
+
+MISSING VALUE X (99).
+
+EXAMINE /x
+        /PERCENTILES=HAVERAGE.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Tests the trimmed mean calculation in the case
+dnl where the data is weighted towards the centre.
+AT_SETUP([EXAMINE -- trimmed mean])
+AT_DATA([examine.sps], [dnl
+DATA LIST LIST /X * C *.
+BEGIN DATA.
+1 1
+2 49
+3 2
+END DATA.
+
+WEIGHT BY c.
+
+EXAMINE
+	x
+	/STATISTICS=DESCRIPTIVES
+	.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+X,F8.0
+C,F8.0
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,52.00,100%,.00,0%,52.00,100%
+
+Table: Descriptives
+,,,Statistic,Std. Error
+X,Mean,,2.02,.03
+,95% Confidence Interval for Mean,Lower Bound,1.95,
+,,Upper Bound,2.09,
+,5% Trimmed Mean,,2.00,
+,Median,,2.00,
+,Variance,,.06,
+,Std. Deviation,,.24,
+,Minimum,,1.00,
+,Maximum,,3.00,
+,Range,,2.00,
+,Interquartile Range,,.00,
+,Skewness,,1.19,.33
+,Kurtosis,,15.73,.65
+])
+AT_CLEANUP
+
+AT_SETUP([EXAMINE -- crash bug])
+AT_DATA([examine.sps], [dnl
+data list list /a * x * y *.
+begin data.
+3 1 3
+5 1 4
+7 2 3
+end data.
+
+examine a by x by y
+	/statistics=DESCRIPTIVES
+	. 
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Test that two consecutive EXAMINE commands don't crash PSPP.
+AT_SETUP([EXAMINE -- consecutive runs don't crash])
+AT_DATA([examine.sps], [dnl
+data list list /y * z *.
+begin data.
+6 4
+5 3
+7 6
+end data.
+
+EXAMINE /VARIABLES= z BY y.
+
+EXAMINE /VARIABLES= z. 
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Test that /DESCRIPTIVES does not crash in presence of missing values.
+AT_SETUP([EXAMINE -- missing values don't crash])
+AT_DATA([examine.sps], [dnl
+data list list /x * y *.
+begin data.
+1 0
+2 0
+. 0
+3 1
+4 1
+end data.
+examine x by y /statistics=descriptives. 
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Test that having only a single case doesn't crash.
+AT_SETUP([EXAMINE -- single case doesn't crash])
+AT_DATA([examine.sps], [dnl
+DATA LIST LIST /quality * .
+BEGIN DATA
+3  
+END DATA
+
+
+EXAMINE
+	quality 
+	/STATISTICS descriptives 
+        /PLOT = histogram
+	.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps], [0], [ignore])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Test that all-missing data doesn't crash.
+AT_SETUP([EXAMINE -- all-missing data doesn't crash])
+AT_DATA([examine.sps], [dnl
+DATA LIST LIST /x *.
+BEGIN DATA.
+.
+.
+.
+.
+END DATA.
+
+EXAMINE /x 
+	PLOT=HISTOGRAM BOXPLOT NPPLOT SPREADLEVEL(1) ALL
+	/ID=x
+        /STATISTICS = DESCRIPTIVES EXTREME (5) ALL
+	/PERCENTILE=AEMPIRICAL
+	.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps], [0], [ignore])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Test that big input doesn't crash (bug 11307).
+AT_SETUP([EXAMINE -- big input doesn't crash])
+AT_DATA([examine.sps], [dnl
+INPUT PROGRAM.
+	LOOP #I=1 TO 50000.
+		COMPUTE X=NORMAL(10).
+		END CASE.
+	END LOOP.
+	END FILE.
+END INPUT PROGRAM.
+
+
+EXAMINE /x
+	/STATISTICS=DESCRIPTIVES.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+dnl Another test that big input doesn't crash.
+dnl The actual bug that this checks for has been lost.
+AT_SETUP([EXAMINE -- big input doesn't crash 2])
+AT_DATA([make-big-input.pl], 
+  [for ($i=0; $i<100000; $i++) { print "AB12\n" };
+   for ($i=0; $i<100000; $i++) { print "AB04\n" };
+])
+AT_CHECK([$PERL make-big-input.pl > large.txt])
+AT_DATA([examine.sps], [dnl
+DATA LIST FILE='large.txt' /S 1-2 (A) X 3 .
+
+
+AGGREGATE OUTFILE=* /BREAK=X /A=N.
+
+
+EXAMINE /A BY X.
+])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_DATA([more-big-input.pl], 
+  [for ($i=0; $i<25000; $i++) { print "AB04\nAB12\n" };
+])
+AT_CHECK([$PERL more-big-input.pl >> large.txt])
+AT_CHECK([pspp -o pspp.csv examine.sps])
+dnl Ignore output -- this is just a no-crash check.
+AT_CLEANUP
+
+
+dnl Test that the ID command works with non-numberic variables
+AT_SETUP([EXAMINE -- non-numeric ID])
+
+AT_DATA([examine-id.sps], [dnl
+data list notable list /x * y (a12).
+begin data.
+1  one
+2  two
+3  three
+4  four
+5  five
+6  six
+7  seven
+8  eight
+9  nine
+10 ten
+11 eleven
+12 twelve
+30 thirty
+300 threehundred
+end data.
+
+examine x
+	/statistics = extreme
+	/id = y
+	/plot = boxplot
+	.
+])
+
+AT_CHECK([pspp -O format=csv examine-id.sps], [0], 
+[Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+x,14,100%,0,0%,14,100%
+
+Table: Extreme Values
+,,,y,Value
+x,Highest,1,threehundred,300.00
+,,2,thirty      ,30.00
+,,3,twelve      ,12.00
+,,4,eleven      ,11.00
+,,5,ten         ,10.00
+,Lowest,1,one         ,1.00
+,,2,two         ,2.00
+,,3,three       ,3.00
+,,4,four        ,4.00
+,,5,five        ,5.00
+])
+
+AT_CLEANUP 
+
+dnl Test for a crash which happened on cleanup from a bad input syntax
+AT_SETUP([EXAMINE -- Bad Input])
+
+AT_DATA([examine-bad.sps], [dnl
+data list list /h * g *.
+begin data.
+1 1
+2 1
+3 1
+4 1
+5 2
+6 2
+7 2
+8 2
+9 2
+end data.
+
+EXAMINE 
+	/VARIABLES= h
+	BY  g
+	/STATISTICS = DESCRIPTIVES EXTREME
+        /PLOT = lkajsdas
+	.
+])
+
+AT_CHECK([pspp -o pspp.csv examine-bad.sps], [1], [ignore])
+
+AT_CLEANUP 
+
+
+dnl Check the MISSING=REPORT option
+AT_SETUP([EXAMINE -- MISSING=REPORT])
+
+
+AT_DATA([examine-report.sps], [dnl
+set format = F22.0.
+data list list /x * g *.
+begin data.
+1   1
+2   1
+3   1
+4   1
+5   1
+6   1
+7   1
+8   1
+9   1
+10   2
+20   2
+30   2
+40   2
+50   2
+60   2
+70   2
+80   2
+90   2
+101   9
+201   9
+301   9
+401   9
+501   99
+601   99
+701   99
+801   99
+901   99
+1001  .
+2002  .
+3003  .
+4004  .
+end data.
+
+MISSING VALUES g (9, 99, 999).
+
+EXAMINE
+        /VARIABLES = x
+        BY  g
+        /STATISTICS = EXTREME
+        /NOTOTAL
+        /MISSING = REPORT.
+])
+
+
+AT_CHECK([pspp -O format=csv examine-report.sps], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+x,F8.0
+g,F8.0
+
+Table: Case Processing Summary
+,,Cases,,,,,
+,,Valid,,Missing,,Total,
+,g,N,Percent,N,Percent,N,Percent
+x,. (missing),4,100%,0,0%,4,100%
+,1,9,100%,0,0%,9,100%
+,2,9,100%,0,0%,9,100%
+,9 (missing),4,100%,0,0%,4,100%
+,99 (missing),5,100%,0,0%,5,100%
+
+Table: Extreme Values
+,g,,,Case Number,Value
+x,. (missing),Highest,1,31,4004
+,,,2,30,3003
+,,,3,29,2002
+,,,4,28,1001
+,,,5,0,0
+,,Lowest,1,28,1001
+,,,2,29,2002
+,,,3,30,3003
+,,,4,31,4004
+,,,5,31,4004
+,1,Highest,1,9,9
+,,,2,8,8
+,,,3,7,7
+,,,4,6,6
+,,,5,5,5
+,,Lowest,1,1,1
+,,,2,2,2
+,,,3,3,3
+,,,4,4,4
+,,,5,5,5
+,2,Highest,1,18,90
+,,,2,17,80
+,,,3,16,70
+,,,4,15,60
+,,,5,14,50
+,,Lowest,1,10,10
+,,,2,11,20
+,,,3,12,30
+,,,4,13,40
+,,,5,14,50
+,9 (missing),Highest,1,22,401
+,,,2,21,301
+,,,3,20,201
+,,,4,19,101
+,,,5,0,0
+,,Lowest,1,19,101
+,,,2,20,201
+,,,3,21,301
+,,,4,22,401
+,,,5,22,401
+,99 (missing),Highest,1,27,901
+,,,2,26,801
+,,,3,25,701
+,,,4,24,601
+,,,5,23,501
+,,Lowest,1,23,501
+,,,2,24,601
+,,,3,25,701
+,,,4,26,801
+,,,5,27,901
+])
+
+
+AT_CLEANUP 
+
+
+dnl Run a test of the basic STATISTICS using a "real"
+dnl dataset and comparing with "real" results kindly
+dnl provided by Olaf Nöhring
+AT_SETUP([EXAMINE -- sample unweighted])
+
+AT_DATA([sample.sps], [dnl
+set format = F22.4.
+DATA LIST notable LIST /X *
+BEGIN DATA.
+461.19000000
+466.38000000
+479.46000000
+480.10000000
+483.43000000
+488.30000000
+489.00000000
+491.62000000
+505.62000000
+511.30000000
+521.53000000
+526.70000000
+528.25000000
+538.70000000
+540.22000000
+540.58000000
+546.10000000
+548.17000000
+553.99000000
+566.21000000
+575.90000000
+584.38000000
+593.40000000
+357.05000000
+359.73000000
+360.48000000
+373.98000000
+374.13000000
+381.45000000
+383.72000000
+390.00000000
+400.34000000
+415.32000000
+415.91000000
+418.30000000
+421.03000000
+422.43000000
+426.93000000
+433.25000000
+436.89000000
+445.33000000
+446.33000000
+446.55000000
+456.44000000
+689.49000000
+691.92000000
+695.00000000
+695.36000000
+698.21000000
+699.46000000
+706.61000000
+710.69000000
+715.82000000
+715.82000000
+741.39000000
+752.27000000
+756.73000000
+757.74000000
+759.57000000
+796.07000000
+813.78000000
+817.25000000
+825.48000000
+831.28000000
+849.24000000
+890.00000000
+894.78000000
+935.65000000
+935.90000000
+945.90000000
+1012.8600000
+1022.6000000
+1061.8100000
+1063.5000000
+1077.2300000
+1151.6300000
+1355.2800000
+598.88000000
+606.91000000
+621.60000000
+624.80000000
+636.13000000
+637.38000000
+640.32000000
+649.35000000
+656.51000000
+662.55000000
+664.69000000
+106.22000000
+132.24000000
+174.76000000
+204.85000000
+264.93000000
+264.99000000
+269.84000000
+325.12000000
+331.67000000
+337.26000000
+347.68000000
+354.91000000
+END DATA.
+
+EXAMINE
+	x
+	/STATISTICS=DESCRIPTIVES
+	.
+])
+
+AT_CHECK([pspp -O format=csv sample.sps], [0], [dnl
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+X,100,100%,0,0%,100,100%
+
+Table: Descriptives
+,,,Statistic,Std. Error
+X,Mean,,587.6603,23.2665
+,95% Confidence Interval for Mean,Lower Bound,541.4946,
+,,Upper Bound,633.8260,
+,5% Trimmed Mean,,579.7064,
+,Median,,547.1350,
+,Variance,,54132.8466,
+,Std. Deviation,,232.6647,
+,Minimum,,106.2200,
+,Maximum,,1355.2800,
+,Range,,1249.0600,
+,Interquartile Range,,293.1575,
+,Skewness,,.6331,.2414
+,Kurtosis,,.5300,.4783
+])
+
+AT_CLEANUP 
+
+
+
+dnl Test for a crash which happened on bad input syntax
+AT_SETUP([EXAMINE -- Empty Parentheses])
+
+AT_DATA([examine-empty-parens.sps], [dnl
+DATA LIST notable LIST /X *
+BEGIN DATA.
+2
+3
+END DATA.
+
+
+EXAMINE
+	x
+	/PLOT = SPREADLEVEL()
+	.
+])
+
+AT_CHECK([pspp -o pspp.csv examine-empty-parens.sps], [1], [ignore])
+
+AT_CLEANUP 
+
+
+
+
+dnl Test for another crash which happened on bad input syntax
+AT_SETUP([EXAMINE -- Bad variable])
+
+AT_DATA([examine-bad-variable.sps], [dnl
+data list list /h * g *.
+begin data.
+3 1
+4 1
+5 2
+end data.
+
+EXAMINE
+        /VARIABLES/ h
+        BY  g
+        .
+])
+
+AT_CHECK([pspp -o pspp.csv examine-bad-variable.sps], [1], [ignore])
+
+AT_CLEANUP 
+
+
+
+dnl Test for yet another crash. This time for extremes vs. missing weight values. 
+AT_SETUP([EXAMINE -- Extremes vs. Missing Weights])
+
+AT_DATA([examine-missing-weights.sps], [dnl
+data list notable list /h * g *.
+begin data.
+3 1
+4 .
+5 1
+2 1
+end data.
+
+WEIGHT BY g.
+
+EXAMINE h
+	/STATISTICS extreme(3)
+	.
+])
+
+AT_CHECK([pspp -O format=csv  examine-missing-weights.sps], [0], [dnl
+"examine-missing-weights.sps:13: warning: EXAMINE: At least one case in the data file had a weight value that was user-missing, system-missing, zero, or negative.  These case(s) were ignored."
+
+Table: Case Processing Summary
+,Cases,,,,,
+,Valid,,Missing,,Total,
+,N,Percent,N,Percent,N,Percent
+h,3.00,100%,.00,0%,3.00,100%
+
+Table: Extreme Values
+,,,Case Number,Value
+h,Highest,1,3,5.00
+,,2,2,4.00
+,,3,1,3.00
+,Lowest,1,4,2.00
+,,2,1,3.00
+,,3,2,4.00
+])
+
+AT_CLEANUP 
+
+
+

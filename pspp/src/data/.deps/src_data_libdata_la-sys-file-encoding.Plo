@@ -1,0 +1,12 @@
+src/data/src_data_libdata_la-sys-file-encoding.lo: \
+ src/data/sys-file-encoding.c /usr/include/stdc-predef.h config.h \
+ src/data/sys-file-private.h \
+ /usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h
+
+/usr/include/stdc-predef.h:
+
+config.h:
+
+src/data/sys-file-private.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h:

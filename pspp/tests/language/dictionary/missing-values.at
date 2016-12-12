@@ -1,0 +1,176 @@
+AT_BANNER([MISSING VALUES])
+
+AT_SETUP([MISSING VALUES valid cases])
+AT_DATA([missing-values.sps], [dnl
+DATA LIST NOTABLE/str1 1-5 (A) str2 6-8 (A) date1 9-19 (DATE) num1 20-25
+                  longstr 26-36 (A).
+
+* Numeric missing values.
+MISSING VALUES date1 num1 (1).
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES date1 num1 (1, 2).
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES date1 num1 (1, 2, 3).
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES date1 num1 (9999998, 9999984, 3).
+DISPLAY DICTIONARY date1 num1.
+
+* Numeric missing values using the first variable's format.
+MISSING VALUES num1 date1 ('1').
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES num1 date1 ('1', '2').
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES num1 date1 ('1', '2', '3').
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES date1 num1 ('06-AUG-05').
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES date1 num1 ('06-AUG-05', '01-OCT-78').
+DISPLAY DICTIONARY date1 num1.
+MISSING VALUES date1 num1 ('06-AUG-05', '01-OCT-78', '14-FEB-81').
+DISPLAY DICTIONARY date1 num1.
+
+* Ranges of numeric missing values.
+MISSING VALUES num1 (1 THRU 2).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (LO THRU 2).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (LOWEST THRU 2).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (1 THRU HI).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (1 THRU HIGHEST).
+DISPLAY DICTIONARY num1.
+
+* A range of numeric missing values, plus an individual value.
+MISSING VALUES num1 (1 THRU 2, 3).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (LO THRU 2, 3).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (LOWEST THRU 2, 3).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (1 THRU HI, -1).
+DISPLAY DICTIONARY num1.
+MISSING VALUES num1 (1 THRU HIGHEST, -1).
+DISPLAY DICTIONARY num1.
+
+* String missing values.
+MISSING VALUES str1 str2 longstr ('abc  ','def').
+DISPLAY DICTIONARY str1 str2 longstr.
+
+* May mix variable types when clearing missing values.
+MISSING VALUES ALL ().
+DISPLAY DICTIONARY
+])
+AT_CHECK([pspp -o pspp.csv missing-values.sps])
+AT_CHECK([sed -n '/^$/p; /^@<:@^"@:>@*"@<:@^"@:>@*$/N; s/^\(@<:@a-z0-9@:>@*\),".*Missing Values: \(.*\)",@<:@0-9@:>@*$/\1: \2/p; s/^\(@<:@a-z0-9@:>@*\),Format: @<:@A-Z0-9.@:>@*,@<:@0-9@:>@*$/\1: none/p' pspp.csv
+], [0], [dnl
+date1: 1
+num1: 1
+
+date1: 1; 2
+num1: 1; 2
+
+date1: 1; 2; 3
+num1: 1; 2; 3
+
+date1: 9999998; 9999984; 3
+num1: 9999998; 9999984; 3
+
+date1: 1
+num1: 1
+
+date1: 1; 2
+num1: 1; 2
+
+date1: 1; 2; 3
+num1: 1; 2; 3
+
+date1: 13342665600
+num1: 13342665600
+
+date1: 13342665600; 12495427200
+num1: 13342665600; 12495427200
+
+date1: 13342665600; 12495427200; 12570336000
+num1: 13342665600; 12495427200; 12570336000
+
+num1: 1 THRU 2
+
+num1: LOWEST THRU 2
+
+num1: LOWEST THRU 2
+
+num1: 1 THRU HIGHEST
+
+num1: 1 THRU HIGHEST
+
+num1: 1 THRU 2; 3
+
+num1: LOWEST THRU 2; 3
+
+num1: LOWEST THRU 2; 3
+
+num1: 1 THRU HIGHEST; -1
+
+num1: 1 THRU HIGHEST; -1
+
+str1: ""abc  ""; ""def  ""
+str2: ""abc""; ""def""
+longstr: ""abc     ""; ""def     ""
+
+str1: none
+str2: none
+date1: none
+num1: none
+longstr: none
+])
+AT_CLEANUP
+
+AT_SETUP([MISSING VALUES invalid cases])
+AT_DATA([missing-values.sps], [dnl
+DATA LIST NOTABLE/str1 1-5 (A) str2 6-8 (A) date1 9-19 (DATE) num1 20-25
+                  longstr 26-36 (A).
+
+* Too long for str2.
+MISSING VALUES str1 str2 longstr ('abcde').
+
+* Long string missing value longer than 8 bytes.
+MISSING VALUES longstr ('abcdefghijk').
+
+* No string ranges.
+MISSING VALUES str1 ('a' THRU 'z').
+
+* Mixing string and numeric variables.
+MISSING VALUES str1 num1 ('123').
+
+* Too many values.
+MISSING VALUES num1 (1, 2, 3, 4).
+MISSING VALUES num1 (1 THRU 2, 3 THRU 4).
+MISSING VALUES num1 (1, 2 THRU 3, 4).
+MISSING VALUES str1 ('abc', 'def', 'ghi', 'jkl').
+
+* Bad range.
+MISSING VALUES num1 (2 THRU 1).
+])
+AT_CHECK([pspp -O format=csv missing-values.sps], [1], [dnl
+missing-values.sps:5: error: MISSING VALUES: Missing values provided are too long to assign to variable of width 3.
+
+missing-values.sps:8: error: MISSING VALUES: Truncating missing value to maximum acceptable length (8 bytes).
+
+missing-values.sps:11.26-11.29: error: MISSING VALUES: Syntax error at `THRU': expecting string.
+
+missing-values.sps:11: error: MISSING VALUES: THRU is not a variable name.
+
+missing-values.sps:14: error: MISSING VALUES: Cannot mix numeric variables (e.g. num1) and string variables (e.g. str1) within a single list.
+
+missing-values.sps:17: error: MISSING VALUES: Too many numeric missing values.  At most three individual values or one value and one range are allowed.
+
+missing-values.sps:18: error: MISSING VALUES: Too many numeric missing values.  At most three individual values or one value and one range are allowed.
+
+missing-values.sps:19: error: MISSING VALUES: Too many numeric missing values.  At most three individual values or one value and one range are allowed.
+
+missing-values.sps:20: error: MISSING VALUES: Too many string missing values.  At most three individual values are allowed.
+
+missing-values.sps:23: warning: MISSING VALUES: The high end of the range (1) is below the low end (2).  The range will be treated as if reversed.
+])
+AT_CLEANUP

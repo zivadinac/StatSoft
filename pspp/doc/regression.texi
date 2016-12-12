@@ -1,0 +1,124 @@
+@node REGRESSION
+@section REGRESSION
+
+@cindex regression
+@cindex linear regression
+The @cmd{REGRESSION} procedure fits linear models to data via least-squares
+estimation. The procedure is appropriate for data which satisfy those
+assumptions typical in linear regression:
+
+@itemize @bullet
+@item The data set contains @math{n} observations of a dependent variable, say
+@math{Y_1,@dots{},Y_n}, and @math{n} observations of one or more explanatory
+variables.
+Let @math{X_{11}, X_{12}}, @dots{}, @math{X_{1n}} denote the @math{n} observations
+of the first explanatory variable;
+@math{X_{21}},@dots{},@math{X_{2n}} denote the @math{n} observations of the second
+explanatory variable;
+@math{X_{k1}},@dots{},@math{X_{kn}} denote the @math{n} observations of 
+the @math{k}th explanatory variable.
+
+@item The dependent variable @math{Y} has the following relationship to the 
+explanatory variables:
+@math{Y_i = b_0 + b_1 X_{1i} + ... + b_k X_{ki} + Z_i}
+where @math{b_0, b_1, @dots{}, b_k} are unknown
+coefficients, and @math{Z_1,@dots{},Z_n} are independent, normally
+distributed @dfn{noise} terms with mean zero and common variance.
+The noise, or @dfn{error} terms are unobserved.
+This relationship is called the @dfn{linear model}.
+@end itemize
+
+The @cmd{REGRESSION} procedure estimates the coefficients
+@math{b_0,@dots{},b_k} and produces output relevant to inferences for the
+linear model. 
+
+@menu
+* Syntax::                      Syntax definition.
+* Examples::                    Using the REGRESSION procedure.
+@end menu
+
+@node Syntax
+@subsection Syntax
+
+@vindex REGRESSION
+@display
+REGRESSION
+        /VARIABLES=@var{var_list}
+        /DEPENDENT=@var{var_list}
+        /STATISTICS=@{ALL, DEFAULTS, R, COEFF, ANOVA, BCOV, CI[@var{conf}]@}
+        /SAVE=@{PRED, RESID@}
+@end display
+
+The @cmd{REGRESSION} procedure reads the active dataset and outputs
+statistics relevant to the linear model specified by the user.
+
+The @subcmd{VARIABLES} subcommand, which is required, specifies the list of
+variables to be analyzed.  Keyword @subcmd{VARIABLES} is required. The
+@subcmd{DEPENDENT} subcommand specifies the dependent variable of the linear
+model. The @subcmd{DEPENDENT} subcommand is required. All variables listed in
+the @subcmd{VARIABLES} subcommand, but not listed in the @subcmd{DEPENDENT} subcommand,
+are treated as explanatory variables in the linear model.
+
+All other subcommands are optional:
+
+The @subcmd{STATISTICS} subcommand specifies which statistics are to be displayed.
+The following keywords are accepted:
+
+@table @subcmd
+@item ALL
+All of the statistics below.
+@item R
+The ratio of the sums of squares due to the model to the total sums of
+squares for the dependent variable.
+@item COEFF
+A table containing the estimated model coefficients and their standard errors.
+@item CI (@var{conf})
+This item is only relevant if COEFF has also been selected.  It specifies that the
+confidence interval for the coefficients should be printed.  The optional value @var{conf},
+which must be in parentheses, is the desired confidence level expressed as a percentage.
+@item ANOVA
+Analysis of variance table for the model.
+@item BCOV
+The covariance matrix for the estimated model coefficients.
+@item DEFAULT
+The same as if R, COEFF, and ANOVA had been selected.
+This is what you get if the /STATISTICS command is not specified,
+or if it is specified without any parameters.
+@end table
+
+The @subcmd{SAVE} subcommand causes @pspp{} to save the residuals or predicted
+values from the fitted
+model to the active dataset. @pspp{} will store the residuals in a variable
+called @samp{RES1} if no such variable exists, @samp{RES2} if @samp{RES1} 
+already exists,
+@samp{RES3} if @samp{RES1} and @samp{RES2} already exist, etc. It will
+choose the name of
+the variable for the predicted values similarly, but with @samp{PRED} as a
+prefix.
+When @subcmd{SAVE} is used, @pspp{} ignores @cmd{TEMPORARY}, treating
+temporary transformations as permanent.
+
+@node Examples
+@subsection Examples
+The following @pspp{} syntax will generate the default output and save the
+predicted values and residuals to the active dataset.
+
+@example
+title 'Demonstrate REGRESSION procedure'.
+data list / v0 1-2 (A) v1 v2 3-22 (10).
+begin data.
+b  7.735648 -23.97588
+b  6.142625 -19.63854
+a  7.651430 -25.26557
+c  6.125125 -16.57090
+a  8.245789 -25.80001
+c  6.031540 -17.56743
+a  9.832291 -28.35977
+c  5.343832 -16.79548
+a  8.838262 -29.25689
+b  6.200189 -18.58219
+end data.
+list.
+regression /variables=v0 v1 v2 /statistics defaults /dependent=v2 
+           /save pred resid /method=enter.
+@end example

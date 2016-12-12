@@ -1,0 +1,11 @@
+@node Not Implemented
+@chapter Not Implemented
+
+This chapter lists parts of the @pspp{} language that are not yet
+implemented.
+
+@cindex unimplemented commands
+@cindex commands, unimplemented
+
+@include ni.texi
+

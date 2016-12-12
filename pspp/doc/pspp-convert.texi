@@ -1,0 +1,97 @@
+@node Invoking pspp-convert
+@chapter Invoking @command{pspp-convert}
+@cindex Invocation
+@cindex @command{pspp-convert}
+
+@command{pspp-convert} is a command-line utility accompanying
+@pspp{}. It reads an SPSS or SPSS/PC+ system file or SPSS portable
+file or encrypted SPSS syntax file @var{input} and
+writes a copy of it to another @var{output} in a different format.
+Synopsis:
+
+@display
+@t{pspp-convert} [@var{options}] @var{input} @var{output}
+
+@t{pspp-convert -@w{-}help}
+
+@t{pspp-convert -@w{-}version}
+@end display
+
+The format of @var{input} is automatically detected, when possible.
+The character encoding of old SPSS system files cannot always be
+guessed correctly, and SPSS/PC+ system files do not include any
+indication of their encoding.  Use @code{-e @var{encoding}} to specify
+the encoding in this case.
+
+By default, the intended format for @var{output} is inferred based on its
+extension:
+
+@table @code
+@item csv
+@itemx txt
+Comma-separated value.  Each value is formatted according to its
+variable's print format.  The first line in the file contains variable
+names.
+
+@item sav
+@item sys
+SPSS system file.
+
+@item por
+SPSS portable file.
+
+@item sps
+SPSS syntax file.  (Only encrypted syntax files may be converted to
+this format.)
+@end table
+
+@command{pspp-convert} can convert most input formats to most output
+formats.  Encrypted system file and syntax files are exceptions: if
+the input file is in an encrypted format, then the output file must be
+the same format (decrypted).  To decrypt such a file, specify the
+encrypted file as @var{input}.  The output will be the equivalent
+plaintext file.  You will be prompted for the password (or use
+@option{-p}, documented below).
+
+Use @code{-O @var{extension}} to override the inferred format or to
+specify the format for unrecognized extensions.
+
+The following options are accepted:
+
+@table @option
+@item -O @var{format}
+@itemx --output-format=@var{format}
+Specifies the desired output format.  @var{format} must be one of the
+extensions listed above, e.g. @code{-O csv} requests comma-separated
+value output.
+
+@item -c @var{maxcases}
+@itemx --cases=@var{maxcases}
+By default, all cases are copied from @var{input} to @var{output}.
+Specifying this option to limit the number of cases written to
+@var{output} to @var{maxcases}.
+
+@item -e @var{charset}
+@itemx --encoding=@var{charset}
+Overrides the encoding in which character strings in @var{input} are
+interpreted.  This option is necessary because old SPSS system files,
+and SPSS/PC+ system files, do not self-identify their encoding.
+
+@item -p @var{password}
+@item --password=@var{password}
+Specifies the password to use to decrypt an encrypted SPSS system file
+or syntax file.  If this option is not specified,
+@command{pspp-convert} will prompt interactively for the password as
+necessary.
+
+Be aware that command-line options, including passwords, may be
+visible to other users on multiuser systems.
+
+@item -h
+@itemx --help
+Prints a usage message on stdout and exits.
+
+@item -v
+@itemx --version
+Prints version information on stdout and exits.
+@end table

@@ -1,0 +1,175 @@
+AT_BANNER([portable files])
+
+AT_SETUP([overwriting portable file])
+AT_DATA([output.por], [abcdef
+])
+cp output.por output.por.backup
+AT_DATA([porfile.sps], [dnl
+DATA LIST NOTABLE/x 1.
+BEGIN DATA.
+5
+END DATA.
+EXPORT OUTFILE='output.por'.
+])
+AT_CHECK([pspp -O format=csv porfile.sps])
+AT_CHECK([cmp output.por output.por.backup], [1], [ignore])
+AT_CLEANUP
+
+AT_SETUP([overwriting portable file atomically])
+AT_DATA([output.por], [abcdef
+])
+cp output.por output.por.backup
+AT_DATA([porfile.sps],
+[[DATA LIST NOTABLE/x 1.
+BEGIN DATA.
+5
+END DATA.
+XEXPORT OUTFILE='output.por'.
+HOST COMMAND=['kill -TERM $PPID'].
+]])
+AT_CHECK([pspp -O format=csv porfile.sps], [143], [], [ignore])
+AT_CHECK([cmp output.por output.por.backup])
+AT_CHECK(
+  [for file in *.tmp*; do if test -e $file; then echo $file; exit 1; fi; done])
+AT_CLEANUP
+
+AT_SETUP([write to same portable file being read])
+AT_DATA([export.sps], [dnl
+DATA LIST NOTABLE/x 1.
+BEGIN DATA.
+2
+END DATA.
+EXPORT OUTFILE='data.por'.
+])
+AT_CHECK([pspp -O format=csv export.sps])
+AT_CHECK([test -s data.por])
+AT_CHECK(
+  [for file in *.tmp*; do if test -e $file; then echo $file; exit 1; fi; done])
+AT_DATA([export2.sps], [dnl
+IMPORT FILE='data.por'.
+COMPUTE y = x * 2.
+EXPORT OUTFILE='data.por'.
+])
+AT_CHECK([pspp -O format=csv export2.sps])
+AT_CHECK(
+  [for file in *.tmp*; do if test -e $file; then echo $file; exit 1; fi; done])
+AT_DATA([export3.sps], [dnl
+IMPORT FILE='data.por'.
+LIST.
+])
+AT_CHECK([pspp -O format=csv export3.sps], [0], [dnl
+Table: Data List
+X,Y
+2,4.00
+])
+AT_CLEANUP
+
+dnl This checks for a bug in the portable file writer that caused an infinite
+dnl loop in some cases, and other problems in other cases, when a variable
+dnl had value labels.
+AT_SETUP([write portable file with value labels])
+AT_DATA([export.sps], [dnl
+DATA LIST NOTABLE/var1 TO var5 1-5.
+VALUE LABELS
+	/var1 1 'one'
+	/var2 2 'two'
+	/var3 3 'three'
+	/var4 4 'four'
+	/var5 5 'five'.
+BEGIN DATA.
+12345
+END DATA.
+EXPORT OUTFILE='data.por'.
+])
+AT_CHECK([pspp -O format=csv export.sps])
+AT_DATA([import.sps], [dnl
+IMPORT FILE='data.por'.
+DISPLAY DICTIONARY.
+LIST.
+])
+AT_CHECK([pspp -O format=csv import.sps], [0], [dnl
+Variable,Description,Position
+VAR1,"Format: F1.0
+
+Value,Label
+1,one",1
+VAR2,"Format: F1.0
+
+Value,Label
+2,two",2
+VAR3,"Format: F1.0
+
+Value,Label
+3,three",3
+VAR4,"Format: F1.0
+
+Value,Label
+4,four",4
+VAR5,"Format: F1.0
+
+Value,Label
+5,five",5
+
+Table: Data List
+VAR1,VAR2,VAR3,VAR4,VAR5
+1,2,3,4,5
+])
+AT_DATA([sys-file-info.sps], [SYSFILE INFO FILE='data.por'
+])
+AT_CHECK([pspp -O format=csv sys-file-info.sps | sed '/Encoding/d
+/Integer Format/d
+/Real Format/d
+/Created/d
+/Product/d
+'], [0], [dnl
+File:,data.por
+Label:,No label.
+Variables:,5
+Cases:,Unknown
+Type:,SPSS Portable File
+Weight:,Not weighted.
+Compression:,None
+
+Variable,Description,Position
+VAR1,"Format: F1.0
+Measure: Scale
+Role: Input
+Display Alignment: Right
+Display Width: 8
+
+Value,Label
+1,one",1
+VAR2,"Format: F1.0
+Measure: Scale
+Role: Input
+Display Alignment: Right
+Display Width: 8
+
+Value,Label
+2,two",2
+VAR3,"Format: F1.0
+Measure: Scale
+Role: Input
+Display Alignment: Right
+Display Width: 8
+
+Value,Label
+3,three",3
+VAR4,"Format: F1.0
+Measure: Scale
+Role: Input
+Display Alignment: Right
+Display Width: 8
+
+Value,Label
+4,four",4
+VAR5,"Format: F1.0
+Measure: Scale
+Role: Input
+Display Alignment: Right
+Display Width: 8
+
+Value,Label
+5,five",5
+])
+AT_CLEANUP

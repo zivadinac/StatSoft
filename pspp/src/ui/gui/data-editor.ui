@@ -1,0 +1,384 @@
+<?xml version="1.0"?>
+<interface>
+  <!-- interface-requires gtk+ 2.6 -->
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkBox" id="status-bar">
+    <property name="visible">True</property>
+    <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+    <property name="spacing">6</property>
+    <child>
+      <object class="GtkFrame" id="frame2">
+        <property name="visible">True</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkEventBox" id="eventbox1">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Information Area</property>
+            <child>
+              <object class="GtkLabel" id="information-area">
+                <property name="visible">True</property>
+                <property name="single_line_mode">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame5">
+        <property name="visible">True</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkEventBox" id="eventbox4">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Case Counter Area</property>
+            <child>
+              <object class="GtkLabel" id="case-counter-area">
+                <property name="visible">True</property>
+                <property name="width_chars">20</property>
+                <property name="single_line_mode">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame6">
+        <property name="visible">True</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkEventBox" id="eventbox5">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Filter Use Status Area</property>
+            <child>
+              <object class="GtkLabel" id="filter-use-status-area">
+                <property name="visible">True</property>
+                <property name="ellipsize">start</property>
+                <property name="width_chars">10</property>
+                <property name="single_line_mode">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame7">
+        <property name="visible">True</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkEventBox" id="eventbox6">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Weight Status Area</property>
+            <child>
+              <object class="GtkLabel" id="weight-status-area">
+                <property name="visible">True</property>
+                <property name="ellipsize">start</property>
+                <property name="width_chars">15</property>
+                <property name="single_line_mode">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame8">
+        <property name="visible">True</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkEventBox" id="eventbox7">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Split File Status Area</property>
+            <child>
+              <object class="GtkLabel" id="split-file-status-area">
+                <property name="visible">True</property>
+                <property name="ellipsize">start</property>
+                <property name="width_chars">15</property>
+                <property name="single_line_mode">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="position">6</property>
+      </packing>
+    </child>
+  </object>
+
+  <menu id="data-editor-menu">
+    <submenu>
+      <attribute name="label" translatable="yes">_View</attribute>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Status Bar</attribute>
+	  <attribute name="action">win.statusbar</attribute>
+	</item>
+      </section>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Font...</attribute>
+	  <attribute name="action">win.fonts</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Grid Lines</attribute>
+	  <attribute name="action">win.gridlines</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Value _Labels</attribute>
+	  <attribute name="action">win.value_labels</attribute>
+	</item>
+      </section>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Data</attribute>
+	  <attribute name="target">DATA</attribute>
+	  <attribute name="action">win.view_dv</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Variables</attribute>
+	  <attribute name="target">VARS</attribute>
+	  <attribute name="action">win.view_dv</attribute>
+	</item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Data</attribute>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Sort Cases...</attribute>
+	  <attribute name="action">win.PsppireDialogActionSort</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Transpose...</attribute>
+	  <attribute name="action">win.PsppireDialogActionFlip</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Aggregate...</attribute>
+	  <attribute name="action">win.PsppireDialogActionAggregate</attribute>
+	</item>
+      </section>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">S_plit File...</attribute>
+	  <attribute name="action">win.PsppireDialogActionSplit</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Select _Cases...</attribute>
+	  <attribute name="action">win.PsppireDialogActionSelect</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Weight Cases...</attribute>
+	  <attribute name="action">win.PsppireDialogActionWeight</attribute>
+	</item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Transform</attribute>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Compute...</attribute>
+	  <attribute name="action">win.PsppireDialogActionCompute</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Cou_nt...</attribute>
+	  <attribute name="action">win.PsppireDialogActionCount</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Ran_k Cases...</attribute>
+	  <attribute name="action">win.PsppireDialogActionRank</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Auto_matic Recode...</attribute>
+	  <attribute name="action">win.PsppireDialogActionAutorecode</attribute>
+	</item>
+      </section>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">Recode into _Same Variables...</attribute>
+	  <attribute name="action">win.PsppireDialogActionRecodeSame</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Recode into _Different Variables...</attribute>
+	  <attribute name="action">win.PsppireDialogActionRecodeDifferent</attribute>
+	</item>
+      </section>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Run Pending Transforms</attribute>
+	  <attribute name="action">win.transform-pending</attribute>
+	</item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Analyze</attribute>
+      <section>
+	<submenu>
+	  <attribute name="label" translatable="yes">_Descriptive Statistics</attribute>
+	  <item>
+	    <attribute name="label" translatable="yes">_Frequencies...</attribute>
+	    <attribute name="action">win.PsppireDialogActionFrequencies</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_Descriptives...</attribute>
+	    <attribute name="action">win.PsppireDialogActionDescriptives</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_Explore...</attribute>
+	    <attribute name="action">win.PsppireDialogActionExamine</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_Crosstabs...</attribute>
+	    <attribute name="action">win.PsppireDialogActionCrosstabs</attribute>
+	  </item>
+	</submenu>
+	<submenu>
+	  <attribute name="label" translatable="yes">Compare _Means</attribute>
+	  <item>
+	    <attribute name="label" translatable="yes">_Means...</attribute>
+	    <attribute name="action">win.PsppireDialogActionMeans</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_One Sample T Test...</attribute>
+	    <attribute name="action">win.PsppireDialogActionTt1s</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_Independent Samples T Test...</attribute>
+	    <attribute name="action">win.PsppireDialogActionIndepSamps</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_Paired Samples T Test...</attribute>
+	    <attribute name="action">win.PsppireDialogActionPaired</attribute>
+	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_One Way _ANOVA...</attribute>
+	    <attribute name="action">win.PsppireDialogActionOneway</attribute>
+	  </item>
+	</submenu>
+	<item>
+	  <attribute name="label" translatable="yes">_Univariate Analysis...</attribute>
+	  <attribute name="action">win.PsppireDialogActionUnivariate</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Bivariate _Correlation...</attribute>
+	  <attribute name="action">win.PsppireDialogActionCorrelation</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_K-Means Cluster...</attribute>
+	  <attribute name="action">win.PsppireDialogActionKmeans</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Factor Analysis...</attribute>
+	  <attribute name="action">win.PsppireDialogActionFactor</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Re_liability...</attribute>
+	  <attribute name="action">win.PsppireDialogActionReliability</attribute>
+	</item>
+	<submenu>
+	  <attribute name="label" translatable="yes">_Regression</attribute>
+	  <section>
+	    <item>
+	      <attribute name="label" translatable="yes">_Linear...</attribute>
+	      <attribute name="action">win.PsppireDialogActionRegression</attribute>
+	    </item>
+	    <item>
+	      <attribute name="label" translatable="yes">_Binary Logistic...</attribute>
+	      <attribute name="action">win.PsppireDialogActionLogistic</attribute>
+	    </item>
+	  </section>
+	</submenu>
+	<submenu>
+	  <attribute name="label" translatable="yes">_Non-Parametric Statistics</attribute>
+	  <section>
+	    <item>
+	      <attribute name="label" translatable="yes">_Chi Square...</attribute>
+	      <attribute name="action">win.PsppireDialogActionChisquare</attribute>
+	    </item>
+	    <item>
+	      <attribute name="label" translatable="yes">_Binomial...</attribute>
+	      <attribute name="action">win.PsppireDialogActionBinomial</attribute>
+	    </item>
+	    <item>
+	      <attribute name="label" translatable="yes">_Runs...</attribute>
+	      <attribute name="action">win.PsppireDialogActionRuns</attribute>
+	    </item>
+	    <item>
+	      <attribute name="label" translatable="yes">_1 Sample K-S...</attribute>
+	      <attribute name="action">win.PsppireDialogAction1sks</attribute>
+	    </item>
+	    <item>
+	      <attribute name="label" translatable="yes">_2 Related Samples...</attribute>
+	      <attribute name="action">win.PsppireDialogActionTwoSample</attribute>
+	    </item>
+	    <item>
+	      <attribute name="label" translatable="yes">_K Related Samples...</attribute>
+	      <attribute name="action">win.PsppireDialogActionKRelated</attribute>
+	    </item>
+	  </section>
+	</submenu>
+	<item>
+	  <attribute name="label" translatable="yes">ROC Cur_ve...</attribute>
+	  <attribute name="action">win.PsppireDialogActionRoc</attribute>
+	</item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Graphs</attribute>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Scatterplot</attribute>
+	  <attribute name="action">win.PsppireDialogActionScatterplot</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Histogram</attribute>
+	  <attribute name="action">win.PsppireDialogActionHistogram</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_Barchart</attribute>
+	  <attribute name="action">win.PsppireDialogActionBarchart</attribute>
+	</item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Utilities</attribute>
+      <section>
+	<item>
+	  <attribute name="label" translatable="yes">_Variables...</attribute>
+	  <attribute name="action">win.PsppireDialogActionVarInfo</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">Data File _Comments...</attribute>
+	  <attribute name="action">win.PsppireDialogActionComments</attribute>
+	</item>
+      </section>
+    </submenu>
+  </menu>
+</interface>

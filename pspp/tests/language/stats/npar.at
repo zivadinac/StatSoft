@@ -1,0 +1,1791 @@
+AT_BANNER([NPAR TESTS])
+
+AT_SETUP([NPAR TESTS BINOMIAL P < 0.5; N1/N2 < 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x * w *.
+BEGIN DATA.
+1   6
+2   15
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.3) = x
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (1-tailed)
+x,Group1,1.000,6.000,.286,.300,.551
+,Group2,2.000,15.000,.714,,
+,Total,,21.000,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P < 0.5; N1/N2 > 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   7
+2   6
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.4) = x
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (1-tailed)
+x,Group1,1,7,.538,.400,.229
+,Group2,2,6,.462,,
+,Total,,13,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P < 0.5; N1/N2 = 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   8
+2   8
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.4) = x
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (1-tailed)
+x,Group1,1,8,.500,.400,.284
+,Group2,2,8,.500,,
+,Total,,16,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P > 0.5; N1/N2 < 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   11
+2   12
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.6) = x
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (1-tailed)
+x,Group1,1,11,.478,.600,.164
+,Group2,2,12,.522,,
+,Total,,23,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P > 0.5; N1/N2 > 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   11
+2   9
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.6) = x.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (1-tailed)
+x,Group1,1,11,.550,.600,.404
+,Group2,2,9,.450,,
+,Total,,20,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P > 0.5; N1/N2 = 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   11
+2   11
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.6) = x.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (1-tailed)
+x,Group1,1,11,.500,.600,.228
+,Group2,2,11,.500,,
+,Total,,22,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P = 0.5; N1/N2 < 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   8
+2   15
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL = x
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (2-tailed)
+x,Group1,1,8,.348,.500,.210
+,Group2,2,15,.652,,
+,Total,,23,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P = 0.5; N1/N2 > 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   12
+2   6
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.5) = x.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (2-tailed)
+x,Group1,1,12,.667,.500,.238
+,Group2,2,6,.333,,
+,Total,,18,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P = 0.5; N1/N2 = 1])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x (F8.0) w (F8.0).
+BEGIN DATA.
+1   10
+2   10
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.5) = x
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (2-tailed)
+x,Group1,1,10,.500,.500,1.000
+,Group2,2,10,.500,,
+,Total,,20,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P = 0.5; N1/N2 = 1 Cutpoint])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x * w *.
+BEGIN DATA.
+9    3
+10   7
+11   16
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.5) = x (10)
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (2-tailed)
+x,Group1,<= 10,10.000,.385,.500,.327
+,Group2,,16.000,.615,,
+,Total,,26.000,1.000,,
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS BINOMIAL P = 0.5; N1/N2 = 1 Named values])
+AT_DATA([npar.sps], [dnl
+SET FORMAT F8.3.
+
+DATA LIST LIST NOTABLE /x * w *.
+BEGIN DATA.
+10   10
+15   45
+20   13
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+	/BINOMIAL(0.5) = x (10, 20)
+	.
+])
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Binomial Test
+,,Category,N,Observed Prop.,Test Prop.,Exact Sig. (2-tailed)
+x,Group1,10.000,10.000,.435,.500,.678
+,Group2,20.000,13.000,.565,,
+,Total,,23.000,1.000,,
+])
+AT_CLEANUP
+
+
+
+dnl Test for a bug which caused binomial to crash.
+AT_SETUP([NPAR TESTS BINOMIAL - crash])
+AT_DATA([nparX.sps], [dnl
+data list list /range *.
+begin data.
+0
+1
+end data.
+
+* This is invalid syntax
+NPAR TEST
+	/BINOMIAL(0.5) = Range().
+
+])
+AT_CHECK([pspp -O format=csv nparX.sps], [1], [ignore])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([NPAR TESTS CHISQUARE])
+AT_DATA([npar.sps], [dnl
+DATA LIST NOTABLE LIST /x * y * w *.
+BEGIN DATA.
+1   2  1
+2   1  3
+3.1 1  4
+3.2 2  1
+4   2  2
+5   3  1
+1   4  2
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+  CHISQUARE=x y
+  .
+
+NPAR TESTS
+  CHISQUARE=y
+  /EXPECTED=3 4 5 4
+  .
+
+NPAR TESTS
+  CHISQUARE=x y(2, 4)
+  /EXPECTED = 6 10 3
+  .
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: x
+,Observed N,Expected N,Residual
+1.00,3.00,2.33,.67
+2.00,3.00,2.33,.67
+3.10,4.00,2.33,1.67
+3.20,1.00,2.33,-1.33
+4.00,2.00,2.33,-.33
+5.00,1.00,2.33,-1.33
+Total,14.00,,
+
+Table: y
+,Observed N,Expected N,Residual
+1.00,7.00,3.50,3.50
+2.00,4.00,3.50,.50
+3.00,1.00,3.50,-2.50
+4.00,2.00,3.50,-1.50
+Total,14.00,,
+
+Table: Test Statistics
+,x,y
+Chi-Square,3.14,6.00
+df,5,3
+Asymp. Sig.,.678,.112
+
+Table: y
+,Observed N,Expected N,Residual
+1.00,7.00,2.63,4.38
+2.00,4.00,3.50,.50
+3.00,1.00,4.38,-3.38
+4.00,2.00,3.50,-1.50
+Total,14.00,,
+
+Table: Test Statistics
+,y
+Chi-Square,10.61
+df,3
+Asymp. Sig.,.014
+
+Table: Frequencies
+,x,,,,y,,,
+,Category,Observed N,Expected N,Residual,Category,Observed N,Expected N,Residual
+1,2.00,3.00,3.16,-.16,2.00,4.00,2.21,1.79
+2,3.00,5.00,5.26,-.26,3.00,1.00,3.68,-2.68
+3,4.00,2.00,1.58,.42,4.00,2.00,1.11,.89
+Total,,10.00,,,,7.00,,
+
+Table: Test Statistics
+,x,y
+Chi-Square,.13,4.13
+df,2,2
+Asymp. Sig.,.936,.127
+])
+
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS CHISQUARE expected values missing])
+AT_DATA([npar.sps], [dnl
+DATA LIST NOTABLE LIST /x * y * w *.
+BEGIN DATA.
+1   2  1
+2   1  3
+3.1 1  4
+3.2 2  1
+4   2  2
+5   3  1
+1   4  2
+END DATA.
+
+WEIGHT BY w.
+
+NPAR TESTS
+  CHISQUARE=y
+  /EXPECTED = 3 4 5 4 3 1
+  .
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [1], [dnl
+"error: CHISQUARE test specified 6 expected values, but 4 distinct values were encountered in variable y."
+
+Table: Test Statistics
+,y
+Chi-Square,.00
+df,0
+Asymp. Sig.,1.000
+])
+
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS CHISQUARE with DESCRIPTIVES])
+AT_DATA([npar.sps], [dnl
+DATA LIST NOTABLE LIST /x * y * w * .
+BEGIN DATA.
+1   2  1 
+2   1  3
+3.1 1  4
+3.2 2  1
+4   2  2
+5   3  1
+1   4  2
+.   5  1
+END DATA.
+
+WEIGHT BY w.
+
+MISSING VALUES x (4).
+
+NPAR TESTS
+  CHISQUARE=x y(-2,5)
+  /MISSING=ANALYSIS
+  /STATISTICS=DESCRIPTIVES
+  .
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Frequencies
+,x,,,,y,,,
+,Category,Observed N,Expected N,Residual,Category,Observed N,Expected N,Residual
+1,-2.00,.00,1.50,-1.50,-2.00,.00,1.88,-1.88
+2,-1.00,.00,1.50,-1.50,-1.00,.00,1.88,-1.88
+3,.00,.00,1.50,-1.50,.00,.00,1.88,-1.88
+4,1.00,3.00,1.50,1.50,1.00,7.00,1.88,5.13
+5,2.00,3.00,1.50,1.50,2.00,4.00,1.88,2.13
+6,3.00,5.00,1.50,3.50,3.00,1.00,1.88,-.88
+7,4.00,.00,1.50,-1.50,4.00,2.00,1.88,.13
+8,5.00,1.00,1.50,-.50,5.00,1.00,1.88,-.88
+Total,,12.00,,,,15.00,,
+
+Table: Test Statistics
+,x,y
+Chi-Square,17.33,22.87
+df,7,7
+Asymp. Sig.,.015,.002
+
+Table: Descriptive Statistics
+,N,Mean,Std. Deviation,Minimum,Maximum
+,,,,,
+x,12.00,2.47,1.19,1.00,5.00
+y,15.00,2.07,1.33,1.00,5.00
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS CHISQUARE, listwise missing])
+AT_DATA([npar.sps], [dnl
+DATA LIST NOTABLE LIST /x * y * w * .
+BEGIN DATA.
+1   2  1 
+2   1  3
+3.1 1  4
+3.2 2  1
+4   2  2
+5   3  1
+1   4  2
+.   5  1
+END DATA.
+
+WEIGHT BY w.
+
+* MISSING VALUES x (4).
+
+NPAR TESTS
+  CHISQUARE=x y(-2,5)
+  /MISSING=LISTWISE
+  /STATISTICS=DESCRIPTIVES
+  .
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Frequencies
+,x,,,,y,,,
+,Category,Observed N,Expected N,Residual,Category,Observed N,Expected N,Residual
+1,-2.00,.00,1.75,-1.75,-2.00,.00,1.75,-1.75
+2,-1.00,.00,1.75,-1.75,-1.00,.00,1.75,-1.75
+3,.00,.00,1.75,-1.75,.00,.00,1.75,-1.75
+4,1.00,3.00,1.75,1.25,1.00,7.00,1.75,5.25
+5,2.00,3.00,1.75,1.25,2.00,4.00,1.75,2.25
+6,3.00,5.00,1.75,3.25,3.00,1.00,1.75,-.75
+7,4.00,2.00,1.75,.25,4.00,2.00,1.75,.25
+8,5.00,1.00,1.75,-.75,5.00,.00,1.75,-1.75
+Total,,14.00,,,,14.00,,
+
+Table: Test Statistics
+,x,y
+Chi-Square,13.43,26.00
+df,7,7
+Asymp. Sig.,.062,.001
+
+Table: Descriptive Statistics
+,N,Mean,Std. Deviation,Minimum,Maximum
+,,,,,
+x,14.00,2.69,1.23,1.00,5.00
+y,14.00,1.86,1.10,1.00,4.00
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS WILCOXON])
+AT_DATA([npar.sps], [dnl
+data list notable list /foo * bar * w (f8.0).
+begin data.
+1.00     1.00   1
+1.00     2.00   1
+2.00     1.00   1
+1.00     4.00   1
+2.00     5.00   1
+1.00    19.00   1
+2.00     7.00   1
+4.00     5.00   1
+1.00    12.00   1
+2.00    13.00   1
+2.00     2.00   1
+12.00      .00  2
+12.00     1.00  1
+13.00     1.00  1
+end data
+
+variable labels foo "first" bar "second".
+
+weight by w.
+
+npar test
+ /wilcoxon=foo with bar (paired)
+ /missing analysis
+ /method=exact.
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Ranks
+,,N,Mean Rank,Sum of Ranks
+first - second,Negative Ranks,8,6.00,48.00
+,Positive Ranks,5,8.60,43.00
+,Ties,2,,
+,Total,15,,
+
+Table: Test Statistics
+,first - second
+Z,-.18
+Asymp. Sig. (2-tailed),.861
+Exact Sig. (2-tailed),.893
+Exact Sig. (1-tailed),.446
+])
+
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS WILCOXON with missing values])
+AT_DATA([npar.sps], [dnl
+data list notable list /foo * bar * dummy *.
+begin data.
+1.00     1.00    1
+1.00     2.00    1
+2.00     1.00    1
+1.00     4.00    .
+2.00     5.00    .
+1.00    19.00    .
+2.00     7.00    1
+4.00     5.00    1
+1.00    12.00    1
+2.00    13.00    1
+2.00     2.00    1
+12.00      .00   1
+12.00      .00   1
+34.2       .     1
+12.00     1.00   1  
+13.00     1.00   1
+end data
+
+variable labels foo "first" bar "second".
+
+npar test
+ /wilcoxon=foo with bar (paired)
+ /missing analysis
+ /method=exact.
+])
+
+dnl This is the same output as the previous test.
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Ranks
+,,N,Mean Rank,Sum of Ranks
+first - second,Negative Ranks,8,6.00,48.00
+,Positive Ranks,5,8.60,43.00
+,Ties,2,,
+,Total,15,,
+
+Table: Test Statistics
+,first - second
+Z,-.18
+Asymp. Sig. (2-tailed),.861
+Exact Sig. (2-tailed),.893
+Exact Sig. (1-tailed),.446
+])
+AT_CLEANUP
+
+AT_SETUP([NPAR TESTS SIGN])
+AT_DATA([npar.sps], [dnl
+set format = F9.3.
+
+data list notable list /age * height rank *.
+begin data.
+10 12 11
+12 13 13 
+13 14 12
+12 12 10
+9   9 10
+10.3 10.2 12
+end data.
+
+npar tests
+	/sign=age height WITH height rank (PAIRED)
+	/MISSING ANALYSIS
+	/METHOD=EXACT
+	.
+])
+AT_CHECK([pspp -o pspp.csv npar.sps])
+dnl Some machines return .313 instead of .312 
+dnl (see bug #31611).
+AT_CHECK([sed -e 's/\.313$/.312/' -e 's/^Exact Sig\. (1-tailed),\.313/Exact Sig. (1-tailed),.312/' pspp.csv], [0], [dnl
+Table: Frequencies
+,,N
+age - height,Negative Differences,3
+,Positive Differences,1
+,Ties,2
+,Total,6
+height - rank,Negative Differences,2
+,Positive Differences,3
+,Ties,1
+,Total,6
+
+Table: Test Statistics
+,age - height,height - rank
+Exact Sig. (2-tailed),.625,1.000
+Exact Sig. (1-tailed),.312,.500
+Point Probability,.250,.312
+])
+AT_CLEANUP
+
+
+AT_SETUP([NPAR Kruskal-Wallis test])
+
+dnl Simple case
+AT_DATA([kw-simple.sps], [dnl
+set format = F9.3.
+
+data list notable list /gv * xscore *.
+begin data
+1 96
+1 128
+1 83
+2 132
+2 135
+2 109
+3 115
+1 61
+1 101
+2 82
+2 124
+3 149 
+3 166
+3 147
+end data.
+
+value label /gv
+       1 "timed out"
+       2 "hit wicket"
+       3 "handled the ball".
+
+npar tests
+	/kruskal-wallis xscore by gv (1, 3)
+	.
+])
+
+AT_CHECK([pspp -o pspp.csv kw-simple.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Ranks
+,gv,N,Mean Rank
+xscore,timed out,5,4.400
+,hit wicket,5,7.400
+,handled the ball,4,11.500
+,Total,14,
+
+Table: Test Statistics
+,,xscore
+Chi-Square,,6.406
+df,,2
+Asymp. Sig.,,.041
+])
+
+
+dnl Now try a missing value in the group variable
+AT_DATA([kw-missing-group.sps], [dnl
+set format = F9.3.
+
+data list notable list /gv * xscore *.
+begin data
+1 96
+1 128
+1 83
+1 61
+1 101
+2 82
+2 124
+2 132
+2 135
+2 109
+3 115
+3 149 
+3 166
+3 147
+2.5 344
+end data.
+
+missing values gv (2.5).
+
+value label /gv
+       1 "timed out"
+       2 "hit wicket"
+       3 "handled the ball".
+
+npar tests
+	/kruskal-wallis xscore by gv (1, 3)
+	/missing=exclude
+	.
+])
+
+AT_CHECK([pspp -o pspp2.csv kw-missing-group.sps])
+
+dnl The result should be the same as before
+AT_CHECK([diff pspp.csv pspp2.csv], [0])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR Kruskal-Wallis multiple-variables])
+
+AT_DATA([kw-multi.sps], [dnl
+set format = F9.3.
+
+data list notable list /gv * xscore * yscore.
+begin data
+1 96   .
+1 128  .
+1 83   . 
+2 132  132
+2 135  135
+2 109  109
+3 115  115
+1 61   . 
+1 101  .
+2 82   82 
+2 124  124
+3 149  149
+3 166  166
+3 147  147
+4 .    96
+4 .    128
+4 .    83
+4 .    61
+4 .    101
+end data.
+
+value label /gv
+       1 "timed out"
+       2 "hit wicket"
+       3 "handled the ball"
+       4 "bowled"
+       5 "lbw"
+       .
+       
+npar tests
+	/k-w xscore yscore by gv (1, 5)
+	.
+
+])
+
+
+AT_CHECK([pspp -o pspp.csv kw-multi.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Ranks
+,gv,N,Mean Rank
+xscore,timed out,5,4.400
+,hit wicket,5,7.400
+,handled the ball,4,11.500
+,Total,14,
+yscore,hit wicket,5,7.400
+,handled the ball,4,11.500
+,bowled,5,4.400
+,Total,14,
+
+Table: Test Statistics
+,,xscore,yscore,
+Chi-Square,,6.406,6.406,
+df,,2,2,
+Asymp. Sig.,,.041,.041,
+])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([NPAR TESTS Runs])
+AT_DATA([npar-runs.sps], [dnl
+set format F11.4.
+data list notable list /score * w *.
+begin data
+4     6
+.     4
+4     3 
+3    20 
+2    29 
+1    42 
+6    18 
+5     7 
+6    78 
+5    10 
+6    46 
+5     5 
+6    17 
+5     1 
+6    11 
+4     2 
+3     7 
+2     6 
+1    10 
+4    13 
+3    22 
+3    11 
+2    24 
+1    18 
+4     4 
+3    12 
+2    10 
+1    25 
+4     4 
+3     7 
+2     3 
+1     4 
+4     2 
+3     3 
+2     2 
+1     4 
+end data.
+
+weight by w.
+
+npar tests
+	/runs (MEDIAN) = score
+	/runs (MEAN) = score
+	/runs (MODE) = score 
+	.
+])
+
+AT_CHECK([pspp -O format=csv npar-runs.sps], [0],
+[Table: Runs Test
+,score
+Test Value (median),3.0000
+Cases < Test Value,177.0000
+Cases ≥ Test Value,309.0000
+Total Cases,486.0000
+Number of Runs,12
+Z,-20.9931
+Asymp. Sig. (2-tailed),2.000
+
+Table: Runs Test
+,score
+Test Value (mean),3.6379
+Cases < Test Value,259.0000
+Cases ≥ Test Value,227.0000
+Total Cases,486.0000
+Number of Runs,12
+Z,-21.0650
+Asymp. Sig. (2-tailed),2.000
+
+Table: Runs Test
+,score
+Test Value (mode),6.0000
+Cases < Test Value,316.0000
+Cases ≥ Test Value,170.0000
+Total Cases,486.0000
+Number of Runs,11
+Z,-21.0742
+Asymp. Sig. (2-tailed),2.000
+])
+
+AT_CLEANUP
+
+
+dnl Thanks to Douglas Bonett for providing this test case.
+AT_SETUP([NPAR TESTS Runs (2)])
+AT_DATA([npar-runs.sps], [dnl
+data list notable free /y.
+begin data
+1 1 2 1 2 1 1 2 1 1 1 2 1 2
+end data.
+NPAR TEST /RUNS(1.5) = y.
+])
+
+AT_CHECK([pspp -O format=csv npar-runs.sps], [0], [dnl
+Table: Runs Test
+,y
+Test Value,1.50
+Cases < Test Value,9
+Cases ≥ Test Value,5
+Total Cases,14
+Number of Runs,10
+Z,1.26
+Asymp. Sig. (2-tailed),.206
+])
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Friedman])
+AT_DATA([npar-friedman.sps], [dnl
+set format F15.4.
+data list notable list /x * y * z.
+begin data
+9.5 6.5	8.1
+8.0 6.0	6.0
+7.0 6.5	4.2
+9.5 5.0	7.3
+9.0 7.0 6.2
+8.5 6.9	6.5
+7.5 8.0	6.5
+6.0 8.0	3.1
+5.0 6.0	4.9
+7.5 7.5	6.2
+end data.
+
+npar tests
+     /friedman = x y z.
+])
+
+AT_CHECK([pspp -O format=csv npar-friedman.sps], [0], [dnl
+Table: Ranks
+,Mean Rank
+x,2.6500
+y,2.1000
+z,1.2500
+
+Table: Test Statistics
+N,10
+Chi-Square,10.4737
+df,2
+Asymp. Sig.,.005
+])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([NPAR TESTS Mann-Whitney])
+AT_DATA([npar-mann-whitney.sps], [dnl
+SET FORMAT     = F11.4
+
+data list notable list /height * sex (f1.0).
+begin data.
+201 1            
+84 1            
+83 1            
+94 1            
+88 0            
+99 0            
+55 0            
+69 0            
+86 1            
+79 1            
+91 0            
+201 0            
+88 1            
+85 1            
+82 1            
+88 0            
+75 0            
+99 0            
+81 0            
+72 1            
+89 1            
+92 1            
+80 0            
+82 0            
+76 0            
+65 0            
+85 0            
+76 1            
+145 1            
+24 1
+1 4
+-4 5
+34 5
+21 4
+end data.
+
+NPAR TESTS 
+     /M-W = height BY sex (0,1).
+])
+
+AT_CHECK([pspp -O format=csv npar-mann-whitney.sps], [0], [dnl
+Table: Ranks
+,N,,,Mean Rank,,Sum of Ranks,
+,0,1,Total,0,1,0,1
+height,15.0000,15.0000,30.0000,14.5333,16.4667,218.0000,247.0000
+
+Table: Test Statistics
+,Mann-Whitney U,Wilcoxon W,Z,Asymp. Sig. (2-tailed)
+height,98.0000,218.0000,-.6020,.547
+])
+
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Cochran])
+AT_DATA([npar-cochran.sps], [dnl
+set format f11.3.
+
+data list notable list /v1 * v2 * v3 * v4 * v5 * v6 * v7 *.
+begin data.
+2 1 1 2 1 1 2 
+2 2 2 2 1 1 1  
+1 1 2 2 1 1 2  
+2 2 2 2 1 1 2 
+2 1 2 1 1 2 1 
+1 2 2 1 1 1 1 
+1 2 2 2 2 2 2 
+2 2 1 2 1 1 1 
+1 2 1 2 1 1 2 
+end data.     
+
+npar tests 
+	/cochran = v1 to v7 .
+
+])
+
+AT_CHECK([pspp -o pspp.csv npar-cochran.sps])
+
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Frequencies
+,Value,
+,Success (2),Failure (1)
+v1,5,4
+v2,6,3
+v3,6,3
+v4,7,2
+v5,1,8
+v6,2,7
+v7,5,4
+
+Table: Test Statistics
+N,9
+Cochran's Q,12.735
+df,6
+Asymp. Sig.,.047
+])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([NPAR TESTS Kendall])
+AT_DATA([npar-kendall.sps], [dnl
+SET FORMAT F14.3.
+
+data list notable list /v1 * v2 * v3
+begin data.
+ 7  7  2 
+ 5  6  5 
+ 8  6  4 
+ 5  7  4 
+ 5  4  4 
+ 8  6  5 
+ 6  3  5 
+ 7  6  5 
+ 8  5  5
+ .  2  2 
+ 5  4  5 
+ 3  4  4 
+ 5  1  2 
+ 5  2  1 
+ 7  6  5 
+ 6  3  4 
+ 6  6  6 
+ 5  4  5 
+ 4  3  4 
+ 9  1  1 
+ 6  2  1 
+ 3  7  8 
+ 6  3  4 
+ 4  4  4 
+ 5  4  3 
+ 6  5  2 
+ 4  4  8 
+ 4  6  4 
+ 6  5  5 
+ 7  8  6 
+ 5  3  5 
+end data.
+
+npar tests
+	/kendall = all
+	.
+])
+
+AT_CHECK([pspp -o pspp.csv npar-kendall.sps])
+
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Ranks
+,Mean Rank
+v1,2.500
+v2,1.817
+v3,1.683
+
+Table: Test Statistics
+N,30
+Kendall's W,.233
+Chi-Square,13.960
+df,2
+Asymp. Sig.,.001
+])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([NPAR TESTS McNemar])
+
+AT_DATA([mcnemar.sps], [dnl
+set format = F12.3.
+data list notable list /v1 * v2 * junk *.
+begin data.
+0 0 0
+0 0 0
+0 0 0
+0 0 0
+0 1 0
+0 1 0
+0 1 0
+0 1 0
+0 1 1
+0 1 1
+0 1 1
+0 1 1
+0 1 1
+1 0 1
+1 0 1
+1 1 1
+1 1 1
+1 1 0
+1 1 0
+1 1 1
+end data.
+
+npar tests 
+     /mcnemar = v1 WITH v2 junk.
+])
+
+AT_CHECK([pspp -O format=csv mcnemar.sps], [0], [dnl
+Table: v1 & v2
+v1,v2,
+,.000,1.000
+.000,4,9
+1.000,2,5
+
+Table: v1 & junk
+v1,junk,
+,.000,1.000
+.000,8,5
+1.000,2,5
+
+Table: Test Statistics
+,N,Exact Sig. (2-tailed),Exact Sig. (1-tailed),Point Probability
+v1 & v2,20,.065,.033,.027
+v1 & junk,20,.453,.227,.164
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Kolmogorov-Smirnov Uniform parameters given])
+
+AT_DATA([ks-uniform.sps], [dnl
+set format F12.3.
+data list notable list /x *.
+begin data
+.554
+.382
+.329
+.480
+.711
+.503
+.203
+.477
+.621
+.581
+end data.
+
+npar tests k-s (uniform 0 1) = x.
+])
+
+AT_CHECK([pspp -O format=csv ks-uniform.sps], [0], [dnl
+Table: One-Sample Kolmogorov-Smirnov Test
+,,x
+N,,10
+Uniform Parameters,Minimum,.000
+,Maximum,1.000
+Most Extreme Differences,Absolute,.289
+,Positive,.289
+,Negative,-.229
+Kolmogorov-Smirnov Z,,.914
+Asymp. Sig. (2-tailed),,.374
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Kolmogorov-Smirnov Normal parameters imputed])
+
+AT_DATA([ks-normal.sps], [dnl
+set format = F12.3.
+
+data list notable list /foo * bar *.
+begin data.
+65 12.5
+59 14.2
+43 12.6
+57 
+68 
+79 
+51 
+62 
+57  
+73 
+58 
+58 
+68 
+75 
+47 
+70 
+59 
+71 
+52 
+48 13.0
+58 14.1
+37 15.0
+39 13.1
+58 13.2
+43 14.5
+58 13.5
+86 14.0
+63 12.5
+80 12.8
+70 
+63 
+53 
+53 
+48 
+49 
+51 
+47 
+81 
+66 
+78 
+65
+69 
+70 12.1
+63 12.5
+64 12.4
+39 13.8
+51 13.2
+68 14.0
+76 12.6
+53 12.1
+71 13.5
+47 13.8
+87 14.1
+72 12.9
+48 12.1
+75 12.8
+51 13.4
+63 13.9
+61 12.5
+61 12.4
+66 12.8
+82 12.9
+81 13.6
+46 
+52 
+71 
+73 
+58 
+57 
+46 
+58 
+52 13.5
+71 13.2
+57 12.8
+78 14.1
+73 12.1
+50 12.6
+71
+51
+51
+68
+84
+64
+66
+65
+52
+56
+70
+68
+66
+78
+65
+71
+53
+81
+53
+57
+64
+61
+43
+56
+37
+74
+66
+81
+67
+80
+68
+76
+70
+80
+42
+74
+80
+70
+60
+39
+72
+69
+63
+72
+63
+49
+53 13.2
+43 13.8
+51 12.5
+63 12.6
+64 12.9
+65 13.0
+64 12.5
+66 12.0
+55 
+62 
+58 
+48 
+67 
+46 
+36 
+61 
+55 
+77 
+74 
+60 
+70  
+69 
+57 
+49 
+63 
+69 
+63 
+76 
+53 
+54 
+42 
+64 
+66 
+61 
+62 
+73 
+73 
+60 
+79 
+40 
+48 
+76 
+60 
+76 
+54
+69
+65
+69
+51
+54
+82
+end data.
+
+npar tests 
+	/k-s (normal) = foo bar.
+])
+
+AT_CHECK([pspp -O format=csv ks-normal.sps], [0], [dnl
+Table: One-Sample Kolmogorov-Smirnov Test
+,,foo,bar
+N,,174,48
+Normal Parameters,Mean,62.109,13.108
+,Std. Deviation,11.548,.718
+Most Extreme Differences,Absolute,.059,.115
+,Positive,.055,.115
+,Negative,-.059,-.082
+Kolmogorov-Smirnov Z,,.785,.795
+Asymp. Sig. (2-tailed),,.569,.552
+])
+
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Median Test (median imputed)])
+
+AT_DATA([median1.sps], [dnl
+set format F12.3.
+data list notable list /ignore * animal * years * w *.
+begin data
+99  1   10  1
+99  4    1  1
+99  5   11  1
+99  5   10  1
+99  3    7  1
+99  6   10  1
+99  0    7  1
+99  3   14  1
+99  2    3  1
+99  1    1  1
+99  4    7  1
+99  5   12  1
+99  3    6  1
+99  4    1  1
+99  3    5  1
+99  5    7  1
+99  4    6  1
+99  3   14  1
+99  4    8  1
+99  5   13  1
+99  2    0  1
+99  4    7  1
+99  4    7  1
+99  1    0  1
+99  2    8  1
+99  4   10  1
+99  2    3  1
+99  2    0  1
+99  4    8  1
+99  1    8  1
+end data.
+
+
+variable label years 'Years expected'.
+variable label animal 'Animal Genus'.
+
+add value labels animal 1 'Animal 1' 2 'Animal 2' 3 'Animal 3' 4 'Animal 4' 5 'Animal 5'.
+
+npar tests
+     /median = years by animal (1, 5)
+     .
+])
+
+
+AT_CHECK([pspp -O format=csv median1.sps], [0], [dnl
+Table: Frequencies
+,,Animal Genus,,,,
+,,Animal 1,Animal 2,Animal 3,Animal 4,Animal 5
+Years expected,> Median,2,1,2,3,4
+,≤ Median,2,4,3,6,1
+
+Table: Test Statistics
+,N,Median,Chi-Square,df,Asymp. Sig.
+Years expected,28,7.000,4.317,4,.365
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Median Test (median given)])
+
+AT_DATA([median2.sps], [dnl
+set format F12.3.
+data list notable list /ignore * animal * years * w *.
+begin data
+99  1   10  1
+99  4    1  1
+99  5   11  1
+99  5   10  1
+99  3    7  1
+99  3   14  1
+99  2    3  1
+99  1    1  1
+99  4    7  1
+99  5   12  1
+99  3    6  1
+99  4    1  1
+99  3    5  1
+99  5    7  1
+99  4    6  1
+99  3   14  1
+99  4    8  1
+99  5   13  1
+99  2    0  1
+99  4    7  1
+99  4    7  1
+99  1    0  1
+99  2    8  1
+99  4   10  1
+99  2    3  1
+99  2    0  1
+99  4    8  1
+99  1    8  1
+end data.
+
+
+variable label years 'Years expected'.
+variable label animal 'Animal Genus'.
+
+add value labels animal 1 'Animal 1' 2 'Animal 2' 3 'Animal 3' 4 'Animal 4' 5 'Animal 5'.
+
+npar tests
+     /median (7) = years by animal (1, 5)
+     .
+])
+
+
+AT_CHECK([pspp -O format=csv median2.sps], [0], [dnl
+Table: Frequencies
+,,Animal Genus,,,,
+,,Animal 1,Animal 2,Animal 3,Animal 4,Animal 5
+Years expected,> Median,2,1,2,3,4
+,≤ Median,2,4,3,6,1
+
+Table: Test Statistics
+,N,Median,Chi-Square,df,Asymp. Sig.
+Years expected,28,7.000,4.317,4,.365
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Median Test (two sample)])
+
+AT_DATA([median3.sps], [dnl
+set format F12.3.
+data list notable list /xx * animal * years * w *.
+begin data
+99  1   10  1
+99  4    1  1
+99  5   11  1
+99  5   10  1
+99  3    7  1
+99  3   14  1
+99  2    3  1
+99  1    1  1
+99  4    7  1
+99  5   12  1
+99  3    6  1
+99  4    1  1
+99  3    5  1
+99  5    7  1
+99  4    6  1
+99  3   14  1
+99  4    8  1
+99  5   13  1
+99  2    0  1
+99  4    7  1
+99  4    7  1
+99  1    0  1
+99  2    8  1
+99  4   10  1
+99  2    3  1
+99  2    0  1
+99  4    8  1
+99  1    8  1
+end data.
+
+
+variable label years 'Years expected'.
+variable label animal 'Animal Genus'.
+
+add value labels animal 1 'Animal 1' 2 'Animal 2' 3 'Animal 3' 4 'Animal 4' 5 'Animal 5'.
+
+npar tests
+     /median (7) = xx years by animal (5, 1)
+     .
+])
+
+
+AT_CHECK([pspp -O format=csv median3.sps], [0], [dnl
+Table: Frequencies
+,,Animal Genus,
+,,Animal 1,Animal 5
+xx,> Median,4,5
+,≤ Median,0,0
+Years expected,> Median,2,4
+,≤ Median,2,1
+
+Table: Test Statistics
+,N,Median,Chi-Square,df,Asymp. Sig.
+xx,9,7.000,NaN,1,NaN
+Years expected,9,7.000,.900,1,.343
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS Jonckheere-Terpstra])
+
+AT_DATA([jt.sps], [dnl
+set format = F12.3.
+data list notable list /x * g * w *.
+begin data.
+52  2  2
+58  2  1
+60  2  1
+62  2  1
+58  0  1
+44  2  1
+46  2  1
+14  3  1
+32  2  1
+16  3  1
+56  2  1
+26  3  1
+40  3  2
+50  4  1
+6   5  1
+34  2  3
+36  2  2
+40  2  2
+50  2  1
+end data.
+
+weight by w.
+
+npar test /jonckheere-terpstra = x by g (5, 2).
+])
+
+
+AT_CHECK([pspp -O format=csv jt.sps], [0], [dnl
+Table: Jonckheere-Terpstra Test
+,Number of levels in g,N,Observed J-T Statistic,Mean J-T Statistic,Std. Deviation of J-T Statistic,Std. J-T Statistic,Asymp. Sig. (2-tailed)
+x,4,24.000,29.500,65.000,15.902,-2.232,.026
+])
+
+AT_CLEANUP
+
+dnl Checks that (PAIRED) can have lists where the same 
+dnl variable appears more than once.
+AT_SETUP([NPAR TESTS (PAIRED)])
+AT_DATA([npar.sps], [dnl
+set format = F12.3.
+data list notable list /a * b * c *.
+begin data.
+1 2 4
+4 5 3
+1 2 2
+4 5 1
+end data.
+
+npar tests /wilcoxon a b with c c (paired).
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [0], [dnl
+Table: Ranks
+,,N,Mean Rank,Sum of Ranks
+a - c,Negative Ranks,2,2.500,5.000
+,Positive Ranks,2,2.500,5.000
+,Ties,0,,
+,Total,4,,
+b - c,Negative Ranks,1,1.500,1.500
+,Positive Ranks,2,2.250,4.500
+,Ties,1,,
+,Total,4,,
+
+Table: Test Statistics
+,a - c,b - c
+Z,.000,-.816
+Asymp. Sig. (2-tailed),1.000,.414
+])
+
+
+AT_CLEANUP
+
+
+
+AT_SETUP([NPAR TESTS CHISQUARE crash])
+dnl This syntax had been observed to crash pspp
+
+AT_DATA([npar.sps], [dnl
+data list list /x *.
+begin data.
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+end data.
+
+* This happens to be invalid syntax.  But should not crash.
+NPAR TEST
+	/CHISQUARE= x(0.098, 99.098)
+	/EXPECTED =  1.2.
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [1], [ignore])
+
+AT_CLEANUP
+
+
+AT_SETUP([NPAR TESTS - crash on invalid syntax])
+
+AT_DATA([npar.sps], [dnl
+data list notable list /ev * xscore *.
+begin data.
+2 109
+3 115
+1 61
+1 101
+3 147
+end data.
+
+
+npar tests
+        /kruskal-wallis xscore by(gv (1, 3).
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [1], [ignore])
+
+AT_CLEANUP
+
+
+
+
+AT_SETUP([NPAR TESTS - crash on unterminated string])
+
+AT_DATA([npar.sps], [dnl
+DATA LIST NOTABLE LIST /x * y * w * .
+BEGIN DATA.
+3.1 1  4
+3.2 2  1
+4   2  6
+END DATA.
+
+
+NPAR TESTS
+" CHISQUARE=x y(-2,5)
+  /STATISTICS=DESCRIPTIVES
+  .
+])
+
+AT_CHECK([pspp -O format=csv npar.sps], [1], [ignore])
+
+AT_CLEANUP
+ 

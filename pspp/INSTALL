@@ -1,0 +1,359 @@
+Installation Instructions for GNU pspp
+**************************************
+
+These instructions are based on the generic GNU installation
+instructions, but they have been tailored for PSPP.  These instructions
+apply only to people wishing to build and install PSPP from source. 
+
+Overview
+========
+
+PSPP uses the standard GNU configuration system.  Therefore, if all is well,
+the following simple procedure should work, even on non-GNU systems:
+
+ tar -xzf pspp-*.tar.gz
+ cd pspp-*
+ ./configure
+ make 
+ sudo make install
+
+Obviously, you should replace 'pspp-*' in the above, with the name of
+the tarball you are installing.  
+
+In 99% of cases, that is all you have to do - FINISHED! 
+
+
+
+
+If any part of the above process fails, then it is
+likely that one or more of the necessary prerequisites is missing
+from your system.  The following paragraphs contain highly detailed
+information which will help you fix this.
+
+
+Before You Install
+==================
+
+Before you install PSPP, you will need to install certain prerequisite
+packages.  You may also want to install other packages that enable
+additional functionality in PSPP.  Please note, if you are installing
+any of the libararies mentioned below using pre-prepared binary
+packages provided by popular GNU/Linux vendors, you may need to ensure
+that you install the "development" versions (normally postfixed with
+-dev or -devel).
+
+If you do not know whether you have these installed already, you may
+proceed to "Basic Installation", below.  The PSPP configuration
+process will notify you about required and optional packages that are
+not present on your system.
+
+The following packages are required to install PSPP:
+
+    * A C compiler and tool chain.  On Unix-like systems, we
+      recommend GCC, but any modern compilation environment should
+      work.  On Microsoft Windows, Cygwin (http://www.cygwin.com/) and
+      MinGW (http://www.mingw.org/) are known to work.
+
+    * The GNU Scientific Library (http://www.gnu.org/software/gsl/),
+      version 1.13 or later, including libgslcblas included with GSL.
+
+    * Perl (http://www.perl.org/), version 5.005_03 or later.  Perl is
+      required during build but not after installation.
+
+    * iconv, which should be installed as part of a Unix-like system.
+      If you don't have a version already, you can install GNU
+      libiconv (http://www.gnu.org/software/libiconv/).
+
+    * libintl, from GNU gettext (http://www.gnu.org/software/gettext).
+      GNU libc includes an integrated libintl, so there is no need to
+      separately install libintl on a GNU/Linux system.
+
+    * zlib (http://www.zlib.net/).
+
+The following packages are required to enable PSPP's graphing
+features.  If you cannot arrange to install them, you must run
+`configure' with --without-cairo (in which case you will get no graphing
+capability).
+
+    * Cairo (http://cairographics.org/), version 1.12 or later.
+
+    * Pango (http://www.pango.org/), version 1.22 or later.
+
+The following packages are required to enable PSPPIRE, the graphical
+user interface for PSPP.  If you cannot install them or do not wish to
+use the GUI, you must run `configure' with --without-gui.
+
+    * pkg-config (http://pkg-config.freedesktop.org/wiki/).  Versions
+      0.18 and 0.19 have a bug that will prevent library detection,
+      but other versions should be fine.
+
+    * GTK+ (http://www.gtk.org/), version 3.14.5 or later.
+
+    * GtkSourceView (http://projects.gnome.org/gtksourceview/) 
+      version 3.4.0 or later.
+
+The following packages are optional:
+
+Installing the following packages will allow your PSPP program to read
+Gnumeric files.
+
+    * libxml2 (http://xmlsoft.org/).  
+
+Installing the following packages will allow your PSPP program to write
+OpenDocument text (ODT) files:
+
+    * libxml2 (http://xmlsoft.org/).  
+
+Other optional packages:
+
+    * libncurses (http://www.gnu.org/software/ncurses/).  Without it,
+      PSPP will assume it is running in an 80x25 terminal.
+
+    * libreadline and libhistory
+      (http://tiswww.case.edu/php/chet/readline/rltop.html).  Without
+      them, interactive command editing and history features in the
+      text-based user interface will be disabled.
+
+    * Texinfo (http://www.gnu.org/software/texinfo/), version 4.7 or
+      later.  Installing Texinfo will allow you to build PSPP
+      documentation in PostScript or PDF format.
+
+    * libpq, from Postgresql (http://postgresql.org).  This enables PSPP 
+      to read Postgresql databases.  The tests for the Postgresql
+      interface, but not the Postgresql interface itself, requires the
+      Postgresql server to be installed.
+
+    * The Text::Diff module for Perl (http://cpan.org).  This enables
+      PSPP to test the Perl module more thoroughly.  It is not needed
+      to build or use the Perl module.
+
+Basic Installation
+==================
+
+These are installation instructions specific to PSPP (including PSPPIRE, 
+the graphic user interface).  These instructions contain the
+information most commonly needed by people wishing to build the
+program from source.  More detailed information can be found in the
+generic autoconf manual which is available at
+http://www.gnu.org/software/autoconf/manual/html_node/Running-configure-Scripts.html
+
+   The `configure' shell script attempts to guess correct values for
+various system-dependent variables used during compilation.
+
+   If you need to do unusual things to compile the package, please
+report the problem to bug-gnu-pspp@gnu.org.  We will try to figure out
+how `configure' could work better in your situation for the next
+release.
+
+   The simplest way to compile PSPP is:
+
+  1. `cd' to the directory containing the package's source code and type
+     `./configure' to configure the package for your system.
+
+     You may invoke `configure' with --help to see what options are
+     available.  The most common of these are listed under "Optional
+     Features", below.
+
+     It is best to build and install PSPP in directories whose names do
+     not contain unusual characters such as spaces or single-quotes, due
+     to limitations of the tools involved in the build process.
+
+     If you installed some of the libraries that PSPP uses in a
+     non-standard location (on many systems, anywhere other than
+     /usr), you may need to provide some special flags to `configure'
+     to tell it where to find them.  For example, on GNU/Linux, if you
+     installed some libraries in /usr/local, then you need to invoke
+     it with at least the following options:
+
+	./configure LDFLAGS='-L/usr/local/lib -Wl,-rpath,/usr/local/lib' CPPFLAGS='-I/usr/local/include'
+
+     Running `configure' takes awhile.  While running, it prints some
+     messages telling which features it is checking for.
+
+     If `configure' completes successfully, it prints the message
+     "PSPP configured successfully." at the end of its run.
+     Otherwise, it may stop with a list of packages that you must
+     install before PSPP.  If it does, you need to install those
+     packages, then re-run this step.  Some prerequisites may be
+     omitted by passing a --without-<feature> flag to `configure' (see
+     "Optional Features", below).  If you use one of these flags, then
+     the feature that it disables will not be available in your PSPP
+     installation.
+
+     `configure' may also print a list of packages that you should
+     consider installing.  If you install them, then re-run
+     `configure', additional features will be available in your PSPP
+     installation.
+
+  2. Type `make' to compile the package.
+
+  3. Optionally, type `make check' to run the self-tests that come
+     with the package.  If any of the self-tests fail, please mail
+     bug-gnu-pspp@gnu.org with the details, to give the PSPP
+     developers an opportunity to fix the problem in the next release.
+
+  4. Type `make install' to install the programs and any data files
+     and documentation.  Ordinarily you will need root permissions to
+     do this.  The "su" and "sudo" commands are common ways to obtain
+     root permissions.  If you cannot get root permissions, see
+     "Installation Names", below.
+
+     Please note:  The `make install' target does NOT install the perl
+     module (see below).  To install the perl module, you must change to
+     the `perl-module' directory and manually run `make install' there.
+
+  5. You can remove the program binaries and object files from the
+     source code directory by typing `make clean'.  To also remove the
+     files that `configure' created (so you can compile the package for
+     a different kind of computer), type `make distclean'.
+
+Compilers and Options
+=====================
+
+Some systems may require unusual options for compilation or linking that the
+`configure' script does not know about.  Run `./configure --help' for
+details on some of the pertinent environment variables.
+
+   You can give `configure' initial values for configuration parameters
+by setting variables in the command line or in the environment.  Here
+is an example:
+
+     ./configure CC=c89 CFLAGS=-O0 LIBS=-lposix
+
+To cross-compile PSPP, you will likely need to set the
+PKG_CONFIG_LIBDIR environment variable to point to an
+appropriate pkg-config for the cross-compilation environment.
+
+See "Defining Variables", below, for more details.
+
+Installation Names
+==================
+
+By default, `make install' installs PSPP's commands under
+`/usr/local/bin', data files under `/usr/local/share', etc.  You
+can specify an installation prefix other than `/usr/local' by giving
+`configure' the option `--prefix=PREFIX'.
+
+   You may wish to install PSPP on a machine where you do not have
+root permissions.  To do so, specify a prefix relative within your
+home directory, e.g. `--prefix=$HOME' or `--prefix=$HOME/inst'.  All
+PSPP files will be installed under the prefix directory, which `make
+install' will create if necessary.  You may run PSPP directly from the
+`bin' directory under the prefix directory as, e.g., `~/inst/bin/pspp'
+under most shells, or for added convenience you can add the
+installation directory to your PATH by editing a shell startup file
+such as `.bashrc'.
+
+   You can specify separate installation prefixes for
+architecture-specific files and architecture-independent files.  If you
+pass the option `--exec-prefix=PREFIX' to `configure', the package uses
+PREFIX as the prefix for installing programs and libraries.
+Documentation and other data files still use the regular prefix.
+
+   In addition, if you use an unusual directory layout you can give
+options like `--bindir=DIR' to specify different values for particular
+kinds of files.  Run `configure --help' for a list of the directories
+you can set and what kinds of files go in them.
+
+   You can cause programs to be installed with an extra prefix or
+suffix on their names by giving `configure' the  option
+`--program-prefix=PREFIX' or `--program-suffix=SUFFIX'. 
+
+Optional Features
+=================
+
+`--without-cairo'
+    Don't compile in support for charts (using Cairo and Pango).  This
+    is useful if your system lacks these libraries.
+
+`--without-gui'
+    Don't build the PSPPIRE gui.  Use this option if you only want to
+    build the command line version of PSPP.
+
+    Cairo and Pango required to build the GUI, so --without-cairo
+    implies --without-gui.
+
+`--with-gui-tools'
+    Build the gui developer tools.  There is no reason to use this
+    option unless you're involved with the development of PSPP
+
+`--without-lib{xx}'
+    Optional libraries should normally be detected and the relevant
+    functionality will be built they exist.  However, on some poorly
+    configured systems a library may exist, but be totally broken.
+    In these cases you can use --without-lib{xx} to force configure
+    to disregard it.
+
+`--without-perl-module'
+   Disable building the Perl module, in case it does not build properly
+   or you do not need it.
+
+`--enable-relocatable'
+   This option is useful for building a package which can be installed
+   into an arbitrary directory and freely copied to any other directory.
+   If you use this option, you will probably want to install the pspp
+   with a command similar to "make install DESTDIR=<destination>".
+
+Defining Variables
+==================
+
+Variables not defined in a site shell script can be set in the
+environment passed to `configure'.  However, some packages may run
+configure again during the build, and the customized values of these
+variables may be lost.  In order to avoid this problem, you should set
+them in the `configure' command line, using `VAR=value'.  For example:
+
+     ./configure CC=/usr/local2/bin/gcc
+
+causes the specified `gcc' to be used as the C compiler (unless it is
+overridden in the site shell script).  Here is another example:
+
+     /bin/bash ./configure CONFIG_SHELL=/bin/bash
+
+Here the `CONFIG_SHELL=/bin/bash' operand causes subsequent
+configuration-related scripts to be executed by `/bin/bash'.
+
+Generic `configure' Options
+===========================
+
+`configure' also recognizes the following options to control how it operates.
+
+`--help'
+`-h'
+     Print a summary of the options to `configure', and exit.
+
+`--version'
+`-V'
+     Print the version of Autoconf used to generate the `configure'
+     script, and exit.
+
+`--cache-file=FILE'
+     Enable the cache: use and save the results of the tests in FILE,
+     traditionally `config.cache'.  FILE defaults to `/dev/null' to
+     disable caching.
+
+`--config-cache'
+`-C'
+     Alias for `--cache-file=config.cache'.
+
+`--quiet'
+`--silent'
+`-q'
+     Do not print messages saying which checks are being made.  To
+     suppress all normal output, redirect it to `/dev/null' (any error
+     messages will still be shown).
+
+`--srcdir=DIR'
+     Look for the package's source code in directory DIR.  Usually
+     `configure' can determine that directory automatically.
+
+`configure' also accepts some other, not widely useful, options.  Run
+`configure --help' for more details.
+
+----------------------------------------------------------------------
+Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002, 2004, 2005, 2007, 2013 Free
+Software Foundation, Inc.
+
+This file is free documentation; the Free Software Foundation gives
+unlimited permission to copy, distribute and modify it.
+

@@ -1,0 +1,7 @@
+sockets.lo: sockets.c /usr/include/stdc-predef.h ../config.h sockets.h
+
+/usr/include/stdc-predef.h:
+
+../config.h:
+
+sockets.h:

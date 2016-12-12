@@ -1,0 +1,456 @@
+AT_BANNER([GLM procedure])
+
+AT_SETUP([GLM latin square design])
+
+dnl This example comes from :
+dnl  http://ssnds.uwo.ca/statsexamples/spssanova/latinsquareresults.html
+AT_DATA([latin.sps], [dnl
+set format = F20.3.
+data list notable  fixed /a 1 b 3 c 5 y 7-10(2).
+begin data.
+1 1 6  3.5
+1 2 2  8.9
+1 3 3  9.6
+1 4 4 10.5
+1 5 5  3.1
+1 6 1  5.9
+2 1 2  4.2
+2 2 6  1.9
+2 3 5  3.7
+2 4 3 10.2
+2 5 1  7.2
+2 6 4  7.6
+3 1 1  6.7
+3 2 4  5.8
+3 3 6 -2.7
+3 4 2  4.6
+3 5 3  4.0
+3 6 5 -0.7
+4 1 4  6.6
+4 2 1  4.5
+4 3 2  3.7
+4 4 5  3.7
+4 5 6 -3.3
+4 6 3  3.0
+5 1 3  4.1
+5 2 5  2.4
+5 3 4  6.0
+5 4 1  5.1
+5 5 2  3.5
+5 6 6  4.0
+6 1 5  3.8
+6 2 3  5.8
+6 3 1  7.0
+6 4 6  3.8
+6 5 4  5.0
+6 6 2  8.6
+end data.
+
+variable labels a 'Factor A' b 'Factor B' c 'Factor C' y 'Criterion'.
+
+glm y by   b a c
+  /intercept=include
+  /criteria=alpha(.05)
+  /design = a b c
+  .
+])
+
+AT_CHECK([pspp -O format=csv latin.sps | sed 's/329.62[[678]]/329.62/'], [0],
+  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,263.064,15,17.538,5.269,.000
+Intercept,815.103,1,815.103,244.910,.000
+Factor A,78.869,5,15.774,4.739,.005
+Factor B,28.599,5,5.720,1.719,.176
+Factor C,155.596,5,31.119,9.350,.000
+Error,66.563,20,3.328,,
+Total,1144.730,36,,,
+Corrected Total,329.62,35,,,
+])
+
+AT_CLEANUP
+
+AT_SETUP([GLM 2 by 2 factorial design])
+
+AT_DATA([2by2.sps], [dnl
+set format = F20.3.
+data list notable  list /Factor0 * Factor1 * points (F10).
+begin data.
+1	4	332
+1	4	380
+1	4	371
+1	4	366
+1	4	354
+1	0	259.5
+1	0	302.5
+1	0	296
+1	0	349
+1	0	309
+2	4	354.67
+2	4	353.5
+2	4	304
+2	4	365
+2	4	339
+2	0	306
+2	0	339
+2	0	353
+2	0	351
+2	0	333
+end data.
+
+glm points by Factor0 Factor1
+  /intercept=include
+  /criteria=alpha(.05)
+  .
+])
+
+
+AT_CHECK([pspp -O format=csv 2by2.sps ], [0],
+  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,8667.053,3,2889.018,5.043,.012
+Intercept,2256018.640,1,2256018.640,3937.693,.000
+Factor0,313.394,1,313.394,.547,.470
+Factor1,5157.508,1,5157.508,9.002,.008
+Factor0 * Factor1,3196.150,1,3196.150,5.579,.031
+Error,9166.865,16,572.929,,
+Total,2273852.559,20,,,
+Corrected Total,17833.918,19,,,
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([GLM Type I and II Sums of Squares])
+
+dnl  The following example comes from 
+dnl  http://www.uvm.edu/~dhowell/StatPages/More_Stuff/Type1-3.pdf
+AT_DATA([data-inc.sps], [dnl
+set decimal = dot.
+set format=F20.3.
+data list notable list /dv * Agrp * B0 * B1 * B2 * i0 * i1 * i2 * sss *.
+begin data.
+5   1  1  0  0  1  0  0 1.00
+7   1  1  0  0  1  0  0 1.00
+9   1  1  0  0  1  0  0 1.00
+8   1  1  0  0  1  0  0 1.00
+2   1  0  1  0  0  1  0 1.00
+5   1  0  1  0  0  1  0 1.00
+7   1  0  1  0  0  1  0 1.00
+3   1  0  1  0  0  1  0 1.00
+9   1  0  1  0  0  1  0 1.00
+8   1  0  0  1  0  0  1 1.00
+11  1  0  0  1  0  0  1 1.00
+12  1  0  0  1  0  0  1 1.00
+14  1  0  0  1  0  0  1 1.00
+11  1 -1 -1 -1 -1 -1 -1 1.00
+15  1 -1 -1 -1 -1 -1 -1 1.00
+16  1 -1 -1 -1 -1 -1 -1 1.00
+10  1 -1 -1 -1 -1 -1 -1 1.00
+9   1 -1 -1 -1 -1 -1 -1 1.00
+7  -1  1  0  0 -1  0  0 2.00
+9  -1  1  0  0 -1  0  0 2.00
+10 -1  1  0  0 -1  0  0 2.00
+9  -1  1  0  0 -1  0  0 2.00
+3  -1  0  1  0  0 -1  0 2.00
+8  -1  0  1  0  0 -1  0 2.00
+9  -1  0  1  0  0 -1  0 2.00
+11 -1  0  1  0  0 -1  0 2.00
+9  -1  0  0  1  0  0 -1 2.00
+12 -1  0  0  1  0  0 -1 2.00
+14 -1  0  0  1  0  0 -1 2.00
+8  -1  0  0  1  0  0 -1 2.00
+7  -1  0  0  1  0  0 -1 2.00
+11 -1 -1 -1 -1  1  1  1 2.00
+14 -1 -1 -1 -1  1  1  1 2.00
+10 -1 -1 -1 -1  1  1  1 2.00
+12 -1 -1 -1 -1  1  1  1 2.00
+13 -1 -1 -1 -1  1  1  1 2.00
+11 -1 -1 -1 -1  1  1  1 2.00
+12 -1 -1 -1 -1  1  1  1 2.00
+end data.
+
+do if B0 = -1 AND B1 = -1 AND B2 = -1.
+compute Bgrp = 4.
+end if.
+
+do if B0 = 0 AND B1 = 0 AND B2 = 1.
+compute Bgrp = 3.
+end if.
+
+do if B0 = 0 AND B1 = 1 AND B2 = 0.
+compute Bgrp = 2.
+end if.
+
+do if B0 = 1 AND B1 = 0 AND B2 = 0.
+compute Bgrp = 1.
+end if.
+])
+
+AT_DATA([type1.sps], [dnl
+include 'data-inc.sps'.
+
+glm dv by Agrp Bgrp
+	/method = sstype (1)
+	.
+
+glm dv by Agrp Bgrp
+	/method = sstype (1)
+	/design Bgrp Agrp Bgrp * Agrp
+	.
+])
+
+
+AT_CHECK([pspp -O format=csv type1.sps], [0],
+  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type I Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,216.017,7,30.860,5.046,.001
+Intercept,,,,,
+Agrp,9.579,1,9.579,1.566,.220
+Bgrp,186.225,3,62.075,10.151,.000
+Agrp * Bgrp,20.212,3,6.737,1.102,.364
+Error,183.457,30,6.115,,
+Total,3810.000,38,,,
+Corrected Total,399.474,37,,,
+
+Table: Tests of Between-Subjects Effects
+Source,Type I Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,216.017,7,30.860,5.046,.001
+Intercept,,,,,
+Bgrp,193.251,3,64.417,10.534,.000
+Agrp,2.553,1,2.553,.418,.523
+Bgrp * Agrp,20.212,3,6.737,1.102,.364
+Error,183.457,30,6.115,,
+Total,3810.000,38,,,
+Corrected Total,399.474,37,,,
+])
+
+
+AT_DATA([type2.sps], [dnl
+include 'data-inc.sps'.
+
+glm dv by Agrp Bgrp
+	/method = sstype (2)
+	.
+])
+
+
+AT_CHECK([pspp -O format=csv type2.sps], [0],
+  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type II Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,216.017,7,30.860,5.046,.001
+Intercept,,,,,
+Agrp,2.553,1,2.553,.418,.523
+Bgrp,186.225,3,62.075,10.151,.000
+Agrp * Bgrp,20.212,3,6.737,1.102,.364
+Error,183.457,30,6.115,,
+Total,3810.000,38,,,
+Corrected Total,399.474,37,,,
+])
+
+AT_CLEANUP
+
+
+
+AT_SETUP([GLM excluded intercept])
+
+dnl  The following example comes from 
+dnl
+dnl Rudolf N. Cardinal
+dnl Graduate-level statistics for psychology and neuroscience
+dnl ANOVA in practice, and complex ANOVA designs
+dnl Version of 2 May 2004
+dnl
+dnl Downloaded from: http://egret.psychol.cam.ac.uk/psychology/graduate/Guide_to_ANOVA.pdf
+
+AT_DATA([intercept-exclude.sps], [dnl
+set format = F20.3.
+
+data list notable list /depvar * A *.
+begin data.
+10     1
+14     1
+8      1
+7      1
+2      1
+10     1
+1      1
+3      1
+2      1
+8.5    1
+14.29  2
+18.49  2
+12.46  2
+11.63  2
+6.66   2
+14.02  2
+5.66   2
+7.06   2
+6.37   2
+13.26  2
+end data.
+
+GLM depvar by A
+   /intercept = exclude
+  .
+
+
+GLM depvar by A
+   /intercept = include
+  .
+
+])
+
+AT_CHECK([pspp -O format=csv intercept-exclude.sps], [0],
+  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Model,1636.826,2,818.413,43.556,.000
+A,1636.826,2,818.413,43.556,.000
+Error,338.216,18,18.790,,
+Total,1975.042,20,,,
+
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,98.568,1,98.568,5.246,.034
+Intercept,1538.258,1,1538.258,81.867,.000
+A,98.568,1,98.568,5.246,.034
+Error,338.216,18,18.790,,
+Total,1975.042,20,,,
+Corrected Total,436.784,19,,,
+])
+
+AT_CLEANUP
+
+
+AT_SETUP([GLM missing values])
+
+AT_DATA([glm.data], [dnl
+1 1 6  3.5
+1 2 2  8.9
+1 3 3  9.6
+1 4 4 10.5
+1 5 5  3.1
+1 6 1  5.9
+2 1 2  4.2
+2 2 6  1.9
+2 3 5  3.7
+2 4 3 10.2
+2 5 1  7.2
+2 6 4  7.6
+3 1 1  6.7
+3 2 4  5.8
+3 3 6 -2.7
+3 4 2  4.6
+3 5 3  4.0
+3 6 5 -0.7
+4 1 4  6.6
+4 2 1  4.5
+4 3 2  3.7
+4 4 5  3.7
+4 5 6 -3.3
+4 6 3  3.0
+5 1 3  4.1
+5 2 5  2.4
+5 3 4  6.0
+5 4 1  5.1
+5 5 2  3.5
+5 6 6  4.0
+6 1 5  3.8
+6 2 3  5.8
+6 3 1  7.0
+6 4 6  3.8
+6 5 4  5.0
+6 6 2  8.6
+])
+
+AT_DATA([glm-miss.sps], [dnl
+set format = F20.3.
+data list file='glm.data' notable  fixed /a 1 b 3 c 5 y 7-10(2).
+
+do if a=6.
+recode y (else=SYSMIS).
+end if.
+
+glm y by   b a c
+  /criteria=alpha(.05)
+  /design = a b c
+  .
+])
+
+AT_CHECK([pspp -O format=csv glm-miss.sps], [0],  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,251.621,14,17.973,4.969,.002
+Intercept,628.376,1,628.376,173.737,.000
+a,72.929,4,18.232,5.041,.009
+b,20.703,5,4.141,1.145,.380
+c,135.179,5,27.036,7.475,.001
+Error,54.253,15,3.617,,
+Total,934.250,30,,,
+Corrected Total,305.874,29,,,
+])
+
+
+
+AT_DATA([glm-miss2.sps], [dnl
+set format = F20.3.
+data list file='glm.data' notable  fixed /a 1 b 3 c 5 y 7-10(2).
+
+select if a <> 6.
+
+glm y by   b a c
+  /criteria=alpha(.05)
+  /design = a b c
+  .
+])
+
+AT_CHECK([pspp -O format=csv glm-miss2.sps], [0],  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,251.621,14,17.973,4.969,.002
+Intercept,628.376,1,628.376,173.737,.000
+a,72.929,4,18.232,5.041,.009
+b,20.703,5,4.141,1.145,.380
+c,135.179,5,27.036,7.475,.001
+Error,54.253,15,3.617,,
+Total,934.250,30,,,
+Corrected Total,305.874,29,,,
+])
+
+
+dnl Now for some missing values in the factor variables.
+
+AT_DATA([glm-miss3.sps], [dnl
+set format = F20.3.
+data list file=glm.data notable  fixed /a 1 b 3 c 5 y 7-10(2).
+
+do if a=6.
+recode a (else=SYSMIS).
+end if.
+
+glm y by   b a c
+  /criteria=alpha(.05)
+  /design = a b c
+  .
+])
+
+AT_CHECK([pspp -O format=csv glm-miss3.sps], [0],  [dnl
+Table: Tests of Between-Subjects Effects
+Source,Type III Sum of Squares,df,Mean Square,F,Sig.
+Corrected Model,251.621,14,17.973,4.969,.002
+Intercept,628.376,1,628.376,173.737,.000
+a,72.929,4,18.232,5.041,.009
+b,20.703,5,4.141,1.145,.380
+c,135.179,5,27.036,7.475,.001
+Error,54.253,15,3.617,,
+Total,934.250,30,,,
+Corrected Total,305.874,29,,,
+])
+
+AT_CLEANUP
+

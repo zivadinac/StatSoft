@@ -1,0 +1,89 @@
+PSPP is a program for statistical analysis of sampled data.  It is
+a free replacement for the proprietary program SPSS.
+
+PSPP supports T-tests, ANOVA and GLM analyses, factor analysis,
+non-parametric tests, linear and logistic regression, clustering, 
+and other statistical features.  PSPP produces statistical reports in
+plain text, PDF, PostScript, CSV, HTML, SVG, and OpenDocument formats.
+It can import data from OpenDocument, Gnumeric, text and SPSS formats.
+
+PSPP has both text-based and graphical user interfaces.  The PSPP
+user interface has been translated into a number of languages.
+
+Instructions for PSPP installation are in INSTALL, including a list of
+prerequisite packages and other PSPP-specific information.  Full
+documentation on PSPP's language is also included.
+
+For information on differences from previous versions, please see file
+NEWS.  
+          
+Source code for the latest release of PSPP is available at
+ftp://ftp.gnu.org/pub/gnu/pspp/.  Test releases are at
+ftp://alpha.gnu.org/gnu/pspp/.  Development sources are available
+at http://savannah.gnu.org/projects/pspp
+
+The following miscellaneous notes apply to this release:
+
+	* On a few operating systems, such as OpenBSD, some of the
+          tests may fail with messages similar to: 'Warning: cannot
+          create a converter for "646" to "UTF-8"'.  These test
+          failures may safely be ignored.
+
+Questions and comments about using PSPP may be sent to pspp-users@gnu.org.
+Bug reports may be filed at http://savannah.gnu.org/bugs/?group=pspp
+or emailed to bug-gnu-pspp@gnu.org.  We prefer the web-based system
+because it makes it more difficult for us to lose track of bugs, but we
+are happy to hear from users through any means.
+
+The long term goals for PSPP are ambitious.  We wish to provide the
+following support to users:
+
+	* All of the SPSS transformation language.  PSPP already
+          supports a large subset of it.
+
+	* All the statistical procedures that someone is willing to
+          implement, whether they exist in SPSS or not.
+
+	* Compatibility with SPSS syntax, including compatibility with
+          known bugs and warts, where it makes sense.  We also provide
+          an "enhanced" mode in certain cases where PSPP can output
+          better results that may surprise SPSS users.
+
+	* Friendly textual and graphical interfaces.  
+
+	* Good documentation.  Currently the PSPP manual describes its
+          language completely, but we would like to add information on
+          how to select statistical procedures and interpret their
+          results.
+
+	* Efficient support for very large data sets.  For procedures
+          where it is practical, we wish to efficiently support data
+          sets many times larger than physical memory.  The framework
+          for this feature is already in place. It has not been tuned
+          or extensively tested, however initial experience has given
+          impressive results.
+
+Over the long term, we also wish to provide support to developers who
+wish to extend PSPP with new statistical procedures, by supplying the
+following:
+
+	* Easy-to-use support for parsing language syntax.  Currently,
+          parsing is done by writing "recursive descent" code by hand,
+          with some support for automated parsing of the most common
+          constructs.  We wish to improve the situation by supplying a
+          more complete and flexible parser generator.
+
+	* Easy-to-use support for producing attractive output.
+          Currently, output is done by writing code to explicitly fill
+          in table cells with data.  We should be able to supply a
+          more convenient interface that also allows for providing
+          machine-readable output.
+
+	* Eventually, a plug-in interface for procedures.  Over the
+          short term, the interface between the PSPP core and
+          statistical procedures is evolving quickly enough that a
+          plug-in model does not make sense.  Over the long term, it
+          may make sense to introduce plug-ins.
+
+For any copyright year range specified as YYYY-ZZZZ in this package note
+that the range specifies every single year in that closed interval.

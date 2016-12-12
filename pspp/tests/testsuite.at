@@ -1,0 +1,173 @@
+# Generated automatically -- do not modify!    -*- buffer-read-only: t -*-
+AT_INIT
+
+# Define SKIP_IF for compatibility with Autotest before 2.64
+m4_ifndef([AT_SKIP_IF],
+  [m4_define([AT_SKIP_IF],
+     [AT_CHECK([($1) \
+&& exit 77 || exit 0], [0], [ignore], [ignore])])])
+
+m4_divert_text([PREPARE_TESTS], [dnl
+if test X"$RUNNER" != X; then
+    wrapper_dir=`pwd`/wrappers
+    rm -f "$wrapper_dir"/*
+    test -d "$wrapper_dir" || mkdir "$wrapper_dir"
+
+    wrap_dir () {
+        test -d "$1" || return
+	for file in "$1"/*; do
+            if test -x "$file" && test -f "$file"; then
+		base=`basename $file $EXEEXT`
+		wrapper=$wrapper_dir/$base
+		if test ! -e "$wrapper"; then
+		    echo "exec $RUNNER $file \"\$@\"" > $wrapper
+		    chmod +x $wrapper
+		fi
+	    fi
+	done
+    }
+
+    save_IFS=$IFS; IFS=$PATH_SEPARATOR
+    for dir in $AUTOTEST_PATH; do
+        IFS=$save_IFS
+        test X"$dir" = X && dir=.
+	case $dir in
+            [\\/]* | ?:[\\/]*)
+                wrap_dir "$dir"
+		;;
+            *)
+	        wrap_dir "$abs_top_builddir/$dir"
+		wrap_dir "$abs_top_srcdir/$dir"
+		;;
+	esac
+    done
+    IFS=$save_IFS
+    PATH=$wrapper_dir:$PATH
+fi
+])
+m4_include([tests/data/calendar.at])
+m4_include([tests/data/data-in.at])
+m4_include([tests/data/data-out.at])
+m4_include([tests/data/datasheet-test.at])
+m4_include([tests/data/dictionary.at])
+m4_include([tests/data/file.at])
+m4_include([tests/data/format-guesser.at])
+m4_include([tests/data/pc+-file-reader.at])
+m4_include([tests/data/por-file.at])
+m4_include([tests/data/sys-file-reader.at])
+m4_include([tests/data/sys-file.at])
+m4_include([tests/data/encrypted-file.at])
+m4_include([tests/language/command.at])
+m4_include([tests/language/control/do-if.at])
+m4_include([tests/language/control/do-repeat.at])
+m4_include([tests/language/control/loop.at])
+m4_include([tests/language/control/temporary.at])
+m4_include([tests/language/data-io/add-files.at])
+m4_include([tests/language/data-io/data-list.at])
+m4_include([tests/language/data-io/data-reader.at])
+m4_include([tests/language/data-io/dataset.at])
+m4_include([tests/language/data-io/file-handle.at])
+m4_include([tests/language/data-io/get-data-spreadsheet.at])
+m4_include([tests/language/data-io/get-data-psql.at])
+m4_include([tests/language/data-io/get-data-txt.at])
+m4_include([tests/language/data-io/get.at])
+m4_include([tests/language/data-io/inpt-pgm.at])
+m4_include([tests/language/data-io/list.at])
+m4_include([tests/language/data-io/match-files.at])
+m4_include([tests/language/data-io/print-space.at])
+m4_include([tests/language/data-io/print.at])
+m4_include([tests/language/data-io/save.at])
+m4_include([tests/language/data-io/save-translate.at])
+m4_include([tests/language/data-io/update.at])
+m4_include([tests/language/dictionary/attributes.at])
+m4_include([tests/language/dictionary/delete-variables.at])
+m4_include([tests/language/dictionary/formats.at])
+m4_include([tests/language/dictionary/missing-values.at])
+m4_include([tests/language/dictionary/mrsets.at])
+m4_include([tests/language/dictionary/rename-variables.at])
+m4_include([tests/language/dictionary/sort-variables.at])
+m4_include([tests/language/dictionary/split-file.at])
+m4_include([tests/language/dictionary/sys-file-info.at])
+m4_include([tests/language/dictionary/value-labels.at])
+m4_include([tests/language/dictionary/variable-display.at])
+m4_include([tests/language/dictionary/vector.at])
+m4_include([tests/language/dictionary/weight.at])
+m4_include([tests/language/expressions/evaluate.at])
+m4_include([tests/language/expressions/parse.at])
+m4_include([tests/language/lexer/command-name.at])
+m4_include([tests/language/lexer/lexer.at])
+m4_include([tests/language/lexer/q2c.at])
+m4_include([tests/language/lexer/scan.at])
+m4_include([tests/language/lexer/segment.at])
+m4_include([tests/language/lexer/variable-parser.at])
+m4_include([tests/language/stats/aggregate.at])
+m4_include([tests/language/stats/autorecode.at])
+m4_include([tests/language/stats/correlations.at])
+m4_include([tests/language/stats/crosstabs.at])
+m4_include([tests/language/stats/descriptives.at])
+m4_include([tests/language/stats/examine.at])
+m4_include([tests/language/stats/graph.at])
+m4_include([tests/language/stats/factor.at])
+m4_include([tests/language/stats/flip.at])
+m4_include([tests/language/stats/frequencies.at])
+m4_include([tests/language/stats/glm.at])
+m4_include([tests/language/stats/logistic.at])
+m4_include([tests/language/stats/means.at])
+m4_include([tests/language/stats/npar.at])
+m4_include([tests/language/stats/oneway.at])
+m4_include([tests/language/stats/quick-cluster.at])
+m4_include([tests/language/stats/rank.at])
+m4_include([tests/language/stats/regression.at])
+m4_include([tests/language/stats/reliability.at])
+m4_include([tests/language/stats/roc.at])
+m4_include([tests/language/stats/sort-cases.at])
+m4_include([tests/language/stats/t-test.at])
+m4_include([tests/language/utilities/cache.at])
+m4_include([tests/language/utilities/cd.at])
+m4_include([tests/language/utilities/date.at])
+m4_include([tests/language/utilities/insert.at])
+m4_include([tests/language/utilities/permissions.at])
+m4_include([tests/language/utilities/set.at])
+m4_include([tests/language/utilities/show.at])
+m4_include([tests/language/utilities/title.at])
+m4_include([tests/language/xforms/compute.at])
+m4_include([tests/language/xforms/count.at])
+m4_include([tests/language/xforms/recode.at])
+m4_include([tests/language/xforms/sample.at])
+m4_include([tests/language/xforms/select-if.at])
+m4_include([tests/libpspp/abt.at])
+m4_include([tests/libpspp/bt.at])
+m4_include([tests/libpspp/encoding-guesser.at])
+m4_include([tests/libpspp/float-format.at])
+m4_include([tests/libpspp/heap.at])
+m4_include([tests/libpspp/hmap.at])
+m4_include([tests/libpspp/hmapx.at])
+m4_include([tests/libpspp/i18n.at])
+m4_include([tests/libpspp/line-reader.at])
+m4_include([tests/libpspp/ll.at])
+m4_include([tests/libpspp/llx.at])
+m4_include([tests/libpspp/range-map.at])
+m4_include([tests/libpspp/range-set.at])
+m4_include([tests/libpspp/range-tower.at])
+m4_include([tests/libpspp/sparse-array.at])
+m4_include([tests/libpspp/sparse-xarray-test.at])
+m4_include([tests/libpspp/str.at])
+m4_include([tests/libpspp/string-map.at])
+m4_include([tests/libpspp/stringi-map.at])
+m4_include([tests/libpspp/string-set.at])
+m4_include([tests/libpspp/stringi-set.at])
+m4_include([tests/libpspp/tower.at])
+m4_include([tests/libpspp/u8-istream.at])
+m4_include([tests/libpspp/zip.at])
+m4_include([tests/math/chart-geometry.at])
+m4_include([tests/math/moments.at])
+m4_include([tests/math/randist.at])
+m4_include([tests/output/ascii.at])
+m4_include([tests/output/charts.at])
+m4_include([tests/output/output.at])
+m4_include([tests/output/paper-size.at])
+m4_include([tests/output/render.at])
+m4_include([tests/output/tables.at])
+m4_include([tests/ui/terminal/main.at])
+m4_include([tests/ui/syntax-gen.at])
+m4_include([tests/perl-module.at])

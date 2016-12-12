@@ -1,0 +1,987 @@
+@node System and Portable File IO
+@chapter System and Portable File I/O
+
+The commands in this chapter read, write, and examine system files and
+portable files.
+
+@menu
+* APPLY DICTIONARY::            Apply system file dictionary to active dataset.
+* EXPORT::                      Write to a portable file.
+* GET::                         Read from a system file.
+* GET DATA::                    Read from foreign files.
+* IMPORT::                      Read from a portable file.
+* SAVE::                        Write to a system file.
+* SAVE TRANSLATE::              Write data in foreign file formats.
+* SYSFILE INFO::                Display system file dictionary.
+* XEXPORT::                     Write to a portable file, as a transformation.
+* XSAVE::                       Write to a system file, as a transformation.
+@end menu
+
+@node APPLY DICTIONARY
+@section APPLY DICTIONARY
+@vindex APPLY DICTIONARY
+
+@display
+APPLY DICTIONARY FROM=@{'@var{file_name}',@var{file_handle}@}.
+@end display
+
+@cmd{APPLY DICTIONARY} applies the variable labels, value labels,
+and missing values taken from a file to corresponding
+variables in the active dataset.  In some cases it also updates the
+weighting variable.
+
+Specify a system file or portable file's name, a data set name
+(@pxref{Datasets}), or a file handle name (@pxref{File Handles}).  The
+dictionary in the file will be read, but it will not replace the
+active dataset's dictionary.  The file's data will not be read.
+
+Only variables with names that exist in both the active dataset and the
+system file are considered.  Variables with the same name but different
+types (numeric, string) will cause an error message.  Otherwise, the
+system file variables' attributes will replace those in their matching
+active dataset variables:
+
+@itemize @bullet
+@item
+If a system file variable has a variable label, then it will replace
+the variable label of the active dataset variable.  If the system
+file variable does not have a variable label, then the active dataset
+variable's variable label, if any, will be retained.
+
+@item
+If the system file variable has custom attributes (@pxref{VARIABLE
+ATTRIBUTE}), then those attributes replace the active dataset variable's
+custom attributes.  If the system file variable does not have custom
+attributes, then the active dataset variable's custom attributes, if any,
+will be retained.
+
+@item
+If the active dataset variable is numeric or short string, then value
+labels and missing values, if any, will be copied to the active dataset
+variable.  If the system file variable does not have value labels or
+missing values, then those in the active dataset variable, if any, will not
+be disturbed.
+@end itemize
+
+In addition to properties of variables, some properties of the active
+file dictionary as a whole are updated:
+
+@itemize @bullet
+@item
+If the system file has custom attributes (@pxref{DATAFILE ATTRIBUTE}),
+then those attributes replace the active dataset variable's custom
+attributes.
+
+@item
+If the active dataset has a weighting variable (@pxref{WEIGHT}), and the
+system file does not, or if the weighting variable in the system file
+does not exist in the active dataset, then the active dataset weighting
+variable, if any, is retained.  Otherwise, the weighting variable in
+the system file becomes the active dataset weighting variable.
+@end itemize
+
+@cmd{APPLY DICTIONARY} takes effect immediately.  It does not read the
+active dataset.  The system file is not modified.
+
+@node EXPORT
+@section EXPORT
+@vindex EXPORT
+
+@display
+EXPORT
+        /OUTFILE='@var{file_name}'
+        /UNSELECTED=@{RETAIN,DELETE@}
+        /DIGITS=@var{n}
+        /DROP=@var{var_list}
+        /KEEP=@var{var_list}
+        /RENAME=(@var{src_names}=@var{target_names})@dots{}
+        /TYPE=@{COMM,TAPE@}
+        /MAP
+@end display
+
+The @cmd{EXPORT} procedure writes the active dataset's dictionary and
+data to a specified portable file.
+
+By default, cases excluded with FILTER are written to the
+file.  These can be excluded by specifying DELETE on the @subcmd{UNSELECTED}
+subcommand.  Specifying RETAIN makes the default explicit.
+
+Portable files express real numbers in base 30.  Integers are always
+expressed to the maximum precision needed to make them exact.
+Non-integers are, by default, expressed to the machine's maximum
+natural precision (approximately 15 decimal digits on many machines).
+If many numbers require this many digits, the portable file may
+significantly increase in size.  As an alternative, the @subcmd{DIGITS}
+subcommand may be used to specify the number of decimal digits of
+precision to write.  @subcmd{DIGITS} applies only to non-integers.
+
+The @subcmd{OUTFILE} subcommand, which is the only required subcommand, specifies
+the portable file to be written as a file name string or
+a file handle (@pxref{File Handles}).
+
+@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} follow the same format as the 
+@subcmd{SAVE} procedure (@pxref{SAVE}).
+
+The @subcmd{TYPE} subcommand specifies the character set for use in the
+portable file.  Its value is currently not used.
+
+The @subcmd{MAP} subcommand is currently ignored.
+
+@cmd{EXPORT} is a procedure.  It causes the active dataset to be read.
+
+@node GET
+@section GET
+@vindex GET
+
+@display
+GET
+        /FILE=@{'@var{file_name}',@var{file_handle}@}
+        /DROP=@var{var_list}
+        /KEEP=@var{var_list}
+        /RENAME=(@var{src_names}=@var{target_names})@dots{}
+        /ENCODING='@var{encoding}'
+@end display
+
+@cmd{GET} clears the current dictionary and active dataset and
+replaces them with the dictionary and data from a specified file.
+
+The @subcmd{FILE} subcommand is the only required subcommand.  Specify
+the SPSS system file, SPSS/PC+ system file, or SPSS portable file to
+be read as a string file name or a file handle (@pxref{File Handles}).
+
+By default, all the variables in a file are read.  The DROP
+subcommand can be used to specify a list of variables that are not to be
+read.  By contrast, the @subcmd{KEEP} subcommand can be used to specify
+variable that are to be read, with all other variables not read.
+
+Normally variables in a file retain the names that they were
+saved under.  Use the @subcmd{RENAME} subcommand to change these names.
+Specify,
+within parentheses, a list of variable names followed by an equals sign
+(@samp{=}) and the names that they should be renamed to.  Multiple
+parenthesized groups of variable names can be included on a single
+@subcmd{RENAME} subcommand.
+Variables' names may be swapped using a @subcmd{RENAME}
+subcommand of the form @subcmd{/RENAME=(@var{A} @var{B}=@var{B} @var{A})}.
+
+Alternate syntax for the @subcmd{RENAME} subcommand allows the parentheses to be
+eliminated.  When this is done, only a single variable may be renamed at
+once.  For instance, @subcmd{/RENAME=@var{A}=@var{B}}.  This alternate syntax is
+deprecated.
+
+@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} are executed in left-to-right order.  
+Each may be present any number of times.  @cmd{GET} never modifies a
+file on disk.  Only the active dataset read from the file
+is affected by these subcommands.
+
+@pspp{} automatically detects the encoding of string data in the file,
+when possible.  The character encoding of old SPSS system files cannot
+always be guessed correctly, and SPSS/PC+ system files do not include
+any indication of their encoding.  Specify the @subcmd{ENCODING}
+subcommand with an @acronym{IANA} character set name as its string
+argument to override the default.  Use @cmd{SYSFILE INFO} to analyze
+the encodings that might be valid for a system file.  The
+@subcmd{ENCODING} subcommand is a @pspp{} extension.
+
+@cmd{GET} does not cause the data to be read, only the dictionary.  The data
+is read later, when a procedure is executed.
+
+Use of @cmd{GET} to read a portable file is a @pspp{} extension.
+
+@node GET DATA
+@section GET DATA
+@vindex GET DATA
+
+@display
+GET DATA
+        /TYPE=@{GNM,ODS,PSQL,TXT@}
+        @dots{}additional subcommands depending on TYPE@dots{}
+@end display
+
+The @cmd{GET DATA} command is used to read files and other data
+sources created by other applications.  When this command is executed,
+the current dictionary and active dataset are replaced with variables
+and data read from the specified source.
+
+The @subcmd{TYPE} subcommand is mandatory and must be the first subcommand
+specified.  It determines the type of the file or source to read.
+@pspp{} currently supports the following file types:
+
+@table @asis
+@item GNM
+Spreadsheet files created by Gnumeric (@url{http://gnumeric.org}).
+
+@item ODS
+Spreadsheet files in OpenDocument format (@url{http://opendocumentformat.org}).
+
+@item PSQL
+Relations from PostgreSQL databases (@url{http://postgresql.org}).
+
+@item TXT
+Textual data files in columnar and delimited formats.
+@end table
+
+Each supported file type has additional subcommands, explained in
+separate sections below.
+
+@menu
+* GET DATA /TYPE=GNM/ODS::     Spreadsheets
+* GET DATA /TYPE=PSQL::        Databases
+* GET DATA /TYPE=TXT::         Delimited Text Files
+@end menu
+
+@node GET DATA /TYPE=GNM/ODS
+@subsection Spreadsheet Files
+
+@display
+GET DATA /TYPE=@{GNM, ODS@}
+        /FILE=@{'@var{file_name}'@}
+        /SHEET=@{NAME '@var{sheet_name}', INDEX @var{n}@}
+        /CELLRANGE=@{RANGE '@var{range}', FULL@}
+        /READNAMES=@{ON, OFF@}
+        /ASSUMEDSTRWIDTH=@var{n}.
+@end display
+
+@cindex Gnumeric
+@cindex OpenDocument
+@cindex spreadsheet files
+
+Gnumeric spreadsheets (@url{http://gnumeric.org}), and spreadsheets
+in OpenDocument format
+(@url{http://libreplanet.org/wiki/Group:OpenDocument/Software})
+can be read using the @cmd{GET DATA} command.
+Use the @subcmd{TYPE} subcommand to indicate the file's format.  
+/TYPE=GNM indicates Gnumeric files,
+/TYPE=ODS indicates OpenDocument.
+The @subcmd{FILE} subcommand is mandatory.
+Use it to specify the name file to be read. 
+All other subcommands are optional.
+
+The format of each variable is determined by the format of the spreadsheet 
+cell containing the first datum for the variable.
+If this cell is of string (text) format, then the width of the variable is
+determined from the length of the string it contains, unless the 
+@subcmd{ASSUMEDSTRWIDTH} subcommand is given.
+
+The @subcmd{SHEET} subcommand specifies the sheet within the spreadsheet file to read.
+There are two forms of the @subcmd{SHEET} subcommand.
+In the first form,
+@subcmd{/SHEET=name @var{sheet_name}}, the string @var{sheet_name} is the
+name of the sheet to read.
+In the second form, @subcmd{/SHEET=index @var{idx}}, @var{idx} is a
+integer which is the index of the sheet to read.
+The first sheet has the index 1.
+If the @subcmd{SHEET} subcommand is omitted, then the command will read the
+first sheet in the file.
+
+The @subcmd{CELLRANGE} subcommand specifies the range of cells within the sheet to read.
+If the subcommand is given as @subcmd{/CELLRANGE=FULL}, then the entire
+sheet  is read.
+To read only part of a sheet, use the form 
+@subcmd{/CELLRANGE=range '@var{top_left_cell}:@var{bottom_right_cell}'}.
+For example, the subcommand @subcmd{/CELLRANGE=range 'C3:P19'} reads 
+columns C--P, and rows 3--19 inclusive.
+If no @subcmd{CELLRANGE} subcommand is given, then the entire sheet is read.
+
+If @subcmd{/READNAMES=ON} is specified, then the contents of cells of
+the first row are used as the names of the variables in which to store
+the data from subsequent rows.  This is the default.
+If @subcmd{/READNAMES=OFF} is
+used, then the variables  receive automatically assigned names.
+
+The @subcmd{ASSUMEDSTRWIDTH} subcommand specifies the maximum width of string
+variables read  from the file.
+If omitted, the default value is determined from the length of the 
+string in the first spreadsheet cell for each variable.
+
+
+@node GET DATA /TYPE=PSQL
+@subsection Postgres Database Queries
+
+@display
+GET DATA /TYPE=PSQL
+         /CONNECT=@{@var{connection info}@}
+         /SQL=@{@var{query}@}
+         [/ASSUMEDSTRWIDTH=@var{w}]
+         [/UNENCRYPTED]
+         [/BSIZE=@var{n}].
+@end display
+
+@cindex postgres
+@cindex databases
+
+The PSQL type is used to import data from a postgres database server.
+The server may be located locally or remotely.
+Variables are automatically created based on the table column names 
+or the names specified in the SQL query.
+Postgres data types of high precision, will loose precision when 
+imported into @pspp{}.
+Not all the postgres data types are able to be represented in @pspp{}.
+If a datum cannot be represented a warning will be issued and that 
+datum will be set to SYSMIS.
+
+The @subcmd{CONNECT} subcommand is mandatory.
+It is a string specifying the parameters of the database server from
+which the data should be fetched.
+The format of the string is given in the postgres manual
+@url{http://www.postgresql.org/docs/8.0/static/libpq.html#LIBPQ-CONNECT}.
+
+The @subcmd{SQL} subcommand is mandatory.
+It must be a valid SQL string to retrieve data from the database.
+
+The @subcmd{ASSUMEDSTRWIDTH} subcommand specifies the maximum width of string
+variables read  from the database.
+If omitted, the default value is determined from the length of the 
+string in the first value read for each variable.
+
+The @subcmd{UNENCRYPTED} subcommand allows data to be retrieved over an insecure
+connection.
+If the connection is not encrypted, and the @subcmd{UNENCRYPTED} subcommand is 
+not given, then an error will occur.
+Whether or not the connection is
+encrypted depends upon the underlying psql library and the 
+capabilities of the database server.
+
+The @subcmd{BSIZE} subcommand serves only to optimise the speed of data transfer.
+It specifies an upper limit on
+number of cases to fetch from the database at once.
+The default value is 4096.
+If your SQL statement fetches a large number of cases but only a small number of
+variables, then the data transfer may be faster if you increase this value.
+Conversely, if the number of variables is large, or if the machine on which 
+@pspp{} is running has only a
+small amount of memory, then a smaller value will be better.
+
+
+The following syntax is an example:
+@example
+GET DATA /TYPE=PSQL
+     /CONNECT='host=example.com port=5432 dbname=product user=fred passwd=xxxx'
+     /SQL='select * from manufacturer'.
+@end example
+
+
+@node GET DATA /TYPE=TXT
+@subsection Textual Data Files
+
+@display
+GET DATA /TYPE=TXT
+        /FILE=@{'@var{file_name}',@var{file_handle}@}
+        [ENCODING='@var{encoding}']
+        [/ARRANGEMENT=@{DELIMITED,FIXED@}]
+        [/FIRSTCASE=@{@var{first_case}@}]
+        [/IMPORTCASES=...]
+        @dots{}additional subcommands depending on ARRANGEMENT@dots{}
+@end display
+
+@cindex text files
+@cindex data files
+When TYPE=TXT is specified, GET DATA reads data in a delimited or
+fixed columnar format, much like DATA LIST (@pxref{DATA LIST}).
+
+The @subcmd{FILE} subcommand is mandatory.  Specify the file to be read as 
+a string file name or (for textual data only) a
+file handle (@pxref{File Handles}).
+
+The @subcmd{ENCODING} subcommand specifies the character encoding of
+the file to be read.  @xref{INSERT}, for information on supported
+encodings.
+
+The @subcmd{ARRANGEMENT} subcommand determines the file's basic format.
+DELIMITED, the default setting, specifies that fields in the input
+data are separated by spaces, tabs, or other user-specified
+delimiters.  FIXED specifies that fields in the input data appear at
+particular fixed column positions within records of a case.
+
+By default, cases are read from the input file starting from the first
+line.  To skip lines at the beginning of an input file, set @subcmd{FIRSTCASE}
+to the number of the first line to read: 2 to skip the first line, 3
+to skip the first two lines, and so on.
+
+@subcmd{IMPORTCASES} is ignored, for compatibility.  Use @cmd{N OF
+CASES} to limit the number of cases read from a file (@pxref{N OF
+CASES}), or @cmd{SAMPLE} to obtain a random sample of cases
+(@pxref{SAMPLE}).
+
+The remaining subcommands apply only to one of the two file
+arrangements, described below.
+
+@menu
+* GET DATA /TYPE=TXT /ARRANGEMENT=DELIMITED::
+* GET DATA /TYPE=TXT /ARRANGEMENT=FIXED::
+@end menu
+
+@node GET DATA /TYPE=TXT /ARRANGEMENT=DELIMITED
+@subsubsection Reading Delimited Data
+
+@display
+GET DATA /TYPE=TXT
+        /FILE=@{'@var{file_name}',@var{file_handle}@}
+        [/ARRANGEMENT=@{DELIMITED,FIXED@}]
+        [/FIRSTCASE=@{@var{first_case}@}]
+        [/IMPORTCASE=@{ALL,FIRST @var{max_cases},PERCENT @var{percent}@}]
+
+        /DELIMITERS="@var{delimiters}"
+        [/QUALIFIER="@var{quotes}"
+        [/DELCASE=@{LINE,VARIABLES @var{n_variables}@}]
+        /VARIABLES=@var{del_var1} [@var{del_var2}]@dots{}
+where each @var{del_var} takes the form:
+        variable format
+@end display
+
+The GET DATA command with TYPE=TXT and ARRANGEMENT=DELIMITED reads
+input data from text files in delimited format, where fields are
+separated by a set of user-specified delimiters.  Its capabilities are
+similar to those of DATA LIST FREE (@pxref{DATA LIST FREE}), with a
+few enhancements.
+
+The required @subcmd{FILE} subcommand and optional @subcmd{FIRSTCASE} and @subcmd{IMPORTCASE}
+subcommands are described above (@pxref{GET DATA /TYPE=TXT}).
+
+@subcmd{DELIMITERS}, which is required, specifies the set of characters that
+may separate fields.  Each character in the string specified on
+@subcmd{DELIMITERS} separates one field from the next.  The end of a line also
+separates fields, regardless of @subcmd{DELIMITERS}.  Two consecutive
+delimiters in the input yield an empty field, as does a delimiter at
+the end of a line.  A space character as a delimiter is an exception:
+consecutive spaces do not yield an empty field and neither does any
+number of spaces at the end of a line.
+
+To use a tab as a delimiter, specify @samp{\t} at the beginning of the
+@subcmd{DELIMITERS} string.  To use a backslash as a delimiter, specify
+@samp{\\} as the first delimiter or, if a tab should also be a
+delimiter, immediately following @samp{\t}.  To read a data file in
+which each field appears on a separate line, specify the empty string
+for @subcmd{DELIMITERS}.
+
+The optional @subcmd{QUALIFIER} subcommand names one or more characters that
+can be used to quote values within fields in the input.  A field that
+begins with one of the specified quote characters ends at the next
+matching quote.  Intervening delimiters become part of the field,
+instead of terminating it.  The ability to specify more than one quote
+character is a @pspp{} extension.
+
+The character specified on @subcmd{QUALIFIER} can be embedded within a
+field that it quotes by doubling the qualifier.  For example, if
+@samp{'} is specified on @subcmd{QUALIFIER}, then @code{'a''b'}
+specifies a field that contains @samp{a'b}.
+
+The @subcmd{DELCASE} subcommand controls how data may be broken across lines in
+the data file.  With LINE, the default setting, each line must contain
+all the data for exactly one case.  For additional flexibility, to
+allow a single case to be split among lines or multiple cases to be
+contained on a single line, specify VARIABLES @i{n_variables}, where
+@i{n_variables} is the number of variables per case.
+
+The @subcmd{VARIABLES} subcommand is required and must be the last subcommand.
+Specify the name of each variable and its input format (@pxref{Input
+and Output Formats}) in the order they should be read from the input
+file.
+
+@subsubheading Examples
+
+@noindent
+On a Unix-like system, the @samp{/etc/passwd} file has a format
+similar to this:
+
+@example
+root:$1$nyeSP5gD$pDq/:0:0:,,,:/root:/bin/bash
+blp:$1$BrP/pFg4$g7OG:1000:1000:Ben Pfaff,,,:/home/blp:/bin/bash
+john:$1$JBuq/Fioq$g4A:1001:1001:John Darrington,,,:/home/john:/bin/bash
+jhs:$1$D3li4hPL$88X1:1002:1002:Jason Stover,,,:/home/jhs:/bin/csh
+@end example
+
+@noindent
+The following syntax reads a file in the format used by
+@samp{/etc/passwd}:
+
+@c If you change this example, change the regression test in
+@c tests/language/data-io/get-data.at to match.
+@example
+GET DATA /TYPE=TXT /FILE='/etc/passwd' /DELIMITERS=':'
+        /VARIABLES=username A20
+                   password A40
+                   uid F10
+                   gid F10
+                   gecos A40
+                   home A40
+                   shell A40.
+@end example
+
+@noindent
+Consider the following data on used cars:
+
+@example
+model   year    mileage price   type    age
+Civic   2002    29883   15900   Si      2
+Civic   2003    13415   15900   EX      1
+Civic   1992    107000  3800    n/a     12
+Accord  2002    26613   17900   EX      1
+@end example
+
+@noindent
+The following syntax can be used to read the used car data:
+
+@c If you change this example, change the regression test in
+@c tests/language/data-io/get-data.at to match.
+@example
+GET DATA /TYPE=TXT /FILE='cars.data' /DELIMITERS=' ' /FIRSTCASE=2
+        /VARIABLES=model A8
+                   year F4
+                   mileage F6
+                   price F5
+                   type A4
+                   age F2.
+@end example
+
+@noindent
+Consider the following information on animals in a pet store:
+
+@example
+'Pet''s Name', "Age", "Color", "Date Received", "Price", "Height", "Type"
+, (Years), , , (Dollars), ,
+"Rover", 4.5, Brown, "12 Feb 2004", 80, '1''4"', "Dog"
+"Charlie", , Gold, "5 Apr 2007", 12.3, "3""", "Fish"
+"Molly", 2, Black, "12 Dec 2006", 25, '5"', "Cat"
+"Gilly", , White, "10 Apr 2007", 10, "3""", "Guinea Pig"
+@end example
+
+@noindent
+The following syntax can be used to read the pet store data:
+
+@c If you change this example, change the regression test in
+@c tests/language/data-io/get-data.at to match.
+@example
+GET DATA /TYPE=TXT /FILE='pets.data' /DELIMITERS=', ' /QUALIFIER='''"' /ESCAPE
+        /FIRSTCASE=3
+        /VARIABLES=name A10
+                   age F3.1
+                   color A5
+                   received EDATE10
+                   price F5.2
+                   height a5
+                   type a10.
+@end example
+
+@node GET DATA /TYPE=TXT /ARRANGEMENT=FIXED
+@subsubsection Reading Fixed Columnar Data
+
+@c (modify-syntax-entry ?_ "w")
+@c (modify-syntax-entry ?' "'")
+@c (modify-syntax-entry ?@ "'")
+
+@display
+GET DATA /TYPE=TXT
+        /FILE=@{'file_name',@var{file_handle}@}
+        [/ARRANGEMENT=@{DELIMITED,FIXED@}]
+        [/FIRSTCASE=@{@var{first_case}@}]
+        [/IMPORTCASE=@{ALL,FIRST @var{max_cases},PERCENT @var{percent}@}]
+
+        [/FIXCASE=@var{n}]
+        /VARIABLES @var{fixed_var} [@var{fixed_var}]@dots{}
+            [/rec# @var{fixed_var} [@var{fixed_var}]@dots{}]@dots{}
+where each @var{fixed_var} takes the form:
+        @var{variable} @var{start}-@var{end} @var{format}
+@end display
+
+The @cmd{GET DATA} command with TYPE=TXT and ARRANGEMENT=FIXED reads input
+data from text files in fixed format, where each field is located in
+particular fixed column positions within records of a case.  Its
+capabilities are similar to those of DATA LIST FIXED (@pxref{DATA LIST
+FIXED}), with a few enhancements.
+
+The required @subcmd{FILE} subcommand and optional @subcmd{FIRSTCASE} and @subcmd{IMPORTCASE}
+subcommands are described above (@pxref{GET DATA /TYPE=TXT}).
+
+The optional @subcmd{FIXCASE} subcommand may be used to specify the positive
+integer number of input lines that make up each case.  The default
+value is 1.
+
+The @subcmd{VARIABLES} subcommand, which is required, specifies the positions
+at which each variable can be found.  For each variable, specify its
+name, followed by its start and end column separated by @samp{-}
+(e.g.@: @samp{0-9}), followed by an input format type (e.g.@:
+@samp{F}) or a full format specification (e.g.@: @samp{DOLLAR12.2}).
+For this command, columns are numbered starting from 0 at
+the left column.  Introduce the variables in the second and later
+lines of a case by a slash followed by the number of the line within
+the case, e.g.@: @samp{/2} for the second line.
+
+@subsubheading Examples
+
+@noindent
+Consider the following data on used cars:
+
+@example
+model   year    mileage price   type    age
+Civic   2002    29883   15900   Si      2
+Civic   2003    13415   15900   EX      1
+Civic   1992    107000  3800    n/a     12
+Accord  2002    26613   17900   EX      1
+@end example
+
+@noindent
+The following syntax can be used to read the used car data:
+
+@c If you change this example, change the regression test in
+@c tests/language/data-io/get-data.at to match.
+@example
+GET DATA /TYPE=TXT /FILE='cars.data' /ARRANGEMENT=FIXED /FIRSTCASE=2
+        /VARIABLES=model 0-7 A
+                   year 8-15 F
+                   mileage 16-23 F
+                   price 24-31 F
+                   type 32-40 A
+                   age 40-47 F.
+@end example
+
+@node IMPORT
+@section IMPORT
+@vindex IMPORT
+
+@display
+IMPORT
+        /FILE='@var{file_name}'
+        /TYPE=@{COMM,TAPE@}
+        /DROP=@var{var_list}
+        /KEEP=@var{var_list}
+        /RENAME=(@var{src_names}=@var{target_names})@dots{}
+@end display
+
+The @cmd{IMPORT} transformation clears the active dataset dictionary and
+data and
+replaces them with a dictionary and data from a system file or
+portable file.
+
+The @subcmd{FILE} subcommand, which is the only required subcommand, specifies
+the portable file to be read as a file name string or a file handle
+(@pxref{File Handles}).
+
+The @subcmd{TYPE} subcommand is currently not used.
+
+@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} follow the syntax used by @cmd{GET} (@pxref{GET}).
+
+@cmd{IMPORT} does not cause the data to be read; only the dictionary.  The
+data is read later, when a procedure is executed.
+
+Use of @cmd{IMPORT} to read a system file is a @pspp{} extension.
+
+@node SAVE
+@section SAVE
+@vindex SAVE
+
+@display
+SAVE
+        /OUTFILE=@{'@var{file_name}',@var{file_handle}@}
+        /UNSELECTED=@{RETAIN,DELETE@}
+        /@{UNCOMPRESSED,COMPRESSED,ZCOMPRESSED@}
+        /PERMISSIONS=@{WRITEABLE,READONLY@}
+        /DROP=@var{var_list}
+        /KEEP=@var{var_list}
+        /VERSION=@var{version}
+        /RENAME=(@var{src_names}=@var{target_names})@dots{}
+        /NAMES
+        /MAP
+@end display
+
+The @cmd{SAVE} procedure causes the dictionary and data in the active
+dataset to
+be written to a system file.
+
+OUTFILE is the only required subcommand.  Specify the system file
+to be written as a string file name or a file handle
+(@pxref{File Handles}).
+
+By default, cases excluded with FILTER are written to the system file.
+These can be excluded by specifying @subcmd{DELETE} on the @subcmd{UNSELECTED}
+subcommand.  Specifying @subcmd{RETAIN} makes the default explicit.
+
+The @subcmd{UNCOMPRESSED}, @subcmd{COMPRESSED}, and
+@subcmd{ZCOMPRESSED} subcommand determine the system file's
+compression level:
+
+@table @code
+@item UNCOMPRESSED
+Data is not compressed.  Each numeric value uses 8 bytes of disk
+space.  Each string value uses one byte per column width, rounded up
+to a multiple of 8 bytes.
+
+@item COMPRESSED
+Data is compressed with a simple algorithm.  Each integer numeric
+value between @minus{}99 and 151, inclusive, or system missing value
+uses one byte of disk space.  Each 8-byte segment of a string that
+consists only of spaces uses 1 byte.  Any other numeric value or
+8-byte string segment uses 9 bytes of disk space.
+
+@item ZCOMPRESSED
+Data is compressed with the ``deflate'' compression algorithm
+specified in RFC@tie{}1951 (the same algorithm used by
+@command{gzip}).  Files written with this compression level cannot be
+read by PSPP 0.8.1 or earlier or by SPSS 20 or earlier.
+@end table
+
+@subcmd{COMPRESSED} is the default compression level.  The SET command
+(@pxref{SET}) can change this default.
+
+The @subcmd{PERMISSIONS} subcommand specifies permissions for the new system
+file.  WRITEABLE, the default, creates the file with read and write
+permission.  READONLY creates the file for read-only access.
+
+By default, all the variables in the active dataset dictionary are written
+to the system file.  The @subcmd{DROP} subcommand can be used to specify a list
+of variables not to be written.  In contrast, KEEP specifies variables
+to be written, with all variables not specified not written.
+
+Normally variables are saved to a system file under the same names they
+have in the active dataset.  Use the @subcmd{RENAME} subcommand to change these names.
+Specify, within parentheses, a list of variable names followed by an
+equals sign (@samp{=}) and the names that they should be renamed to.
+Multiple parenthesized groups of variable names can be included on a
+single @subcmd{RENAME} subcommand.  Variables' names may be swapped using a
+@subcmd{RENAME} subcommand of the 
+form @subcmd{/RENAME=(@var{A} @var{B}=@var{B} @var{A})}.
+
+Alternate syntax for the @subcmd{RENAME} subcommand allows the parentheses to be
+eliminated.  When this is done, only a single variable may be renamed at
+once.  For instance, @subcmd{/RENAME=@var{A}=@var{B}}.  This alternate syntax is
+deprecated.
+
+@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} are performed in
+left-to-right order.  They
+each may be present any number of times.  @cmd{SAVE} never modifies
+the active dataset.  @subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} only
+affect the system file written to disk.
+
+The @subcmd{VERSION} subcommand specifies the version of the file format. Valid
+versions are 2 and 3.  The default version is 3.  In version 2 system
+files, variable names longer than 8 bytes will be truncated.  The two
+versions are otherwise identical.
+
+The @subcmd{NAMES} and @subcmd{MAP} subcommands are currently ignored.
+
+@cmd{SAVE} causes the data to be read.  It is a procedure.
+
+@node SAVE TRANSLATE
+@section SAVE TRANSLATE
+@vindex SAVE TRANSLATE
+
+@display
+SAVE TRANSLATE
+        /OUTFILE=@{'@var{file_name}',@var{file_handle}@}
+        /TYPE=@{CSV,TAB@}
+        [/REPLACE]
+        [/MISSING=@{IGNORE,RECODE@}]
+
+        [/DROP=@var{var_list}]
+        [/KEEP=@var{var_list}]
+        [/RENAME=(@var{src_names}=@var{target_names})@dots{}]
+        [/UNSELECTED=@{RETAIN,DELETE@}]
+        [/MAP]
+
+        @dots{}additional subcommands depending on TYPE@dots{}
+@end display
+
+The @cmd{SAVE TRANSLATE} command is used to save data into various
+formats understood by other applications.
+
+The @subcmd{OUTFILE} and @subcmd{TYPE} subcommands are mandatory.
+@subcmd{OUTFILE} specifies the file to be written, as a string file name or a file handle
+(@pxref{File Handles}).  @subcmd{TYPE} determines the type of the file or
+source to read.  It must be one of the following:
+
+@table @asis
+@item CSV
+Comma-separated value format,
+
+@item TAB
+Tab-delimited format.
+@end table
+
+By default, @cmd{SAVE TRANSLATE} will not overwrite an existing file.  Use
+@subcmd{REPLACE} to force an existing file to be overwritten.
+
+With MISSING=IGNORE, the default, @subcmd{SAVE TRANSLATE} treats user-missing
+values as if they were not missing.  Specify MISSING=RECODE to output
+numeric user-missing values like system-missing values and string
+user-missing values as all spaces.
+
+By default, all the variables in the active dataset dictionary are saved
+to the system file, but @subcmd{DROP} or @subcmd{KEEP} can select a subset of variable
+to save.  The @subcmd{RENAME} subcommand can also be used to change the names
+under which variables are saved.  @subcmd{UNSELECTED} determines whether cases
+filtered out by the @cmd{FILTER} command are written to the output file.
+These subcommands have the same syntax and meaning as on the
+@cmd{SAVE} command (@pxref{SAVE}).
+
+Each supported file type has additional subcommands, explained in
+separate sections below.
+
+@cmd{SAVE TRANSLATE} causes the data to be read.  It is a procedure.
+
+@menu
+* SAVE TRANSLATE /TYPE=CSV and TYPE=TAB::
+@end menu
+
+@node SAVE TRANSLATE /TYPE=CSV and TYPE=TAB
+@subsection Writing Comma- and Tab-Separated Data Files
+
+@display
+SAVE TRANSLATE
+        /OUTFILE=@{'@var{file_name}',@var{file_handle}@}
+        /TYPE=CSV
+        [/REPLACE]
+        [/MISSING=@{IGNORE,RECODE@}]
+
+        [/DROP=@var{var_list}]
+        [/KEEP=@var{var_list}]
+        [/RENAME=(@var{src_names}=@var{target_names})@dots{}]
+        [/UNSELECTED=@{RETAIN,DELETE@}]
+
+        [/FIELDNAMES]
+        [/CELLS=@{VALUES,LABELS@}]
+        [/TEXTOPTIONS DELIMITER='@var{delimiter}']
+        [/TEXTOPTIONS QUALIFIER='@var{qualifier}']
+        [/TEXTOPTIONS DECIMAL=@{DOT,COMMA@}]
+        [/TEXTOPTIONS FORMAT=@{PLAIN,VARIABLE@}]
+@end display
+
+The SAVE TRANSLATE command with TYPE=CSV or TYPE=TAB writes data in a
+comma- or tab-separated value format similar to that described by
+RFC@tie{}4180.  Each variable becomes one output column, and each case
+becomes one line of output.  If FIELDNAMES is specified, an additional
+line at the top of the output file lists variable names.
+
+The CELLS and TEXTOPTIONS FORMAT settings determine how values are
+written to the output file:
+
+@table @asis
+@item CELLS=VALUES FORMAT=PLAIN (the default settings)
+Writes variables to the output in ``plain'' formats that ignore the
+details of variable formats.  Numeric values are written as plain
+decimal numbers with enough digits to indicate their exact values in
+machine representation.  Numeric values include @samp{e} followed by
+an exponent if the exponent value would be less than -4 or greater
+than 16.  Dates are written in MM/DD/YYYY format and times in HH:MM:SS
+format.  WKDAY and MONTH values are written as decimal numbers.
+
+Numeric values use, by default, the decimal point character set with
+SET DECIMAL (@pxref{SET DECIMAL}).  Use DECIMAL=DOT or DECIMAL=COMMA
+to force a particular decimal point character.
+
+@item CELLS=VALUES FORMAT=VARIABLE
+Writes variables using their print formats.  Leading and trailing
+spaces are removed from numeric values, and trailing spaces are
+removed from string values.
+
+@item CELLS=LABEL FORMAT=PLAIN
+@itemx CELLS=LABEL FORMAT=VARIABLE
+Writes value labels where they exist, and otherwise writes the values
+themselves as described above.
+@end table
+
+Regardless of CELLS and TEXTOPTIONS FORMAT, numeric system-missing
+values are output as a single space.
+
+For TYPE=TAB, tab characters delimit values.  For TYPE=CSV, the
+TEXTOPTIONS DELIMITER and DECIMAL settings determine the character
+that separate values within a line.  If DELIMITER is specified, then
+the specified string separate values.  If DELIMITER is not specified,
+then the default is a comma with DECIMAL=DOT or a semicolon with
+DECIMAL=COMMA.  If DECIMAL is not given either, it is implied by the
+decimal point character set with SET DECIMAL (@pxref{SET DECIMAL}).
+
+The TEXTOPTIONS QUALIFIER setting specifies a character that is output
+before and after a value that contains the delimiter character or the
+qualifier character.  The default is a double quote (@samp{"}).  A
+qualifier character that appears within a value is doubled.
+
+@node SYSFILE INFO
+@section SYSFILE INFO
+@vindex SYSFILE INFO
+
+@display 
+SYSFILE INFO FILE='@var{file_name}' [ENCODING='@var{encoding}'].
+@end display
+
+@cmd{SYSFILE INFO} reads the dictionary in an SPSS system file,
+SPSS/PC+ system file, or SPSS portable file, and displays the
+information in its dictionary.
+
+Specify a file name or file handle.  @cmd{SYSFILE INFO} reads that
+file and displays information on its dictionary.
+
+@pspp{} automatically detects the encoding of string data in the file,
+when possible.  The character encoding of old SPSS system files cannot
+always be guessed correctly, and SPSS/PC+ system files do not include
+any indication of their encoding.  Specify the @subcmd{ENCODING}
+subcommand with an @acronym{IANA} character set name as its string
+argument to override the default, or specify @code{ENCODING='DETECT'}
+to analyze and report possibly valid encodings for the system file.
+The @subcmd{ENCODING} subcommand is a @pspp{} extension.
+
+@cmd{SYSFILE INFO} does not affect the current active dataset.
+
+@node XEXPORT
+@section XEXPORT
+@vindex XEXPORT
+
+@display
+XEXPORT
+        /OUTFILE='@var{file_name}'
+        /DIGITS=@var{n}
+        /DROP=@var{var_list}
+        /KEEP=@var{var_list}
+        /RENAME=(@var{src_names}=@var{target_names})@dots{}
+        /TYPE=@{COMM,TAPE@}
+        /MAP
+@end display
+
+The @cmd{XEXPORT} transformation writes the active dataset dictionary and
+data to a specified portable file.
+
+This transformation is a @pspp{} extension.
+
+It is similar to the @cmd{EXPORT} procedure, with two differences:
+
+@itemize
+@item
+@cmd{XEXPORT} is a transformation, not a procedure.  It is executed when
+the data is read by a procedure or procedure-like command.
+
+@item
+@cmd{XEXPORT} does not support the @subcmd{UNSELECTED} subcommand.
+@end itemize
+
+@xref{EXPORT}, for more information.
+
+@node XSAVE
+@section XSAVE
+@vindex XSAVE
+
+@display
+XSAVE
+        /OUTFILE='@var{file_name}'
+        /@{UNCOMPRESSED,COMPRESSED,ZCOMPRESSED@}
+        /PERMISSIONS=@{WRITEABLE,READONLY@}
+        /DROP=@var{var_list}
+        /KEEP=@var{var_list}
+        /VERSION=@var{version}
+        /RENAME=(@var{src_names}=@var{target_names})@dots{}
+        /NAMES
+        /MAP
+@end display
+
+The @cmd{XSAVE} transformation writes the active dataset's dictionary and
+data to a system file.  It is similar to the @cmd{SAVE}
+procedure, with two differences:
+
+@itemize
+@item
+@cmd{XSAVE} is a transformation, not a procedure.  It is executed when
+the data is read by a procedure or procedure-like command.
+
+@item
+@cmd{XSAVE} does not support the @subcmd{UNSELECTED} subcommand.
+@end itemize
+
+@xref{SAVE}, for more information.

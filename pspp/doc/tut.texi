@@ -1,0 +1,1 @@
+@set example-dir /usr/local/share/pspp/examples

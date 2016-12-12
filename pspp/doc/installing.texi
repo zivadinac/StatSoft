@@ -1,0 +1,58 @@
+@node Installation
+@appendix Installing @pspp{}
+@cindex installation
+@cindex @pspp{}, installing
+
+@cindex GNU C compiler
+@cindex gcc
+@cindex compiler, recommended
+@cindex compiler, gcc
+@pspp{} is written in ISO C and primarily targeted at UNIX-like
+environments.  To install @pspp{} under a UNIX-like operating system,
+follow the steps below.
+
+@enumerate
+@item
+@code{cd} to the directory containing the @pspp{} source.
+
+@cindex configure, GNU
+@cindex GNU configure
+@item
+Type @samp{./configure} to configure for your particular operating
+system and compiler.  Running @code{configure} takes a while.  While
+running, it displays some messages telling which features it is checking
+for.
+
+You can optionally supply some options to @code{configure} to
+give it hints about how to do its job.  Type @code{./configure --help}
+to see a list of options.
+
+@cindex compiling
+@item
+Type @samp{make} to compile the package.  If there are any errors during
+compilation, try to fix them.  If modifications are necessary to compile
+correctly under your configuration, contact the author.
+@xref{Bugs,,Submitting Bug Reports}, for details.
+
+@cindex self-tests, running
+@item
+Type @samp{make check} to run self-tests on the compiled @pspp{} package.
+
+@cindex installation
+@cindex @pspp{}, installing
+@cindex @file{/usr/local/share/pspp/}
+@cindex @file{/usr/local/bin/}
+@cindex @file{/usr/local/info/}
+@cindex documentation, installing
+@item
+Become the superuser and type @samp{make install} to install the
+@pspp{} binaries, by default in @file{/usr/local/bin/}.  The
+directory @file{/usr/local/share/pspp/} is created and populated with
+files needed by @pspp{} at runtime.  This step will also cause the
+@pspp{} documentation to be installed in @file{/usr/local/info/},
+but only if that directory already exists.
+
+@item
+(optional) Type @samp{make clean} to delete the @pspp{} binaries
+from the source tree.
+@end enumerate

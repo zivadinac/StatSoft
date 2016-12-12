@@ -1,0 +1,437 @@
+AT_BANNER([QUICK CLUSTER])
+
+AT_SETUP([QUICK CLUSTER with small data set])
+AT_DATA([quick-cluster.sps], [dnl
+DATA LIST LIST /x y z.
+BEGIN DATA.
+22,2930,4099
+17,3350,4749
+22,2640,3799
+20, 3250,4816
+15,4080,7827
+4,5,4
+5,6,5
+6,7,6
+7,8,7
+8,9,8
+9,10,9
+END DATA.
+QUICK CLUSTER x y z
+  /CRITERIA=CLUSTER(2) MXITER(20).
+])
+AT_CHECK([pspp -o pspp.csv quick-cluster.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Reading free-form data from INLINE.
+Variable,Format
+x,F8.0
+y,F8.0
+z,F8.0
+
+Table: Final Cluster Centers
+,Cluster,
+,,
+,1,2
+,,
+x,6.50,19.20
+y,7.50,3250.00
+z,6.50,5058.00
+
+Table: Number of Cases in each Cluster
+Cluster,1,6
+,2,5
+Valid,,11
+])
+AT_CLEANUP
+
+AT_SETUP([QUICK CLUSTER with large data set])
+AT_DATA([quick-cluster.sps], [dnl
+input program.
+loop #i = 1 to 50000.
+compute x = 3.
+end case.
+end loop.
+end file.
+end input program.
+QUICK CLUSTER x /CRITERIA = CLUSTER(4) NOINITIAL.
+])
+AT_CHECK([pspp -o pspp.csv quick-cluster.sps])
+AT_CHECK([cat pspp.csv], [0], [dnl
+Table: Final Cluster Centers
+,Cluster,,,
+,,,,
+,1,2,3,4
+,,,,
+x,NaN,NaN,NaN,3.00
+
+Table: Number of Cases in each Cluster
+Cluster,1,0
+,2,0
+,3,0
+,4,50000
+Valid,,50000
+])
+AT_CLEANUP
+
+
+AT_SETUP([QUICK CLUSTER with weights])
+AT_DATA([qc-weighted.sps], [dnl
+input program.
+loop #i = 1 to 400.
+ compute x = mod (#i, 4).
+ compute w = 5.
+ end case.
+end loop.
+loop #i = 1 to 400.
+ compute x = mod (#i, 4).
+ compute w = 3.
+ end case.
+end loop.
+end file.
+end input program.
+
+weight by w.
+
+QUICK CLUSTER x /CRITERIA = CLUSTER(4) MXITER (10).
+])
+
+AT_CHECK([pspp -o pspp-w.csv qc-weighted.sps])
+
+
+AT_DATA([qc-unweighted.sps], [dnl
+input program.
+loop #i = 1 to 3200.
+ compute x = mod (#i, 4).
+ end case.
+end loop.
+end file.
+end input program.
+
+QUICK CLUSTER x /CRITERIA = CLUSTER(4) MXITER (10).
+])
+
+AT_CHECK([pspp -o pspp-unw.csv qc-unweighted.sps])
+
+AT_CHECK([diff pspp-w.csv pspp-unw.csv], [0])
+
+AT_CLEANUP
+
+AT_SETUP([QUICK CLUSTER with listwise missing])
+AT_DATA([quick-miss.sps], [dnl
+data list notable list /x *.
+begin data.
+1
+1
+2
+3
+4
+.
+2
+end data.
+
+QUICK CLUSTER x /CRITERIA = CLUSTER(4) MXITER (10).
+])
+
+AT_CHECK([pspp -o pspp-m.csv quick-miss.sps])
+
+AT_DATA([quick-nmiss.sps], [dnl
+data list notable list /x *.
+begin data.
+1
+1
+2
+3
+4
+2
+end data.
+
+QUICK CLUSTER x /CRITERIA = CLUSTER(4) MXITER (10).
+])
+
+AT_CHECK([pspp -o pspp-nm.csv quick-nmiss.sps])
+
+AT_CHECK([diff pspp-m.csv pspp-nm.csv], [0])
+
+AT_CLEANUP
+
+
+AT_SETUP([QUICK CLUSTER with pairwise missing])
+
+dnl This test runs two programs, which are identical except that one
+dnl has an extra case with one missing value. Becuase the syntax uses
+dnl NOINITIAL and NOUPDATE, the results should be identical except for
+dnl the final classification.
+
+AT_DATA([quick-s.sps], [dnl
+data list notable list /x * y *.
+begin data.
+1   2
+1   2.2
+1.1 1.9
+1   9
+1   10
+1.3 9.5
+0.9 8.9
+3.5 2
+3.4 3
+3.5 2.5
+3.1 2.0
+end data.
+
+QUICK CLUSTER x y 
+	/PRINT = INITIAL
+	/CRITERIA = CLUSTER(3) NOINITIAL NOUPDATE
+	.
+])
+
+AT_CHECK([pspp -O format=csv quick-s.sps  > pspp-s.csv])
+
+AT_DATA([quick-pw.sps], [dnl
+data list notable list /x * y *.
+begin data.
+1   2
+1   2.2
+1.1 1.9
+1   9
+1   10
+1.3 9.5
+0.9 8.9
+3.5 2
+3.4 3
+3.5 2.5
+3.1 2.0
+.   2.3
+end data.
+
+QUICK CLUSTER x y 
+	/CRITERIA = CLUSTER(3) NOINITIAL NOUPDATE
+	/PRINT = INITIAL
+	/MISSING = PAIRWISE
+	.
+])
+
+AT_CHECK([pspp -O format=csv quick-pw.sps  > pspp-pw.csv])
+
+AT_CHECK([head -n 18  pspp-s.csv > top-s.csv])
+AT_CHECK([head -n 18  pspp-pw.csv > top-pw.csv])
+AT_CHECK([diff top-s.csv top-pw.csv])
+
+
+AT_CHECK([grep Valid pspp-s.csv], [0], [Valid,,11
+])
+
+AT_CHECK([grep Valid pspp-pw.csv], [0], [Valid,,12
+])
+
+
+AT_CLEANUP
+
+
+
+AT_SETUP([QUICK CLUSTER crash on bad cluster quantity])
+AT_DATA([badn.sps], [dnl
+data list notable list /x * y *.
+begin data.
+1   2
+1   2.2
+end data.
+
+QUICK CLUSTER x y 
+	/CRITERIA = CLUSTER(0)
+	.
+])
+
+AT_CHECK([pspp -O format=csv badn.sps], [1], [ignore])
+
+AT_CLEANUP
+
+AT_SETUP([QUICK CLUSTER infinite loop on bad command name])
+AT_DATA([quick-cluster.sps], [dnl
+data list notable list /x y.
+begin data.
+1   2
+1   2.2
+end data.
+
+QUICK CLUSTER x y /UNSUPPORTED.
+])
+AT_CHECK([pspp -O format=csv quick-cluster.sps], [1], [dnl
+quick-cluster.sps:7.20-7.30: error: QUICK CLUSTER: Syntax error at `UNSUPPORTED'.
+])
+AT_CLEANUP
+
+
+
+AT_SETUP([QUICK CLUSTER /PRINT subcommand])
+AT_DATA([quick-cluster.sps], [dnl
+data list notable list /cluster (A8) x (F) y (F).
+begin data.
+A 10.45 9.38
+A 10.67 9.17
+A 10.86 9.63
+A 8.77 8.45
+A 8.04 11.77
+A 10.34 9.83
+A 10.37 10.54
+A 11.49 8.18
+A 10.17 11.10
+A 11.37 9.16
+A 10.25 8.83
+A 8.69 9.92
+A 10.36 10.39
+A 10.89 10.51
+A 9.9 11.39
+A 11.1 10.91
+A 11.77 8.47
+A 9.5 10.46
+B -11.01 -9.21
+B -10.8 -11.76
+B -10.03 -10.29
+B -9.54 -9.17
+B -10.16 -9.82
+B -10.01 -8.63
+B -9.6 -10.22
+B -11.36 -10.93
+B -10.63 -10.97
+B -9.53 -10.78
+B -9.40 -10.26
+B -10.76 -9.76
+B -9.9 -10.11
+B -10.16 -9.75
+B -8.65 -11.31
+B -10.10 -10.90
+B -11.67 -9.89
+B -11.11 -9.23
+B -8.7 -8.43
+B -11.35 -8.68
+C -10.20 9.00
+C -10.12 9.92
+C -10.41 10.16
+C -9.86 10.12
+C -10.31 10.12
+C -9.57 10.16
+C -9.69 9.93
+C -9.14 10.84
+C -9.8 10.19
+C -9.97 10.22
+C -11.65 10.81
+C -9.80 11.39
+C -10.31 10.74
+C -10.26 10.38
+C -11.57 10.02
+C -10.50 9.75
+C -9.06 9.63
+C -10.17 10.82
+C -10.22 9.99
+end data.
+
+QUICK CLUSTER x y
+  /CRITERIA=CLUSTERS(3)
+  /PRINT=INITIAL CLUSTER.
+])
+
+AT_CHECK([pspp -O format=csv quick-cluster.sps], [0], [dnl
+Table: Initial Cluster Centers
+,Cluster,,
+,,,
+,1,2,3
+,,,
+x,-11,-12,11
+y,-12,11,11
+
+Table: Final Cluster Centers
+,Cluster,,
+,,,
+,1,2,3
+,,,
+x,-10,-10,10
+y,-10,10,10
+
+Table: Number of Cases in each Cluster
+Cluster,1,20
+,2,19
+,3,18
+Valid,,57
+
+Table: Cluster Membership
+Case Number,Cluster
+1,3
+2,3
+3,3
+4,3
+5,3
+6,3
+7,3
+8,3
+9,3
+10,3
+11,3
+12,3
+13,3
+14,3
+15,3
+16,3
+17,3
+18,3
+19,1
+20,1
+21,1
+22,1
+23,1
+24,1
+25,1
+26,1
+27,1
+28,1
+29,1
+30,1
+31,1
+32,1
+33,1
+34,1
+35,1
+36,1
+37,1
+38,1
+39,2
+40,2
+41,2
+42,2
+43,2
+44,2
+45,2
+46,2
+47,2
+48,2
+49,2
+50,2
+51,2
+52,2
+53,2
+54,2
+55,2
+56,2
+57,2
+])
+
+AT_CLEANUP
+
+
+dnl Test for a crash which happened on bad input syntax
+AT_SETUP([QUICK CLUSTER -- Empty Parentheses])
+
+AT_DATA([empty-parens.sps], [dnl
+data list notable list /x * y *.
+begin data.
+1   2
+1   2.2
+end data.
+
+QUICK CLUSTER x y
+	/CRITERIA = CONVERGE()
+	.
+])
+
+AT_CHECK([pspp -o pspp.csv empty-parens.sps], [1], [ignore])
+
+AT_CLEANUP
+

@@ -1,0 +1,190 @@
+
+@node Conditionals and Looping
+@chapter Conditional and Looping Constructs
+@cindex conditionals
+@cindex loops
+@cindex flow of control
+@cindex control flow
+
+This chapter documents @pspp{} commands used for conditional execution,
+looping, and flow of control.
+
+@menu
+* BREAK::                       Exit a loop.
+* DO IF::                       Conditionally execute a block of code.
+* DO REPEAT::                   Textually repeat a code block.
+* LOOP::                        Repeat a block of code.
+@end menu
+
+@node BREAK
+@section BREAK
+@vindex BREAK
+
+@display
+BREAK.
+@end display
+
+@cmd{BREAK} terminates execution of the innermost currently executing
+@cmd{LOOP} construct.
+
+@cmd{BREAK} is allowed only inside @cmd{LOOP}@dots{}@cmd{END LOOP}.
+@xref{LOOP}, for more details.
+
+@node DO IF
+@section DO IF
+@vindex DO IF
+
+@display
+DO IF condition.
+        @dots{}
+[ELSE IF condition.
+        @dots{}
+]@dots{}
+[ELSE.
+        @dots{}]
+END IF.
+@end display
+
+@cmd{DO IF} allows one of several sets of transformations to be
+executed, depending on user-specified conditions.
+
+If the specified boolean expression evaluates as true, then the block
+of code following @cmd{DO IF} is executed.  If it evaluates as
+missing, then
+none of the code blocks is executed.  If it is false, then
+the boolean expression on the first @cmd{ELSE IF}, if present, is tested in
+turn, with the same rules applied.  If all expressions evaluate to
+false, then the @cmd{ELSE} code block is executed, if it is present.
+
+When @cmd{DO IF} or @cmd{ELSE IF} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+
+@node DO REPEAT
+@section DO REPEAT
+@vindex DO REPEAT
+
+@display
+DO REPEAT dummy_name=expansion@dots{}.
+        @dots{}
+END REPEAT [PRINT].
+
+expansion takes one of the following forms:
+        var_list
+        num_or_range@dots{}
+        'string'@dots{}
+        ALL
+
+num_or_range takes one of the following forms:
+        number
+        num1 TO num2
+@end display
+
+@cmd{DO REPEAT} repeats a block of code, textually substituting
+different variables, numbers, or strings into the block with each
+repetition.
+
+Specify a dummy variable name followed by an equals sign (@samp{=})
+and the list of replacements.  Replacements can be a list of existing
+or new variables, numbers, strings, or @code{ALL} to specify all
+existing variables.  When numbers are specified, runs of increasing
+integers may be indicated as @code{@var{num1} TO @var{num2}}, so that
+@samp{1 TO 5} is short for @samp{1 2 3 4 5}.
+
+Multiple dummy variables can be specified.  Each
+variable must have the same number of replacements.
+
+The code within @cmd{DO REPEAT} is repeated as many times as there are
+replacements for each variable.  The first time, the first value for
+each dummy variable is substituted; the second time, the second value
+for each dummy variable is substituted; and so on.
+
+Dummy variable substitutions work like macros.  They take place
+anywhere in a line that the dummy variable name occurs.  This includes
+command and subcommand names, so command and subcommand names that
+appear in the code block should not be used as dummy variable
+identifiers.  Dummy variable substitutions do not occur inside quoted
+strings, comments, unquoted strings (such as the text on the
+@cmd{TITLE} or @cmd{DOCUMENT} command), or inside @cmd{BEGIN
+DATA}@dots{}@cmd{END DATA}.
+
+Substitution occurs only on whole words, so that, for example, a dummy
+variable PRINT would not be substituted into the word PRINTOUT.
+
+New variable names used as replacements are not automatically created
+as variables, but only if used in the code block in a context that
+would create them, e.g.@: on a @cmd{NUMERIC} or @cmd{STRING} command
+or on the left side of a @cmd{COMPUTE} assignment.
+
+Any command may appear within @subcmd{DO REPEAT}, including nested @subcmd{DO REPEAT}
+commands.  If @cmd{INCLUDE} or @cmd{INSERT} appears within @subcmd{DO REPEAT},
+the substitutions do not apply to the included file.
+
+If @subcmd{PRINT} is specified on @cmd{END REPEAT}, the commands after substitutions
+are made are printed to the listing file, prefixed by a plus sign
+(@samp{+}).
+
+@node LOOP
+@section LOOP
+@vindex LOOP
+
+@display
+LOOP [@var{index_var}=@var{start} TO @var{end} [BY @var{incr}]] [IF @var{condition}].
+        @dots{}
+END LOOP [IF @var{condition}].
+@end display
+
+@cmd{LOOP} iterates a group of commands.  A number of
+termination options are offered.
+
+Specify index_var to make that variable count from one value to
+another by a particular increment.  @var{index_var} must be a pre-existing
+numeric variable.  @var{start}, @var{end}, and @var{incr} are numeric expressions
+(@pxref{Expressions}.)  
+
+During the first iteration, @var{index_var} is set to the value of @var{start}.
+During each successive iteration, @var{index_var} is increased by the value of
+@var{incr}.  If @var{end} > @var{start}, then the loop terminates 
+when @var{index_var} > @var{end};
+otherwise it terminates when @var{index_var} < @var{end}.  If @var{incr} is not specified
+then it defaults to +1 or -1 as appropriate.
+
+If @var{end} > @var{start} and @var{incr} < 0, or if @var{end} < @var{start} and
+ @var{incr} > 0, then the
+loop is never executed.  @var{index_var} is nevertheless set to the value of
+start.
+
+Modifying @var{index_var} within the loop is allowed, but it has no effect on
+the value of @var{index_var} in the next iteration.
+
+Specify a boolean expression for the condition on @cmd{LOOP} to
+cause the loop to be executed only if the condition is true.  If the
+condition is false or missing before the loop contents are executed the
+first time, the loop contents are not executed at all.
+
+If index and condition clauses are both present on @cmd{LOOP}, the
+index variable is always set before the condition is evaluated.  Thus,
+a condition that makes use of the index variable will always see the
+index value to be used in the next execution of the body.
+
+Specify a boolean expression for the condition on @cmd{END LOOP} to cause
+the loop to terminate if the condition is true after the enclosed
+code block is executed.  The condition is evaluated at the end of the
+loop, not at the beginning, so that the body of a loop with only a
+condition on @cmd{END LOOP} will always execute at least once.
+
+If neither the index clause nor either condition clause is
+present, then the loop is executed @var{max_loops} (@pxref{SET}) times.
+The default value of @var{max_loops} is 40.
+
+@cmd{BREAK} also terminates @cmd{LOOP} execution (@pxref{BREAK}).
+
+Loop index variables are by default reset to system-missing from one
+case to another, not left, unless a scratch variable is used as index.
+When loops are nested, this is usually undesired behavior, which can
+be corrected with @cmd{LEAVE} (@pxref{LEAVE}) or by using a scratch
+variable as the loop index.
+
+When @cmd{LOOP} or @cmd{END LOOP} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).

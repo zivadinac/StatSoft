@@ -1,0 +1,970 @@
+@node Utilities
+@chapter Utilities
+
+Commands that don't fit any other category are placed here.
+
+Most of these commands are not affected by commands like @cmd{IF} and
+@cmd{LOOP}:
+they take effect only once, unconditionally, at the time that they are
+encountered in the input.
+
+@menu
+* ADD DOCUMENT::                Add documentary text to the active dataset.
+* CACHE::                       Ignored for compatibility.
+* CD::                          Change the current directory.
+* COMMENT::                     Document your syntax file.
+* DOCUMENT::                    Document the active dataset.
+* DISPLAY DOCUMENTS::           Display active dataset documents.
+* DISPLAY FILE LABEL::          Display the active dataset label.
+* DROP DOCUMENTS::              Remove documents from the active dataset.
+* ECHO::                        Write a string to the output stream.
+* ERASE::                       Erase a file.
+* EXECUTE::                     Execute pending transformations.
+* FILE LABEL::                  Set the active dataset's label.
+* FINISH::                      Terminate the @pspp{} session.
+* HOST::                        Temporarily return to the operating system.
+* INCLUDE::                     Include a file within the current one.
+* INSERT::                      Insert a file within the current one.
+* OUTPUT::                      Modify the appearance of the output.
+* PERMISSIONS::                 Change permissions on a file.
+* PRESERVE and RESTORE::        Saving settings and restoring them later.
+* SET::                         Adjust @pspp{} runtime parameters.
+* SHOW::                        Display runtime parameters.
+* SUBTITLE::                    Provide a document subtitle.
+* TITLE::                       Provide a document title.
+@end menu
+
+@node ADD DOCUMENT
+@section ADD DOCUMENT
+@vindex  ADD DOCUMENT
+
+@display
+ADD DOCUMENT 
+    'line one' 'line two' @dots{} 'last line' .
+@end display
+
+
+@cmd{ADD DOCUMENT} adds one or more lines of descriptive commentary to 
+the active dataset.  Documents added in this way are saved to system files.
+They can be viewed using @cmd{SYSFILE INFO} or @cmd{DISPLAY
+DOCUMENTS}.  They can be removed from the active dataset with @cmd{DROP
+DOCUMENTS}.
+
+Each line of documentary text must be enclosed in quotation marks, and 
+may not be more than 80 bytes long. @xref{DOCUMENT}.
+
+@node CACHE
+@section CACHE
+@vindex CACHE
+
+@display
+CACHE.
+@end display
+
+This command is accepted, for compatibility, but it has no effect.
+
+@node CD
+@section CD
+@vindex CD
+@cindex directory
+@cindex changing directory
+
+@display
+CD 'new directory' .
+@end display 
+
+@cmd{CD} changes the current directory.  The new directory will become that specified by the command.
+
+@node COMMENT
+@section COMMENT
+@vindex COMMENT
+@vindex *
+
+@display 
+Two possibles syntaxes:
+        COMMENT comment text @dots{} .
+        *comment text @dots{} .
+@end display
+
+@cmd{COMMENT} is ignored.  It is used to provide information to
+the author and other readers of the @pspp{} syntax file.  
+
+@cmd{COMMENT} can extend over any number of lines.  Don't forget to
+terminate it with a dot or a blank line.
+
+
+
+@node DOCUMENT
+@section DOCUMENT
+@vindex DOCUMENT
+
+@display
+DOCUMENT @var{documentary_text}.
+@end display
+
+@cmd{DOCUMENT} adds one or more lines of descriptive commentary to the
+active dataset.  Documents added in this way are saved to system files.
+They can be viewed using @cmd{SYSFILE INFO} or @cmd{DISPLAY
+DOCUMENTS}.  They can be removed from the active dataset with @cmd{DROP
+DOCUMENTS}.
+
+Specify the @var{documentary text} following the @subcmd{DOCUMENT} keyword.  
+It is interpreted literally --- any quotes or other punctuation marks 
+will be included in the file.
+You can extend the documentary text over as many lines as necessary.  
+Lines are truncated at 80 bytes.  Don't forget to terminate
+the command with a dot or a blank line. @xref{ADD DOCUMENT}.
+
+@node DISPLAY DOCUMENTS
+@section DISPLAY DOCUMENTS
+@vindex DISPLAY DOCUMENTS
+
+@display
+DISPLAY DOCUMENTS.
+@end display
+
+@cmd{DISPLAY DOCUMENTS} displays the documents in the active dataset.  Each
+document is preceded by a line giving the time and date that it was
+added.  @xref{DOCUMENT}.
+
+@node DISPLAY FILE LABEL
+@section DISPLAY FILE LABEL
+@vindex DISPLAY FILE LABEL
+
+@display
+DISPLAY FILE LABEL.
+@end display
+
+@cmd{DISPLAY FILE LABEL} displays the file label contained in the
+active dataset,
+if any.  @xref{FILE LABEL}.
+
+This command is a @pspp{} extension.
+
+@node DROP DOCUMENTS
+@section DROP DOCUMENTS
+@vindex DROP DOCUMENTS
+
+@display
+DROP DOCUMENTS.
+@end display
+
+@cmd{DROP DOCUMENTS} removes all documents from the active dataset.
+New documents can be added with @cmd{DOCUMENT} (@pxref{DOCUMENT}).
+
+@cmd{DROP DOCUMENTS} changes only the active dataset.  It does not modify any
+system files stored on disk.
+
+@node ECHO
+@section ECHO
+@vindex ECHO
+
+@display 
+ECHO 'arbitrary text' .
+@end display
+
+Use @cmd{ECHO} to write arbitrary text to the output stream. The text should be enclosed in quotation marks following the normal rules for string tokens (@pxref{Tokens}).
+
+@node ERASE
+@section ERASE
+@vindex ERASE
+
+@display
+ERASE FILE @var{file_name}.
+@end display
+
+@cmd{ERASE FILE} deletes a file from the local filesystem.
+@var{file_name} must be quoted.
+This command cannot be used if the SAFER (@pxref{SET}) setting is active.
+
+
+@node EXECUTE
+@section EXECUTE
+@vindex EXECUTE
+
+@display
+EXECUTE.
+@end display
+
+@cmd{EXECUTE} causes the active dataset to be read and all pending
+transformations to be executed.
+
+@node FILE LABEL
+@section FILE LABEL
+@vindex FILE LABEL
+
+@display
+FILE LABEL @var{file_label}.
+@end display
+
+@cmd{FILE LABEL} provides a title for the active dataset.  This
+title will be saved into system files and portable files that are
+created during this @pspp{} run.
+
+@var{file_label} should not be quoted.
+If quotes are included, they are literally interpreted and become part of the file label.
+
+@node FINISH
+@section FINISH
+@vindex FINISH
+
+@display
+FINISH.
+@end display
+
+@cmd{FINISH} terminates the current @pspp{} session and returns
+control to the operating system.
+
+@node HOST
+@section HOST
+@vindex HOST
+
+@display
+HOST.
+HOST COMMAND=['@var{command}'...].
+@end display
+
+@cmd{HOST} suspends the current @pspp{} session and temporarily returns control 
+to the operating system.
+This command cannot be used if the SAFER (@pxref{SET}) setting is active.
+
+If the @subcmd{COMMAND} subcommand is specified, as a sequence of shell
+commands as quoted strings within square brackets, then @pspp{} executes
+them together in a single subshell.
+
+If no subcommands are specified, then @pspp{} invokes an interactive
+subshell.
+
+@node INCLUDE
+@section INCLUDE
+@vindex INCLUDE
+
+@display
+        INCLUDE [FILE=]'@var{file_name}' [ENCODING='@var{encoding}'].
+@end display
+
+@cmd{INCLUDE} causes the @pspp{} command processor to read an
+additional command file as if it were included bodily in the current
+command file.
+If errors are encountered in the included file, then command processing will 
+stop and no more commands will be processed.
+Include files may be nested to any depth, up to the limit of available
+memory.
+
+The @cmd{INSERT} command (@pxref{INSERT}) is a more flexible
+alternative to @cmd{INCLUDE}.  An @cmd{INCLUDE} command acts the same as
+@cmd{INSERT} with @subcmd{ERROR=STOP CD=NO SYNTAX=BATCH} specified.
+
+The optional @subcmd{ENCODING} subcommand has the same meaning as with @cmd{INSERT}.
+
+@node INSERT
+@section INSERT
+@vindex INSERT
+
+@display
+     INSERT [FILE=]'@var{file_name}'
+        [CD=@{NO,YES@}]
+        [ERROR=@{CONTINUE,STOP@}]
+        [SYNTAX=@{BATCH,INTERACTIVE@}]
+        [ENCODING=@{LOCALE, '@var{charset_name}'@}].
+@end display
+
+@cmd{INSERT} is similar to @cmd{INCLUDE} (@pxref{INCLUDE}) 
+but somewhat more flexible.
+It causes the command processor to read a file as if it were embedded in the 
+current command file.
+
+If @subcmd{CD=YES} is specified, then before including the file, the
+current directory  will be changed to the directory of the included
+file.  
+The default setting is @samp{CD=NO}.
+Note that this directory will remain current until it is
+changed explicitly (with the @cmd{CD} command, or a subsequent
+@cmd{INSERT} command with the @samp{CD=YES} option).
+It will not revert to its original setting even after the included
+file is finished processing.
+
+If @subcmd{ERROR=STOP} is specified, errors encountered in the
+inserted file will cause processing to immediately cease.
+Otherwise processing will continue at the next command.
+The default setting is @subcmd{ERROR=CONTINUE}.
+
+If @subcmd{SYNTAX=INTERACTIVE} is specified then the syntax contained in
+the included file must conform to interactive syntax
+conventions. @xref{Syntax Variants}.
+The default setting is @subcmd{SYNTAX=BATCH}.
+
+@subcmd{ENCODING} optionally specifies the character set used by the included
+file.  Its argument, which is not case-sensitive, must be in one of
+the following forms:
+
+@table @asis
+@item @subcmd{LOCALE}
+The encoding used by the system locale, or as overridden by the 
+@cmd{SET} command (@pxref{SET}).  On GNU/Linux and other Unix-like systems,
+environment variables, e.g.@: @env{LANG} or @env{LC_ALL}, determine the
+system locale.
+
+@item @var{charset_name}
+One of the character set names listed by @acronym{IANA} at
+@uref{http://www.iana.org/assignments/character-sets}.  Some examples
+are @code{ASCII} (United States), @code{ISO-8859-1} (western Europe),
+@code{EUC-JP} (Japan), and @code{windows-1252} (Windows).  Not all
+systems support all character sets.
+
+@item @code{Auto,@var{encoding}}
+Automatically detects whether a syntax file is encoded in an Unicode
+encoding such as UTF-8, UTF-16, or UTF-32.  If it is not, then @pspp{}
+generally assumes that the file is encoded in @var{encoding} (an @acronym{IANA}
+character set name).  However, if @var{encoding} is UTF-8, and the
+syntax file is not valid UTF-8, @pspp{} instead assumes that the file
+is encoded in @code{windows-1252}.
+
+For best results, @var{encoding} should be an @acronym{ASCII}-compatible
+encoding (the most common locale encodings are all @acronym{ASCII}-compatible),
+because encodings that are not @acronym{ASCII} compatible cannot be
+automatically distinguished from UTF-8.
+
+@item @code{Auto}
+@item @code{Auto,Locale}
+Automatic detection, as above, with the default encoding taken from
+the system locale or the setting on @subcmd{SET LOCALE}.
+@end table
+
+When ENCODING is not specified, the default is taken from the
+@option{--syntax-encoding} command option, if it was specified, and
+otherwise it is @code{Auto}.
+
+@node OUTPUT
+@section OUTPUT
+@vindex OUTPUT
+@cindex precision, of output
+@cindex decimal places
+
+@display
+OUTPUT MODIFY
+       /SELECT TABLES
+       /TABLECELLS SELECT = [ @{SIGNIFICANCE, COUNT@} ]
+                   FORMAT = @var{fmt_spec}.
+@end display
+@note{In the above synopsis the characters @samp{[} and @samp{]} are literals.
+They must appear in the syntax to be interpreted.}
+
+@cmd{OUTPUT} changes the appearance of the tables in which results are printed.
+In particular, it can be used to set the format and precision to which results are displayed.
+
+After running this command, the default table appearance parameters will have been modified and  each 
+new output table generated will use the new parameters.
+
+Following @code{/TABLECELLS SELECT =} a list of cell classes must appear, enclosed in square
+brackets.  This list determines the classes of values should be selected for modification.
+Each class can be:
+
+@table @asis
+@item SIGNIFICANCE
+Significance of tests (p-values).
+
+@item COUNT
+Counts or sums of weights.
+@end table
+
+The value of @var{fmt_spec} must be a valid output format (@pxref{Input and Output Formats}).
+Note that not all possible formats are meaningful for all classes.
+
+@node PERMISSIONS
+@section PERMISSIONS
+@vindex PERMISSIONS
+@cindex mode
+@cindex file mode
+@cindex changing file permissions
+
+@display
+PERMISSIONS
+        FILE='@var{file_name}'
+        /PERMISSIONS = @{READONLY,WRITEABLE@}.
+@end display
+
+@cmd{PERMISSIONS} changes the permissions of a file.  
+There is one mandatory subcommand which specifies the permissions to
+which the file should be changed.  
+If you set a file's  permission  to @subcmd{READONLY}, then the file will become
+unwritable either by you or anyone else on the system.
+If you set the permission to @subcmd{WRITEABLE}, then the file will become
+writeable by you; the permissions afforded to others will be
+unchanged.
+This command cannot be used if the @subcmd{SAFER} (@pxref{SET}) setting is active.
+
+
+@node PRESERVE and RESTORE
+@section PRESERVE and RESTORE
+@vindex PRESERVE
+@vindex RESTORE
+
+@display
+PRESERVE.
+@dots{}
+RESTORE.
+@end display
+
+@cmd{PRESERVE} saves all of the settings that @cmd{SET} (@pxref{SET})
+can adjust.  A later @cmd{RESTORE} command restores those settings.
+
+@cmd{PRESERVE} can be nested up to five levels deep.
+
+@node SET
+@section SET
+@vindex SET
+
+@display
+SET
+
+(data input)
+        /BLANKS=@{SYSMIS,'.',number@}
+        /DECIMAL=@{DOT,COMMA@}
+        /FORMAT=@var{fmt_spec}
+        /EPOCH=@{AUTOMATIC,@var{year}@}
+        /RIB=@{NATIVE,MSBFIRST,LSBFIRST,VAX@}
+        /RRB=@{NATIVE,ISL,ISB,IDL,IDB,VF,VD,VG,ZS,ZL@}
+
+(interaction)
+        /MXERRS=@var{max_errs}
+        /MXWARNS=@var{max_warnings}
+        /WORKSPACE=@var{workspace_size}
+
+(syntax execution)
+        /LOCALE='@var{locale}'
+        /MEXPAND=@{ON,OFF@}
+        /MITERATE=@var{max_iterations}
+        /MNEST=@var{max_nest}
+        /MPRINT=@{ON,OFF@}
+        /MXLOOPS=@var{max_loops}
+        /SEED=@{RANDOM,@var{seed_value}@}
+        /UNDEFINED=@{WARN,NOWARN@}
+        /FUZZBITS=@var{fuzzbits}
+
+(data output)
+        /CC@{A,B,C,D,E@}=@{'@var{npre},@var{pre},@var{suf},@var{nsuf}','@var{npre}.@var{pre}.@var{suf}.@var{nsuf}'@}
+        /DECIMAL=@{DOT,COMMA@}
+        /FORMAT=@var{fmt_spec}
+        /WIB=@{NATIVE,MSBFIRST,LSBFIRST,VAX@}
+        /WRB=@{NATIVE,ISL,ISB,IDL,IDB,VF,VD,VG,ZS,ZL@}
+
+(output routing)
+        /ERRORS=@{ON,OFF,TERMINAL,LISTING,BOTH,NONE@}
+        /MESSAGES=@{ON,OFF,TERMINAL,LISTING,BOTH,NONE@}
+        /PRINTBACK=@{ON,OFF,TERMINAL,LISTING,BOTH,NONE@}
+        /RESULTS=@{ON,OFF,TERMINAL,LISTING,BOTH,NONE@}
+
+(output driver options)
+        /HEADERS=@{NO,YES,BLANK@}
+        /LENGTH=@{NONE,@var{n_lines}@}
+        /MORE=@{ON,OFF@}
+        /WIDTH=@{NARROW,WIDTH,@var{n_characters}@}
+        /TNUMBERS=@{VALUES,LABELS,BOTH@}
+        /TVARS=@{NAMES,LABELS,BOTH@}
+
+(logging)
+        /JOURNAL=@{ON,OFF@} ['@var{file_name}']
+
+(system files)
+        /COMPRESSION=@{ON,OFF@}
+        /SCOMPRESSION=@{ON,OFF@}
+
+(miscellaneous)
+        /SAFER=ON
+        /LOCALE='@var{string}'
+
+
+(obsolete settings accepted for compatibility, but ignored)
+        /BOXSTRING=@{'@var{xxx}','@var{xxxxxxxxxxx}'@}
+        /CASE=@{UPPER,UPLOW@}
+        /CPI=cpi_value
+        /HIGHRES=@{ON,OFF@}
+        /HISTOGRAM='@var{c}'
+        /LOWRES=@{AUTO,ON,OFF@}
+        /LPI=@var{lpi_value}
+        /MENUS=@{STANDARD,EXTENDED@}
+        /MXMEMORY=@var{max_memory}
+        /SCRIPTTAB='c'
+        /TB1=@{'@var{xxx}','@var{xxxxxxxxxxx}'@}
+        /TBFONTS='@var{string}'
+        /XSORT=@{YES,NO@}
+@end display
+
+@cmd{SET} allows the user to adjust several parameters relating to
+@pspp{}'s execution.  Since there are many subcommands to this command, its
+subcommands will be examined in groups.
+
+For subcommands that take boolean values, @subcmd{ON} and @subcmd{YES} are synonymous, 
+as are @subcmd{OFF} and @subcmd{NO}, when used as subcommand values.
+
+The data input subcommands affect the way that data is read from data
+files.  The data input subcommands are
+
+@table @asis
+@item BLANKS
+@anchor{SET BLANKS}
+This is the value assigned to an item data item that is empty or
+contains only white space.  An argument of SYSMIS or '.' will cause the
+system-missing value to be assigned to null items.  This is the
+default.  Any real value may be assigned.
+
+@item DECIMAL
+@anchor{SET DECIMAL}
+This value may be set to @subcmd{DOT} or @subcmd{COMMA}.
+Setting it to @subcmd{DOT} causes the decimal point character to be
+@samp{.} and the grouping character to be @samp{,}.
+Setting it to @subcmd{COMMA}
+causes the decimal point character to be @samp{,} and the grouping
+character to be @samp{.}.
+If the setting is @subcmd{COMMA}, then @samp{,} will not be treated
+as a field separator in the @cmd{DATA LIST} command (@pxref{DATA LIST}).
+The default value is determined from the system locale.
+
+@item FORMAT
+Allows the default numeric input/output format to be specified.  The
+default is F8.2.  @xref{Input and Output Formats}.
+
+@item EPOCH
+@anchor{SET EPOCH}
+Specifies the range of years used when a 2-digit year is read from a
+data file or used in a date construction expression (@pxref{Date
+Construction}).  If a 4-digit year is specified for the epoch, then
+2-digit years are interpreted starting from that year, known as the
+epoch.  If @subcmd{AUTOMATIC} (the default) is specified, then the epoch begins
+69 years before the current date.
+
+@item RIB
+@anchor{SET RIB} 
+
+@pspp{} extension to set the byte ordering (endianness) used for reading
+data in IB or PIB format (@pxref{Binary and Hexadecimal Numeric
+Formats}).  In @subcmd{MSBFIRST} ordering, the most-significant byte appears at
+the left end of a IB or PIB field.  In @subcmd{LSBFIRST} ordering, the
+least-significant byte appears at the left end.  @subcmd{VAX} ordering is like
+@subcmd{MSBFIRST}, except that each pair of bytes is in reverse order.  @subcmd{NATIVE},
+the default, is equivalent to @subcmd{MSBFIRST} or @subcmd{LSBFIRST} depending on the
+native format of the machine running @pspp{}.
+
+@item RRB
+@anchor{SET RRB}
+
+@pspp{} extension to set the floating-point format used for reading data in
+RB format (@pxref{Binary and Hexadecimal Numeric Formats}).  The
+possibilities are:
+
+@table @asis
+@item NATIVE
+The native format of the machine running @pspp{}.  Equivalent to either IDL
+or IDB.
+
+@item ISL
+32-bit IEEE 754 single-precision floating point, in little-endian byte
+order.
+
+@item ISB
+32-bit IEEE 754 single-precision floating point, in big-endian byte
+order.
+
+@item IDL
+64-bit IEEE 754 double-precision floating point, in little-endian byte
+order.
+
+@item IDB
+64-bit IEEE 754 double-precision floating point, in big-endian byte
+order.
+
+@item VF
+32-bit VAX F format, in VAX-endian byte order.
+
+@item VD
+64-bit VAX D format, in VAX-endian byte order.
+
+@item VG
+64-bit VAX G format, in VAX-endian byte order.
+
+@item ZS
+32-bit IBM Z architecture short format hexadecimal floating point, in
+big-endian byte order.  
+
+@item ZL
+64-bit IBM Z architecture long format hexadecimal floating point, in
+big-endian byte order.
+
+Z architecture also supports IEEE 754 floating point.  The ZS and ZL
+formats are only for use with very old input files.
+@end table
+The default is NATIVE.
+@end table
+
+Interaction subcommands affect the way that @pspp{} interacts with an
+online user.  The interaction subcommands are
+
+@table @asis
+@item MXERRS
+The maximum number of errors before @pspp{} halts processing of the current
+command file.  The default is 50.
+
+@item MXWARNS
+The maximum number of warnings + errors before @pspp{} halts processing the
+current command file.  
+The special value of zero means that all warning situations should be ignored.
+No warnings will be issued, except a single initial warning advising the user
+that warnings will not be given.
+The default value is 100.
+@end table
+
+Syntax execution subcommands control the way that @pspp{} commands
+execute.  The syntax execution subcommands are
+
+@table @asis
+@item LOCALE
+Overrides the system locale for the purpose of reading and writing
+syntax and data files.  The argument should be a locale name in the
+general form @code{@var{language}_@var{country}.@var{encoding}}, where @var{language}
+and @var{country} are 2-character language and country abbreviations,
+respectively, and @var{encoding} is an @acronym{IANA} character set name.
+Example locales are @code{en_US.UTF-8} (UTF-8 encoded English as
+spoken in the United States) and @code{ja_JP.EUC-JP} (EUC-JP encoded
+Japanese as spoken in Japan).
+
+@item MEXPAND
+@itemx MITERATE
+@itemx MNEST
+@itemx MPRINT
+Currently not used.
+
+@item MXLOOPS
+The maximum number of iterations for an uncontrolled loop (@pxref{LOOP}).
+The default @var{max_loops} is 40.
+
+@item SEED
+The initial pseudo-random number seed.  Set to a real number or to
+RANDOM, which will obtain an initial seed from the current time of day.
+
+@item UNDEFINED
+Currently not used.
+
+@item FUZZBITS
+@anchor{SET FUZZBITS}
+The maximum number of bits of errors in the least-significant places
+to accept for rounding up a value that is almost halfway between two
+possibilities for rounding with the RND operator (@pxref{Miscellaneous
+Mathematics}).  The default @var{fuzzbits} is 6.
+
+@item WORKSPACE
+The maximum amount of memory (in kilobytes) that @pspp{} will use to store data being processed.
+If memory in excess of the workspace size is required, then @pspp{} will start
+to use temporary files to store the data.
+Setting a higher value will, in general, mean procedures will run faster, 
+but may cause other applications to run slower.
+On platforms without virtual memory management, setting a very large workspace
+may cause @pspp{} to abort.
+@cindex workspace
+@cindex memory, amount used to store cases
+@end table
+
+Data output subcommands affect the format of output data.  These
+subcommands are
+
+@table @asis
+@item CCA
+@itemx CCB
+@itemx CCC
+@itemx CCD
+@itemx CCE
+@anchor{CCx Settings}
+
+Set up custom currency formats.  @xref{Custom Currency Formats}, for
+details.
+
+@item DECIMAL
+The default @subcmd{DOT} setting causes the decimal point character to be
+@samp{.}.  A setting of @subcmd{COMMA} causes the decimal point character to be
+@samp{,}.
+
+@item FORMAT
+Allows the default numeric input/output format to be specified.  The
+default is F8.2.  @xref{Input and Output Formats}.
+
+@item WIB
+@anchor{SET WIB} 
+
+@pspp{} extension to set the byte ordering (endianness) used for writing
+data in IB or PIB format (@pxref{Binary and Hexadecimal Numeric
+Formats}).  In @subcmd{MSBFIRST} ordering, the most-significant byte appears at
+the left end of a IB or PIB field.  In @subcmd{LSBFIRST} ordering, the
+least-significant byte appears at the left end.  @subcmd{VAX} ordering is like
+@subcmd{MSBFIRST}, except that each pair of bytes is in reverse order.  @subcmd{NATIVE},
+the default, is equivalent to @subcmd{MSBFIRST} or @subcmd{LSBFIRST} depending on the
+native format of the machine running @pspp{}.
+
+@item WRB
+@anchor{SET WRB}
+
+@pspp{} extension to set the floating-point format used for writing data in
+RB format (@pxref{Binary and Hexadecimal Numeric Formats}).  The choices
+are the same as @subcmd{SET RIB}.  The default is @subcmd{NATIVE}.
+@end table
+
+In the @pspp{} text-based interface, the output routing subcommands
+affect where output is sent.  The following values are allowed for
+each of these subcommands:
+
+@table @asis
+@item OFF
+@item NONE
+Discard this kind of output.
+
+@item TERMINAL
+Write this output to the terminal, but not to listing files and other
+output devices.
+
+@item LISTING
+Write this output to listing files and other output devices, but not
+to the terminal.
+
+@item ON
+@itemx BOTH
+Write this type of output to all output devices.
+@end table
+
+These output routing subcommands are:
+
+@table @asis
+@item ERRORS
+Applies to error and warning messages.  The default is @subcmd{BOTH}.
+
+@item MESSAGES
+Applies to notes.  The default is @subcmd{BOTH}.
+
+@item PRINTBACK
+Determines whether the syntax used for input is printed back as part
+of the output.  The default is @subcmd{NONE}.
+
+@item RESULTS
+Applies to everything not in one of the above categories, such as the
+results of statistical procedures.  The default is @subcmd{BOTH}.
+@end table
+
+These subcommands have no effect on output in the @pspp{} GUI
+environment.
+
+Output driver option subcommands affect output drivers' settings.  These
+subcommands are
+
+@table @asis
+@item HEADERS
+@itemx LENGTH
+@itemx MORE
+@itemx WIDTH
+@itemx TNUMBERS
+The @subcmd{TNUMBERS} option sets the way in which values are displayed in output tables.
+The valid settings are @subcmd{VALUES}, @subcmd{LABELS} and @subcmd{BOTH}.
+If @subcmd{TNUMBERS} is set to @subcmd{VALUES}, then all values are displayed with their literal value 
+(which for a numeric value is a number and for a string value an alphanumeric string).
+If @subcmd{TNUMBERS} is set to @subcmd{LABELS}, then values are displayed using their assigned labels if any.
+(@xref{VALUE LABELS}.)
+If the a value has no label, then it will be displayed using its literal value.
+If @subcmd{TNUMBERS} is set to @subcmd{BOTH}, then values will be displayed with both their label
+(if any) and their literal value in parentheses.
+@item TVARS
+The @subcmd{TVARS} option sets the way in which variables are displayed in output tables.
+The valid settings are @subcmd{NAMES}, @subcmd{LABELS} and @subcmd{BOTH}.
+If @subcmd{TVARS} is set to @subcmd{NAMES}, then all variables are displayed using their names.
+If @subcmd{TVARS} is set to @subcmd{LABELS}, then variables are displayed using their label if one
+has been set.  If no label has been set, then the name will be used.
+(@xref{VARIABLE LABELS}.)
+If @subcmd{TVARS} is set to @subcmd{BOTH}, then variables will be displayed with both their label
+(if any) and their name in parentheses.
+@end table
+
+@cindex headers
+@cindex length
+@cindex more
+@cindex pager 
+@cindex width
+@cindex tnumbers
+
+
+Logging subcommands affect logging of commands executed to external
+files.  These subcommands are
+
+@table @asis
+@item JOURNAL
+@itemx LOG
+These subcommands, which are synonyms, control the journal.  The
+default is @subcmd{ON}, which causes commands entered interactively to be
+written to the journal file.  Commands included from syntax files that
+are included interactively and error messages printed by @pspp{} are also
+written to the journal file, prefixed by @samp{>}.  @subcmd{OFF} disables use
+of the journal.
+
+The journal is named @file{pspp.jnl} by default.  A different name may
+be specified.
+@end table
+
+System file subcommands affect the default format of system files
+produced by @pspp{}.  These subcommands are
+
+@table @asis
+@item COMPRESSION
+Not currently used.
+
+@item SCOMPRESSION
+Whether system files created by @cmd{SAVE} or @cmd{XSAVE} are
+compressed by default.  The default is @subcmd{ON}.
+@end table
+
+Security subcommands affect the operations that commands are allowed to
+perform.  The security subcommands are
+
+@table @asis
+@item SAFER
+Setting this option disables the following operations:
+
+@itemize @bullet
+@item
+The @cmd{ERASE} command.
+@item
+The @cmd{HOST} command.
+@item
+The @cmd{PERMISSIONS} command.
+@item
+Pipes (file names beginning or ending with @samp{|}).
+@end itemize
+
+Be aware that this setting does not guarantee safety (commands can still
+overwrite files, for instance) but it is an improvement.
+When set, this setting cannot be reset during the same session, for
+obvious security reasons.
+
+@item LOCALE
+@cindex locale
+@cindex encoding, characters
+This item is used to set the default character encoding.
+The encoding may be specified either as an encoding name or alias
+(see @url{http://www.iana.org/assignments/character-sets}), or
+as a locale name.
+If given as a locale name, only the character encoding of the 
+locale is relevant.
+
+System files written by @pspp{} will use this encoding.
+System files read by @pspp{}, for which the encoding is unknown, will be
+interpreted using this encoding.
+
+The full list of valid encodings and locale names/alias are operating system
+dependent.
+The following are all examples of acceptable syntax on common GNU/Linux
+systems.
+@example
+SET LOCALE='iso-8859-1'.
+
+SET LOCALE='ru_RU.cp1251'.
+
+SET LOCALE='japanese'.
+@end example
+
+Contrary to intuition, this command does not affect any aspect 
+of the system's locale.
+@end table
+
+@node SHOW
+@section SHOW
+@vindex SHOW
+
+@display
+SHOW
+        [ALL]
+        [BLANKS]
+        [CC]
+        [CCA]
+        [CCB]
+        [CCC]
+        [CCD]
+        [CCE]
+        [COPYING]
+        [DECIMALS]
+        [DIRECTORY]
+        [ENVIRONMENT]
+        [FORMAT]
+        [FUZZBITS]
+        [LENGTH]
+        [MXERRS]
+        [MXLOOPS]
+        [MXWARNS]
+        [N]
+        [SCOMPRESSION]
+        [TEMPDIR]
+        [UNDEFINED]
+        [VERSION]
+        [WARRANTY]
+        [WEIGHT]
+        [WIDTH]
+@end display
+
+@cmd{SHOW} can be used to display the current state of @pspp{}'s execution
+parameters.  Parameters that can be changed using @cmd{SET}
+(@pxref{SET}), can be examined using @cmd{SHOW} using the subcommand
+with the same name.  @cmd{SHOW} supports the following additional
+subcommands:
+
+@table @asis
+@item @subcmd{ALL}
+Show all settings.
+@item @subcmd{CC}
+Show all custom currency settings (@subcmd{CCA} through @subcmd{CCE}).
+@item @subcmd{DIRECTORY}
+Shows the current working directory.
+@item @subcmd{ENVIRONMENT}
+Shows the operating system details.
+@item @subcmd{N}
+Reports the number of cases in the active dataset.  The reported number is not
+weighted.  If no dataset is defined, then @samp{Unknown} will be reported.
+@item @subcmd{TEMPDIR}
+Shows the path of the directory where temporary files will be stored.
+@item @subcmd{VERSION}
+Shows the version of this installation of @pspp{}.
+@item @subcmd{WARRANTY}
+Show details of the lack of warranty for @pspp{}.
+@item @subcmd{COPYING} / @subcmd{LICENSE}
+Display the terms of @pspp{}'s copyright licence (@pxref{License}).
+@end table
+
+Specifying @cmd{SHOW} without any subcommands is equivalent to @subcmd{SHOW ALL}.
+
+@node SUBTITLE
+@section SUBTITLE
+@vindex SUBTITLE
+
+@display
+SUBTITLE '@var{subtitle_string}'.
+  or
+SUBTITLE @var{subtitle_string}.
+@end display
+
+@cmd{SUBTITLE} provides a subtitle to a particular @pspp{}
+run.  This subtitle appears at the top of each output page below the
+title, if headers are enabled on the output device.
+
+Specify a subtitle as a string in quotes.  The alternate syntax that did
+not require quotes is now obsolete.  If it is used then the subtitle is
+converted to all uppercase.
+
+@node TITLE
+@section TITLE
+@vindex TITLE
+
+@display
+TITLE '@var{title_string}'.
+  or
+TITLE @var{title_string}.
+@end display
+
+@cmd{TITLE} provides a title to a particular @pspp{} run.
+This title appears at the top of each output page, if headers are enabled
+on the output device.
+
+Specify a title as a string in quotes.  The alternate syntax that did
+not require quotes is now obsolete.  If it is used then the title is
+converted to all uppercase.

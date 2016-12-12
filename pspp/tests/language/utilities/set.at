@@ -1,0 +1,126 @@
+AT_BANNER([SET])
+
+# This crashed older versions of PSPP (bug #30682).
+AT_SETUP([SET FORMAT to invalid output format])
+AT_DATA([set.pspp], [dnl
+DATA LIST LIST NOTABLE /x.
+BEGIN DATA.
+1
+2
+3
+END DATA.
+SET FORMAT F41.
+DESCRIPTIVES /x.
+])
+AT_CHECK([pspp -O format=csv set.pspp], [1], [dnl
+"set.pspp:7: error: SET: Output format F41.0 specifies width 41, but F requires a width between 1 and 40."
+
+Table: Valid cases = 3; cases with missing value(s) = 0.
+Variable,N,Mean,Std Dev,Minimum,Maximum
+x,3,2.00,1.00,1.00,3.00
+])
+AT_CLEANUP
+
+
+dnl This scenario was observed to erroneously free things twice
+AT_SETUP([SET crash on invalid cc])
+AT_DATA([set.pspp], [dnl
+SET CCA='xxxx'.SHGW CCA.
+])
+
+AT_CHECK([pspp -O format=csv set.pspp], [1], [ignore])
+AT_CLEANUP
+
+
+
+AT_SETUP([SET MXWARNS])
+dnl Make sure that syntax processing stops and that
+dnl a warning is issued when the MXWARNS figure is
+dnl exceeded.
+AT_DATA([set.pspp], [dnl
+set mxwarns=2.
+data list notable list /x (f8.2) y (f8.2).
+begin data
+1 2
+3 r
+5 x
+q 8
+9 9
+3 x
+w w
+end data.
+
+comment The following line should not be executed.
+list.
+])
+
+AT_CHECK([pspp -O format=csv set.pspp], [0], [dnl
+set.pspp:5.3: warning: Data for variable y is not valid as format F: Field contents are not numeric.
+
+set.pspp:6.3: warning: Data for variable y is not valid as format F: Field contents are not numeric.
+
+set.pspp:7.1: warning: Data for variable x is not valid as format F: Field contents are not numeric.
+
+note: Warnings (3) exceed limit (2).  Syntax processing will be halted.
+])
+
+AT_CLEANUP
+
+
+
+
+AT_SETUP([SET MXWARNS special case zero])
+dnl Make sure that MXWARNS interprets zero as infinity.
+AT_DATA([mxwarns.pspp], [dnl
+set mxwarns=0.
+data list notable list /x (f8.2) y (f8.2) z *.
+begin data
+1 2 3
+3 r 3
+5 x 3
+q 8 4
+9 9 4
+3 x 4
+w w 4
+end data.
+
+list.
+])
+
+AT_CHECK([pspp -O format=csv mxwarns.pspp], [0],
+[warning: MXWARNS set to zero.  No further warnings will be given even when potentially problematic situations are encountered.
+
+Table: Data List
+x,y,z
+1.00,2.00,3.00
+3.00,.  ,3.00
+5.00,.  ,3.00
+.  ,8.00,4.00
+9.00,9.00,4.00
+3.00,.  ,4.00
+.  ,.  ,4.00
+])
+
+AT_CLEANUP
+
+
+
+AT_BANNER([PRESERVE and RESTORE])
+
+AT_SETUP([PRESERVE of SET FORMAT])
+AT_DATA([set.pspp], [dnl
+SHOW FORMAT.
+PRESERVE.
+SET FORMAT F10.0.
+SHOW FORMAT
+RESTORE.
+SHOW FORMAT.
+])
+AT_CHECK([pspp -O format=csv set.pspp], [0], [dnl
+set.pspp:1: note: SHOW: FORMAT is F8.2.
+
+set.pspp:5: note: SHOW: FORMAT is F10.0.
+
+set.pspp:6: note: SHOW: FORMAT is F8.2.
+])
+AT_CLEANUP
