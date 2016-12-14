@@ -3307,7 +3307,7 @@ msgstr "Residual"
 
 #: src/language/stats/chisquare.c:206 src/language/stats/cochran.c:161
 #: src/language/stats/median.c:320 src/language/stats/sign.c:63
-#: src/ui/gui/frequencies.ui:658
+#: src/ui/gui/frequencies.ui:719
 msgid "Frequencies"
 msgstr "Frecuencias"
 
@@ -8712,23 +8712,35 @@ msgstr "Incluír sectores dos valores que _faltan"
 msgid "<b>Pie Charts</b>"
 msgstr "<b>Gráficas de sectores</b>"
 
-#: src/ui/gui/frequencies.ui:707 src/ui/gui/rank.ui:472
+#: src/ui/gui/frequencies.ui:643
+msgid "Draw QQ plot"
+msgstr ""
+
+#: src/ui/gui/frequencies.ui:659
+msgid "Draw _PP plot"
+msgstr ""
+
+#: src/ui/gui/frequencies.ui:679
+msgid "<b>Distribution plots</b>"
+msgstr ""
+
+#: src/ui/gui/frequencies.ui:768 src/ui/gui/rank.ui:472
 msgid "_Variable(s):"
 msgstr "_Variábel(eis):"
 
-#: src/ui/gui/frequencies.ui:751
+#: src/ui/gui/frequencies.ui:812
 msgid "_Statistics:"
 msgstr "_Estatísticas:"
 
-#: src/ui/gui/frequencies.ui:765
+#: src/ui/gui/frequencies.ui:826
 msgid "Include _missing values"
 msgstr "Incluír valores que _faltan"
 
-#: src/ui/gui/frequencies.ui:788
+#: src/ui/gui/frequencies.ui:849
 msgid "Ch_arts..."
 msgstr "Gr_áficas..."
 
-#: src/ui/gui/frequencies.ui:803
+#: src/ui/gui/frequencies.ui:864
 msgid "Frequency _Tables..."
 msgstr "_Táboas de frecuencia..."
 
@@ -9633,128 +9645,143 @@ msgstr "_Explorar..."
 msgid "_Crosstabs..."
 msgstr "Táboas _cruzadas..."
 
-#: src/ui/gui/data-editor.ui:263
+#: src/ui/gui/data-editor.ui:262
+#, fuzzy
+msgid "_Quantiles..."
+msgstr "_Variábeis..."
+
+#: src/ui/gui/data-editor.ui:267
 msgid "Compare _Means"
 msgstr "Comparar _medias"
 
-#: src/ui/gui/data-editor.ui:265
+#: src/ui/gui/data-editor.ui:269
 msgid "_Means..."
 msgstr "_Medias..."
 
-#: src/ui/gui/data-editor.ui:269
+#: src/ui/gui/data-editor.ui:273
 msgid "_One Sample T Test..."
 msgstr "Test t de exemplo únic_o..."
 
-#: src/ui/gui/data-editor.ui:273
+#: src/ui/gui/data-editor.ui:277
 msgid "_Independent Samples T Test..."
 msgstr "Test T de mostras _independentes..."
 
-#: src/ui/gui/data-editor.ui:277
+#: src/ui/gui/data-editor.ui:281
 msgid "_Paired Samples T Test..."
 msgstr "Test t de mostras em_parelladas..."
 
-#: src/ui/gui/data-editor.ui:281
+#: src/ui/gui/data-editor.ui:285
 #, fuzzy
 msgid "_One Way _ANOVA..."
 msgstr "_ANOVA dun factor..."
 
-#: src/ui/gui/data-editor.ui:286
+#: src/ui/gui/data-editor.ui:290
 msgid "_Univariate Analysis..."
 msgstr "Análise _univariante..."
 
-#: src/ui/gui/data-editor.ui:290
+#: src/ui/gui/data-editor.ui:294
 msgid "Bivariate _Correlation..."
 msgstr "_Correlación bivariante..."
 
-#: src/ui/gui/data-editor.ui:294
+#: src/ui/gui/data-editor.ui:298
 msgid "_K-Means Cluster..."
 msgstr "Agrupación de medias _K..."
 
-#: src/ui/gui/data-editor.ui:298
+#: src/ui/gui/data-editor.ui:302
 #, fuzzy
 msgid "_Factor Analysis..."
 msgstr "_Análise factorial..."
 
-#: src/ui/gui/data-editor.ui:302
+#: src/ui/gui/data-editor.ui:306
 msgid "Re_liability..."
 msgstr "Fiabi_lidade..."
 
-#: src/ui/gui/data-editor.ui:306
+#: src/ui/gui/data-editor.ui:310
 msgid "_Regression"
 msgstr "_Regresión"
 
-#: src/ui/gui/data-editor.ui:309
+#: src/ui/gui/data-editor.ui:313
 msgid "_Linear..."
 msgstr "_Lineal..."
 
-#: src/ui/gui/data-editor.ui:313
+#: src/ui/gui/data-editor.ui:317
 msgid "_Binary Logistic..."
 msgstr "Loxística binaria..."
 
-#: src/ui/gui/data-editor.ui:319
+#: src/ui/gui/data-editor.ui:323
 msgid "_Non-Parametric Statistics"
 msgstr "Estatísticas _non paramétricas"
 
-#: src/ui/gui/data-editor.ui:322
+#: src/ui/gui/data-editor.ui:326
 #, fuzzy
 msgid "_Chi Square..."
 msgstr "_Khi cadrado..."
 
-#: src/ui/gui/data-editor.ui:326
+#: src/ui/gui/data-editor.ui:330
 msgid "_Binomial..."
 msgstr "_Binomial..."
 
-#: src/ui/gui/data-editor.ui:330
+#: src/ui/gui/data-editor.ui:334
 #, fuzzy
 msgid "_Runs..."
 msgstr "Exec_ucións..."
 
-#: src/ui/gui/data-editor.ui:334
+#: src/ui/gui/data-editor.ui:338
 #, fuzzy
 msgid "_1 Sample K-S..."
 msgstr "1-Mostra _K-S..."
 
-#: src/ui/gui/data-editor.ui:338
+#: src/ui/gui/data-editor.ui:342
 #, fuzzy
 msgid "_2 Related Samples..."
 msgstr "2 Mostras _relacionadas..."
 
-#: src/ui/gui/data-editor.ui:342
+#: src/ui/gui/data-editor.ui:346
 #, fuzzy
 msgid "_K Related Samples..."
 msgstr "K Mo_stras relacionadas..."
 
-#: src/ui/gui/data-editor.ui:348
+#: src/ui/gui/data-editor.ui:352
 msgid "ROC Cur_ve..."
 msgstr "Cur_va ROC..."
 
-#: src/ui/gui/data-editor.ui:354
+#: src/ui/gui/data-editor.ui:358
 msgid "_Graphs"
 msgstr ""
 
-#: src/ui/gui/data-editor.ui:357
+#: src/ui/gui/data-editor.ui:361
 #, fuzzy
 msgid "_Scatterplot"
 msgstr "Diagrama de _sedimentación"
 
-#: src/ui/gui/data-editor.ui:361
+#: src/ui/gui/data-editor.ui:365
 #, fuzzy
 msgid "_Histogram"
 msgstr "Debuxar _histogramas"
 
-#: src/ui/gui/data-editor.ui:365
+#: src/ui/gui/data-editor.ui:369
 msgid "_Barchart"
 msgstr ""
 
-#: src/ui/gui/data-editor.ui:371
+#: src/ui/gui/data-editor.ui:373
+#, fuzzy
+msgid "_QQ plot"
+msgstr "Diagrama de _sedimentación"
+
+#: src/ui/gui/data-editor.ui:377
+#, fuzzy
+msgid "_PP plot"
+msgstr "Diagrama de _sedimentación"
+
+#: src/ui/gui/data-editor.ui:383
 msgid "_Utilities"
 msgstr "_Utilidades"
 
-#: src/ui/gui/data-editor.ui:374
+#: src/ui/gui/data-editor.ui:386
 msgid "_Variables..."
 msgstr "_Variábeis..."
 
-#: src/ui/gui/data-editor.ui:378
+#: src/ui/gui/data-editor.ui:390
 msgid "Data File _Comments..."
 msgstr "_Comentarios de ficheiro de datos..."
 

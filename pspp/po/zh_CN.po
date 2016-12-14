@@ -3062,7 +3062,7 @@ msgstr "残差"
 
 #: src/language/stats/chisquare.c:206 src/language/stats/cochran.c:161
 #: src/language/stats/median.c:320 src/language/stats/sign.c:63
-#: src/ui/gui/frequencies.ui:658
+#: src/ui/gui/frequencies.ui:719
 msgid "Frequencies"
 msgstr "频率"
 
@@ -8265,23 +8265,35 @@ msgstr "饼状图中绘制缺失值(_m)"
 msgid "<b>Pie Charts</b>"
 msgstr "<b>饼状图</b>"
 
-#: src/ui/gui/frequencies.ui:707 src/ui/gui/rank.ui:472
+#: src/ui/gui/frequencies.ui:643
+msgid "Draw QQ plot"
+msgstr ""
+
+#: src/ui/gui/frequencies.ui:659
+msgid "Draw _PP plot"
+msgstr ""
+
+#: src/ui/gui/frequencies.ui:679
+msgid "<b>Distribution plots</b>"
+msgstr ""
+
+#: src/ui/gui/frequencies.ui:768 src/ui/gui/rank.ui:472
 msgid "_Variable(s):"
 msgstr "变量(_V)："
 
-#: src/ui/gui/frequencies.ui:751
+#: src/ui/gui/frequencies.ui:812
 msgid "_Statistics:"
 msgstr "统计量(_S)："
 
-#: src/ui/gui/frequencies.ui:765
+#: src/ui/gui/frequencies.ui:826
 msgid "Include _missing values"
 msgstr "包含缺失值(_m)"
 
-#: src/ui/gui/frequencies.ui:788
+#: src/ui/gui/frequencies.ui:849
 msgid "Ch_arts..."
 msgstr "图表(_a)..."
 
-#: src/ui/gui/frequencies.ui:803
+#: src/ui/gui/frequencies.ui:864
 msgid "Frequency _Tables..."
 msgstr "频率表(_T)..."
 
@@ -9175,126 +9187,141 @@ msgstr "数据探索(_E)"
 msgid "_Crosstabs..."
 msgstr "交叉表(_C)"
 
-#: src/ui/gui/data-editor.ui:263
+#: src/ui/gui/data-editor.ui:262
+#, fuzzy
+msgid "_Quantiles..."
+msgstr "变量(_V)..."
+
+#: src/ui/gui/data-editor.ui:267
 msgid "Compare _Means"
 msgstr "比较均值(_M)"
 
-#: src/ui/gui/data-editor.ui:265
+#: src/ui/gui/data-editor.ui:269
 msgid "_Means..."
 msgstr "均值(_M)"
 
-#: src/ui/gui/data-editor.ui:269
+#: src/ui/gui/data-editor.ui:273
 msgid "_One Sample T Test..."
 msgstr "单样本T检验(_O)..."
 
-#: src/ui/gui/data-editor.ui:273
+#: src/ui/gui/data-editor.ui:277
 msgid "_Independent Samples T Test..."
 msgstr "独立样本T检验(_I)..."
 
-#: src/ui/gui/data-editor.ui:277
+#: src/ui/gui/data-editor.ui:281
 msgid "_Paired Samples T Test..."
 msgstr "成对样本T检验(_P)..."
 
-#: src/ui/gui/data-editor.ui:281
+#: src/ui/gui/data-editor.ui:285
 #, fuzzy
 msgid "_One Way _ANOVA..."
 msgstr "单因素方差分析(_A)..."
 
-#: src/ui/gui/data-editor.ui:286
+#: src/ui/gui/data-editor.ui:290
 msgid "_Univariate Analysis..."
 msgstr "单变量分析(_U)..."
 
-#: src/ui/gui/data-editor.ui:290
+#: src/ui/gui/data-editor.ui:294
 msgid "Bivariate _Correlation..."
 msgstr "二元相关性(_C)..."
 
-#: src/ui/gui/data-editor.ui:294
+#: src/ui/gui/data-editor.ui:298
 msgid "_K-Means Cluster..."
 msgstr "K-均值聚类分析(_K)"
 
-#: src/ui/gui/data-editor.ui:298
+#: src/ui/gui/data-editor.ui:302
 #, fuzzy
 msgid "_Factor Analysis..."
 msgstr "因子分析(_A)"
 
-#: src/ui/gui/data-editor.ui:302
+#: src/ui/gui/data-editor.ui:306
 msgid "Re_liability..."
 msgstr "信度分析(_l)..."
 
-#: src/ui/gui/data-editor.ui:306
+#: src/ui/gui/data-editor.ui:310
 msgid "_Regression"
 msgstr "回归(_R)"
 
-#: src/ui/gui/data-editor.ui:309
+#: src/ui/gui/data-editor.ui:313
 msgid "_Linear..."
 msgstr "线性回归(_L)..."
 
-#: src/ui/gui/data-editor.ui:313
+#: src/ui/gui/data-editor.ui:317
 msgid "_Binary Logistic..."
 msgstr "二元Logistic回归分析(_B)..."
 
-#: src/ui/gui/data-editor.ui:319
+#: src/ui/gui/data-editor.ui:323
 msgid "_Non-Parametric Statistics"
 msgstr "非参数统计(_N)"
 
-#: src/ui/gui/data-editor.ui:322
+#: src/ui/gui/data-editor.ui:326
 #, fuzzy
 msgid "_Chi Square..."
 msgstr "卡方(_C)..."
 
-#: src/ui/gui/data-editor.ui:326
+#: src/ui/gui/data-editor.ui:330
 msgid "_Binomial..."
 msgstr "二项分布检验(_B)..."
 
-#: src/ui/gui/data-editor.ui:330
+#: src/ui/gui/data-editor.ui:334
 #, fuzzy
 msgid "_Runs..."
 msgstr "游程检验(_u)..."
 
-#: src/ui/gui/data-editor.ui:334
+#: src/ui/gui/data-editor.ui:338
 #, fuzzy
 msgid "_1 Sample K-S..."
 msgstr "单样本Kolmogorov–Smirnov检验(_K)"
 
-#: src/ui/gui/data-editor.ui:338
+#: src/ui/gui/data-editor.ui:342
 #, fuzzy
 msgid "_2 Related Samples..."
 msgstr "两个相关样本检验(_R)..."
 
-#: src/ui/gui/data-editor.ui:342
+#: src/ui/gui/data-editor.ui:346
 #, fuzzy
 msgid "_K Related Samples..."
 msgstr "K个相关样本检验(_S)..."
 
-#: src/ui/gui/data-editor.ui:348
+#: src/ui/gui/data-editor.ui:352
 msgid "ROC Cur_ve..."
 msgstr "ROC曲线(_v)..."
 
-#: src/ui/gui/data-editor.ui:354
+#: src/ui/gui/data-editor.ui:358
 msgid "_Graphs"
 msgstr "图形(_G)"
 
-#: src/ui/gui/data-editor.ui:357
+#: src/ui/gui/data-editor.ui:361
 msgid "_Scatterplot"
 msgstr "散点图(_S)"
 
-#: src/ui/gui/data-editor.ui:361
+#: src/ui/gui/data-editor.ui:365
 msgid "_Histogram"
 msgstr "直方图(_H)"
 
-#: src/ui/gui/data-editor.ui:365
+#: src/ui/gui/data-editor.ui:369
 msgid "_Barchart"
 msgstr "条形图(_B)"
 
-#: src/ui/gui/data-editor.ui:371
+#: src/ui/gui/data-editor.ui:373
+#, fuzzy
+msgid "_QQ plot"
+msgstr "碎石图(_S)"
+
+#: src/ui/gui/data-editor.ui:377
+#, fuzzy
+msgid "_PP plot"
+msgstr "碎石图(_S)"
+
+#: src/ui/gui/data-editor.ui:383
 msgid "_Utilities"
 msgstr "工具(_U)"
 
-#: src/ui/gui/data-editor.ui:374
+#: src/ui/gui/data-editor.ui:386
 msgid "_Variables..."
 msgstr "变量(_V)..."
 
-#: src/ui/gui/data-editor.ui:378
+#: src/ui/gui/data-editor.ui:390
 msgid "Data File _Comments..."
 msgstr "数据文件注释(_C)..."
 

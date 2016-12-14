@@ -258,6 +258,10 @@
 	    <attribute name="label" translatable="yes">_Crosstabs...</attribute>
 	    <attribute name="action">win.PsppireDialogActionCrosstabs</attribute>
 	  </item>
+	  <item>
+	    <attribute name="label" translatable="yes">_Quantiles...</attribute>
+	    <attribute name="action">win.PsppireDialogActionCrosstabs</attribute>
+	  </item>
 	</submenu>
 	<submenu>
 	  <attribute name="label" translatable="yes">Compare _Means</attribute>
@@ -363,6 +367,14 @@
 	</item>
 	<item>
 	  <attribute name="label" translatable="yes">_Barchart</attribute>
+	  <attribute name="action">win.PsppireDialogActionBarchart</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_QQ plot</attribute>
+	  <attribute name="action">win.PsppireDialogActionBarchart</attribute>
+	</item>
+	<item>
+	  <attribute name="label" translatable="yes">_PP plot</attribute>
 	  <attribute name="action">win.PsppireDialogActionBarchart</attribute>
 	</item>
       </section>
