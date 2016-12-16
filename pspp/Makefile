@@ -431,7 +431,7 @@ lib_tukey_libtukey_la_LIBADD =
 am_lib_tukey_libtukey_la_OBJECTS = lib/tukey/ptukey.lo \
 	lib/tukey/qtukey.lo
 lib_tukey_libtukey_la_OBJECTS = $(am_lib_tukey_libtukey_la_OBJECTS)
-#libglade_psppire_la_DEPENDENCIES = gl/libgl.la
+libglade_psppire_la_DEPENDENCIES = gl/libgl.la
 am__libglade_psppire_la_SOURCES_DIST = src/ui/gui/helper.c \
 	src/ui/gui/dialog-common.c src/ui/gui/psppire-var-ptr.c \
 	src/data/format.c src/ui/gui/psppire-format.c \
@@ -444,33 +444,33 @@ am__libglade_psppire_la_SOURCES_DIST = src/ui/gui/helper.c \
 	src/ui/gui/psppire-val-chooser.c \
 	src/ui/gui/psppire-value-entry.c \
 	src/ui/gui/psppire-window-base.c
-#am_libglade_psppire_la_OBJECTS =  \
-#	src/ui/gui/libglade_psppire_la-helper.lo \
-#	src/ui/gui/libglade_psppire_la-dialog-common.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-var-ptr.lo \
-#	src/data/libglade_psppire_la-format.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-format.lo \
-#	src/data/libglade_psppire_la-value-labels.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-conf.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-acr.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-buttonbox.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-dialog.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-keypad.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-dictview.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-selector.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-select-dest.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-var-view.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-checkbox-treeview.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-val-chooser.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-value-entry.lo \
-#	src/ui/gui/libglade_psppire_la-psppire-window-base.lo
+am_libglade_psppire_la_OBJECTS =  \
+	src/ui/gui/libglade_psppire_la-helper.lo \
+	src/ui/gui/libglade_psppire_la-dialog-common.lo \
+	src/ui/gui/libglade_psppire_la-psppire-var-ptr.lo \
+	src/data/libglade_psppire_la-format.lo \
+	src/ui/gui/libglade_psppire_la-psppire-format.lo \
+	src/data/libglade_psppire_la-value-labels.lo \
+	src/ui/gui/libglade_psppire_la-psppire-conf.lo \
+	src/ui/gui/libglade_psppire_la-psppire-acr.lo \
+	src/ui/gui/libglade_psppire_la-psppire-buttonbox.lo \
+	src/ui/gui/libglade_psppire_la-psppire-dialog.lo \
+	src/ui/gui/libglade_psppire_la-psppire-keypad.lo \
+	src/ui/gui/libglade_psppire_la-psppire-dictview.lo \
+	src/ui/gui/libglade_psppire_la-psppire-selector.lo \
+	src/ui/gui/libglade_psppire_la-psppire-select-dest.lo \
+	src/ui/gui/libglade_psppire_la-psppire-var-view.lo \
+	src/ui/gui/libglade_psppire_la-psppire-checkbox-treeview.lo \
+	src/ui/gui/libglade_psppire_la-psppire-val-chooser.lo \
+	src/ui/gui/libglade_psppire_la-psppire-value-entry.lo \
+	src/ui/gui/libglade_psppire_la-psppire-window-base.lo
 libglade_psppire_la_OBJECTS = $(am_libglade_psppire_la_OBJECTS)
 libglade_psppire_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libglade_psppire_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-#am_libglade_psppire_la_rpath = -rpath \
-#	$(moduledir)
+am_libglade_psppire_la_rpath = -rpath \
+	$(moduledir)
 am__DEPENDENCIES_1 =
 src_data_libdata_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -892,6 +892,8 @@ am__src_ui_gui_psppire_SOURCES_DIST = src/ui/gui/pspp-sheet-private.h \
 	src/ui/gui/psppire-dialog-action-correlation.h \
 	src/ui/gui/psppire-dialog-action-crosstabs.c \
 	src/ui/gui/psppire-dialog-action-crosstabs.h \
+	src/ui/gui/psppire-dialog-action-percentiles.c \
+	src/ui/gui/psppire-dialog-action-percentiles.h \
 	src/ui/gui/psppire-dialog-action-descriptives.c \
 	src/ui/gui/psppire-dialog-action-descriptives.h \
 	src/ui/gui/psppire-dialog-action-examine.c \
@@ -1034,6 +1036,7 @@ am_src_ui_gui_psppire_OBJECTS = src/ui/gui/src_ui_gui_psppire-pspp-sheet-selecti
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-count.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-correlation.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.$(OBJEXT) \
+	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-examine.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-factor.$(OBJEXT) \
@@ -1595,26 +1598,26 @@ am__dist_src_ui_gui_psppire_DATA_DIST = src/ui/gui/aggregate.ui \
 	src/ui/gui/compute.ui src/ui/gui/barchart.ui \
 	src/ui/gui/correlation.ui src/ui/gui/count.ui \
 	src/ui/gui/comments.ui src/ui/gui/crosstabs.ui \
-	src/ui/gui/chi-square.ui src/ui/gui/descriptives.ui \
-	src/ui/gui/entry-dialog.ui src/ui/gui/examine.ui \
-	src/ui/gui/goto-case.ui src/ui/gui/factor.ui \
-	src/ui/gui/find.ui src/ui/gui/frequencies.ui \
-	src/ui/gui/histogram.ui src/ui/gui/indep-samples.ui \
-	src/ui/gui/k-means.ui src/ui/gui/k-related.ui \
-	src/ui/gui/ks-one-sample.ui src/ui/gui/logistic.ui \
-	src/ui/gui/means.ui src/ui/gui/missing-val-dialog.ui \
-	src/ui/gui/oneway.ui src/ui/gui/paired-samples.ui \
-	src/ui/gui/rank.ui src/ui/gui/runs.ui src/ui/gui/sort.ui \
-	src/ui/gui/split-file.ui src/ui/gui/recode.ui \
-	src/ui/gui/regression.ui src/ui/gui/reliability.ui \
-	src/ui/gui/roc.ui src/ui/gui/scatterplot.ui \
-	src/ui/gui/select-cases.ui src/ui/gui/t-test.ui \
-	src/ui/gui/text-data-import.ui src/ui/gui/transpose.ui \
-	src/ui/gui/univariate.ui src/ui/gui/val-labs-dialog.ui \
-	src/ui/gui/variable-info.ui src/ui/gui/data-editor.ui \
-	src/ui/gui/output-window.ui src/ui/gui/syntax-editor.ui \
-	src/ui/gui/var-type-dialog.ui src/ui/gui/weight.ui \
-	$(top_srcdir)/src/ui/gui/pspp.lang \
+	src/ui/gui/percentiles.ui src/ui/gui/chi-square.ui \
+	src/ui/gui/descriptives.ui src/ui/gui/entry-dialog.ui \
+	src/ui/gui/examine.ui src/ui/gui/goto-case.ui \
+	src/ui/gui/factor.ui src/ui/gui/find.ui \
+	src/ui/gui/frequencies.ui src/ui/gui/histogram.ui \
+	src/ui/gui/indep-samples.ui src/ui/gui/k-means.ui \
+	src/ui/gui/k-related.ui src/ui/gui/ks-one-sample.ui \
+	src/ui/gui/logistic.ui src/ui/gui/means.ui \
+	src/ui/gui/missing-val-dialog.ui src/ui/gui/oneway.ui \
+	src/ui/gui/paired-samples.ui src/ui/gui/rank.ui \
+	src/ui/gui/runs.ui src/ui/gui/sort.ui src/ui/gui/split-file.ui \
+	src/ui/gui/recode.ui src/ui/gui/regression.ui \
+	src/ui/gui/reliability.ui src/ui/gui/roc.ui \
+	src/ui/gui/scatterplot.ui src/ui/gui/select-cases.ui \
+	src/ui/gui/t-test.ui src/ui/gui/text-data-import.ui \
+	src/ui/gui/transpose.ui src/ui/gui/univariate.ui \
+	src/ui/gui/val-labs-dialog.ui src/ui/gui/variable-info.ui \
+	src/ui/gui/data-editor.ui src/ui/gui/output-window.ui \
+	src/ui/gui/syntax-editor.ui src/ui/gui/var-type-dialog.ui \
+	src/ui/gui/weight.ui $(top_srcdir)/src/ui/gui/pspp.lang \
 	$(top_srcdir)/src/ui/gui/psppire.gtkrc
 DATA = $(desktop_DATA) $(dist_appdata_DATA) $(dist_catalog_DATA) \
 	$(dist_docbook_DATA) $(dist_large_pixmap_DATA) \
@@ -2255,8 +2258,8 @@ FGREP = /bin/grep -F
 FLOAT_H = 
 FLOOR_LIBM = 
 GETOPT_H = 
-GLADE_UI_CFLAGS = 
-GLADE_UI_LIBS = 
+GLADE_UI_CFLAGS = -pthread -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/mirclient -I/usr/include/mircommon -I/usr/include/mircookie -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/libxml2 -I/usr/include/libgladeui-2.0
+GLADE_UI_LIBS = -lgladeui-2 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lxml2
 GLIBC21 = yes
 GLIB_CFLAGS = -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 GLIB_COMPILE_RESOURCES = glib-compile-resources
@@ -3020,9 +3023,9 @@ MAKEINFO = ${SHELL} /home/statsoft/StatSoft/pspp/build-aux/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 MSGFMT = msgfmt
-NCURSES_CFLAGS = 
-NCURSES_CONFIG = 
-NCURSES_LIBS = 
+NCURSES_CFLAGS = -D_GNU_SOURCE
+NCURSES_CONFIG = ncurses5-config
+NCURSES_LIBS = -lncurses -ltinfo
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = 
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = <fcntl.h>
 NEXT_AS_FIRST_DIRECTIVE_FLOAT_H = 
@@ -4185,6 +4188,7 @@ UI_FILES = \
 	src/ui/gui/count.ui \
 	src/ui/gui/comments.ui \
 	src/ui/gui/crosstabs.ui \
+	src/ui/gui/percentiles.ui \
 	src/ui/gui/chi-square.ui \
 	src/ui/gui/descriptives.ui \
 	src/ui/gui/entry-dialog.ui \
@@ -4338,6 +4342,8 @@ src_ui_gui_psppire_SOURCES = \
 	src/ui/gui/psppire-dialog-action-correlation.h \
 	src/ui/gui/psppire-dialog-action-crosstabs.c \
 	src/ui/gui/psppire-dialog-action-crosstabs.h \
+	src/ui/gui/psppire-dialog-action-percentiles.c \
+	src/ui/gui/psppire-dialog-action-percentiles.h \
 	src/ui/gui/psppire-dialog-action-descriptives.c \
 	src/ui/gui/psppire-dialog-action-descriptives.h \
 	src/ui/gui/psppire-dialog-action-examine.c \
@@ -5162,54 +5168,54 @@ TESTSUITE = $(srcdir)/tests/testsuite
 AUTOTEST_PATH = tests/data:tests/language/lexer:tests/libpspp:tests/output:src/ui/terminal:utilities
 AUTOM4TE = $(SHELL) $(srcdir)/build-aux/missing --run autom4te
 AUTOTEST = $(AUTOM4TE) --language=autotest
-#module_LTLIBRARIES = libglade-psppire.la
-#moduledir = `pkg-config --variable=moduledir gladeui-2.0`
-#catalogdir = `pkg-config --variable=catalogdir gladeui-2.0`
-#pixmapdir = `pkg-config --variable=pixmapdir gladeui-2.0`
-#small_pixmapdir = $(pixmapdir)/hicolor/16x16/actions
-#large_pixmapdir = $(pixmapdir)/hicolor/22x22/actions
+module_LTLIBRARIES = libglade-psppire.la
+moduledir = `pkg-config --variable=moduledir gladeui-2.0`
+catalogdir = `pkg-config --variable=catalogdir gladeui-2.0`
+pixmapdir = `pkg-config --variable=pixmapdir gladeui-2.0`
+small_pixmapdir = $(pixmapdir)/hicolor/16x16/actions
+large_pixmapdir = $(pixmapdir)/hicolor/22x22/actions
 
 # format.c for psppire-value-entry.c
-#libglade_psppire_la_SOURCES = \
-#	src/ui/gui/helper.c \
-#	src/ui/gui/dialog-common.c \
-#	src/ui/gui/psppire-var-ptr.c \
-#	src/data/format.c \
-#	src/ui/gui/psppire-format.c \
-#	src/data/value-labels.c \
-#	src/ui/gui/psppire-conf.c \
-#	src/ui/gui/psppire-acr.c \
-#	src/ui/gui/psppire-buttonbox.c \
-#	src/ui/gui/psppire-dialog.c \
-#	src/ui/gui/psppire-keypad.c \
-#	src/ui/gui/psppire-dictview.c \
-#	src/ui/gui/psppire-selector.c \
-#	src/ui/gui/psppire-select-dest.c \
-#	src/ui/gui/psppire-var-view.c \
-#	src/ui/gui/psppire-checkbox-treeview.c \
-#	src/ui/gui/psppire-val-chooser.c \
-#	src/ui/gui/psppire-value-entry.c \
-#	src/ui/gui/psppire-window-base.c
+libglade_psppire_la_SOURCES = \
+	src/ui/gui/helper.c \
+	src/ui/gui/dialog-common.c \
+	src/ui/gui/psppire-var-ptr.c \
+	src/data/format.c \
+	src/ui/gui/psppire-format.c \
+	src/data/value-labels.c \
+	src/ui/gui/psppire-conf.c \
+	src/ui/gui/psppire-acr.c \
+	src/ui/gui/psppire-buttonbox.c \
+	src/ui/gui/psppire-dialog.c \
+	src/ui/gui/psppire-keypad.c \
+	src/ui/gui/psppire-dictview.c \
+	src/ui/gui/psppire-selector.c \
+	src/ui/gui/psppire-select-dest.c \
+	src/ui/gui/psppire-var-view.c \
+	src/ui/gui/psppire-checkbox-treeview.c \
+	src/ui/gui/psppire-val-chooser.c \
+	src/ui/gui/psppire-value-entry.c \
+	src/ui/gui/psppire-window-base.c
 
-#dist_catalog_DATA = \
-#	glade/psppire.xml
+dist_catalog_DATA = \
+	glade/psppire.xml
 
-#dist_small_pixmap_DATA = \
-#	glade/icons/16x16/widget-psppire-psppire-acr.png \
-#	glade/icons/16x16/widget-psppire-psppire-dialog.png \
-#	glade/icons/16x16/widget-psppire-psppire-keypad.png \
-#	glade/icons/16x16/widget-psppire-psppire-selector.png
+dist_small_pixmap_DATA = \
+	glade/icons/16x16/widget-psppire-psppire-acr.png \
+	glade/icons/16x16/widget-psppire-psppire-dialog.png \
+	glade/icons/16x16/widget-psppire-psppire-keypad.png \
+	glade/icons/16x16/widget-psppire-psppire-selector.png
 
-#dist_large_pixmap_DATA = \
-#	glade/icons/22x22/widget-psppire-psppire-acr.png \
-#	glade/icons/22x22/widget-psppire-psppire-dialog.png \
-#	glade/icons/22x22/widget-psppire-psppire-keypad.png \
-#	glade/icons/22x22/widget-psppire-psppire-selector.png
+dist_large_pixmap_DATA = \
+	glade/icons/22x22/widget-psppire-psppire-acr.png \
+	glade/icons/22x22/widget-psppire-psppire-dialog.png \
+	glade/icons/22x22/widget-psppire-psppire-keypad.png \
+	glade/icons/22x22/widget-psppire-psppire-selector.png
 
-#libglade_psppire_la_CFLAGS = $(GLADE_UI_CFLAGS) $(GLADE_CFLAGS) \
-#	$(GTKSOURCEVIEW_CFLAGS) -I $(top_srcdir)/src/ui/gui -DDEBUGGING
+libglade_psppire_la_CFLAGS = $(GLADE_UI_CFLAGS) $(GLADE_CFLAGS) \
+	$(GTKSOURCEVIEW_CFLAGS) -I $(top_srcdir)/src/ui/gui -DDEBUGGING
 
-#libglade_psppire_la_LIBADD = gl/libgl.la
+libglade_psppire_la_LIBADD = gl/libgl.la
 module_sources = \
  perl-module/Changes \
  perl-module/COPYING \
@@ -6547,6 +6553,9 @@ src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-correlation.$(OBJEXT):  \
 src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.$(OBJEXT):  \
 	src/ui/gui/$(am__dirstamp) \
 	src/ui/gui/$(DEPDIR)/$(am__dirstamp)
+src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.$(OBJEXT):  \
+	src/ui/gui/$(am__dirstamp) \
+	src/ui/gui/$(DEPDIR)/$(am__dirstamp)
 src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.$(OBJEXT):  \
 	src/ui/gui/$(am__dirstamp) \
 	src/ui/gui/$(DEPDIR)/$(am__dirstamp)
@@ -7541,6 +7550,7 @@ include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-logistic.P
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-means.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-oneway.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-paired.Po
+include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-rank.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-recode-different.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-recode-same.Po
@@ -9473,6 +9483,20 @@ src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.obj: src/ui/gui/ps
 #	$(AM_V_CC)source='src/ui/gui/psppire-dialog-action-crosstabs.c' object='src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.obj `if test -f 'src/ui/gui/psppire-dialog-action-crosstabs.c'; then $(CYGPATH_W) 'src/ui/gui/psppire-dialog-action-crosstabs.c'; else $(CYGPATH_W) '$(srcdir)/src/ui/gui/psppire-dialog-action-crosstabs.c'; fi`
+
+src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.o: src/ui/gui/psppire-dialog-action-percentiles.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -MT src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.o -MD -MP -MF src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Tpo -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.o `test -f 'src/ui/gui/psppire-dialog-action-percentiles.c' || echo '$(srcdir)/'`src/ui/gui/psppire-dialog-action-percentiles.c
+	$(AM_V_at)$(am__mv) src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Tpo src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Po
+#	$(AM_V_CC)source='src/ui/gui/psppire-dialog-action-percentiles.c' object='src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.o `test -f 'src/ui/gui/psppire-dialog-action-percentiles.c' || echo '$(srcdir)/'`src/ui/gui/psppire-dialog-action-percentiles.c
+
+src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj: src/ui/gui/psppire-dialog-action-percentiles.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -MT src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj -MD -MP -MF src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Tpo -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj `if test -f 'src/ui/gui/psppire-dialog-action-percentiles.c'; then $(CYGPATH_W) 'src/ui/gui/psppire-dialog-action-percentiles.c'; else $(CYGPATH_W) '$(srcdir)/src/ui/gui/psppire-dialog-action-percentiles.c'; fi`
+	$(AM_V_at)$(am__mv) src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Tpo src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Po
+#	$(AM_V_CC)source='src/ui/gui/psppire-dialog-action-percentiles.c' object='src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj `if test -f 'src/ui/gui/psppire-dialog-action-percentiles.c'; then $(CYGPATH_W) 'src/ui/gui/psppire-dialog-action-percentiles.c'; else $(CYGPATH_W) '$(srcdir)/src/ui/gui/psppire-dialog-action-percentiles.c'; fi`
 
 src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.o: src/ui/gui/psppire-dialog-action-descriptives.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -MT src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.o -MD -MP -MF src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-descriptives.Tpo -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.o `test -f 'src/ui/gui/psppire-dialog-action-descriptives.c' || echo '$(srcdir)/'`src/ui/gui/psppire-dialog-action-descriptives.c

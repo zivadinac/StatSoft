@@ -468,7 +468,7 @@
 /* #undef HAVE_COPYSIGN_IN_LIBC */
 
 /* Define to 1 if you have the <curses.h> header file. */
-/* #undef HAVE_CURSES_H */
+#define HAVE_CURSES_H 1
 
 /* Define if the GNU dcgettext() function is already present or preinstalled.
    */
@@ -2007,13 +2007,13 @@
 #define HAVE_TCSETATTR 1
 
 /* Define to 1 if you have the <termcap.h> header file. */
-/* #undef HAVE_TERMCAP_H */
+#define HAVE_TERMCAP_H 1
 
 /* Define to 1 if you have the <termios.h> header file. */
 #define HAVE_TERMIOS_H 1
 
 /* Define to 1 if you have the <term.h> header file. */
-/* #undef HAVE_TERM_H */
+#define HAVE_TERM_H 1
 
 /* Define to 1 if you have the `timegm' function. */
 #define HAVE_TIMEGM 1
@@ -2155,7 +2155,7 @@
 /* #undef LDBL_SIGNBIT_WORD */
 
 /* Define to 1 if the libncurses is both present and usable. */
-/* #undef LIBNCURSES_USABLE */
+#define LIBNCURSES_USABLE 1
 
 /* Define to 1 if lseek does not detect pipes. */
 /* #undef LSEEK_PIPE_BROKEN */

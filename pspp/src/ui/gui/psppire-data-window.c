@@ -52,6 +52,7 @@
 #include "psppire-dialog-action-aggregate.h"
 #include "psppire-dialog-action-autorecode.h"
 #include "psppire-dialog-action-barchart.h"
+#include "psppire-dialog-action-percentiles.h"
 #include "psppire-dialog-action-binomial.h"
 #include "psppire-dialog-action-chisquare.h"
 #include "psppire-dialog-action-comments.h"
@@ -1461,6 +1462,7 @@ psppire_data_window_finish_init (PsppireDataWindow *de,
   connect_dialog_action (PSPPIRE_TYPE_DIALOG_ACTION_FREQUENCIES,  de);
   connect_dialog_action (PSPPIRE_TYPE_DIALOG_ACTION_EXAMINE,  de);
   connect_dialog_action (PSPPIRE_TYPE_DIALOG_ACTION_CROSSTABS,  de);
+  connect_dialog_action (PSPPIRE_TYPE_DIALOG_ACTION_PERCENTILES, de);
 
   connect_dialog_action (PSPPIRE_TYPE_DIALOG_ACTION_INDEP_SAMPS,  de);
   connect_dialog_action (PSPPIRE_TYPE_DIALOG_ACTION_PAIRED,  de);

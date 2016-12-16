@@ -10,6 +10,7 @@ UI_FILES = \
 	src/ui/gui/count.ui \
 	src/ui/gui/comments.ui \
 	src/ui/gui/crosstabs.ui \
+	src/ui/gui/percentiles.ui \
 	src/ui/gui/chi-square.ui \
 	src/ui/gui/descriptives.ui \
 	src/ui/gui/entry-dialog.ui \
@@ -205,6 +206,8 @@ src_ui_gui_psppire_SOURCES = \
 	src/ui/gui/psppire-dialog-action-correlation.h \
 	src/ui/gui/psppire-dialog-action-crosstabs.c \
 	src/ui/gui/psppire-dialog-action-crosstabs.h \
+	src/ui/gui/psppire-dialog-action-percentiles.c \
+	src/ui/gui/psppire-dialog-action-percentiles.h \
 	src/ui/gui/psppire-dialog-action-descriptives.c \
 	src/ui/gui/psppire-dialog-action-descriptives.h \
 	src/ui/gui/psppire-dialog-action-examine.c \

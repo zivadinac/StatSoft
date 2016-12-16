@@ -175,8 +175,8 @@ msgstr "Επόμενο"
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:531
-#: src/ui/gui/psppire-data-window.c:659
+#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:532
+#: src/ui/gui/psppire-data-window.c:660
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
@@ -6687,7 +6687,7 @@ msgid "Importing Spreadsheet Data"
 msgstr "Δεδομένα Υπ. Φύλλου εισάγωνται"
 
 #: src/ui/gui/psppire-import-assistant.c:853
-#: src/ui/gui/psppire-data-window.c:553 src/ui/gui/psppire-syntax-window.c:572
+#: src/ui/gui/psppire-data-window.c:554 src/ui/gui/psppire-syntax-window.c:572
 #: src/ui/gui/psppire-window.c:683
 msgid "All Files"
 msgstr "Όλα τα Αρχεία"
@@ -6925,17 +6925,17 @@ msgstr "Εισήγαγε έναν αριθμό για μία νέα υπόθεσ
 msgid "Case"
 msgstr "Υπόθεση"
 
-#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1301
+#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1302
 #, fuzzy
 msgid "_Insert Case"
 msgstr "Εισαγωγή Υπόθεσης"
 
-#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1349
+#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1350
 #, fuzzy
 msgid "Cl_ear Cases"
 msgstr "_Καθαρισμός Υποθέσεων"
 
-#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1300
+#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1301
 #: src/ui/gui/psppire-var-sheet.c:944
 #, fuzzy
 msgid "_Insert Variable"
@@ -6953,37 +6953,37 @@ msgstr "_Ταξινόμηση Αύξουσα"
 msgid "Sort _Descending"
 msgstr "Ταξινόμηση _Φθίνουσα"
 
-#: src/ui/gui/psppire-data-window.c:210
+#: src/ui/gui/psppire-data-window.c:211
 msgid "Transformations Pending"
 msgstr "Μετατροπές Αναμένονται"
 
-#: src/ui/gui/psppire-data-window.c:226
+#: src/ui/gui/psppire-data-window.c:227
 msgid "Filter off"
 msgstr "Μη Φίλτρο"
 
-#: src/ui/gui/psppire-data-window.c:238
+#: src/ui/gui/psppire-data-window.c:239
 #, c-format
 msgid "Filter by %s"
 msgstr "Φίλτρο με %s"
 
-#: src/ui/gui/psppire-data-window.c:259
+#: src/ui/gui/psppire-data-window.c:260
 msgid "No Split"
 msgstr "Μη Διαίρεση"
 
-#: src/ui/gui/psppire-data-window.c:268
+#: src/ui/gui/psppire-data-window.c:269
 msgid "Split by "
 msgstr "Διαίρεση με "
 
-#: src/ui/gui/psppire-data-window.c:296
+#: src/ui/gui/psppire-data-window.c:297
 msgid "Weights off"
 msgstr "Μη Στάθμιση"
 
-#: src/ui/gui/psppire-data-window.c:308
+#: src/ui/gui/psppire-data-window.c:309
 #, c-format
 msgid "Weight by %s"
 msgstr "Στάθμιση με %s"
 
-#: src/ui/gui/psppire-data-window.c:528 src/ui/gui/psppire-data-window.c:532
+#: src/ui/gui/psppire-data-window.c:529 src/ui/gui/psppire-data-window.c:533
 #: src/ui/gui/psppire-dialog-action-aggregate.c:217
 #: src/ui/gui/psppire-output-window.c:361
 #: src/ui/gui/psppire-syntax-window.c:560 src/ui/gui/psppire-window.c:476
@@ -6991,43 +6991,43 @@ msgstr "Στάθμιση με %s"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: src/ui/gui/psppire-data-window.c:538
+#: src/ui/gui/psppire-data-window.c:539
 #: src/ui/gui/psppire-dialog-action-aggregate.c:226
 msgid "System Files (*.sav)"
 msgstr "Αρχεία Συστήματος (*.sav)"
 
-#: src/ui/gui/psppire-data-window.c:543
+#: src/ui/gui/psppire-data-window.c:544
 #: src/ui/gui/psppire-dialog-action-aggregate.c:231
 msgid "Compressed System Files (*.zsav)"
 msgstr "Συμπιεσμένα Αρχεία Συστήματος (*.zsav)"
 
-#: src/ui/gui/psppire-data-window.c:548
+#: src/ui/gui/psppire-data-window.c:549
 #: src/ui/gui/psppire-dialog-action-aggregate.c:236
 #: src/ui/gui/psppire-window.c:672
 msgid "Portable Files (*.por) "
 msgstr "Φορητά Αρχεία (*.por) "
 
-#: src/ui/gui/psppire-data-window.c:570
+#: src/ui/gui/psppire-data-window.c:571
 msgid "System File"
 msgstr "Αρχείο Συστήματος "
 
-#: src/ui/gui/psppire-data-window.c:577
+#: src/ui/gui/psppire-data-window.c:578
 msgid "Compressed System File"
 msgstr "Συμπιεσμένο Αρχείο Συστήματος (CSF)"
 
-#: src/ui/gui/psppire-data-window.c:583
+#: src/ui/gui/psppire-data-window.c:584
 msgid "Portable File"
 msgstr "Φορητό Αρχείο"
 
-#: src/ui/gui/psppire-data-window.c:586
+#: src/ui/gui/psppire-data-window.c:587
 msgid "Format:"
 msgstr "Μορφή:"
 
-#: src/ui/gui/psppire-data-window.c:650
+#: src/ui/gui/psppire-data-window.c:651
 msgid "Delete Existing Dataset?"
 msgstr "Διαγραφή Υπάρχουσας Βάσης Δεδομένων?"
 
-#: src/ui/gui/psppire-data-window.c:654
+#: src/ui/gui/psppire-data-window.c:655
 #, c-format
 msgid ""
 "Renaming \"%s\" to \"%s\" will destroy the existing dataset named \"%s\".  "
@@ -7036,161 +7036,161 @@ msgstr ""
 "Μετονομασία από \"%s\" σε \"%s\" θα καταστρέψει την υπάρχουσα βάση δεδομένων "
 "με το όνομα \"%s\".  Θέλεις σίγουρα κάτι τέτοιο;"
 
-#: src/ui/gui/psppire-data-window.c:660
+#: src/ui/gui/psppire-data-window.c:661
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/ui/gui/psppire-data-window.c:682
+#: src/ui/gui/psppire-data-window.c:683
 #, c-format
 msgid "Please enter a new name for dataset \"%s\":"
 msgstr "Παρακαλώ, εισήγαγε ένα νέο όνομα για τη βάση δεδομένων \"%s\":"
 
-#: src/ui/gui/psppire-data-window.c:684
+#: src/ui/gui/psppire-data-window.c:685
 msgid "Rename Dataset"
 msgstr "Μετονομασία Βάσης"
 
-#: src/ui/gui/psppire-data-window.c:1163 src/ui/gui/output-window.ui:52
+#: src/ui/gui/psppire-data-window.c:1164 src/ui/gui/output-window.ui:52
 #: src/ui/gui/syntax-editor.ui:6
 msgid "_File"
 msgstr "_Αρχείο"
 
-#: src/ui/gui/psppire-data-window.c:1167 src/ui/gui/syntax-editor.ui:9
+#: src/ui/gui/psppire-data-window.c:1168 src/ui/gui/syntax-editor.ui:9
 #, fuzzy
 msgid "_New"
 msgstr "_Νέο..."
 
-#: src/ui/gui/psppire-data-window.c:1174
+#: src/ui/gui/psppire-data-window.c:1175
 msgid "_Syntax"
 msgstr "_Σύνταξη"
 
-#: src/ui/gui/psppire-data-window.c:1177 src/ui/gui/data-editor.ui:161
+#: src/ui/gui/psppire-data-window.c:1178 src/ui/gui/data-editor.ui:161
 #: src/ui/gui/data-editor.ui:173
 msgid "_Data"
 msgstr "_Δεδομένα"
 
-#: src/ui/gui/psppire-data-window.c:1184 src/ui/gui/syntax-editor.ui:20
+#: src/ui/gui/psppire-data-window.c:1185 src/ui/gui/syntax-editor.ui:20
 #, fuzzy
 msgid "_Open"
 msgstr "Άνοιγμα"
 
-#: src/ui/gui/psppire-data-window.c:1187
+#: src/ui/gui/psppire-data-window.c:1188
 #, fuzzy
 msgid "_Import Data..."
 msgstr "_Εισαγωγή Δεδομένων..."
 
-#: src/ui/gui/psppire-data-window.c:1195 src/ui/gui/logistic.ui:244
+#: src/ui/gui/psppire-data-window.c:1196 src/ui/gui/logistic.ui:244
 #: src/ui/gui/regression.ui:50
 msgid "_Save..."
 msgstr "Απο_Θήκευση..."
 
-#: src/ui/gui/psppire-data-window.c:1198
+#: src/ui/gui/psppire-data-window.c:1199
 msgid "Save _As..."
 msgstr "Αποθήκευση _Ως..."
 
-#: src/ui/gui/psppire-data-window.c:1201
+#: src/ui/gui/psppire-data-window.c:1202
 msgid "_Rename Dataset..."
 msgstr "_Μετονομασία Βάσης..."
 
-#: src/ui/gui/psppire-data-window.c:1212
+#: src/ui/gui/psppire-data-window.c:1213
 #, fuzzy
 msgid "_Display Data File Information"
 msgstr "_Απεικόνιση Πληροφοριών Αρχείου"
 
-#: src/ui/gui/psppire-data-window.c:1219
+#: src/ui/gui/psppire-data-window.c:1220
 msgid "Working File"
 msgstr "_Αρχείο Εργασίας"
 
-#: src/ui/gui/psppire-data-window.c:1221
+#: src/ui/gui/psppire-data-window.c:1222
 #, fuzzy
 msgid "_External File..."
 msgstr "_Εξωτερικό Αρχείο..."
 
-#: src/ui/gui/psppire-data-window.c:1231
+#: src/ui/gui/psppire-data-window.c:1232
 #, fuzzy
 msgid "_Recently Used Data"
 msgstr "Πρόσφατα _Δεδομένα Χρήσης"
 
-#: src/ui/gui/psppire-data-window.c:1232
+#: src/ui/gui/psppire-data-window.c:1233
 msgid "Recently Used _Files"
 msgstr "Πρόσφατα Αρχεία _Χρήσης"
 
-#: src/ui/gui/psppire-data-window.c:1279 src/ui/gui/output-window.ui:66
+#: src/ui/gui/psppire-data-window.c:1280 src/ui/gui/output-window.ui:66
 #: src/ui/gui/syntax-editor.ui:43
 msgid "_Quit"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1296 src/ui/gui/output-window.ui:73
+#: src/ui/gui/psppire-data-window.c:1297 src/ui/gui/output-window.ui:73
 #: src/ui/gui/syntax-editor.ui:50
 msgid "_Edit"
 msgstr "_Διόρθωση"
 
-#: src/ui/gui/psppire-data-window.c:1302
+#: src/ui/gui/psppire-data-window.c:1303
 #, fuzzy
 msgid "_Go To Variable..."
 msgstr "Προς την μεταβλητή..."
 
-#: src/ui/gui/psppire-data-window.c:1303
+#: src/ui/gui/psppire-data-window.c:1304
 #, fuzzy
 msgid "_Go To Case..."
 msgstr "Προς την Υπόθεση..."
 
-#: src/ui/gui/psppire-data-window.c:1325 src/ui/gui/syntax-editor.ui:53
+#: src/ui/gui/psppire-data-window.c:1326 src/ui/gui/syntax-editor.ui:53
 msgid "Cu_t"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1333 src/ui/gui/output-window.ui:80
+#: src/ui/gui/psppire-data-window.c:1334 src/ui/gui/output-window.ui:80
 #: src/ui/gui/syntax-editor.ui:58
 msgid "_Copy"
 msgstr "_Αντιγραφή"
 
-#: src/ui/gui/psppire-data-window.c:1339 src/ui/gui/syntax-editor.ui:63
+#: src/ui/gui/psppire-data-window.c:1340 src/ui/gui/syntax-editor.ui:63
 #, fuzzy
 msgid "_Paste"
 msgstr "Επικόλληση"
 
-#: src/ui/gui/psppire-data-window.c:1345
+#: src/ui/gui/psppire-data-window.c:1346
 #, fuzzy
 msgid "Clear _Variables"
 msgstr "Κα_Θαρισμός Μεταβλητών"
 
-#: src/ui/gui/psppire-data-window.c:1358
+#: src/ui/gui/psppire-data-window.c:1359
 msgid "_Find..."
 msgstr "_Αναζήτηση..."
 
-#: src/ui/gui/psppire-data-window.c:1634
+#: src/ui/gui/psppire-data-window.c:1636
 msgid "Jump to variable"
 msgstr "Πήγαινε στην μεταβλητή"
 
-#: src/ui/gui/psppire-data-window.c:1647
+#: src/ui/gui/psppire-data-window.c:1649
 msgid "Jump to a case in the data sheet"
 msgstr "Πήγαινε σε μία Υπόθεση στο Φύλλο Δεδομένων"
 
-#: src/ui/gui/psppire-data-window.c:1661
+#: src/ui/gui/psppire-data-window.c:1663
 #, fuzzy
 msgid "Search for values in the data"
 msgstr "Κατάταξη υποθέσεων στην ενεργή βάση"
 
-#: src/ui/gui/psppire-data-window.c:1673
+#: src/ui/gui/psppire-data-window.c:1675
 msgid "Create a new case at the current position"
 msgstr "Δημιοργία νέας υπόθεσης στην παρούσα θέση"
 
-#: src/ui/gui/psppire-data-window.c:1685
+#: src/ui/gui/psppire-data-window.c:1687
 msgid "Create a new variable at the current position"
 msgstr "Δημιοργία νέας μεταβλητής στην παρούσα θέση"
 
-#: src/ui/gui/psppire-data-window.c:1699
+#: src/ui/gui/psppire-data-window.c:1701
 msgid "Split the active dataset"
 msgstr "Διαίρεση της ενεργής Βάσης"
 
-#: src/ui/gui/psppire-data-window.c:1711
+#: src/ui/gui/psppire-data-window.c:1713
 msgid "Weight cases by variable"
 msgstr "Στάθμιση υποθέσεων βάση μεταβλητής"
 
-#: src/ui/gui/psppire-data-window.c:1722
+#: src/ui/gui/psppire-data-window.c:1724
 msgid "Show/hide value labels"
 msgstr "Δείξε/Κρύψε ταμπέλες τιμών"
 
-#: src/ui/gui/psppire-data-window.c:1865
+#: src/ui/gui/psppire-data-window.c:1867
 msgid "Data Editor"
 msgstr "Επεξεργασία Δεδομένων"
 
@@ -9915,6 +9915,10 @@ msgstr "Στατιστικό Πρόγραμμα"
 #: src/ui/gui/gen-dot-desktop.sh:15
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr "Ανάλυση στατιστικών δεδομένων με Δωρεάν πρόγραμμα, παρόμοιο του SPSS"
+
+#, fuzzy
+#~ msgid "Percentile Values"
+#~ msgstr "Εκατοστημόρια"
 
 #~ msgid ""
 #~ "PSPPIRE, a GUI for PSPP, a program for statistical analysis of sampled "

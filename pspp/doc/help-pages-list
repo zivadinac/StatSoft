@@ -7,6 +7,7 @@
 //*[@id='COUNT']
 //*[@id='DOCUMENT']
 //*[@id='CROSSTABS']
+//*[@id='GRAPH']/*[@id='BAR-CHART']
 //*[@id='NPAR-TESTS']/*[@id='CHISQUARE']
 //*[@id='DESCRIPTIVES']
 //*[@id='DATASET']

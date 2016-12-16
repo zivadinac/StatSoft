@@ -1268,6 +1268,7 @@ src/ui/gui/missing-val-dialog.ui
 src/ui/gui/oneway.ui
 src/ui/gui/output-window.ui
 src/ui/gui/paired-samples.ui
+src/ui/gui/percentiles.ui
 src/ui/gui/pspp-sheet-private.h
 src/ui/gui/pspp-sheet-selection.c
 src/ui/gui/pspp-sheet-selection.h
@@ -1347,6 +1348,8 @@ src/ui/gui/psppire-dialog-action-oneway.c
 src/ui/gui/psppire-dialog-action-oneway.h
 src/ui/gui/psppire-dialog-action-paired.c
 src/ui/gui/psppire-dialog-action-paired.h
+src/ui/gui/psppire-dialog-action-percentiles.c
+src/ui/gui/psppire-dialog-action-percentiles.h
 src/ui/gui/psppire-dialog-action-rank.c
 src/ui/gui/psppire-dialog-action-rank.h
 src/ui/gui/psppire-dialog-action-recode-different.c

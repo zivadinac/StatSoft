@@ -53,7 +53,11 @@ src/ui/terminal/src_ui_terminal_libui_la-terminal.lo: \
  src/data/format.def src/libpspp/integer-format.h /usr/include/byteswap.h \
  src/libpspp/message.h gl/error.h gl/gettext.h /usr/include/libintl.h \
  gl/locale.h /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/curses.h \
+ /usr/include/ncurses_dll.h /usr/include/unctrl.h /usr/include/term.h \
+ gl/termios.h /usr/include/termios.h \
+ /usr/include/x86_64-linux-gnu/bits/termios.h \
+ /usr/include/x86_64-linux-gnu/sys/ttydefaults.h
 
 /usr/include/stdc-predef.h:
 
@@ -232,3 +236,19 @@ gl/locale.h:
 /usr/include/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/locale.h:
+
+/usr/include/curses.h:
+
+/usr/include/ncurses_dll.h:
+
+/usr/include/unctrl.h:
+
+/usr/include/term.h:
+
+gl/termios.h:
+
+/usr/include/termios.h:
+
+/usr/include/x86_64-linux-gnu/bits/termios.h:
+
+/usr/include/x86_64-linux-gnu/sys/ttydefaults.h:

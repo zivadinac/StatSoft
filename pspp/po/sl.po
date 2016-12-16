@@ -194,8 +194,8 @@ msgstr "Nadaljuj"
 msgid "Paste"
 msgstr "Prilepi"
 
-#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:531
-#: src/ui/gui/psppire-data-window.c:659
+#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:532
+#: src/ui/gui/psppire-data-window.c:660
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
@@ -6428,7 +6428,7 @@ msgid "Importing Spreadsheet Data"
 msgstr "Uvažanje tekstovnih podatkov"
 
 #: src/ui/gui/psppire-import-assistant.c:853
-#: src/ui/gui/psppire-data-window.c:553 src/ui/gui/psppire-syntax-window.c:572
+#: src/ui/gui/psppire-data-window.c:554 src/ui/gui/psppire-syntax-window.c:572
 #: src/ui/gui/psppire-window.c:683
 msgid "All Files"
 msgstr "Vse datoteke"
@@ -6679,17 +6679,17 @@ msgstr ""
 msgid "Case"
 msgstr "Enote"
 
-#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1301
+#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1302
 #, fuzzy
 msgid "_Insert Case"
 msgstr "Vstavi enote"
 
-#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1349
+#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1350
 #, fuzzy
 msgid "Cl_ear Cases"
 msgstr "_Počisti enote"
 
-#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1300
+#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1301
 #: src/ui/gui/psppire-var-sheet.c:944
 #, fuzzy
 msgid "_Insert Variable"
@@ -6709,39 +6709,39 @@ msgstr "Naraščajoče"
 msgid "Sort _Descending"
 msgstr "Padajoče"
 
-#: src/ui/gui/psppire-data-window.c:210
+#: src/ui/gui/psppire-data-window.c:211
 msgid "Transformations Pending"
 msgstr "Čakajoče obdelave"
 
-#: src/ui/gui/psppire-data-window.c:226
+#: src/ui/gui/psppire-data-window.c:227
 msgid "Filter off"
 msgstr "Filtri izključeni"
 
-#: src/ui/gui/psppire-data-window.c:238
+#: src/ui/gui/psppire-data-window.c:239
 #, c-format
 msgid "Filter by %s"
 msgstr "Filtriranje po %s"
 
-#: src/ui/gui/psppire-data-window.c:259
+#: src/ui/gui/psppire-data-window.c:260
 #, fuzzy
 msgid "No Split"
 msgstr "Vodoravno deljeno"
 
-#: src/ui/gui/psppire-data-window.c:268
+#: src/ui/gui/psppire-data-window.c:269
 #, fuzzy
 msgid "Split by "
 msgstr "Po _prihodu"
 
-#: src/ui/gui/psppire-data-window.c:296
+#: src/ui/gui/psppire-data-window.c:297
 msgid "Weights off"
 msgstr "Uteži izključene"
 
-#: src/ui/gui/psppire-data-window.c:308
+#: src/ui/gui/psppire-data-window.c:309
 #, c-format
 msgid "Weight by %s"
 msgstr "Uteženo z %s"
 
-#: src/ui/gui/psppire-data-window.c:528 src/ui/gui/psppire-data-window.c:532
+#: src/ui/gui/psppire-data-window.c:529 src/ui/gui/psppire-data-window.c:533
 #: src/ui/gui/psppire-dialog-action-aggregate.c:217
 #: src/ui/gui/psppire-output-window.c:361
 #: src/ui/gui/psppire-syntax-window.c:560 src/ui/gui/psppire-window.c:476
@@ -6749,208 +6749,208 @@ msgstr "Uteženo z %s"
 msgid "Save"
 msgstr "Shrani"
 
-#: src/ui/gui/psppire-data-window.c:538
+#: src/ui/gui/psppire-data-window.c:539
 #: src/ui/gui/psppire-dialog-action-aggregate.c:226
 msgid "System Files (*.sav)"
 msgstr "Sistemske datoteke (*.sav)"
 
-#: src/ui/gui/psppire-data-window.c:543
+#: src/ui/gui/psppire-data-window.c:544
 #: src/ui/gui/psppire-dialog-action-aggregate.c:231
 #, fuzzy
 msgid "Compressed System Files (*.zsav)"
 msgstr "Sistemske datoteke (*.sav)"
 
-#: src/ui/gui/psppire-data-window.c:548
+#: src/ui/gui/psppire-data-window.c:549
 #: src/ui/gui/psppire-dialog-action-aggregate.c:236
 #: src/ui/gui/psppire-window.c:672
 msgid "Portable Files (*.por) "
 msgstr "Prenosne datoteke (*.por)"
 
-#: src/ui/gui/psppire-data-window.c:570
+#: src/ui/gui/psppire-data-window.c:571
 msgid "System File"
 msgstr "Sistemska datoteka"
 
-#: src/ui/gui/psppire-data-window.c:577
+#: src/ui/gui/psppire-data-window.c:578
 #, fuzzy
 msgid "Compressed System File"
 msgstr "Sistemska datoteka"
 
-#: src/ui/gui/psppire-data-window.c:583
+#: src/ui/gui/psppire-data-window.c:584
 msgid "Portable File"
 msgstr "Prenosna datoteka"
 
-#: src/ui/gui/psppire-data-window.c:586
+#: src/ui/gui/psppire-data-window.c:587
 #, fuzzy
 msgid "Format:"
 msgstr "Oblika"
 
-#: src/ui/gui/psppire-data-window.c:650
+#: src/ui/gui/psppire-data-window.c:651
 msgid "Delete Existing Dataset?"
 msgstr "Izbrišem obstoječo podatkovno zbirko?"
 
-#: src/ui/gui/psppire-data-window.c:654
+#: src/ui/gui/psppire-data-window.c:655
 #, c-format
 msgid ""
 "Renaming \"%s\" to \"%s\" will destroy the existing dataset named \"%s\".  "
 "Are you sure that you want to do this?"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:660
+#: src/ui/gui/psppire-data-window.c:661
 #, fuzzy
 msgid "Delete"
 msgstr "Izbrisano"
 
-#: src/ui/gui/psppire-data-window.c:682
+#: src/ui/gui/psppire-data-window.c:683
 #, fuzzy, c-format
 msgid "Please enter a new name for dataset \"%s\":"
 msgstr "Vnesite prijavno ime za novega uporabnika."
 
-#: src/ui/gui/psppire-data-window.c:684
+#: src/ui/gui/psppire-data-window.c:685
 msgid "Rename Dataset"
 msgstr "Preimenuj podatkovno zbirko"
 
-#: src/ui/gui/psppire-data-window.c:1163 src/ui/gui/output-window.ui:52
+#: src/ui/gui/psppire-data-window.c:1164 src/ui/gui/output-window.ui:52
 #: src/ui/gui/syntax-editor.ui:6
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/ui/gui/psppire-data-window.c:1167 src/ui/gui/syntax-editor.ui:9
+#: src/ui/gui/psppire-data-window.c:1168 src/ui/gui/syntax-editor.ui:9
 #, fuzzy
 msgid "_New"
 msgstr "_Novo ime"
 
-#: src/ui/gui/psppire-data-window.c:1174
+#: src/ui/gui/psppire-data-window.c:1175
 msgid "_Syntax"
 msgstr "_Sintaksa"
 
-#: src/ui/gui/psppire-data-window.c:1177 src/ui/gui/data-editor.ui:161
+#: src/ui/gui/psppire-data-window.c:1178 src/ui/gui/data-editor.ui:161
 #: src/ui/gui/data-editor.ui:173
 msgid "_Data"
 msgstr "_Podatki"
 
-#: src/ui/gui/psppire-data-window.c:1184 src/ui/gui/syntax-editor.ui:20
+#: src/ui/gui/psppire-data-window.c:1185 src/ui/gui/syntax-editor.ui:20
 #, fuzzy
 msgid "_Open"
 msgstr "Odpri"
 
-#: src/ui/gui/psppire-data-window.c:1187
+#: src/ui/gui/psppire-data-window.c:1188
 #, fuzzy
 msgid "_Import Data..."
 msgstr "Iz_vozi ..."
 
-#: src/ui/gui/psppire-data-window.c:1195 src/ui/gui/logistic.ui:244
+#: src/ui/gui/psppire-data-window.c:1196 src/ui/gui/logistic.ui:244
 #: src/ui/gui/regression.ui:50
 msgid "_Save..."
 msgstr "_Shrani ..."
 
-#: src/ui/gui/psppire-data-window.c:1198
+#: src/ui/gui/psppire-data-window.c:1199
 msgid "Save _As..."
 msgstr "Shrani _kot ..."
 
-#: src/ui/gui/psppire-data-window.c:1201
+#: src/ui/gui/psppire-data-window.c:1202
 msgid "_Rename Dataset..."
 msgstr "Preimenuj podatkovno zbirko ..."
 
-#: src/ui/gui/psppire-data-window.c:1212
+#: src/ui/gui/psppire-data-window.c:1213
 #, fuzzy
 msgid "_Display Data File Information"
 msgstr "Ni mogoče prebrati podatkov o datoteki"
 
-#: src/ui/gui/psppire-data-window.c:1219
+#: src/ui/gui/psppire-data-window.c:1220
 msgid "Working File"
 msgstr "Delovna datoteka"
 
-#: src/ui/gui/psppire-data-window.c:1221
+#: src/ui/gui/psppire-data-window.c:1222
 #, fuzzy
 msgid "_External File..."
 msgstr "Zunanja datoteka ..."
 
-#: src/ui/gui/psppire-data-window.c:1231
+#: src/ui/gui/psppire-data-window.c:1232
 #, fuzzy
 msgid "_Recently Used Data"
 msgstr "Nedavno uporabljeni _podatki"
 
-#: src/ui/gui/psppire-data-window.c:1232
+#: src/ui/gui/psppire-data-window.c:1233
 msgid "Recently Used _Files"
 msgstr "Nedavno uporabljene _datoteke"
 
-#: src/ui/gui/psppire-data-window.c:1279 src/ui/gui/output-window.ui:66
+#: src/ui/gui/psppire-data-window.c:1280 src/ui/gui/output-window.ui:66
 #: src/ui/gui/syntax-editor.ui:43
 msgid "_Quit"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1296 src/ui/gui/output-window.ui:73
+#: src/ui/gui/psppire-data-window.c:1297 src/ui/gui/output-window.ui:73
 #: src/ui/gui/syntax-editor.ui:50
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: src/ui/gui/psppire-data-window.c:1302
+#: src/ui/gui/psppire-data-window.c:1303
 #, fuzzy
 msgid "_Go To Variable..."
 msgstr "_Spremenljivke ..."
 
-#: src/ui/gui/psppire-data-window.c:1303
+#: src/ui/gui/psppire-data-window.c:1304
 #, fuzzy
 msgid "_Go To Case..."
 msgstr "Pojdi na enoto ..."
 
-#: src/ui/gui/psppire-data-window.c:1325 src/ui/gui/syntax-editor.ui:53
+#: src/ui/gui/psppire-data-window.c:1326 src/ui/gui/syntax-editor.ui:53
 msgid "Cu_t"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1333 src/ui/gui/output-window.ui:80
+#: src/ui/gui/psppire-data-window.c:1334 src/ui/gui/output-window.ui:80
 #: src/ui/gui/syntax-editor.ui:58
 msgid "_Copy"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1339 src/ui/gui/syntax-editor.ui:63
+#: src/ui/gui/psppire-data-window.c:1340 src/ui/gui/syntax-editor.ui:63
 #, fuzzy
 msgid "_Paste"
 msgstr "Prilepi"
 
-#: src/ui/gui/psppire-data-window.c:1345
+#: src/ui/gui/psppire-data-window.c:1346
 #, fuzzy
 msgid "Clear _Variables"
 msgstr "Poč_isti spremenljivke"
 
-#: src/ui/gui/psppire-data-window.c:1358
+#: src/ui/gui/psppire-data-window.c:1359
 msgid "_Find..."
 msgstr "_Najdi ..."
 
-#: src/ui/gui/psppire-data-window.c:1634
+#: src/ui/gui/psppire-data-window.c:1636
 msgid "Jump to variable"
 msgstr "Skoči na spremenljivko"
 
-#: src/ui/gui/psppire-data-window.c:1647
+#: src/ui/gui/psppire-data-window.c:1649
 msgid "Jump to a case in the data sheet"
 msgstr "Skoči na enoto v podatkovnem listu"
 
-#: src/ui/gui/psppire-data-window.c:1661
+#: src/ui/gui/psppire-data-window.c:1663
 #, fuzzy
 msgid "Search for values in the data"
 msgstr "Razvrsti enote v aktivni podatkovni zbirki"
 
-#: src/ui/gui/psppire-data-window.c:1673
+#: src/ui/gui/psppire-data-window.c:1675
 msgid "Create a new case at the current position"
 msgstr "Ustvari novo enoto na trenutnem mestu"
 
-#: src/ui/gui/psppire-data-window.c:1685
+#: src/ui/gui/psppire-data-window.c:1687
 msgid "Create a new variable at the current position"
 msgstr "Ustvari novo spremenljivko na trenutnem mestu"
 
-#: src/ui/gui/psppire-data-window.c:1699
+#: src/ui/gui/psppire-data-window.c:1701
 msgid "Split the active dataset"
 msgstr "Razdeli aktivno podatkovno zbirko"
 
-#: src/ui/gui/psppire-data-window.c:1711
+#: src/ui/gui/psppire-data-window.c:1713
 msgid "Weight cases by variable"
 msgstr "Uteži enote s spremenljivko"
 
-#: src/ui/gui/psppire-data-window.c:1722
+#: src/ui/gui/psppire-data-window.c:1724
 msgid "Show/hide value labels"
 msgstr "Pokaži/Skrij oznake vrednosti"
 
-#: src/ui/gui/psppire-data-window.c:1865
+#: src/ui/gui/psppire-data-window.c:1867
 msgid "Data Editor"
 msgstr "Urejevalnik podatkov"
 
@@ -9854,6 +9854,10 @@ msgstr "Statistika"
 #: src/ui/gui/gen-dot-desktop.sh:15
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Percentile Values"
+#~ msgstr "Percentili"
 
 #~ msgid "Duplicate variable name `%s'."
 #~ msgstr "Podvojeno ime spremenljivke »%s«."

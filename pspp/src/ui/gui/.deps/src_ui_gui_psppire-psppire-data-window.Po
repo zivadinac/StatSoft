@@ -689,6 +689,7 @@ src/ui/gui/src_ui_gui_psppire-psppire-data-window.o: \
  src/ui/gui/psppire-dialog-action-aggregate.h \
  src/ui/gui/psppire-dialog-action-autorecode.h \
  src/ui/gui/psppire-dialog-action-barchart.h \
+ src/ui/gui/psppire-dialog-action-percentiles.h \
  src/ui/gui/psppire-dialog-action-binomial.h \
  src/ui/gui/psppire-dialog-action-chisquare.h \
  src/ui/gui/psppire-dialog-action-comments.h \
@@ -2322,6 +2323,8 @@ src/ui/gui/psppire-dialog-action-aggregate.h:
 src/ui/gui/psppire-dialog-action-autorecode.h:
 
 src/ui/gui/psppire-dialog-action-barchart.h:
+
+src/ui/gui/psppire-dialog-action-percentiles.h:
 
 src/ui/gui/psppire-dialog-action-binomial.h:
 
