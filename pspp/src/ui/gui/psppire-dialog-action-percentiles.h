@@ -59,13 +59,18 @@ struct _PsppireDialogActionPercentiles
 
   /*< private >*/
 
-  GtkWidget *variable_xaxis;
-  GtkWidget *variable_cluster;
-  GtkWidget *var;
-  GtkWidget *button_freq_func[4];
-  GtkWidget *button_summary_func;
-  GtkWidget *summary_variables;
-  GtkWidget *combobox;
+  GtkWidget *quantiles_checkbox;
+  GtkWidget *quintiles_checkbox;
+  GtkWidget *sextiles_checkbox;
+  GtkWidget *deciles_checkbox;
+  GtkWidget *percentiles_checkbox;
+  GtkWidget *percentiles_entry;
+  GtkWidget *percentiles_add;
+  GtkWidget *percentiles_change;
+  GtkWidget *percentiles_remove;
+  GtkWidget *percentiles_ok;
+  GtkWidget *percentiles_cancel;
+  GtkWidget *percentiles_treeview;
 };
 
 

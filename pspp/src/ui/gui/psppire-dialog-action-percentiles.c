@@ -42,14 +42,10 @@ dialog_state_valid (gpointer rd_)
 {
   PsppireDialogActionPercentiles *rd = PSPPIRE_DIALOG_ACTION_PERCENTILES (rd_);
 
-  if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->button_summary_func)) )
-    {
-      if (0 == g_strcmp0 ("", gtk_entry_get_text (GTK_ENTRY (rd->var))))
+  if (0 == g_strcmp0 ("", gtk_entry_get_text (GTK_ENTRY (rd->percentiles_entry))))
+  {
 	return FALSE;
-    }
-
-  if (0 == g_strcmp0 ("", gtk_entry_get_text (GTK_ENTRY (rd->variable_xaxis))))
-    return FALSE;
+  }
 
   return TRUE;
 }
@@ -59,60 +55,65 @@ refresh (PsppireDialogAction *rd_)
 {
   PsppireDialogActionPercentiles *rd = PSPPIRE_DIALOG_ACTION_PERCENTILES (rd_);
 
-  gtk_entry_set_text (GTK_ENTRY (rd->var), "");
-  gtk_entry_set_text (GTK_ENTRY (rd->variable_xaxis), "");
-  gtk_entry_set_text (GTK_ENTRY (rd->variable_cluster), "");
+  gtk_entry_set_text (GTK_ENTRY (rd->percentiles_entry), "");
 
   /* Set summary_func to true, then let it get unset again.
      This ensures that the signal handler gets called.   */
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (rd->button_summary_func), TRUE);
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (rd->button_freq_func[0]), TRUE);
-				
-  gtk_widget_set_sensitive (rd->combobox, FALSE);
+  //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_add), TRUE);
+  //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_cancel), TRUE);
+  //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_change), TRUE);
+  //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_remove), TRUE);
+  //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_ok), TRUE);
+  
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox), TRUE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->deciles_checkbox), TRUE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->sextiles_checkbox), TRUE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->quantiles_checkbox), TRUE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->quintiles_checkbox), TRUE);
 
-  gtk_combo_box_set_active (GTK_COMBO_BOX (rd->combobox), 0);
 }
 
 static void
-on_summary_toggle (PsppireDialogActionPercentiles *act)
+percentiles_add_onclick (GtkButton* add, PsppireDialogActionPercentiles *act)
 {
-  gboolean status = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (act->button_summary_func));
+	g_print("add_onclick1");
+	if(!gtk_toggle_button_get_active(GTK_CHECK_BUTTON(act->percentiles_checkbox)))
+	{
+		return;	
+	}
 
-  gtk_widget_set_sensitive (act->summary_variables, status);
-  gtk_widget_set_sensitive (act->combobox, status);
+	g_print("add_onclick2");
+	gchar* percVal = gtk_entry_get_text(GTK_ENTRY(act->percentiles_entry));
+	
+	if(1 == g_strcmp0("", percVal))
+	{
+		return;
+	}
+
+	g_print("add_onclick3");
+  	//PsppireDialogAction *pda = PSPPIRE_DIALOG_ACTION(act);
+
+  	GtkTreeIter iter;
+  	GtkListStore *list_store = gtk_list_store_new(1, G_TYPE_STRING);
+
+//	GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pda->source));
+
+	/*GtkTreePath* path = gtk_tree_path_new();
+	gtk_tree_model_get_iter(model, &iter, path);*/
+	
+	g_print("add_onclick4");
+      	gtk_list_store_append(list_store, &iter);
+      	gtk_list_store_set(list_store, &iter, 0, "21", -1);
+
+	g_print("add_onclick5");
+	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_LIST_STORE(list_store));
+	
+	g_print("add_onclick6");
+  	g_object_unref(list_store);
+    //g_free(percVal);
+
+	g_print("add_onclick7");
 }
-
-static void
-populate_combo_model (GtkComboBox *cb)
-{
-  int i;
-  GtkListStore *list =  gtk_list_store_new (4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT);
-  GtkTreeIter iter;
-  GtkCellRenderer *renderer ;
-
-  for (i = 0; i < N_AG_FUNCS;  ++i)
-    {
-      const struct ag_func *af = ag_func + i;
-
-      if (af->arity == 0)
-	continue;
-
-      gtk_list_store_append (list, &iter);
-      gtk_list_store_set (list, &iter,
-                          0, af->description,
-			  1, af->name,
-                          -1);
-    }
-
-  renderer = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (cb), renderer, FALSE);
-
-  gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (cb), renderer, "text", 0);
-
-  gtk_combo_box_set_model (GTK_COMBO_BOX (cb), GTK_TREE_MODEL (list));
-  g_object_unref (list);
-}
-
 
 static void
 psppire_dialog_action_percentiles_activate (PsppireDialogAction *a)
@@ -128,30 +129,56 @@ psppire_dialog_action_percentiles_activate (PsppireDialogAction *a)
       g_hash_table_insert (thing, a, xml);
 
       pda->dialog = get_widget_assert (xml, "percentiles-dialog");
-/*
-      pda->source = get_widget_assert (xml, "dict-view");
 
-      act->variable_xaxis = get_widget_assert (xml, "entry1_stat_soft");
-      act->variable_cluster = get_widget_assert (xml, "entry3_stat_soft");
-      act->var = get_widget_assert (xml, "entry2_stat_soft");
-      act->button_freq_func[0] = get_widget_assert (xml, "radiobutton-count_stat_soft");
-      act->button_freq_func[1] = get_widget_assert (xml, "radiobutton-percent_stat_soft");
-      act->button_freq_func[2] = get_widget_assert (xml, "radiobutton-cum-count_stat_soft");
-      act->button_freq_func[3] = get_widget_assert (xml, "radiobutton-cum-percent_stat_soft");
-  
-      act->button_summary_func = get_widget_assert (xml, "radiobutton3_stat_soft");
-      act->summary_variables = get_widget_assert (xml, "hbox1_stat_soft");
-      act->combobox = get_widget_assert (xml, "combobox1_stat_soft");
+      act->percentiles_treeview = get_widget_assert (xml, "percentiles-treeview");
 
-      populate_combo_model (GTK_COMBO_BOX(act->combobox));
+      act->quantiles_checkbox = get_widget_assert (xml, "quartiles-checkbox");
+      act->quintiles_checkbox=get_widget_assert(xml,"quintiles-checkbox");
+      act->sextiles_checkbox=get_widget_assert(xml,"sextiles-checkbox");
+      act->deciles_checkbox=get_widget_assert(xml,"deciles-checkbox");
+      act->percentiles_checkbox=get_widget_assert(xml,"percentiles-checkbox");
+       
+      act->percentiles_entry=get_widget_assert(xml,"percentiles-entry");
+     
+      act->percentiles_add=get_widget_assert(xml,"percentiles-add");
+      act->percentiles_change=get_widget_assert(xml,"percentiles-change");
+      act->percentiles_remove=get_widget_assert(xml,"percentiles-remove");
+      
+      act->percentiles_ok=get_widget_assert(xml,"percentiles-ok");
+      act->percentiles_cancel=get_widget_assert(xml,"percentiles-cancel");
+      
+      
+      gtk_entry_set_visibility (GTK_ENTRY(act->percentiles_entry), true);
+      gtk_entry_set_input_purpose(GTK_ENTRY(act->percentiles_entry), GTK_INPUT_PURPOSE_NUMBER);
   
-      g_signal_connect_swapped (act->button_summary_func, "toggled",
-				G_CALLBACK (on_summary_toggle), act); */
+      g_signal_connect(act->percentiles_add, "clicked",
+				G_CALLBACK (percentiles_add_onclick), pda);
 
       psppire_dialog_action_set_refresh (pda, refresh);
 
       psppire_dialog_action_set_valid_predicate (pda,
 						 dialog_state_valid);
+    
+  	GtkTreeIter iter;
+  	GtkListStore *list_store = gtk_list_store_new(1, G_TYPE_STRING);
+
+//	GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pda->source));
+
+	/*GtkTreePath* path = gtk_tree_path_new();
+	gtk_tree_model_get_iter(model, &iter, path);*/
+	
+	g_print("add_onclick4");
+      	gtk_list_store_append(list_store, &iter);
+      	gtk_list_store_set(list_store, &iter, 0, "21", -1);
+
+	g_print("add_onclick5");
+	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_LIST_STORE(list_store));
+	
+	g_print("add_onclick6");
+  	g_object_unref(list_store);
+    //g_free(percVal);
+
+	g_print("add_onclick7");
     }
 
 }
@@ -159,72 +186,7 @@ psppire_dialog_action_percentiles_activate (PsppireDialogAction *a)
 static char *
 generate_syntax (const PsppireDialogAction *a)
 {
-  PsppireDialogActionPercentiles *rd = PSPPIRE_DIALOG_ACTION_PERCENTILES (a);
-  gchar *text;
-  const gchar *var_name_xaxis = gtk_entry_get_text (GTK_ENTRY (rd->variable_xaxis));
-  const gchar *var_name_cluster = gtk_entry_get_text (GTK_ENTRY (rd->variable_cluster));
-
-  GString *string = g_string_new ("GRAPH /BAR = ");
-
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->button_summary_func)))
-    {
-      GtkTreeIter iter;
-      if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (rd->combobox), &iter))
-	{
-	  GValue value = {0};
-	  GtkTreeModel *model = gtk_combo_box_get_model (GTK_COMBO_BOX (rd->combobox));
-	  gtk_tree_model_get_value (model, &iter, 1, &value);
-	  g_string_append (string, g_value_get_string (&value));
-	  g_value_unset (&value);
-	}
-      g_string_append (string, " (");
-      g_string_append (string, gtk_entry_get_text (GTK_ENTRY (rd->var)));
-      g_string_append (string, ")");
-    }
-  else
-    {
-      int b;
-      for (b = 0; b < 4; ++b)
-	{
-	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->button_freq_func[b])))
-	    break;
-	}
-      switch (b)
-	{
-	case 0:
-	  g_string_append (string, "COUNT");
-	  break;
-	case 1:
-	  g_string_append (string, "PCT");
-	  break;
-	case 2:
-	  g_string_append (string, "CUFREQ");
-	  break;
-	case 3:
-	  g_string_append (string, "CUPCT");
-	  break;
-	default:
-	  g_assert_not_reached ();
-	  break;
-	}
-    }
-
-  g_string_append (string, " BY ");
-  g_string_append (string, var_name_xaxis);
-
-  if (g_strcmp0 (var_name_cluster, ""))
-  {
-    g_string_append (string, " BY ");
-    g_string_append (string, var_name_cluster);
-  }
   
-  g_string_append (string, ".\n");
-
-  text = string->str;
-
-  g_string_free (string, FALSE);
-
-  return text;
 }
 
 static void
