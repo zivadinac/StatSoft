@@ -65,7 +65,7 @@ refresh (PsppireDialogAction *rd_)
   //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_remove), TRUE);
   //gtk_toggle_button_set_active (GTK_BUTTON (rd->percentiles_ok), TRUE);
   
-  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox), TRUE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox), FALSE);
   gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->deciles_checkbox), TRUE);
   gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->sextiles_checkbox), TRUE);
   gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->quantiles_checkbox), TRUE);
@@ -89,28 +89,33 @@ percentiles_add_onclick (GtkButton* add, PsppireDialogActionPercentiles *act)
 	{
 		return;
 	}
-
+g_print("add_onclick promenaaa");
+	//gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), act->model_treeview);
 	g_print("add_onclick3");
-  	//PsppireDialogAction *pda = PSPPIRE_DIALOG_ACTION(act);
+  	PsppireDialogAction *pda = PSPPIRE_DIALOG_ACTION(act);
 
-  	GtkTreeIter iter;
-  	GtkListStore *list_store = gtk_list_store_new(1, G_TYPE_STRING);
+ 	GtkTreeIter iter;
+  	GtkListStore* list_store = gtk_list_store_new(1, G_TYPE_STRING);
 
-//	GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pda->source));
+	//GtkListStore* list_store =GTK_LIST_STORE( gtk_tree_view_get_model(GTK_TREE_VIEW(pda->source)));
 
 	/*GtkTreePath* path = gtk_tree_path_new();
 	gtk_tree_model_get_iter(model, &iter, path);*/
-	
+	act->treeview_vals = g_list_append (act->treeview_vals, "21");
+	for ( GList* l = act->treeview_vals; l != NULL; l = l->next)
+	{
+		gtk_list_store_append(list_store, &iter);
+		gtk_list_store_set(list_store, &iter, 0, l->data, -1);
+	}
 	g_print("add_onclick4");
-      	gtk_list_store_append(list_store, &iter);
-      	gtk_list_store_set(list_store, &iter, 0, "21", -1);
-
+  
+	
 	g_print("add_onclick5");
-	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_LIST_STORE(list_store));
+	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_TREE_MODEL(list_store));
 	
 	g_print("add_onclick6");
   	g_object_unref(list_store);
-    //g_free(percVal);
+	//g_free(percVal);
 
 	g_print("add_onclick7");
 }
@@ -123,15 +128,22 @@ psppire_dialog_action_percentiles_activate (PsppireDialogAction *a)
 
   GHashTable *thing = psppire_dialog_action_get_hash_table (pda);
   GtkBuilder *xml = g_hash_table_lookup (thing, a);
+  g_print("add_onclick7");
+  
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer;
+  
+  
   if (!xml)
     {
       xml = gtk_builder_new_from_file("percentiles.ui");
       g_hash_table_insert (thing, a, xml);
-
+	}
       pda->dialog = get_widget_assert (xml, "percentiles-dialog");
 
       act->percentiles_treeview = get_widget_assert (xml, "percentiles-treeview");
-
+	  
+		
       act->quantiles_checkbox = get_widget_assert (xml, "quartiles-checkbox");
       act->quintiles_checkbox=get_widget_assert(xml,"quintiles-checkbox");
       act->sextiles_checkbox=get_widget_assert(xml,"sextiles-checkbox");
@@ -158,35 +170,25 @@ psppire_dialog_action_percentiles_activate (PsppireDialogAction *a)
 
       psppire_dialog_action_set_valid_predicate (pda,
 						 dialog_state_valid);
+    renderer = gtk_cell_renderer_text_new ();
+
+  column = gtk_tree_view_column_new_with_attributes ("Values",
+						     renderer,
+						     "text",
+						     0,
+						     NULL);
+
+  gtk_tree_view_append_column (GTK_TREE_VIEW (act->percentiles_treeview), column);
     
-  	GtkTreeIter iter;
-  	GtkListStore *list_store = gtk_list_store_new(1, G_TYPE_STRING);
-
-//	GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pda->source));
-
-	/*GtkTreePath* path = gtk_tree_path_new();
-	gtk_tree_model_get_iter(model, &iter, path);*/
-	
-	g_print("add_onclick4");
-      	gtk_list_store_append(list_store, &iter);
-      	gtk_list_store_set(list_store, &iter, 0, "21", -1);
-
-	g_print("add_onclick5");
-	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_LIST_STORE(list_store));
-	
-	g_print("add_onclick6");
-  	g_object_unref(list_store);
-    //g_free(percVal);
-
-	g_print("add_onclick7");
-    }
+ 
+    
 
 }
 
 static char *
 generate_syntax (const PsppireDialogAction *a)
 {
-  
+ return NULL;
 }
 
 static void
