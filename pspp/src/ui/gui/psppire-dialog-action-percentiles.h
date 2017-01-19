@@ -60,7 +60,7 @@ struct _PsppireDialogActionPercentiles
   GList *treeview_vals;
   
   /* Signal handler ids */
-  gint change_handler_id;
+  //gint change_handler_id;
   gint value_handler_id;
   
   /*< Check Boxes >*/
