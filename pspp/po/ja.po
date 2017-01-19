@@ -139,7 +139,7 @@ msgstr "ドル通貨"
 msgid "Custom"
 msgstr "カスタム"
 
-#: src/ui/gui/psppire-acr.c:266
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:173
 msgid "Add"
 msgstr "追加"
 
@@ -147,11 +147,12 @@ msgstr "追加"
 msgid "Edit"
 msgstr "編集"
 
-#: src/ui/gui/psppire-acr.c:268
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:199
 msgid "Remove"
 msgstr "削除"
 
-#: src/ui/gui/psppire-buttonbox.c:322
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:246
+#: src/ui/gui/qq-plot.ui:300
 msgid "OK"
 msgstr "Ｏｋ"
 
@@ -167,12 +168,13 @@ msgstr "続く"
 msgid "Paste"
 msgstr "貼り付け"
 
-#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:532
-#: src/ui/gui/psppire-data-window.c:660
+#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:533
+#: src/ui/gui/psppire-data-window.c:661
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:258
+#: src/ui/gui/qq-plot.ui:335
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -181,6 +183,7 @@ msgid "Close"
 msgstr "閉じる"
 
 #: src/ui/gui/psppire-buttonbox.c:369 src/ui/gui/psppire-import-assistant.c:939
+#: src/ui/gui/qq-plot.ui:370
 msgid "Reset"
 msgstr "リセット"
 
@@ -3515,6 +3518,7 @@ msgstr "%s のための拡散レベルチャートチャートを作成できま
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
+#: src/ui/gui/percentiles.ui:104
 msgid "Percentiles"
 msgstr "パーセンタイル"
 
@@ -6526,7 +6530,7 @@ msgid "Importing Spreadsheet Data"
 msgstr "表計算データの読み込み"
 
 #: src/ui/gui/psppire-import-assistant.c:853
-#: src/ui/gui/psppire-data-window.c:554 src/ui/gui/psppire-syntax-window.c:572
+#: src/ui/gui/psppire-data-window.c:555 src/ui/gui/psppire-syntax-window.c:572
 #: src/ui/gui/psppire-window.c:683
 msgid "All Files"
 msgstr "すべてのファイル"
@@ -6752,17 +6756,17 @@ msgstr "新しく追加するケースの数を入力して下さい．"
 msgid "Case"
 msgstr "ケース"
 
-#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1302
+#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1303
 #, fuzzy
 msgid "_Insert Case"
 msgstr "ケースの挿入"
 
-#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1350
+#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1351
 #, fuzzy
 msgid "Cl_ear Cases"
 msgstr "ケースの削除(_C)"
 
-#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1301
+#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1302
 #: src/ui/gui/psppire-var-sheet.c:944
 #, fuzzy
 msgid "_Insert Variable"
@@ -6780,37 +6784,37 @@ msgstr "昇順でソート(_A)"
 msgid "Sort _Descending"
 msgstr "降順でソート(_D)"
 
-#: src/ui/gui/psppire-data-window.c:211
+#: src/ui/gui/psppire-data-window.c:212
 msgid "Transformations Pending"
 msgstr "変換保留"
 
-#: src/ui/gui/psppire-data-window.c:227
+#: src/ui/gui/psppire-data-window.c:228
 msgid "Filter off"
 msgstr "フィルタリングなし"
 
-#: src/ui/gui/psppire-data-window.c:239
+#: src/ui/gui/psppire-data-window.c:240
 #, c-format
 msgid "Filter by %s"
 msgstr "%s によるフィルタリング"
 
-#: src/ui/gui/psppire-data-window.c:260
+#: src/ui/gui/psppire-data-window.c:261
 msgid "No Split"
 msgstr "分割なし"
 
-#: src/ui/gui/psppire-data-window.c:269
+#: src/ui/gui/psppire-data-window.c:270
 msgid "Split by "
 msgstr "分割"
 
-#: src/ui/gui/psppire-data-window.c:297
+#: src/ui/gui/psppire-data-window.c:298
 msgid "Weights off"
 msgstr "重み付けなし"
 
-#: src/ui/gui/psppire-data-window.c:309
+#: src/ui/gui/psppire-data-window.c:310
 #, c-format
 msgid "Weight by %s"
 msgstr "%s による重み付け"
 
-#: src/ui/gui/psppire-data-window.c:529 src/ui/gui/psppire-data-window.c:533
+#: src/ui/gui/psppire-data-window.c:530 src/ui/gui/psppire-data-window.c:534
 #: src/ui/gui/psppire-dialog-action-aggregate.c:217
 #: src/ui/gui/psppire-output-window.c:361
 #: src/ui/gui/psppire-syntax-window.c:560 src/ui/gui/psppire-window.c:476
@@ -6818,43 +6822,43 @@ msgstr "%s による重み付け"
 msgid "Save"
 msgstr "保存"
 
-#: src/ui/gui/psppire-data-window.c:539
+#: src/ui/gui/psppire-data-window.c:540
 #: src/ui/gui/psppire-dialog-action-aggregate.c:226
 msgid "System Files (*.sav)"
 msgstr "システムファイル(*sav)"
 
-#: src/ui/gui/psppire-data-window.c:544
+#: src/ui/gui/psppire-data-window.c:545
 #: src/ui/gui/psppire-dialog-action-aggregate.c:231
 msgid "Compressed System Files (*.zsav)"
 msgstr "圧縮されたシステムファイル(*.zsav)"
 
-#: src/ui/gui/psppire-data-window.c:549
+#: src/ui/gui/psppire-data-window.c:550
 #: src/ui/gui/psppire-dialog-action-aggregate.c:236
 #: src/ui/gui/psppire-window.c:672
 msgid "Portable Files (*.por) "
 msgstr "ポータブルファイル (*.por)"
 
-#: src/ui/gui/psppire-data-window.c:571
+#: src/ui/gui/psppire-data-window.c:572
 msgid "System File"
 msgstr "システムファイル"
 
-#: src/ui/gui/psppire-data-window.c:578
+#: src/ui/gui/psppire-data-window.c:579
 msgid "Compressed System File"
 msgstr "圧縮されたシステムファイル"
 
-#: src/ui/gui/psppire-data-window.c:584
+#: src/ui/gui/psppire-data-window.c:585
 msgid "Portable File"
 msgstr "ポータブルファイル"
 
-#: src/ui/gui/psppire-data-window.c:587
+#: src/ui/gui/psppire-data-window.c:588
 msgid "Format:"
 msgstr "フォーマット:"
 
-#: src/ui/gui/psppire-data-window.c:651
+#: src/ui/gui/psppire-data-window.c:652
 msgid "Delete Existing Dataset?"
 msgstr "現在あるデータセットを消去しますか?"
 
-#: src/ui/gui/psppire-data-window.c:655
+#: src/ui/gui/psppire-data-window.c:656
 #, c-format
 msgid ""
 "Renaming \"%s\" to \"%s\" will destroy the existing dataset named \"%s\".  "
@@ -6863,161 +6867,161 @@ msgstr ""
 "\"%s \" から \"%s\"への名前の変更は既存のデータセット \"%s\" を破壊します．本"
 "当に実行しますか?"
 
-#: src/ui/gui/psppire-data-window.c:661
+#: src/ui/gui/psppire-data-window.c:662
 msgid "Delete"
 msgstr "削除"
 
-#: src/ui/gui/psppire-data-window.c:683
+#: src/ui/gui/psppire-data-window.c:684
 #, c-format
 msgid "Please enter a new name for dataset \"%s\":"
 msgstr "データセット \"%s\" の新しい名前を入力して下さい:"
 
-#: src/ui/gui/psppire-data-window.c:685
+#: src/ui/gui/psppire-data-window.c:686
 msgid "Rename Dataset"
 msgstr "データセット名を変更"
 
-#: src/ui/gui/psppire-data-window.c:1164 src/ui/gui/output-window.ui:52
+#: src/ui/gui/psppire-data-window.c:1165 src/ui/gui/output-window.ui:52
 #: src/ui/gui/syntax-editor.ui:6
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: src/ui/gui/psppire-data-window.c:1168 src/ui/gui/syntax-editor.ui:9
+#: src/ui/gui/psppire-data-window.c:1169 src/ui/gui/syntax-editor.ui:9
 #, fuzzy
 msgid "_New"
 msgstr "新規作成(_N) ..."
 
-#: src/ui/gui/psppire-data-window.c:1175
+#: src/ui/gui/psppire-data-window.c:1176
 msgid "_Syntax"
 msgstr "シンタックス(_S)"
 
-#: src/ui/gui/psppire-data-window.c:1178 src/ui/gui/data-editor.ui:161
+#: src/ui/gui/psppire-data-window.c:1179 src/ui/gui/data-editor.ui:161
 #: src/ui/gui/data-editor.ui:173
 msgid "_Data"
 msgstr "データ(_D)"
 
-#: src/ui/gui/psppire-data-window.c:1185 src/ui/gui/syntax-editor.ui:20
+#: src/ui/gui/psppire-data-window.c:1186 src/ui/gui/syntax-editor.ui:20
 #, fuzzy
 msgid "_Open"
 msgstr "開く"
 
-#: src/ui/gui/psppire-data-window.c:1188
+#: src/ui/gui/psppire-data-window.c:1189
 #, fuzzy
 msgid "_Import Data..."
 msgstr "テキストデータの読み込み(_I) ..."
 
-#: src/ui/gui/psppire-data-window.c:1196 src/ui/gui/logistic.ui:244
+#: src/ui/gui/psppire-data-window.c:1197 src/ui/gui/logistic.ui:244
 #: src/ui/gui/regression.ui:50
 msgid "_Save..."
 msgstr "保存(_S) ..."
 
-#: src/ui/gui/psppire-data-window.c:1199
+#: src/ui/gui/psppire-data-window.c:1200
 msgid "Save _As..."
 msgstr "名前を付けて保存(_A) ..."
 
-#: src/ui/gui/psppire-data-window.c:1202
+#: src/ui/gui/psppire-data-window.c:1203
 msgid "_Rename Dataset..."
 msgstr "データセット名を変更(_R) ..."
 
-#: src/ui/gui/psppire-data-window.c:1213
+#: src/ui/gui/psppire-data-window.c:1214
 #, fuzzy
 msgid "_Display Data File Information"
 msgstr "データファイル情報の表示(_i)"
 
-#: src/ui/gui/psppire-data-window.c:1220
+#: src/ui/gui/psppire-data-window.c:1221
 msgid "Working File"
 msgstr "作業ファイル"
 
-#: src/ui/gui/psppire-data-window.c:1222
+#: src/ui/gui/psppire-data-window.c:1223
 #, fuzzy
 msgid "_External File..."
 msgstr "外部ファイル ..."
 
-#: src/ui/gui/psppire-data-window.c:1232
+#: src/ui/gui/psppire-data-window.c:1233
 #, fuzzy
 msgid "_Recently Used Data"
 msgstr "最近使ったデータ(_t)"
 
-#: src/ui/gui/psppire-data-window.c:1233
+#: src/ui/gui/psppire-data-window.c:1234
 msgid "Recently Used _Files"
 msgstr "最近使ったファイル(_F)"
 
-#: src/ui/gui/psppire-data-window.c:1280 src/ui/gui/output-window.ui:66
+#: src/ui/gui/psppire-data-window.c:1281 src/ui/gui/output-window.ui:66
 #: src/ui/gui/syntax-editor.ui:43
 msgid "_Quit"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1297 src/ui/gui/output-window.ui:73
+#: src/ui/gui/psppire-data-window.c:1298 src/ui/gui/output-window.ui:73
 #: src/ui/gui/syntax-editor.ui:50
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: src/ui/gui/psppire-data-window.c:1303
+#: src/ui/gui/psppire-data-window.c:1304
 #, fuzzy
 msgid "_Go To Variable..."
 msgstr "変数 ..."
 
-#: src/ui/gui/psppire-data-window.c:1304
+#: src/ui/gui/psppire-data-window.c:1305
 #, fuzzy
 msgid "_Go To Case..."
 msgstr "指定のケースへの移動 ..."
 
-#: src/ui/gui/psppire-data-window.c:1326 src/ui/gui/syntax-editor.ui:53
+#: src/ui/gui/psppire-data-window.c:1327 src/ui/gui/syntax-editor.ui:53
 msgid "Cu_t"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1334 src/ui/gui/output-window.ui:80
+#: src/ui/gui/psppire-data-window.c:1335 src/ui/gui/output-window.ui:80
 #: src/ui/gui/syntax-editor.ui:58
 msgid "_Copy"
 msgstr "コピー(_C)"
 
-#: src/ui/gui/psppire-data-window.c:1340 src/ui/gui/syntax-editor.ui:63
+#: src/ui/gui/psppire-data-window.c:1341 src/ui/gui/syntax-editor.ui:63
 #, fuzzy
 msgid "_Paste"
 msgstr "貼り付け"
 
-#: src/ui/gui/psppire-data-window.c:1346
+#: src/ui/gui/psppire-data-window.c:1347
 #, fuzzy
 msgid "Clear _Variables"
 msgstr "変数の削除(_e)"
 
-#: src/ui/gui/psppire-data-window.c:1359
+#: src/ui/gui/psppire-data-window.c:1360
 msgid "_Find..."
 msgstr "検索(F) ..."
 
-#: src/ui/gui/psppire-data-window.c:1636
+#: src/ui/gui/psppire-data-window.c:1638
 msgid "Jump to variable"
 msgstr "変数へのジャンプ"
 
-#: src/ui/gui/psppire-data-window.c:1649
+#: src/ui/gui/psppire-data-window.c:1651
 msgid "Jump to a case in the data sheet"
 msgstr "データシート内のケースへジャンプ"
 
-#: src/ui/gui/psppire-data-window.c:1663
+#: src/ui/gui/psppire-data-window.c:1665
 #, fuzzy
 msgid "Search for values in the data"
 msgstr "アクティブなデータセットのケース並べ替え"
 
-#: src/ui/gui/psppire-data-window.c:1675
+#: src/ui/gui/psppire-data-window.c:1677
 msgid "Create a new case at the current position"
 msgstr "現在の場所に新しいケースを作成．"
 
-#: src/ui/gui/psppire-data-window.c:1687
+#: src/ui/gui/psppire-data-window.c:1689
 msgid "Create a new variable at the current position"
 msgstr "現在の場所に新しい変数を作成．"
 
-#: src/ui/gui/psppire-data-window.c:1701
+#: src/ui/gui/psppire-data-window.c:1703
 msgid "Split the active dataset"
 msgstr "アクティブなデータセットの分割"
 
-#: src/ui/gui/psppire-data-window.c:1713
+#: src/ui/gui/psppire-data-window.c:1715
 msgid "Weight cases by variable"
 msgstr "変数によるケースの重み付け"
 
-#: src/ui/gui/psppire-data-window.c:1724
+#: src/ui/gui/psppire-data-window.c:1726
 msgid "Show/hide value labels"
 msgstr "値ラベル表示／非表示"
 
-#: src/ui/gui/psppire-data-window.c:1867
+#: src/ui/gui/psppire-data-window.c:1869
 msgid "Data Editor"
 msgstr "データ エディタ"
 
@@ -8181,6 +8185,75 @@ msgstr "クロス集計: 統計"
 #: src/ui/gui/crosstabs.ui:481 src/ui/gui/oneway.ui:452
 msgid "Statistics"
 msgstr "統計"
+
+#: src/ui/gui/percentiles.ui:8
+#, fuzzy
+msgid "Percentile Values"
+msgstr "パーセンタイル"
+
+#: src/ui/gui/percentiles.ui:48
+#, fuzzy
+msgid "Sextiles"
+msgstr "テキストファイル"
+
+#: src/ui/gui/percentiles.ui:62
+#, fuzzy
+msgid "Quintiles"
+msgstr "変数(_V) ..."
+
+#: src/ui/gui/percentiles.ui:76
+#, fuzzy
+msgid "Quartiles"
+msgstr "変数(_V) ..."
+
+#: src/ui/gui/percentiles.ui:90
+#, fuzzy
+msgid "Deciles"
+msgstr "小数点"
+
+#: src/ui/gui/percentiles.ui:145
+#, fuzzy
+msgid "Percentiles Values"
+msgstr "パーセンタイル"
+
+#: src/ui/gui/percentiles.ui:187
+#, fuzzy
+msgid "Change"
+msgstr "変更(_g)"
+
+#: src/ui/gui/qq-plot.ui:8
+msgid "QQ Plot"
+msgstr ""
+
+#: src/ui/gui/qq-plot.ui:84
+#, fuzzy
+msgid "Selected Variables: "
+msgstr "検定変数(_T):"
+
+#: src/ui/gui/qq-plot.ui:179
+#, fuzzy
+msgid "Estimate from data"
+msgstr "データからの取得(_G)"
+
+#: src/ui/gui/qq-plot.ui:195
+#, fuzzy
+msgid "Location: "
+msgstr "関数:"
+
+#: src/ui/gui/qq-plot.ui:206
+#, fuzzy
+msgid "Scale: "
+msgstr "尺度:"
+
+#: src/ui/gui/qq-plot.ui:247
+#, fuzzy
+msgid "Distribution parameters:"
+msgstr "ポアソン分布母数"
+
+#: src/ui/gui/qq-plot.ui:274
+#, fuzzy
+msgid "Test distribution:"
+msgstr "検定のための分布"
 
 #: src/ui/gui/chi-square.ui:14
 msgid "Chi-Square Test"
@@ -9727,10 +9800,6 @@ msgstr "統計ソフトウェア"
 #: src/ui/gui/gen-dot-desktop.sh:15
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr "フリーな SPSS 代替ソフトウェアによる統計データ分析"
-
-#, fuzzy
-#~ msgid "Percentile Values"
-#~ msgstr "パーセンタイル"
 
 #~ msgid ""
 #~ "PSPPIRE, a GUI for PSPP, a program for statistical analysis of sampled "

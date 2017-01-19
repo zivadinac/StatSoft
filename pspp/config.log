@@ -33,8 +33,6 @@ PATH: /usr/sbin
 PATH: /usr/bin
 PATH: /sbin
 PATH: /bin
-PATH: /usr/games
-PATH: /usr/local/games
 PATH: /snap/bin
 
 
@@ -503,7 +501,7 @@ configure:15539: checking how to hardcode library paths into programs
 configure:15564: result: immediate
 configure:15666: checking for shl_load
 configure:15666: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccWnVPIo.o: In function `main':
+/tmp/ccWgL7ya.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:72: undefined reference to `shl_load'
 collect2: error: ld returned 1 exit status
 configure:15666: $? = 1
@@ -645,7 +643,7 @@ configure: failed program was:
 configure:15704: result: no
 configure:15709: checking for dlopen
 configure:15709: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccusXR5t.o: In function `main':
+/tmp/ccei5ISz.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:72: undefined reference to `dlopen'
 collect2: error: ld returned 1 exit status
 configure:15709: $? = 1
@@ -736,7 +734,7 @@ configure:15949: $? = 0
 configure:15967: result: yes
 configure:15972: checking whether a statically linked program can dlopen itself
 configure:16052: gcc -o conftest -g -O2  -DHAVE_DLFCN_H  -Wl,--export-dynamic -static conftest.c -ldl  >&5
-/tmp/ccPXoWuv.o: In function `main':
+/tmp/ccTkUBq9.o: In function `main':
 /home/statsoft/StatSoft/pspp/configure:16031: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 /usr/bin/ld: dynamic STT_GNU_IFUNC symbol `strcmp' with pointer equality in `/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/libc.a(strcmp.o)' can not be used when making an executable; recompile with -fPIE and relink with -pie
 collect2: error: ld returned 1 exit status
@@ -897,7 +895,7 @@ configure:18598: gcc -o conftest -g -O2   conftest.c   >&5
 conftest.c:49:6: warning: conflicting types for built-in function 'sin'
  char sin ();
       ^
-/tmp/ccpqRwJ8.o: In function `main':
+/tmp/ccoJGIqF.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:53: undefined reference to `sin'
 collect2: error: ld returned 1 exit status
 configure:18598: $? = 1
@@ -1023,7 +1021,7 @@ configure:19625: $? = 0
 configure:19667: result: yes
 configure:19672: checking for library containing gzopen
 configure:19703: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lm   >&5
-/tmp/ccp8LaRm.o: In function `main':
+/tmp/ccD4z68O.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:55: undefined reference to `gzopen'
 collect2: error: ld returned 1 exit status
 configure:19703: $? = 1
@@ -1107,7 +1105,7 @@ configure:19821: $? = 0
 configure:19879: result: yes
 configure:19922: checking for library containing cblas_dsdot
 configure:19953: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lz -lm   >&5
-/tmp/ccddT6rz.o: In function `main':
+/tmp/ccesq2ip.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:60: undefined reference to `cblas_dsdot'
 collect2: error: ld returned 1 exit status
 configure:19953: $? = 1
@@ -1241,7 +1239,7 @@ configure:21534: checking how to link with libreadline
 configure:21536: result: -lreadline
 configure:21538: checking for library containing rl_echo_signal_char
 configure:21569: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lgslcblas -lz -lm   >&5
-/tmp/cccvqt98.o: In function `main':
+/tmp/ccRJdYqW.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:66: undefined reference to `rl_echo_signal_char'
 collect2: error: ld returned 1 exit status
 configure:21569: $? = 1
@@ -1694,7 +1692,7 @@ configure:22085: $? = 0
 configure:22085: result: yes
 configure:22085: checking for _set_invalid_parameter_handler
 configure:22085: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/cctO7A9i.o: In function `main':
+/tmp/ccjohUq4.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:105: undefined reference to `_set_invalid_parameter_handler'
 collect2: error: ld returned 1 exit status
 configure:22085: $? = 1
@@ -1818,7 +1816,7 @@ configure:22085: $? = 0
 configure:22085: result: yes
 configure:22085: checking for vasnprintf
 configure:22085: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/cchOkcYx.o: In function `main':
+/tmp/ccqAQuHv.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:107: undefined reference to `vasnprintf'
 collect2: error: ld returned 1 exit status
 configure:22085: $? = 1
@@ -1936,7 +1934,7 @@ configure: failed program was:
 configure:22085: result: no
 configure:22085: checking for __fseterr
 configure:22085: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/cc3HrzUA.o: In function `main':
+/tmp/ccJGFodJ.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:107: undefined reference to `__fseterr'
 collect2: error: ld returned 1 exit status
 configure:22085: $? = 1
@@ -2074,7 +2072,7 @@ configure:22085: $? = 0
 configure:22085: result: yes
 configure:22085: checking for getprogname
 configure:22085: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/ccA7pTrR.o: In function `main':
+/tmp/ccHcsFay.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:112: undefined reference to `getprogname'
 collect2: error: ld returned 1 exit status
 configure:22085: $? = 1
@@ -2197,7 +2195,7 @@ configure: failed program was:
 configure:22085: result: no
 configure:22085: checking for getexecname
 configure:22085: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/cc0W6gL0.o: In function `main':
+/tmp/ccSZXpzK.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:112: undefined reference to `getexecname'
 collect2: error: ld returned 1 exit status
 configure:22085: $? = 1
@@ -4206,7 +4204,7 @@ configure:26184: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include
 configure:26184: $? = 0
 configure:26184: ./conftest
 *** %n in writable segment detected ***
-./configure: line 3049: 12352 Aborted                 (core dumped) ./conftest$ac_exeext
+./configure: line 3049:  7656 Aborted                 (core dumped) ./conftest$ac_exeext
 configure:26184: $? = 134
 configure: program exited with status 134
 configure: failed program was:
@@ -5530,7 +5528,7 @@ configure:29572: result: yes
 configure:29572: checking for pthread.h
 configure:29572: result: yes
 configure:29610: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm    >&5
-/tmp/cckuVo1S.o: In function `main':
+/tmp/ccTTnxLV.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:202: undefined reference to `pthread_mutexattr_init'
 collect2: error: ld returned 1 exit status
 configure:29610: $? = 1
@@ -10568,7 +10566,7 @@ configure:43207: $? = 0
 configure:43218: result: yes
 configure:43258: checking for __mktime_internal
 configure:43258: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/ccw0a6HW.o: In function `main':
+/tmp/ccrOVk5L.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:472: undefined reference to `__mktime_internal'
 collect2: error: ld returned 1 exit status
 configure:43258: $? = 1
@@ -12256,7 +12254,7 @@ configure:47307: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include
 configure:47307: $? = 0
 configure:47307: ./conftest
 *** %n in writable segment detected ***
-./configure: line 3049: 17143 Aborted                 (core dumped) ./conftest$ac_exeext
+./configure: line 3049: 12446 Aborted                 (core dumped) ./conftest$ac_exeext
 configure:47307: $? = 134
 configure: program exited with status 134
 configure: failed program was:
@@ -15669,7 +15667,7 @@ configure:55985: checking whether byte ordering is bigendian
 configure:56191: result: no
 configure:56213: checking for __setfpucw
 configure:56213: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/ccz78N6Z.o: In function `main':
+/tmp/cc3zrdZh.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:722: undefined reference to `__setfpucw'
 collect2: error: ld returned 1 exit status
 configure:56213: $? = 1
@@ -16445,7 +16443,7 @@ configure:56213: $? = 0
 configure:56213: result: yes
 configure:56213: checking for fpsetmask
 configure:56213: gcc -o conftest -g -O2  -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12  conftest.c -lreadline -lgslcblas -lz -lm   >&5
-/tmp/cc8z451s.o: In function `main':
+/tmp/ccTfLiwV.o: In function `main':
 /home/statsoft/StatSoft/pspp/conftest.c:729: undefined reference to `fpsetmask'
 collect2: error: ld returned 1 exit status
 configure:56213: $? = 1
@@ -17238,6 +17236,7 @@ config.status:2994: creating po/Makefile
 config.status:2994: creating tests/atlocal
 config.status:2994: creating perl-module/lib/PSPP.pm
 config.status:2994: creating config.h
+config.status:3175: config.h is unchanged
 config.status:3223: executing tests/atconfig commands
 config.status:3223: executing depfiles commands
 config.status:3223: executing libtool commands
@@ -20432,3 +20431,21 @@ target_alias=''
 #define ICONV_CONST 
 
 configure: exit 0
+
+## ---------------------- ##
+## Running config.status. ##
+## ---------------------- ##
+
+This file was extended by GNU PSPP config.status 0.10.4, which was
+generated by GNU Autoconf 2.69.  Invocation command line was
+
+  CONFIG_FILES    = 
+  CONFIG_HEADERS  = 
+  CONFIG_LINKS    = 
+  CONFIG_COMMANDS = 
+  $ ./config.status Makefile depfiles
+
+on statsoft-VirtualBox
+
+config.status:2994: creating Makefile
+config.status:3223: executing depfiles commands

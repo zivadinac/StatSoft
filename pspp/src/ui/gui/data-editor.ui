@@ -371,11 +371,11 @@
 	</item>
 	<item>
 	  <attribute name="label" translatable="yes">_QQ plot</attribute>
-	  <attribute name="action">win.PsppireDialogActionBarchart</attribute>
+	  <attribute name="action">win.PsppireDialogActionQQPlot</attribute>
 	</item>
 	<item>
 	  <attribute name="label" translatable="yes">_PP plot</attribute>
-	  <attribute name="action">win.PsppireDialogActionBarchart</attribute>
+	  <attribute name="action">win.PsppireDialogActionQQPlot</attribute>
 	</item>
       </section>
     </submenu>

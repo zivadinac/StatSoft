@@ -25,7 +25,10 @@
 #include "psppire-dialog-action-correlation.h"
 #include "psppire-dialog-action-count.h"
 #include "psppire-dialog-action-crosstabs.h"
+
 #include "psppire-dialog-action-percentiles.h"
+#include "psppire-dialog-action-qq-plot.h"
+
 #include "psppire-dialog-action-descriptives.h"
 #include "psppire-dialog-action-examine.h"
 #include "psppire-dialog-action-flip.h"
@@ -78,6 +81,7 @@ static const get_type_func dialog_action_types[]=
   psppire_dialog_action_count_get_type,
   psppire_dialog_action_crosstabs_get_type,
   psppire_dialog_action_percentiles_get_type,
+  psppire_dialog_action_qq_plot_get_type,
   psppire_dialog_action_descriptives_get_type,
   psppire_dialog_action_examine_get_type,
   psppire_dialog_action_factor_get_type,
