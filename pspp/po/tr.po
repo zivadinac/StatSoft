@@ -147,7 +147,7 @@ msgstr "Dolar"
 msgid "Custom"
 msgstr "Özel"
 
-#: src/ui/gui/psppire-acr.c:266
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:198
 msgid "Add"
 msgstr ""
 
@@ -156,11 +156,11 @@ msgstr ""
 msgid "Edit"
 msgstr "_Düzen"
 
-#: src/ui/gui/psppire-acr.c:268
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:186
 msgid "Remove"
 msgstr ""
 
-#: src/ui/gui/psppire-buttonbox.c:322
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:265
 msgid "OK"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:277
 #, fuzzy
 msgid "Cancel"
 msgstr "Kovaryans"
@@ -3381,6 +3381,7 @@ msgstr ""
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
+#: src/ui/gui/percentiles.ui:104
 msgid "Percentiles"
 msgstr "Yüzdebirlikler"
 
@@ -7995,6 +7996,45 @@ msgstr "Çapraz Tablolar: İstatistikler"
 msgid "Statistics"
 msgstr "İstatistikler"
 
+#: src/ui/gui/percentiles.ui:8
+#, fuzzy
+msgid "Percentile Values"
+msgstr "Yüzdebirlikler"
+
+#: src/ui/gui/percentiles.ui:48
+#, fuzzy
+msgid "Sextiles"
+msgstr "Metin Dosyaları"
+
+#: src/ui/gui/percentiles.ui:62
+#, fuzzy
+msgid "Quintiles"
+msgstr "_Değişkenler..."
+
+#: src/ui/gui/percentiles.ui:76
+#, fuzzy
+msgid "Quartiles"
+msgstr "_Değişkenler..."
+
+#: src/ui/gui/percentiles.ui:90
+#, fuzzy
+msgid "Deciles"
+msgstr "Ondalık Basamak"
+
+#: src/ui/gui/percentiles.ui:145
+#, fuzzy
+msgid "Percentiles Values"
+msgstr "Yüzdebirlikler"
+
+#: src/ui/gui/percentiles.ui:174
+#, fuzzy
+msgid "Change"
+msgstr "_Değiştir"
+
+#: src/ui/gui/percentiles.ui:213
+msgid "Discard"
+msgstr ""
+
 #: src/ui/gui/chi-square.ui:14
 msgid "Chi-Square Test"
 msgstr "Ki-Kare Testi"
@@ -9550,10 +9590,6 @@ msgstr "İstatistiksel Yazılım"
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr ""
 "SPSS yazılımının özgür alternatifi ile istatistiksel verileri analiz edin"
-
-#, fuzzy
-#~ msgid "Percentile Values"
-#~ msgstr "Yüzdebirlikler"
 
 #~ msgid "expecting number or data string"
 #~ msgstr "sayı veya veri dizesi bekleniyor"

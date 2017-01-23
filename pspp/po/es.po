@@ -146,7 +146,7 @@ msgstr "Dólar"
 msgid "Custom"
 msgstr "De usuario"
 
-#: src/ui/gui/psppire-acr.c:266
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:198
 msgid "Add"
 msgstr "Añadir"
 
@@ -154,11 +154,11 @@ msgstr "Añadir"
 msgid "Edit"
 msgstr "_Edita"
 
-#: src/ui/gui/psppire-acr.c:268
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:186
 msgid "Remove"
 msgstr "Elimina"
 
-#: src/ui/gui/psppire-buttonbox.c:322
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:265
 msgid "OK"
 msgstr "OK"
 
@@ -179,7 +179,7 @@ msgstr "Pegar"
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:277
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -3607,6 +3607,7 @@ msgstr "No se generará el diagrama de Heterocedasticidad (spreadlevel) para %s"
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
+#: src/ui/gui/percentiles.ui:104
 msgid "Percentiles"
 msgstr "Percentiles"
 
@@ -8374,6 +8375,45 @@ msgstr "Tablas Contingencia: Estadísticos"
 msgid "Statistics"
 msgstr "Estadísticas"
 
+#: src/ui/gui/percentiles.ui:8
+#, fuzzy
+msgid "Percentile Values"
+msgstr "Percentiles"
+
+#: src/ui/gui/percentiles.ui:48
+#, fuzzy
+msgid "Sextiles"
+msgstr "Archivos de texto"
+
+#: src/ui/gui/percentiles.ui:62
+#, fuzzy
+msgid "Quintiles"
+msgstr "_Variables..."
+
+#: src/ui/gui/percentiles.ui:76
+#, fuzzy
+msgid "Quartiles"
+msgstr "_Variables..."
+
+#: src/ui/gui/percentiles.ui:90
+#, fuzzy
+msgid "Deciles"
+msgstr "Decimales"
+
+#: src/ui/gui/percentiles.ui:145
+#, fuzzy
+msgid "Percentiles Values"
+msgstr "Percentiles"
+
+#: src/ui/gui/percentiles.ui:174
+#, fuzzy
+msgid "Change"
+msgstr "Cambio"
+
+#: src/ui/gui/percentiles.ui:213
+msgid "Discard"
+msgstr ""
+
 #: src/ui/gui/chi-square.ui:14
 msgid "Chi-Square Test"
 msgstr "Test Chi-cuadrado."
@@ -9926,10 +9966,6 @@ msgstr "Programario Estadístico"
 #: src/ui/gui/gen-dot-desktop.sh:15
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr "Analiza datos estadísticos con una alternativa libre a SPSS"
-
-#, fuzzy
-#~ msgid "Percentile Values"
-#~ msgstr "Percentiles"
 
 #~ msgid ""
 #~ "PSPPIRE, a GUI for PSPP, a program for statistical analysis of sampled "

@@ -135,7 +135,7 @@ msgstr "Moeda"
 msgid "Custom"
 msgstr "Personalizado"
 
-#: src/ui/gui/psppire-acr.c:266
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:198
 msgid "Add"
 msgstr ""
 
@@ -144,11 +144,11 @@ msgstr ""
 msgid "Edit"
 msgstr "_Editar"
 
-#: src/ui/gui/psppire-acr.c:268
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:186
 msgid "Remove"
 msgstr ""
 
-#: src/ui/gui/psppire-buttonbox.c:322
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:265
 msgid "OK"
 msgstr "OK"
 
@@ -169,7 +169,7 @@ msgstr "Colar"
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:277
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -3466,6 +3466,7 @@ msgstr ""
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
+#: src/ui/gui/percentiles.ui:104
 msgid "Percentiles"
 msgstr "Percentis"
 
@@ -8215,6 +8216,45 @@ msgstr "Testes estatísticos"
 msgid "Statistics"
 msgstr "Estatísticas"
 
+#: src/ui/gui/percentiles.ui:8
+#, fuzzy
+msgid "Percentile Values"
+msgstr "Percentis"
+
+#: src/ui/gui/percentiles.ui:48
+#, fuzzy
+msgid "Sextiles"
+msgstr "Todos os Arquivos"
+
+#: src/ui/gui/percentiles.ui:62
+#, fuzzy
+msgid "Quintiles"
+msgstr "_Variáveis"
+
+#: src/ui/gui/percentiles.ui:76
+#, fuzzy
+msgid "Quartiles"
+msgstr "_Variáveis"
+
+#: src/ui/gui/percentiles.ui:90
+#, fuzzy
+msgid "Deciles"
+msgstr "Decimais"
+
+#: src/ui/gui/percentiles.ui:145
+#, fuzzy
+msgid "Percentiles Values"
+msgstr "Percentis"
+
+#: src/ui/gui/percentiles.ui:174
+#, fuzzy
+msgid "Change"
+msgstr "Mudar"
+
+#: src/ui/gui/percentiles.ui:213
+msgid "Discard"
+msgstr ""
+
 #: src/ui/gui/chi-square.ui:14
 #, fuzzy
 msgid "Chi-Square Test"
@@ -9910,10 +9950,6 @@ msgstr "Estatística"
 #: src/ui/gui/gen-dot-desktop.sh:15
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Percentile Values"
-#~ msgstr "Percentis"
 
 #~ msgid "Buttons"
 #~ msgstr "Botões"
