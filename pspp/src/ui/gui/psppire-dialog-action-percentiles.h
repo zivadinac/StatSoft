@@ -63,6 +63,8 @@ struct _PsppireDialogActionPercentiles
   //gint change_handler_id;
   gint value_handler_id;
   
+  gchar *encoding;
+  
   /*< Check Boxes >*/
   GtkWidget *quantiles_checkbox;
   GtkWidget *quintiles_checkbox;
@@ -79,6 +81,7 @@ struct _PsppireDialogActionPercentiles
   GtkWidget *percentiles_remove;
   GtkWidget *percentiles_ok;
   GtkWidget *percentiles_cancel;
+  GtkWidget *percentiles_discard;
   
   GtkWidget *percentiles_treeview;
 	
