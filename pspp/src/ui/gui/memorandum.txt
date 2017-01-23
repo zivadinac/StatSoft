@@ -306,6 +306,13 @@ Add the new PsppireDialogAction's get_type function to  to
 src/ui/gui/widgets.c  Just have a look there and follow the pattern.
 This is necessary to that GtkBuilder knows about the new object class.
 
+Also, change
+
+psppire-data-window.c
+
+following the pattern in that file make 2 changes - first change at the beginning of file and second change starting at 1447 line.
+
+
 5.  Putting it all together.
 
 Don't forget to put any new files you've created in

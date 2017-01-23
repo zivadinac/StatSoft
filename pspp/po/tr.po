@@ -147,7 +147,7 @@ msgstr "Dolar"
 msgid "Custom"
 msgstr "Özel"
 
-#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:198
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:173
 msgid "Add"
 msgstr ""
 
@@ -156,11 +156,12 @@ msgstr ""
 msgid "Edit"
 msgstr "_Düzen"
 
-#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:186
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:199
 msgid "Remove"
 msgstr ""
 
-#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:265
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:246
+#: src/ui/gui/qq-plot.ui:300
 msgid "OK"
 msgstr ""
 
@@ -176,12 +177,13 @@ msgstr "Devam Et"
 msgid "Paste"
 msgstr ""
 
-#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:532
-#: src/ui/gui/psppire-data-window.c:660
+#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:533
+#: src/ui/gui/psppire-data-window.c:661
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:277
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:258
+#: src/ui/gui/qq-plot.ui:335
 #, fuzzy
 msgid "Cancel"
 msgstr "Kovaryans"
@@ -191,6 +193,7 @@ msgid "Close"
 msgstr ""
 
 #: src/ui/gui/psppire-buttonbox.c:369 src/ui/gui/psppire-import-assistant.c:939
+#: src/ui/gui/qq-plot.ui:370
 #, fuzzy
 msgid "Reset"
 msgstr "_Sıfırla"
@@ -6316,7 +6319,7 @@ msgid "Importing Spreadsheet Data"
 msgstr "Hesap Tablo Verisini İçeriye Aktarma"
 
 #: src/ui/gui/psppire-import-assistant.c:853
-#: src/ui/gui/psppire-data-window.c:554 src/ui/gui/psppire-syntax-window.c:572
+#: src/ui/gui/psppire-data-window.c:555 src/ui/gui/psppire-syntax-window.c:572
 #: src/ui/gui/psppire-window.c:683
 msgid "All Files"
 msgstr "Tüm Dosyalar"
@@ -6558,17 +6561,17 @@ msgstr "Yeni bir vakaya eklemek için bir sayı girin."
 msgid "Case"
 msgstr "Vaka"
 
-#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1302
+#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1303
 #, fuzzy
 msgid "_Insert Case"
 msgstr "Vaka Ekle"
 
-#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1350
+#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1351
 #, fuzzy
 msgid "Cl_ear Cases"
 msgstr "Vakaları temizle"
 
-#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1301
+#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1302
 #: src/ui/gui/psppire-var-sheet.c:944
 #, fuzzy
 msgid "_Insert Variable"
@@ -6586,37 +6589,37 @@ msgstr "Artan Sıralama"
 msgid "Sort _Descending"
 msgstr "Azalan Sıralama"
 
-#: src/ui/gui/psppire-data-window.c:211
+#: src/ui/gui/psppire-data-window.c:212
 msgid "Transformations Pending"
 msgstr "Bekleyen Dönüşümler"
 
-#: src/ui/gui/psppire-data-window.c:227
+#: src/ui/gui/psppire-data-window.c:228
 msgid "Filter off"
 msgstr "Filtreleme kapalı"
 
-#: src/ui/gui/psppire-data-window.c:239
+#: src/ui/gui/psppire-data-window.c:240
 #, c-format
 msgid "Filter by %s"
 msgstr "%s ile filtrele"
 
-#: src/ui/gui/psppire-data-window.c:260
+#: src/ui/gui/psppire-data-window.c:261
 msgid "No Split"
 msgstr "Bölme Yok"
 
-#: src/ui/gui/psppire-data-window.c:269
+#: src/ui/gui/psppire-data-window.c:270
 msgid "Split by "
 msgstr "Böl: "
 
-#: src/ui/gui/psppire-data-window.c:297
+#: src/ui/gui/psppire-data-window.c:298
 msgid "Weights off"
 msgstr "Ağırlıklar kapalı"
 
-#: src/ui/gui/psppire-data-window.c:309
+#: src/ui/gui/psppire-data-window.c:310
 #, c-format
 msgid "Weight by %s"
 msgstr "%s ile ağırlıklandır"
 
-#: src/ui/gui/psppire-data-window.c:529 src/ui/gui/psppire-data-window.c:533
+#: src/ui/gui/psppire-data-window.c:530 src/ui/gui/psppire-data-window.c:534
 #: src/ui/gui/psppire-dialog-action-aggregate.c:217
 #: src/ui/gui/psppire-output-window.c:361
 #: src/ui/gui/psppire-syntax-window.c:560 src/ui/gui/psppire-window.c:476
@@ -6624,43 +6627,43 @@ msgstr "%s ile ağırlıklandır"
 msgid "Save"
 msgstr "Kaydet"
 
-#: src/ui/gui/psppire-data-window.c:539
+#: src/ui/gui/psppire-data-window.c:540
 #: src/ui/gui/psppire-dialog-action-aggregate.c:226
 msgid "System Files (*.sav)"
 msgstr "Sistem Dosyaları (*.sav)"
 
-#: src/ui/gui/psppire-data-window.c:544
+#: src/ui/gui/psppire-data-window.c:545
 #: src/ui/gui/psppire-dialog-action-aggregate.c:231
 msgid "Compressed System Files (*.zsav)"
 msgstr "Sıkıştırılmış Sistem Dosyaları (*.zsav)"
 
-#: src/ui/gui/psppire-data-window.c:549
+#: src/ui/gui/psppire-data-window.c:550
 #: src/ui/gui/psppire-dialog-action-aggregate.c:236
 #: src/ui/gui/psppire-window.c:672
 msgid "Portable Files (*.por) "
 msgstr "Taşınabilir Dosyalar (*.por) "
 
-#: src/ui/gui/psppire-data-window.c:571
+#: src/ui/gui/psppire-data-window.c:572
 msgid "System File"
 msgstr "Sistem Dosyası"
 
-#: src/ui/gui/psppire-data-window.c:578
+#: src/ui/gui/psppire-data-window.c:579
 msgid "Compressed System File"
 msgstr "Sıkıştırılmış Sistem Dosyası"
 
-#: src/ui/gui/psppire-data-window.c:584
+#: src/ui/gui/psppire-data-window.c:585
 msgid "Portable File"
 msgstr "Taşınabilir Dosya"
 
-#: src/ui/gui/psppire-data-window.c:587
+#: src/ui/gui/psppire-data-window.c:588
 msgid "Format:"
 msgstr "Biçim:"
 
-#: src/ui/gui/psppire-data-window.c:651
+#: src/ui/gui/psppire-data-window.c:652
 msgid "Delete Existing Dataset?"
 msgstr "Var Olan Veri Seti Silinsin mi?"
 
-#: src/ui/gui/psppire-data-window.c:655
+#: src/ui/gui/psppire-data-window.c:656
 #, c-format
 msgid ""
 "Renaming \"%s\" to \"%s\" will destroy the existing dataset named \"%s\".  "
@@ -6669,161 +6672,161 @@ msgstr ""
 "\"%s\" değişkenini \"%s\" olarak yeniden adlandırmak varolan \"%s\" isimli "
 "veri kümesine zarar verecektir. Bunu yapmak istediğinizden emin misiniz?"
 
-#: src/ui/gui/psppire-data-window.c:661
+#: src/ui/gui/psppire-data-window.c:662
 #, fuzzy
 msgid "Delete"
 msgstr "Silinmiş"
 
-#: src/ui/gui/psppire-data-window.c:683
+#: src/ui/gui/psppire-data-window.c:684
 #, c-format
 msgid "Please enter a new name for dataset \"%s\":"
 msgstr "Lütfen \"%s\" veri seti için yeni bir isim girin:"
 
-#: src/ui/gui/psppire-data-window.c:685
+#: src/ui/gui/psppire-data-window.c:686
 msgid "Rename Dataset"
 msgstr "Veri Setini Yeniden Adlandır"
 
-#: src/ui/gui/psppire-data-window.c:1164 src/ui/gui/output-window.ui:52
+#: src/ui/gui/psppire-data-window.c:1165 src/ui/gui/output-window.ui:52
 #: src/ui/gui/syntax-editor.ui:6
 msgid "_File"
 msgstr "_Dosya"
 
-#: src/ui/gui/psppire-data-window.c:1168 src/ui/gui/syntax-editor.ui:9
+#: src/ui/gui/psppire-data-window.c:1169 src/ui/gui/syntax-editor.ui:9
 #, fuzzy
 msgid "_New"
 msgstr "_Yeni İsim"
 
-#: src/ui/gui/psppire-data-window.c:1175
+#: src/ui/gui/psppire-data-window.c:1176
 msgid "_Syntax"
 msgstr "_Sözdizimi"
 
-#: src/ui/gui/psppire-data-window.c:1178 src/ui/gui/data-editor.ui:161
+#: src/ui/gui/psppire-data-window.c:1179 src/ui/gui/data-editor.ui:161
 #: src/ui/gui/data-editor.ui:173
 msgid "_Data"
 msgstr "_Veri"
 
-#: src/ui/gui/psppire-data-window.c:1185 src/ui/gui/syntax-editor.ui:20
+#: src/ui/gui/psppire-data-window.c:1186 src/ui/gui/syntax-editor.ui:20
 #, fuzzy
 msgid "_Open"
 msgstr "Aç"
 
-#: src/ui/gui/psppire-data-window.c:1188
+#: src/ui/gui/psppire-data-window.c:1189
 #, fuzzy
 msgid "_Import Data..."
 msgstr "_İçeriye Aktar..."
 
-#: src/ui/gui/psppire-data-window.c:1196 src/ui/gui/logistic.ui:244
+#: src/ui/gui/psppire-data-window.c:1197 src/ui/gui/logistic.ui:244
 #: src/ui/gui/regression.ui:50
 msgid "_Save..."
 msgstr "_Kaydet..."
 
-#: src/ui/gui/psppire-data-window.c:1199
+#: src/ui/gui/psppire-data-window.c:1200
 msgid "Save _As..."
 msgstr "_Farklı Kaydet..."
 
-#: src/ui/gui/psppire-data-window.c:1202
+#: src/ui/gui/psppire-data-window.c:1203
 msgid "_Rename Dataset..."
 msgstr "_Veri Setini Yeniden Adlandır..."
 
-#: src/ui/gui/psppire-data-window.c:1213
+#: src/ui/gui/psppire-data-window.c:1214
 #, fuzzy
 msgid "_Display Data File Information"
 msgstr "Veri Dosyası _Bilgilerini Göster"
 
-#: src/ui/gui/psppire-data-window.c:1220
+#: src/ui/gui/psppire-data-window.c:1221
 msgid "Working File"
 msgstr "Çalışılan Dosya"
 
-#: src/ui/gui/psppire-data-window.c:1222
+#: src/ui/gui/psppire-data-window.c:1223
 #, fuzzy
 msgid "_External File..."
 msgstr "Harici Dosya..."
 
-#: src/ui/gui/psppire-data-window.c:1232
+#: src/ui/gui/psppire-data-window.c:1233
 #, fuzzy
 msgid "_Recently Used Data"
 msgstr "Son Kullanılan _Veriler"
 
-#: src/ui/gui/psppire-data-window.c:1233
+#: src/ui/gui/psppire-data-window.c:1234
 msgid "Recently Used _Files"
 msgstr "Son Kullanılan _Dosyalar"
 
-#: src/ui/gui/psppire-data-window.c:1280 src/ui/gui/output-window.ui:66
+#: src/ui/gui/psppire-data-window.c:1281 src/ui/gui/output-window.ui:66
 #: src/ui/gui/syntax-editor.ui:43
 msgid "_Quit"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1297 src/ui/gui/output-window.ui:73
+#: src/ui/gui/psppire-data-window.c:1298 src/ui/gui/output-window.ui:73
 #: src/ui/gui/syntax-editor.ui:50
 msgid "_Edit"
 msgstr "_Düzen"
 
-#: src/ui/gui/psppire-data-window.c:1303
+#: src/ui/gui/psppire-data-window.c:1304
 #, fuzzy
 msgid "_Go To Variable..."
 msgstr "_Değişkene git..."
 
-#: src/ui/gui/psppire-data-window.c:1304
+#: src/ui/gui/psppire-data-window.c:1305
 #, fuzzy
 msgid "_Go To Case..."
 msgstr "Vakaya Git..."
 
-#: src/ui/gui/psppire-data-window.c:1326 src/ui/gui/syntax-editor.ui:53
+#: src/ui/gui/psppire-data-window.c:1327 src/ui/gui/syntax-editor.ui:53
 msgid "Cu_t"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1334 src/ui/gui/output-window.ui:80
+#: src/ui/gui/psppire-data-window.c:1335 src/ui/gui/output-window.ui:80
 #: src/ui/gui/syntax-editor.ui:58
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: src/ui/gui/psppire-data-window.c:1340 src/ui/gui/syntax-editor.ui:63
+#: src/ui/gui/psppire-data-window.c:1341 src/ui/gui/syntax-editor.ui:63
 msgid "_Paste"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1346
+#: src/ui/gui/psppire-data-window.c:1347
 #, fuzzy
 msgid "Clear _Variables"
 msgstr "Değişkenleri _Temizle"
 
-#: src/ui/gui/psppire-data-window.c:1359
+#: src/ui/gui/psppire-data-window.c:1360
 msgid "_Find..."
 msgstr "_Bul..."
 
-#: src/ui/gui/psppire-data-window.c:1636
+#: src/ui/gui/psppire-data-window.c:1638
 msgid "Jump to variable"
 msgstr "Değişkene atla"
 
-#: src/ui/gui/psppire-data-window.c:1649
+#: src/ui/gui/psppire-data-window.c:1651
 msgid "Jump to a case in the data sheet"
 msgstr "Veri setinde bulunan belirli bir olaya git"
 
-#: src/ui/gui/psppire-data-window.c:1663
+#: src/ui/gui/psppire-data-window.c:1665
 #, fuzzy
 msgid "Search for values in the data"
 msgstr "Etkin veri seti içerisindeki olayları sınıflandır"
 
-#: src/ui/gui/psppire-data-window.c:1675
+#: src/ui/gui/psppire-data-window.c:1677
 msgid "Create a new case at the current position"
 msgstr "Şimdiki konumda yeni bir olay oluştur"
 
-#: src/ui/gui/psppire-data-window.c:1687
+#: src/ui/gui/psppire-data-window.c:1689
 msgid "Create a new variable at the current position"
 msgstr "Şimdiki konumda yeni bir değişken oluştur"
 
-#: src/ui/gui/psppire-data-window.c:1701
+#: src/ui/gui/psppire-data-window.c:1703
 msgid "Split the active dataset"
 msgstr "Etkin veri setini böl"
 
-#: src/ui/gui/psppire-data-window.c:1713
+#: src/ui/gui/psppire-data-window.c:1715
 msgid "Weight cases by variable"
 msgstr "Vakaları değişken ile ağırlıklandır"
 
-#: src/ui/gui/psppire-data-window.c:1724
+#: src/ui/gui/psppire-data-window.c:1726
 msgid "Show/hide value labels"
 msgstr "Değer etiketlerini göster/gizle"
 
-#: src/ui/gui/psppire-data-window.c:1867
+#: src/ui/gui/psppire-data-window.c:1869
 msgid "Data Editor"
 msgstr "Veri Düzenleyici"
 
@@ -8026,14 +8029,44 @@ msgstr "Ondalık Basamak"
 msgid "Percentiles Values"
 msgstr "Yüzdebirlikler"
 
-#: src/ui/gui/percentiles.ui:174
+#: src/ui/gui/percentiles.ui:187
 #, fuzzy
 msgid "Change"
 msgstr "_Değiştir"
 
-#: src/ui/gui/percentiles.ui:213
-msgid "Discard"
+#: src/ui/gui/qq-plot.ui:8
+msgid "QQ Plot"
 msgstr ""
+
+#: src/ui/gui/qq-plot.ui:84
+#, fuzzy
+msgid "Selected Variables: "
+msgstr "_Test Değişkenleri:"
+
+#: src/ui/gui/qq-plot.ui:179
+#, fuzzy
+msgid "Estimate from data"
+msgstr "_Veriden al"
+
+#: src/ui/gui/qq-plot.ui:195
+#, fuzzy
+msgid "Location: "
+msgstr "Fonksiyon:"
+
+#: src/ui/gui/qq-plot.ui:206
+#, fuzzy
+msgid "Scale: "
+msgstr "Ölçek:"
+
+#: src/ui/gui/qq-plot.ui:247
+#, fuzzy
+msgid "Distribution parameters:"
+msgstr "Poisson Parametreleri"
+
+#: src/ui/gui/qq-plot.ui:274
+#, fuzzy
+msgid "Test distribution:"
+msgstr "Test Dağılımı"
 
 #: src/ui/gui/chi-square.ui:14
 msgid "Chi-Square Test"

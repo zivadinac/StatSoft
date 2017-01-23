@@ -894,6 +894,8 @@ am__src_ui_gui_psppire_SOURCES_DIST = src/ui/gui/pspp-sheet-private.h \
 	src/ui/gui/psppire-dialog-action-crosstabs.h \
 	src/ui/gui/psppire-dialog-action-percentiles.c \
 	src/ui/gui/psppire-dialog-action-percentiles.h \
+	src/ui/gui/psppire-dialog-action-qq-plot.c \
+	src/ui/gui/psppire-dialog-action-qq-plot.h \
 	src/ui/gui/psppire-dialog-action-descriptives.c \
 	src/ui/gui/psppire-dialog-action-descriptives.h \
 	src/ui/gui/psppire-dialog-action-examine.c \
@@ -1037,6 +1039,7 @@ am_src_ui_gui_psppire_OBJECTS = src/ui/gui/src_ui_gui_psppire-pspp-sheet-selecti
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-correlation.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.$(OBJEXT) \
+	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-examine.$(OBJEXT) \
 	src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-factor.$(OBJEXT) \
@@ -1598,26 +1601,27 @@ am__dist_src_ui_gui_psppire_DATA_DIST = src/ui/gui/aggregate.ui \
 	src/ui/gui/compute.ui src/ui/gui/barchart.ui \
 	src/ui/gui/correlation.ui src/ui/gui/count.ui \
 	src/ui/gui/comments.ui src/ui/gui/crosstabs.ui \
-	src/ui/gui/percentiles.ui src/ui/gui/chi-square.ui \
-	src/ui/gui/descriptives.ui src/ui/gui/entry-dialog.ui \
-	src/ui/gui/examine.ui src/ui/gui/goto-case.ui \
-	src/ui/gui/factor.ui src/ui/gui/find.ui \
-	src/ui/gui/frequencies.ui src/ui/gui/histogram.ui \
-	src/ui/gui/indep-samples.ui src/ui/gui/k-means.ui \
-	src/ui/gui/k-related.ui src/ui/gui/ks-one-sample.ui \
-	src/ui/gui/logistic.ui src/ui/gui/means.ui \
-	src/ui/gui/missing-val-dialog.ui src/ui/gui/oneway.ui \
-	src/ui/gui/paired-samples.ui src/ui/gui/rank.ui \
-	src/ui/gui/runs.ui src/ui/gui/sort.ui src/ui/gui/split-file.ui \
-	src/ui/gui/recode.ui src/ui/gui/regression.ui \
-	src/ui/gui/reliability.ui src/ui/gui/roc.ui \
-	src/ui/gui/scatterplot.ui src/ui/gui/select-cases.ui \
-	src/ui/gui/t-test.ui src/ui/gui/text-data-import.ui \
-	src/ui/gui/transpose.ui src/ui/gui/univariate.ui \
-	src/ui/gui/val-labs-dialog.ui src/ui/gui/variable-info.ui \
-	src/ui/gui/data-editor.ui src/ui/gui/output-window.ui \
-	src/ui/gui/syntax-editor.ui src/ui/gui/var-type-dialog.ui \
-	src/ui/gui/weight.ui $(top_srcdir)/src/ui/gui/pspp.lang \
+	src/ui/gui/percentiles.ui src/ui/gui/qq-plot.ui \
+	src/ui/gui/chi-square.ui src/ui/gui/descriptives.ui \
+	src/ui/gui/entry-dialog.ui src/ui/gui/examine.ui \
+	src/ui/gui/goto-case.ui src/ui/gui/factor.ui \
+	src/ui/gui/find.ui src/ui/gui/frequencies.ui \
+	src/ui/gui/histogram.ui src/ui/gui/indep-samples.ui \
+	src/ui/gui/k-means.ui src/ui/gui/k-related.ui \
+	src/ui/gui/ks-one-sample.ui src/ui/gui/logistic.ui \
+	src/ui/gui/means.ui src/ui/gui/missing-val-dialog.ui \
+	src/ui/gui/oneway.ui src/ui/gui/paired-samples.ui \
+	src/ui/gui/rank.ui src/ui/gui/runs.ui src/ui/gui/sort.ui \
+	src/ui/gui/split-file.ui src/ui/gui/recode.ui \
+	src/ui/gui/regression.ui src/ui/gui/reliability.ui \
+	src/ui/gui/roc.ui src/ui/gui/scatterplot.ui \
+	src/ui/gui/select-cases.ui src/ui/gui/t-test.ui \
+	src/ui/gui/text-data-import.ui src/ui/gui/transpose.ui \
+	src/ui/gui/univariate.ui src/ui/gui/val-labs-dialog.ui \
+	src/ui/gui/variable-info.ui src/ui/gui/data-editor.ui \
+	src/ui/gui/output-window.ui src/ui/gui/syntax-editor.ui \
+	src/ui/gui/var-type-dialog.ui src/ui/gui/weight.ui \
+	$(top_srcdir)/src/ui/gui/pspp.lang \
 	$(top_srcdir)/src/ui/gui/psppire.gtkrc
 DATA = $(desktop_DATA) $(dist_appdata_DATA) $(dist_catalog_DATA) \
 	$(dist_docbook_DATA) $(dist_large_pixmap_DATA) \
@@ -4189,6 +4193,7 @@ UI_FILES = \
 	src/ui/gui/comments.ui \
 	src/ui/gui/crosstabs.ui \
 	src/ui/gui/percentiles.ui \
+	src/ui/gui/qq-plot.ui \
 	src/ui/gui/chi-square.ui \
 	src/ui/gui/descriptives.ui \
 	src/ui/gui/entry-dialog.ui \
@@ -4344,6 +4349,8 @@ src_ui_gui_psppire_SOURCES = \
 	src/ui/gui/psppire-dialog-action-crosstabs.h \
 	src/ui/gui/psppire-dialog-action-percentiles.c \
 	src/ui/gui/psppire-dialog-action-percentiles.h \
+	src/ui/gui/psppire-dialog-action-qq-plot.c \
+	src/ui/gui/psppire-dialog-action-qq-plot.h \
 	src/ui/gui/psppire-dialog-action-descriptives.c \
 	src/ui/gui/psppire-dialog-action-descriptives.h \
 	src/ui/gui/psppire-dialog-action-examine.c \
@@ -6556,6 +6563,9 @@ src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-crosstabs.$(OBJEXT):  \
 src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.$(OBJEXT):  \
 	src/ui/gui/$(am__dirstamp) \
 	src/ui/gui/$(DEPDIR)/$(am__dirstamp)
+src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.$(OBJEXT):  \
+	src/ui/gui/$(am__dirstamp) \
+	src/ui/gui/$(DEPDIR)/$(am__dirstamp)
 src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.$(OBJEXT):  \
 	src/ui/gui/$(am__dirstamp) \
 	src/ui/gui/$(DEPDIR)/$(am__dirstamp)
@@ -7551,6 +7561,7 @@ include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-means.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-oneway.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-paired.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-percentiles.Po
+include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-rank.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-recode-different.Po
 include src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-recode-same.Po
@@ -9497,6 +9508,20 @@ src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj: src/ui/gui/
 #	$(AM_V_CC)source='src/ui/gui/psppire-dialog-action-percentiles.c' object='src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-percentiles.obj `if test -f 'src/ui/gui/psppire-dialog-action-percentiles.c'; then $(CYGPATH_W) 'src/ui/gui/psppire-dialog-action-percentiles.c'; else $(CYGPATH_W) '$(srcdir)/src/ui/gui/psppire-dialog-action-percentiles.c'; fi`
+
+src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.o: src/ui/gui/psppire-dialog-action-qq-plot.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -MT src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.o -MD -MP -MF src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Tpo -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.o `test -f 'src/ui/gui/psppire-dialog-action-qq-plot.c' || echo '$(srcdir)/'`src/ui/gui/psppire-dialog-action-qq-plot.c
+	$(AM_V_at)$(am__mv) src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Tpo src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Po
+#	$(AM_V_CC)source='src/ui/gui/psppire-dialog-action-qq-plot.c' object='src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.o `test -f 'src/ui/gui/psppire-dialog-action-qq-plot.c' || echo '$(srcdir)/'`src/ui/gui/psppire-dialog-action-qq-plot.c
+
+src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.obj: src/ui/gui/psppire-dialog-action-qq-plot.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -MT src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.obj -MD -MP -MF src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Tpo -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.obj `if test -f 'src/ui/gui/psppire-dialog-action-qq-plot.c'; then $(CYGPATH_W) 'src/ui/gui/psppire-dialog-action-qq-plot.c'; else $(CYGPATH_W) '$(srcdir)/src/ui/gui/psppire-dialog-action-qq-plot.c'; fi`
+	$(AM_V_at)$(am__mv) src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Tpo src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-qq-plot.Po
+#	$(AM_V_CC)source='src/ui/gui/psppire-dialog-action-qq-plot.c' object='src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-qq-plot.obj `if test -f 'src/ui/gui/psppire-dialog-action-qq-plot.c'; then $(CYGPATH_W) 'src/ui/gui/psppire-dialog-action-qq-plot.c'; else $(CYGPATH_W) '$(srcdir)/src/ui/gui/psppire-dialog-action-qq-plot.c'; fi`
 
 src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.o: src/ui/gui/psppire-dialog-action-descriptives.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_ui_gui_psppire_CPPFLAGS) $(CPPFLAGS) $(src_ui_gui_psppire_CFLAGS) $(CFLAGS) -MT src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.o -MD -MP -MF src/ui/gui/$(DEPDIR)/src_ui_gui_psppire-psppire-dialog-action-descriptives.Tpo -c -o src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-descriptives.o `test -f 'src/ui/gui/psppire-dialog-action-descriptives.c' || echo '$(srcdir)/'`src/ui/gui/psppire-dialog-action-descriptives.c

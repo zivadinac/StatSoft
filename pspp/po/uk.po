@@ -168,7 +168,7 @@ msgstr "Долар"
 msgid "Custom"
 msgstr "Нетиповий"
 
-#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:198
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:173
 msgid "Add"
 msgstr "Додати"
 
@@ -176,11 +176,12 @@ msgstr "Додати"
 msgid "Edit"
 msgstr "Змінити"
 
-#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:186
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:199
 msgid "Remove"
 msgstr "Вилучити"
 
-#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:265
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:246
+#: src/ui/gui/qq-plot.ui:300
 msgid "OK"
 msgstr "Гаразд"
 
@@ -196,12 +197,13 @@ msgstr "Продовжити"
 msgid "Paste"
 msgstr "Вставити"
 
-#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:532
-#: src/ui/gui/psppire-data-window.c:660
+#: src/ui/gui/psppire-buttonbox.c:356 src/ui/gui/psppire-data-window.c:533
+#: src/ui/gui/psppire-data-window.c:661
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:277
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:258
+#: src/ui/gui/qq-plot.ui:335
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -210,6 +212,7 @@ msgid "Close"
 msgstr "Закрити"
 
 #: src/ui/gui/psppire-buttonbox.c:369 src/ui/gui/psppire-import-assistant.c:939
+#: src/ui/gui/qq-plot.ui:370
 msgid "Reset"
 msgstr "Скинути"
 
@@ -6698,7 +6701,7 @@ msgid "Importing Spreadsheet Data"
 msgstr "Імпортування даних з електронної таблиці"
 
 #: src/ui/gui/psppire-import-assistant.c:853
-#: src/ui/gui/psppire-data-window.c:554 src/ui/gui/psppire-syntax-window.c:572
+#: src/ui/gui/psppire-data-window.c:555 src/ui/gui/psppire-syntax-window.c:572
 #: src/ui/gui/psppire-window.c:683
 msgid "All Files"
 msgstr "усі файли"
@@ -6952,17 +6955,17 @@ msgstr "Введіть число, щоб додати нове спостере
 msgid "Case"
 msgstr "Спостереження"
 
-#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1302
+#: src/ui/gui/psppire-data-sheet.c:1662 src/ui/gui/psppire-data-window.c:1303
 #, fuzzy
 msgid "_Insert Case"
 msgstr "Вставити спостереження"
 
-#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1350
+#: src/ui/gui/psppire-data-sheet.c:1663 src/ui/gui/psppire-data-window.c:1351
 #, fuzzy
 msgid "Cl_ear Cases"
 msgstr "С_порожнити спостереження"
 
-#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1301
+#: src/ui/gui/psppire-data-sheet.c:1678 src/ui/gui/psppire-data-window.c:1302
 #: src/ui/gui/psppire-var-sheet.c:944
 #, fuzzy
 msgid "_Insert Variable"
@@ -6980,37 +6983,37 @@ msgstr "Впорядкувати за з_ростанням"
 msgid "Sort _Descending"
 msgstr "Впорядкувати за сп_аданням"
 
-#: src/ui/gui/psppire-data-window.c:211
+#: src/ui/gui/psppire-data-window.c:212
 msgid "Transformations Pending"
 msgstr "Перетворення у черзі"
 
-#: src/ui/gui/psppire-data-window.c:227
+#: src/ui/gui/psppire-data-window.c:228
 msgid "Filter off"
 msgstr "Фільтр. вимкн."
 
-#: src/ui/gui/psppire-data-window.c:239
+#: src/ui/gui/psppire-data-window.c:240
 #, c-format
 msgid "Filter by %s"
 msgstr "Фільтрування за %s"
 
-#: src/ui/gui/psppire-data-window.c:260
+#: src/ui/gui/psppire-data-window.c:261
 msgid "No Split"
 msgstr "Без поділу"
 
-#: src/ui/gui/psppire-data-window.c:269
+#: src/ui/gui/psppire-data-window.c:270
 msgid "Split by "
 msgstr "Критерій поділу: "
 
-#: src/ui/gui/psppire-data-window.c:297
+#: src/ui/gui/psppire-data-window.c:298
 msgid "Weights off"
 msgstr "Зваж. вимкн."
 
-#: src/ui/gui/psppire-data-window.c:309
+#: src/ui/gui/psppire-data-window.c:310
 #, c-format
 msgid "Weight by %s"
 msgstr "Вага за %s"
 
-#: src/ui/gui/psppire-data-window.c:529 src/ui/gui/psppire-data-window.c:533
+#: src/ui/gui/psppire-data-window.c:530 src/ui/gui/psppire-data-window.c:534
 #: src/ui/gui/psppire-dialog-action-aggregate.c:217
 #: src/ui/gui/psppire-output-window.c:361
 #: src/ui/gui/psppire-syntax-window.c:560 src/ui/gui/psppire-window.c:476
@@ -7018,43 +7021,43 @@ msgstr "Вага за %s"
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/ui/gui/psppire-data-window.c:539
+#: src/ui/gui/psppire-data-window.c:540
 #: src/ui/gui/psppire-dialog-action-aggregate.c:226
 msgid "System Files (*.sav)"
 msgstr "системні файли (*.sav)"
 
-#: src/ui/gui/psppire-data-window.c:544
+#: src/ui/gui/psppire-data-window.c:545
 #: src/ui/gui/psppire-dialog-action-aggregate.c:231
 msgid "Compressed System Files (*.zsav)"
 msgstr "стиснені системні файли (*.zsav)"
 
-#: src/ui/gui/psppire-data-window.c:549
+#: src/ui/gui/psppire-data-window.c:550
 #: src/ui/gui/psppire-dialog-action-aggregate.c:236
 #: src/ui/gui/psppire-window.c:672
 msgid "Portable Files (*.por) "
 msgstr "портативні файли (*.por) "
 
-#: src/ui/gui/psppire-data-window.c:571
+#: src/ui/gui/psppire-data-window.c:572
 msgid "System File"
 msgstr "Системний файл"
 
-#: src/ui/gui/psppire-data-window.c:578
+#: src/ui/gui/psppire-data-window.c:579
 msgid "Compressed System File"
 msgstr "Стиснений системний файл"
 
-#: src/ui/gui/psppire-data-window.c:584
+#: src/ui/gui/psppire-data-window.c:585
 msgid "Portable File"
 msgstr "Портативний файл"
 
-#: src/ui/gui/psppire-data-window.c:587
+#: src/ui/gui/psppire-data-window.c:588
 msgid "Format:"
 msgstr "Формат:"
 
-#: src/ui/gui/psppire-data-window.c:651
+#: src/ui/gui/psppire-data-window.c:652
 msgid "Delete Existing Dataset?"
 msgstr "Вилучити наявний набір даних?"
 
-#: src/ui/gui/psppire-data-window.c:655
+#: src/ui/gui/psppire-data-window.c:656
 #, c-format
 msgid ""
 "Renaming \"%s\" to \"%s\" will destroy the existing dataset named \"%s\".  "
@@ -7063,161 +7066,161 @@ msgstr ""
 "Перейменування «%s» на «%s» призведе до знищення наявного набору даних з "
 "назвою «%s». Ви справді цього хочете?"
 
-#: src/ui/gui/psppire-data-window.c:661
+#: src/ui/gui/psppire-data-window.c:662
 msgid "Delete"
 msgstr "Вилучити"
 
-#: src/ui/gui/psppire-data-window.c:683
+#: src/ui/gui/psppire-data-window.c:684
 #, c-format
 msgid "Please enter a new name for dataset \"%s\":"
 msgstr "Вкажіть нову назву набору даних «%s»:"
 
-#: src/ui/gui/psppire-data-window.c:685
+#: src/ui/gui/psppire-data-window.c:686
 msgid "Rename Dataset"
 msgstr "Перейменувати набір даних"
 
-#: src/ui/gui/psppire-data-window.c:1164 src/ui/gui/output-window.ui:52
+#: src/ui/gui/psppire-data-window.c:1165 src/ui/gui/output-window.ui:52
 #: src/ui/gui/syntax-editor.ui:6
 msgid "_File"
 msgstr "_Файл"
 
-#: src/ui/gui/psppire-data-window.c:1168 src/ui/gui/syntax-editor.ui:9
+#: src/ui/gui/psppire-data-window.c:1169 src/ui/gui/syntax-editor.ui:9
 #, fuzzy
 msgid "_New"
 msgstr "С_творити…"
 
-#: src/ui/gui/psppire-data-window.c:1175
+#: src/ui/gui/psppire-data-window.c:1176
 msgid "_Syntax"
 msgstr "Си_нтаксис"
 
-#: src/ui/gui/psppire-data-window.c:1178 src/ui/gui/data-editor.ui:161
+#: src/ui/gui/psppire-data-window.c:1179 src/ui/gui/data-editor.ui:161
 #: src/ui/gui/data-editor.ui:173
 msgid "_Data"
 msgstr "_Дані"
 
-#: src/ui/gui/psppire-data-window.c:1185 src/ui/gui/syntax-editor.ui:20
+#: src/ui/gui/psppire-data-window.c:1186 src/ui/gui/syntax-editor.ui:20
 #, fuzzy
 msgid "_Open"
 msgstr "Відкрити"
 
-#: src/ui/gui/psppire-data-window.c:1188
+#: src/ui/gui/psppire-data-window.c:1189
 #, fuzzy
 msgid "_Import Data..."
 msgstr "І_мпортувати дані…"
 
-#: src/ui/gui/psppire-data-window.c:1196 src/ui/gui/logistic.ui:244
+#: src/ui/gui/psppire-data-window.c:1197 src/ui/gui/logistic.ui:244
 #: src/ui/gui/regression.ui:50
 msgid "_Save..."
 msgstr "З_берегти…"
 
-#: src/ui/gui/psppire-data-window.c:1199
+#: src/ui/gui/psppire-data-window.c:1200
 msgid "Save _As..."
 msgstr "Зберегти _як…"
 
-#: src/ui/gui/psppire-data-window.c:1202
+#: src/ui/gui/psppire-data-window.c:1203
 msgid "_Rename Dataset..."
 msgstr "П_ерейменувати набір даних…"
 
-#: src/ui/gui/psppire-data-window.c:1213
+#: src/ui/gui/psppire-data-window.c:1214
 #, fuzzy
 msgid "_Display Data File Information"
 msgstr "_Показати відомості щодо файла даних"
 
-#: src/ui/gui/psppire-data-window.c:1220
+#: src/ui/gui/psppire-data-window.c:1221
 msgid "Working File"
 msgstr "Поточного файла"
 
-#: src/ui/gui/psppire-data-window.c:1222
+#: src/ui/gui/psppire-data-window.c:1223
 #, fuzzy
 msgid "_External File..."
 msgstr "Зовнішнього файла…"
 
-#: src/ui/gui/psppire-data-window.c:1232
+#: src/ui/gui/psppire-data-window.c:1233
 #, fuzzy
 msgid "_Recently Used Data"
 msgstr "Нещодавно використані _дані"
 
-#: src/ui/gui/psppire-data-window.c:1233
+#: src/ui/gui/psppire-data-window.c:1234
 msgid "Recently Used _Files"
 msgstr "Нещодавно використані _файли"
 
-#: src/ui/gui/psppire-data-window.c:1280 src/ui/gui/output-window.ui:66
+#: src/ui/gui/psppire-data-window.c:1281 src/ui/gui/output-window.ui:66
 #: src/ui/gui/syntax-editor.ui:43
 msgid "_Quit"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1297 src/ui/gui/output-window.ui:73
+#: src/ui/gui/psppire-data-window.c:1298 src/ui/gui/output-window.ui:73
 #: src/ui/gui/syntax-editor.ui:50
 msgid "_Edit"
 msgstr "З_міни"
 
-#: src/ui/gui/psppire-data-window.c:1303
+#: src/ui/gui/psppire-data-window.c:1304
 #, fuzzy
 msgid "_Go To Variable..."
 msgstr "Перейти до змінної…"
 
-#: src/ui/gui/psppire-data-window.c:1304
+#: src/ui/gui/psppire-data-window.c:1305
 #, fuzzy
 msgid "_Go To Case..."
 msgstr "Перейти до спостереження…"
 
-#: src/ui/gui/psppire-data-window.c:1326 src/ui/gui/syntax-editor.ui:53
+#: src/ui/gui/psppire-data-window.c:1327 src/ui/gui/syntax-editor.ui:53
 msgid "Cu_t"
 msgstr ""
 
-#: src/ui/gui/psppire-data-window.c:1334 src/ui/gui/output-window.ui:80
+#: src/ui/gui/psppire-data-window.c:1335 src/ui/gui/output-window.ui:80
 #: src/ui/gui/syntax-editor.ui:58
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: src/ui/gui/psppire-data-window.c:1340 src/ui/gui/syntax-editor.ui:63
+#: src/ui/gui/psppire-data-window.c:1341 src/ui/gui/syntax-editor.ui:63
 #, fuzzy
 msgid "_Paste"
 msgstr "Вставити"
 
-#: src/ui/gui/psppire-data-window.c:1346
+#: src/ui/gui/psppire-data-window.c:1347
 #, fuzzy
 msgid "Clear _Variables"
 msgstr "Споро_жнити змінні"
 
-#: src/ui/gui/psppire-data-window.c:1359
+#: src/ui/gui/psppire-data-window.c:1360
 msgid "_Find..."
 msgstr "З_найти…"
 
-#: src/ui/gui/psppire-data-window.c:1636
+#: src/ui/gui/psppire-data-window.c:1638
 msgid "Jump to variable"
 msgstr "Перейти до змінної"
 
-#: src/ui/gui/psppire-data-window.c:1649
+#: src/ui/gui/psppire-data-window.c:1651
 msgid "Jump to a case in the data sheet"
 msgstr "Перейти до спостереження у таблиці даних"
 
-#: src/ui/gui/psppire-data-window.c:1663
+#: src/ui/gui/psppire-data-window.c:1665
 #, fuzzy
 msgid "Search for values in the data"
 msgstr "Упорядкувати спостереження у активному наборі даних"
 
-#: src/ui/gui/psppire-data-window.c:1675
+#: src/ui/gui/psppire-data-window.c:1677
 msgid "Create a new case at the current position"
 msgstr "Створити запис спостереження у поточній позиції"
 
-#: src/ui/gui/psppire-data-window.c:1687
+#: src/ui/gui/psppire-data-window.c:1689
 msgid "Create a new variable at the current position"
 msgstr "Створити запис нової змінної у поточній позиції"
 
-#: src/ui/gui/psppire-data-window.c:1701
+#: src/ui/gui/psppire-data-window.c:1703
 msgid "Split the active dataset"
 msgstr "Поділити поточний набір даних"
 
-#: src/ui/gui/psppire-data-window.c:1713
+#: src/ui/gui/psppire-data-window.c:1715
 msgid "Weight cases by variable"
 msgstr "Зважити спостереження за змінною"
 
-#: src/ui/gui/psppire-data-window.c:1724
+#: src/ui/gui/psppire-data-window.c:1726
 msgid "Show/hide value labels"
 msgstr "Показати або сховати мітки значень"
 
-#: src/ui/gui/psppire-data-window.c:1867
+#: src/ui/gui/psppire-data-window.c:1869
 msgid "Data Editor"
 msgstr "Редактор даних"
 
@@ -8425,14 +8428,44 @@ msgstr "Знаків після коми"
 msgid "Percentiles Values"
 msgstr "Процентилі"
 
-#: src/ui/gui/percentiles.ui:174
+#: src/ui/gui/percentiles.ui:187
 #, fuzzy
 msgid "Change"
 msgstr "З_міна"
 
-#: src/ui/gui/percentiles.ui:213
-msgid "Discard"
+#: src/ui/gui/qq-plot.ui:8
+msgid "QQ Plot"
 msgstr ""
+
+#: src/ui/gui/qq-plot.ui:84
+#, fuzzy
+msgid "Selected Variables: "
+msgstr "З_мінні для перевірки:"
+
+#: src/ui/gui/qq-plot.ui:179
+#, fuzzy
+msgid "Estimate from data"
+msgstr "_Отримати з даних"
+
+#: src/ui/gui/qq-plot.ui:195
+#, fuzzy
+msgid "Location: "
+msgstr "Функція: "
+
+#: src/ui/gui/qq-plot.ui:206
+#, fuzzy
+msgid "Scale: "
+msgstr "Шкала:"
+
+#: src/ui/gui/qq-plot.ui:247
+#, fuzzy
+msgid "Distribution parameters:"
+msgstr "Параметри розподілу Пуассона"
+
+#: src/ui/gui/qq-plot.ui:274
+#, fuzzy
+msgid "Test distribution:"
+msgstr "Перевірка розподілу"
 
 #: src/ui/gui/chi-square.ui:14
 msgid "Chi-Square Test"

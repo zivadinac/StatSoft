@@ -1350,6 +1350,8 @@ src/ui/gui/psppire-dialog-action-paired.c
 src/ui/gui/psppire-dialog-action-paired.h
 src/ui/gui/psppire-dialog-action-percentiles.c
 src/ui/gui/psppire-dialog-action-percentiles.h
+src/ui/gui/psppire-dialog-action-qq-plot.c
+src/ui/gui/psppire-dialog-action-qq-plot.h
 src/ui/gui/psppire-dialog-action-rank.c
 src/ui/gui/psppire-dialog-action-rank.h
 src/ui/gui/psppire-dialog-action-recode-different.c
@@ -1440,6 +1442,7 @@ src/ui/gui/psppire.c
 src/ui/gui/psppire.gtkrc
 src/ui/gui/psppire.h
 src/ui/gui/pspplogo.svg
+src/ui/gui/qq-plot.ui
 src/ui/gui/rank.ui
 src/ui/gui/recode.ui
 src/ui/gui/regression.ui

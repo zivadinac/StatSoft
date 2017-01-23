@@ -1,1 +1,12 @@
 error: An error occurred while opening `/home/statsoft/StatSoft/pspp/src/ui/gui/clear': No such file or directory.
+GRAPH /BAR = COUNT BY Var0001.
+
+FREQUENCIES
+	/VARIABLES= Var0001
+	/FORMAT=AVALUE TABLE.
+
+warning: Data is not valid as format F: Field contents are not numeric.
+warning: Data is not valid as format F: Field contents are not numeric.
+.1-7: error: EXECUTE: EXECUTE is allowed only after the active dataset has been defined.
+EXECUTE.
+
