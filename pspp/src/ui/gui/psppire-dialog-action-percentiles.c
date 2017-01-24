@@ -54,7 +54,7 @@ static GObject *psppire_dialog_action_percentiles_constructor (GType type, guint
                                                      GObjectConstructParam *);
 static void psppire_dialog_action_percentiles_finalize (GObject *);
 
-static void repopulate_dialog (PsppireDialogActionPercentiles *act);
+//static void repopulate_dialog (PsppireDialogActionPercentiles *act);
 
 static gboolean remove_selected(PsppireDialogActionPercentiles *act);
 
@@ -124,7 +124,7 @@ percentiles_change_onclick(GtkWidget *w,PsppireDialogActionPercentiles *act)
 {
 	gchar* str2=gtk_entry_get_text(GTK_ENTRY(act->percentiles_entry));
 	//change_elem(&(act->treeview_vals),get_selected_value(act->treeview_vals), str2);
-	repopulate_dialog(act);
+//	repopulate_dialog(act);
 }
 
 static void 
@@ -156,7 +156,7 @@ on_value_entry_activate(GtkWidget *w,PsppireDialogActionPercentiles *act)
 static void
 percentiles_add_onclick (GtkButton* add, PsppireDialogActionPercentiles *act)
 {
-	union value v;
+	//union value v;
 	
 	if(!gtk_toggle_button_get_active(GTK_CHECK_BUTTON(act->percentiles_checkbox)))
 	{
@@ -170,15 +170,23 @@ percentiles_add_onclick (GtkButton* add, PsppireDialogActionPercentiles *act)
 	{
 		return;
 	}
-
-  	PsppireDialogAction *pda = PSPPIRE_DIALOG_ACTION(act);
-	gchar* str= g_strdup(percVal);
+	GtkTreeIter iter;
+	GtkTreeView *treeview = GTK_TREE_VIEW (act->percentiles_treeview);
+	GtkTreeModel * model  = gtk_tree_view_get_model (treeview);
+	
+  	//PsppireDialogAction *pda = PSPPIRE_DIALOG_ACTION(act);
+	//gchar* str= g_strdup(percVal);
+	
+	gtk_list_store_append(GTK_LIST_STORE(model), &iter);
+	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 0, percVal, -1);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_TREE_MODEL(model));
 	
 	//g_print( "%x",&str);
 		
-	act->treeview_vals = g_list_append (act->treeview_vals,str);
+	//act->treeview_vals = g_list_append (act->treeview_vals,str);
  	
- 	repopulate_dialog(act);
+ 	//repopulate_dialog(act);
+ 	
  	gtk_entry_set_text (GTK_ENTRY (act->percentiles_entry), ""); 
  	gtk_widget_grab_focus (act->percentiles_entry);
 	
@@ -288,6 +296,9 @@ psppire_dialog_action_percentiles_constructor(GType                  type,
     renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes ("Values", renderer, "text", 0, NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (act->percentiles_treeview), column); 
+	
+	GtkListStore* list_store = gtk_list_store_new(1, G_TYPE_STRING);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_TREE_MODEL(list_store));
  
  return obj;
  }
@@ -303,6 +314,7 @@ static void
 psppire_dialog_action_percentiles_init (PsppireDialogActionPercentiles *act)
 {
 }
+/*
 static void repopulate_dialog(PsppireDialogActionPercentiles *act)
 {
 	
@@ -319,9 +331,9 @@ static void repopulate_dialog(PsppireDialogActionPercentiles *act)
 	}
 	
 	gtk_tree_view_set_model(GTK_TREE_VIEW(act->percentiles_treeview), GTK_TREE_MODEL(list_store));
-		
-  	g_object_unref(list_store);
-}
+	}
+  	
+  	*/
 static gboolean remove_selected(PsppireDialogActionPercentiles *act)
 {
 	GtkTreeIter iter ;
