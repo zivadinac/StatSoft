@@ -55,35 +55,28 @@ typedef struct _PsppireDialogActionPercentilesClass  PsppireDialogActionPercenti
 
 struct _PsppireDialogActionPercentiles
 {
-  PsppireDialogAction parent;
-
-  GList *treeview_vals;
+	PsppireDialogAction parent;
+	
+	/*< Check Boxes >*/
+	GtkWidget *quantiles_checkbox;
+	GtkWidget *quintiles_checkbox;
+	GtkWidget *sextiles_checkbox;
+	GtkWidget *deciles_checkbox;
+	GtkWidget *percentiles_checkbox;
   
-  /* Signal handler ids */
-  //gint change_handler_id;
-  gint value_handler_id;
+	/* Entry Box */
+	GtkWidget *percentiles_entry;
   
-  gchar *encoding;
-  
-  /*< Check Boxes >*/
-  GtkWidget *quantiles_checkbox;
-  GtkWidget *quintiles_checkbox;
-  GtkWidget *sextiles_checkbox;
-  GtkWidget *deciles_checkbox;
-  GtkWidget *percentiles_checkbox;
-  
-  /* Entry Box */
-  GtkWidget *percentiles_entry;
-  
-  /* Actions */
-  GtkWidget *percentiles_add;
-  GtkWidget *percentiles_change;
-  GtkWidget *percentiles_remove;
-  GtkWidget *percentiles_ok;
-  GtkWidget *percentiles_cancel;
-  GtkWidget *percentiles_discard;
-  
-  GtkWidget *percentiles_treeview;
+	/* Actions */
+	GtkWidget *percentiles_add;
+	GtkWidget *percentiles_change;
+	GtkWidget *percentiles_remove;
+	GtkWidget *percentiles_ok;
+	GtkWidget *percentiles_cancel;
+	GtkWidget *percentiles_discard;
+	
+	/* Treeview */
+	GtkWidget *percentiles_treeview;
 	
 };
 

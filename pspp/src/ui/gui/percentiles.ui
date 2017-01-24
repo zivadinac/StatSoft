@@ -19,18 +19,18 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-            <property name="margin_left">5</property>
             <property name="margin_right">1</property>
             <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="row_spacing">16</property>
-            <property name="column_spacing">9</property>
+            <property name="row_homogeneous">True</property>
+            <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkFrame" id="frame1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">baseline</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="label_xalign">0</property>
@@ -39,8 +39,7 @@
                   <object class="GtkGrid" id="checkbox-table">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="margin_left">5</property>
-                    <property name="margin_right">5</property>
+                    <property name="margin_left">12</property>
                     <property name="row_spacing">4</property>
                     <property name="column_spacing">11</property>
                     <child>
@@ -166,6 +165,7 @@
                   <object class="GtkGrid" id="grid1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
                     <property name="row_spacing">4</property>
                     <property name="column_spacing">6</property>
                     <property name="column_homogeneous">True</property>
@@ -175,6 +175,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="margin_left">5</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -187,6 +188,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="margin_left">5</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -199,6 +201,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="margin_left">5</property>
                         <property name="margin_top">3</property>
                         <property name="xalign">0.49000000953674316</property>
                         <property name="yalign">0.47999998927116394</property>
@@ -214,6 +217,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="margin_left">5</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -236,6 +240,8 @@
                       <object class="GtkTreeView" id="percentiles-treeview">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
                         <child internal-child="selection">
                           <object class="GtkTreeSelection" id="treeview-selection2"/>
                         </child>
@@ -247,9 +253,6 @@
                     <property name="top_attach">0</property>
                   </packing>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -260,28 +263,39 @@
               <object class="GtkGrid" id="grid3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkButton" id="percentiles-ok">
-                    <property name="label" translatable="yes">OK</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
+                <property name="margin_left">12</property>
+                <property name="margin_right">46</property>
+                <property name="margin_top">2</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <child>
                   <object class="GtkButton" id="percentiles-cancel">
                     <property name="label" translatable="yes">Cancel</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="valign">start</property>
+                    <property name="hexpand">False</property>
+                    <property name="vexpand">True</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="percentiles-ok">
+                    <property name="label" translatable="yes">OK</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="valign">start</property>
+                    <property name="hexpand">False</property>
+                    <property name="vexpand">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
                 <child>
@@ -297,12 +311,23 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkGrid" id="grid2">
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">start</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+              </packing>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">0</property>
           </packing>
         </child>
