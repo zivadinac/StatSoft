@@ -145,7 +145,7 @@ msgstr "Dolar"
 msgid "Custom"
 msgstr "Usuari"
 
-#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:173
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:200
 msgid "Add"
 msgstr "Afegir"
 
@@ -153,11 +153,11 @@ msgstr "Afegir"
 msgid "Edit"
 msgstr "_Editar"
 
-#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:199
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:187
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:246
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:288
 #: src/ui/gui/qq-plot.ui:300
 msgid "OK"
 msgstr "OK"
@@ -179,7 +179,7 @@ msgstr "Enganxa"
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:258
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:273
 #: src/ui/gui/qq-plot.ui:335
 msgid "Cancel"
 msgstr "Cancel·lar"
@@ -3591,7 +3591,7 @@ msgstr ""
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
-#: src/ui/gui/percentiles.ui:104
+#: src/ui/gui/percentiles.ui:103
 msgid "Percentiles"
 msgstr "Percentils"
 
@@ -8340,35 +8340,39 @@ msgstr "Estatísticas"
 msgid "Percentile Values"
 msgstr "Percentils"
 
-#: src/ui/gui/percentiles.ui:48
+#: src/ui/gui/percentiles.ui:47
 #, fuzzy
 msgid "Sextiles"
 msgstr "Arxius de text"
 
-#: src/ui/gui/percentiles.ui:62
+#: src/ui/gui/percentiles.ui:61
 #, fuzzy
 msgid "Quintiles"
 msgstr "_Variables..."
 
-#: src/ui/gui/percentiles.ui:76
+#: src/ui/gui/percentiles.ui:75
 #, fuzzy
 msgid "Quartiles"
 msgstr "_Variables..."
 
-#: src/ui/gui/percentiles.ui:90
+#: src/ui/gui/percentiles.ui:89
 #, fuzzy
 msgid "Deciles"
 msgstr "Decimals"
 
-#: src/ui/gui/percentiles.ui:145
+#: src/ui/gui/percentiles.ui:144
 #, fuzzy
 msgid "Percentiles Values"
 msgstr "Percentils"
 
-#: src/ui/gui/percentiles.ui:187
+#: src/ui/gui/percentiles.ui:174
 #, fuzzy
 msgid "Change"
 msgstr "Canvi"
+
+#: src/ui/gui/percentiles.ui:216
+msgid "Discard"
+msgstr ""
 
 #: src/ui/gui/qq-plot.ui:8
 msgid "QQ Plot"
@@ -9955,6 +9959,10 @@ msgstr "Programari estadístic"
 msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr "Analitza dades estadístiques amb una alternativa lliure a SPSS"
 
+#, fuzzy
+#~ msgid "button"
+#~ msgstr "Botons"
+
 #~ msgid ""
 #~ "PSPPIRE, a GUI for PSPP, a program for statistical analysis of sampled "
 #~ "data.\n"
@@ -10649,9 +10657,6 @@ msgstr "Analitza dades estadístiques amb una alternativa lliure a SPSS"
 
 #~ msgid "`%s' is not a variable name"
 #~ msgstr "`%s' no és un nom de variable"
-
-#~ msgid "Buttons"
-#~ msgstr "Botons"
 
 #~ msgid "The mask that decides what buttons appear in the button box"
 #~ msgstr "La màscara que decideix quins botons apareixen a la caixa de botons"
