@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Conditionals-and-Looping"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#BREAK" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Conditional-and-Looping-Constructs"></a>
+<h1 class="chapter">1. Conditional and Looping Constructs</h1>
+<a name="index-conditionals"></a>
+<a name="index-loops"></a>
+<a name="index-flow-of-control"></a>
+<a name="index-control-flow"></a>
+
+<p>This chapter documents @pspp{} commands used for conditional execution,
+looping, and flow of control.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#BREAK">1.1 BREAK</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Exit a loop.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#DO-IF">1.2 DO IF</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Conditionally execute a block of code.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#DO-REPEAT">1.3 DO REPEAT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Textually repeat a code block.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#LOOP">1.4 LOOP</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Repeat a block of code.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="BREAK"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#DO-IF" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="BREAK-1"></a>
+<h2 class="section">1.1 BREAK</h2>
+<a name="index-BREAK"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">BREAK.
+</pre></td></tr></table>
+
+<p>@cmd{BREAK} terminates execution of the innermost currently executing
+@cmd{LOOP} construct.
+</p>
+<p>@cmd{BREAK} is allowed only inside @cmd{LOOP}&hellip;@cmd{END LOOP}.
+See section <a href="#LOOP">LOOP</a>, for more details.
+</p>
+<hr size="6">
+<a name="DO-IF"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#BREAK" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#DO-REPEAT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DO-IF-1"></a>
+<h2 class="section">1.2 DO IF</h2>
+<a name="index-DO-IF"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">DO IF condition.
+        &hellip;
+[ELSE IF condition.
+        &hellip;
+]&hellip;
+[ELSE.
+        &hellip;]
+END IF.
+</pre></td></tr></table>
+
+<p>@cmd{DO IF} allows one of several sets of transformations to be
+executed, depending on user-specified conditions.
+</p>
+<p>If the specified boolean expression evaluates as true, then the block
+of code following @cmd{DO IF} is executed.  If it evaluates as
+missing, then
+none of the code blocks is executed.  If it is false, then
+the boolean expression on the first @cmd{ELSE IF}, if present, is tested in
+turn, with the same rules applied.  If all expressions evaluate to
+false, then the @cmd{ELSE} code block is executed, if it is present.
+</p>
+<p>When @cmd{DO IF} or @cmd{ELSE IF} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+</p>
+<hr size="6">
+<a name="DO-REPEAT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DO-IF" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#LOOP" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DO-REPEAT-1"></a>
+<h2 class="section">1.3 DO REPEAT</h2>
+<a name="index-DO-REPEAT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">DO REPEAT dummy_name=expansion&hellip;.
+        &hellip;
+END REPEAT [PRINT].
+
+expansion takes one of the following forms:
+        var_list
+        num_or_range&hellip;
+        &rsquo;string&rsquo;&hellip;
+        ALL
+
+num_or_range takes one of the following forms:
+        number
+        num1 TO num2
+</pre></td></tr></table>
+
+<p>@cmd{DO REPEAT} repeats a block of code, textually substituting
+different variables, numbers, or strings into the block with each
+repetition.
+</p>
+<p>Specify a dummy variable name followed by an equals sign (&lsquo;<samp>=</samp>&rsquo;)
+and the list of replacements.  Replacements can be a list of existing
+or new variables, numbers, strings, or <code>ALL</code> to specify all
+existing variables.  When numbers are specified, runs of increasing
+integers may be indicated as <code><var>num1</var> TO <var>num2</var></code>, so that
+&lsquo;<samp>1 TO 5</samp>&rsquo; is short for &lsquo;<samp>1 2 3 4 5</samp>&rsquo;.
+</p>
+<p>Multiple dummy variables can be specified.  Each
+variable must have the same number of replacements.
+</p>
+<p>The code within @cmd{DO REPEAT} is repeated as many times as there are
+replacements for each variable.  The first time, the first value for
+each dummy variable is substituted; the second time, the second value
+for each dummy variable is substituted; and so on.
+</p>
+<p>Dummy variable substitutions work like macros.  They take place
+anywhere in a line that the dummy variable name occurs.  This includes
+command and subcommand names, so command and subcommand names that
+appear in the code block should not be used as dummy variable
+identifiers.  Dummy variable substitutions do not occur inside quoted
+strings, comments, unquoted strings (such as the text on the
+@cmd{TITLE} or @cmd{DOCUMENT} command), or inside @cmd{BEGIN
+DATA}&hellip;@cmd{END DATA}.
+</p>
+<p>Substitution occurs only on whole words, so that, for example, a dummy
+variable PRINT would not be substituted into the word PRINTOUT.
+</p>
+<p>New variable names used as replacements are not automatically created
+as variables, but only if used in the code block in a context that
+would create them, e.g. on a @cmd{NUMERIC} or @cmd{STRING} command
+or on the left side of a @cmd{COMPUTE} assignment.
+</p>
+<p>Any command may appear within @subcmd{DO REPEAT}, including nested @subcmd{DO REPEAT}
+commands.  If @cmd{INCLUDE} or @cmd{INSERT} appears within @subcmd{DO REPEAT},
+the substitutions do not apply to the included file.
+</p>
+<p>If @subcmd{PRINT} is specified on @cmd{END REPEAT}, the commands after substitutions
+are made are printed to the listing file, prefixed by a plus sign
+(&lsquo;<samp>+</samp>&rsquo;).
+</p>
+<hr size="6">
+<a name="LOOP"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DO-REPEAT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="LOOP-1"></a>
+<h2 class="section">1.4 LOOP</h2>
+<a name="index-LOOP"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">LOOP [<var>index_var</var>=<var>start</var> TO <var>end</var> [BY <var>incr</var>]] [IF <var>condition</var>].
+        &hellip;
+END LOOP [IF <var>condition</var>].
+</pre></td></tr></table>
+
+<p>@cmd{LOOP} iterates a group of commands.  A number of
+termination options are offered.
+</p>
+<p>Specify index_var to make that variable count from one value to
+another by a particular increment.  <var>index_var</var> must be a pre-existing
+numeric variable.  <var>start</var>, <var>end</var>, and <var>incr</var> are numeric expressions
+(@pxref{Expressions}.)  
+</p>
+<p>During the first iteration, <var>index_var</var> is set to the value of <var>start</var>.
+During each successive iteration, <var>index_var</var> is increased by the value of
+<var>incr</var>.  If <var>end</var> &gt; <var>start</var>, then the loop terminates 
+when <var>index_var</var> &gt; <var>end</var>;
+otherwise it terminates when <var>index_var</var> &lt; <var>end</var>.  If <var>incr</var> is not specified
+then it defaults to +1 or -1 as appropriate.
+</p>
+<p>If <var>end</var> &gt; <var>start</var> and <var>incr</var> &lt; 0, or if <var>end</var> &lt; <var>start</var> and
+ <var>incr</var> &gt; 0, then the
+loop is never executed.  <var>index_var</var> is nevertheless set to the value of
+start.
+</p>
+<p>Modifying <var>index_var</var> within the loop is allowed, but it has no effect on
+the value of <var>index_var</var> in the next iteration.
+</p>
+<p>Specify a boolean expression for the condition on @cmd{LOOP} to
+cause the loop to be executed only if the condition is true.  If the
+condition is false or missing before the loop contents are executed the
+first time, the loop contents are not executed at all.
+</p>
+<p>If index and condition clauses are both present on @cmd{LOOP}, the
+index variable is always set before the condition is evaluated.  Thus,
+a condition that makes use of the index variable will always see the
+index value to be used in the next execution of the body.
+</p>
+<p>Specify a boolean expression for the condition on @cmd{END LOOP} to cause
+the loop to terminate if the condition is true after the enclosed
+code block is executed.  The condition is evaluated at the end of the
+loop, not at the beginning, so that the body of a loop with only a
+condition on @cmd{END LOOP} will always execute at least once.
+</p>
+<p>If neither the index clause nor either condition clause is
+present, then the loop is executed <var>max_loops</var> (@pxref{SET}) times.
+The default value of <var>max_loops</var> is 40.
+</p>
+<p>@cmd{BREAK} also terminates @cmd{LOOP} execution (see section <a href="#BREAK">BREAK</a>).
+</p>
+<p>Loop index variables are by default reset to system-missing from one
+case to another, not left, unless a scratch variable is used as index.
+When loops are nested, this is usually undesired behavior, which can
+be corrected with @cmd{LEAVE} (@pxref{LEAVE}) or by using a scratch
+variable as the loop index.
+</p>
+<p>When @cmd{LOOP} or @cmd{END LOOP} is specified following @cmd{TEMPORARY}
+(@pxref{TEMPORARY}), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+</p><hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Conditionals-and-Looping" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

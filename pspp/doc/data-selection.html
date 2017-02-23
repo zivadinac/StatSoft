@@ -1,0 +1,573 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Data-Selection"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#FILTER" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Selecting-data-for-analysis"></a>
+<h1 class="chapter">1. Selecting data for analysis</h1>
+
+<p>This chapter documents @pspp{} commands that temporarily or permanently
+select data records from the active dataset for analysis.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#FILTER">1.1 FILTER</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Exclude cases based on a variable.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#N-OF-CASES">1.2 N OF CASES</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Limit the size of the active dataset.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SAMPLE">1.3 SAMPLE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Select a specified proportion of cases.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SELECT-IF">1.4 SELECT IF</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Permanently delete selected cases.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SPLIT-FILE">1.5 SPLIT FILE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Do multiple analyses with one command.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#TEMPORARY">1.6 TEMPORARY</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Make transformations&rsquo; effects temporary.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#WEIGHT">1.7 WEIGHT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Weight cases by a variable.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="FILTER"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Data-Selection" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#N-OF-CASES" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="FILTER-1"></a>
+<h2 class="section">1.1 FILTER</h2>
+<a name="index-FILTER"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">FILTER BY <var>var_name</var>.
+FILTER OFF.
+</pre></td></tr></table>
+
+<p>@cmd{FILTER} allows a boolean-valued variable to be used to select
+cases from the data stream for processing.
+</p>
+<p>To set up filtering, specify @subcmd{BY} and a variable name.  Keyword
+BY is optional but recommended.  Cases which have a zero or system- or
+user-missing value are excluded from analysis, but not deleted from the
+data stream.  Cases with other values are analyzed.
+To filter based on a different condition, use
+transformations such as @cmd{COMPUTE} or @cmd{RECODE} to compute a
+filter variable of the required form, then specify that variable on
+@cmd{FILTER}.
+</p>
+<p><code>FILTER OFF</code> turns off case filtering.
+</p>
+<p>Filtering takes place immediately before cases pass to a procedure for
+analysis.  Only one filter variable may be active at a time.  Normally,
+case filtering continues until it is explicitly turned off with <code>FILTER
+OFF</code>.  However, if @cmd{FILTER} is placed after @cmd{TEMPORARY}, it filters only
+the next procedure or procedure-like command.
+</p>
+<hr size="6">
+<a name="N-OF-CASES"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#FILTER" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SAMPLE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="N-OF-CASES-1"></a>
+<h2 class="section">1.2 N OF CASES</h2>
+<a name="index-N-OF-CASES"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">N [OF CASES] <var>num_of_cases</var> [ESTIMATED].
+</pre></td></tr></table>
+
+<p>@cmd{N OF CASES} limits the number of cases processed by any
+procedures that follow it in the command stream.  <code>N OF CASES
+100</code>, for example, tells @pspp{} to disregard all cases after the first
+100.
+</p>
+<p>When @cmd{N OF CASES} is specified after @cmd{TEMPORARY}, it affects
+only the next procedure (see section <a href="#TEMPORARY">TEMPORARY</a>).  Otherwise, cases beyond
+the limit specified are not processed by any later procedure.
+</p>
+<p>If the limit specified on @cmd{N OF CASES} is greater than the number
+of cases in the active dataset, it has no effect.
+</p>
+<p>When @cmd{N OF CASES} is used along with @cmd{SAMPLE} or @cmd{SELECT
+IF}, the case limit is applied to the cases obtained after sampling or
+case selection, regardless of how @cmd{N OF CASES} is placed relative
+to @cmd{SAMPLE} or @cmd{SELECT IF} in the command file.  Thus, the
+commands <code>N OF CASES 100</code> and <code>SAMPLE .5</code> will both randomly
+sample approximately half of the active dataset&rsquo;s cases, then select the
+first 100 of those sampled, regardless of their order in the command
+file.
+</p>
+<p>@cmd{N OF CASES} with the <code>ESTIMATED</code> keyword gives an estimated
+number of cases before @cmd{DATA LIST} or another command to read in
+data.  <code>ESTIMATED</code> never limits the number of cases processed by
+procedures.  @pspp{} currently does not make use of case count estimates.
+</p>
+<hr size="6">
+<a name="SAMPLE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#N-OF-CASES" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SELECT-IF" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SAMPLE-1"></a>
+<h2 class="section">1.3 SAMPLE</h2>
+<a name="index-SAMPLE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SAMPLE <var>num1</var> [FROM <var>num2</var>].
+</pre></td></tr></table>
+
+<p>@cmd{SAMPLE} randomly samples a proportion of the cases in the active
+file.  Unless it follows @cmd{TEMPORARY}, it operates as a
+transformation, permanently removing cases from the active dataset.
+</p>
+<p>The proportion to sample can be expressed as a single number between 0
+and 1.  If <var>k</var> is the number specified, and <var>N</var> is the number
+of currently-selected cases in the active dataset, then after
+@subcmd{SAMPLE <var>k</var>.}, approximately <var>k</var>*<var>N</var> cases will be
+selected.
+</p>
+<p>The proportion to sample can also be specified in the style @subcmd{SAMPLE
+<var>m</var> FROM <var>N</var>}.  With this style, cases are selected as follows:
+</p>
+<ol>
+<li>
+If <var>N</var> is equal to the number of currently-selected cases in the
+active dataset, exactly <var>m</var> cases will be selected.
+
+</li><li>
+If <var>N</var> is greater than the number of currently-selected cases in the
+active dataset, an equivalent proportion of cases will be selected.
+
+</li><li>
+If <var>N</var> is less than the number of currently-selected cases in the
+active, exactly <var>m</var> cases will be selected <em>from the first
+<var>N</var> cases in the active dataset.</em>
+</li></ol>
+
+<p>@cmd{SAMPLE} and @cmd{SELECT IF} are performed in
+the order specified by the syntax file.
+</p>
+<p>@cmd{SAMPLE} is always performed before <code>N OF CASES</code>, regardless
+of ordering in the syntax file (see section <a href="#N-OF-CASES">N OF CASES</a>).
+</p>
+<p>The same values for @cmd{SAMPLE} may result in different samples.  To
+obtain the same sample, use the <code>SET</code> command to set the random
+number seed to the same value before each @cmd{SAMPLE}.  Different
+samples may still result when the file is processed on systems with
+differing endianness or floating-point formats.  By default, the
+random number seed is based on the system time.
+</p>
+<hr size="6">
+<a name="SELECT-IF"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SAMPLE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SPLIT-FILE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SELECT-IF-1"></a>
+<h2 class="section">1.4 SELECT IF</h2>
+<a name="index-SELECT-IF"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SELECT IF <var>expression</var>.
+</pre></td></tr></table>
+
+<p>@cmd{SELECT IF} selects cases for analysis based on the value of
+<var>expression</var>.  Cases not selected are permanently eliminated
+from the active dataset, unless @cmd{TEMPORARY} is in effect
+(see section <a href="#TEMPORARY">TEMPORARY</a>).
+</p>
+<p>Specify a boolean expression (@pxref{Expressions}).  If the value of the
+expression is true for a particular case, the case will be analyzed.  If
+the expression has a false or missing value, then the case will be
+deleted from the data stream.
+</p>
+<p>Place @cmd{SELECT IF} as early in the command file as
+possible.  Cases that are deleted early can be processed more
+efficiently in time and space.
+</p>
+<p>When @cmd{SELECT IF} is specified following @cmd{TEMPORARY}
+(see section <a href="#TEMPORARY">TEMPORARY</a>), the @cmd{LAG} function may not be used
+(@pxref{LAG}).
+</p>
+<hr size="6">
+<a name="SPLIT-FILE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SELECT-IF" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#TEMPORARY" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SPLIT-FILE-1"></a>
+<h2 class="section">1.5 SPLIT FILE</h2>
+<a name="index-SPLIT-FILE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SPLIT FILE [{LAYERED, SEPARATE}] BY <var>var_list</var>.
+SPLIT FILE OFF.
+</pre></td></tr></table>
+
+<p>@cmd{SPLIT FILE} allows multiple sets of data present in one data
+file to be analyzed separately using single statistical procedure
+commands.
+</p>
+<p>Specify a list of variable names to analyze multiple sets of
+data separately.  Groups of adjacent cases having the same values for these
+variables are analyzed by statistical procedure commands as one group.
+An independent analysis is carried out for each group of cases, and the
+variable values for the group are printed along with the analysis.
+</p>
+<p>When a list of variable names is specified, one of the keywords
+@subcmd{LAYERED} or @subcmd{SEPARATE} may also be specified.  If provided, either
+keyword are ignored.
+</p>
+<p>Groups are formed only by <em>adjacent</em> cases.  To create a split 
+using a variable where like values are not adjacent in the working file,
+you should first sort the data by that variable (@pxref{SORT CASES}).
+</p>
+<p>Specify @subcmd{OFF} to disable @cmd{SPLIT FILE} and resume analysis of the
+entire active dataset as a single group of data.
+</p>
+<p>When @cmd{SPLIT FILE} is specified after @cmd{TEMPORARY}, it affects only
+the next procedure (see section <a href="#TEMPORARY">TEMPORARY</a>).
+</p>
+<hr size="6">
+<a name="TEMPORARY"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SPLIT-FILE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#WEIGHT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="TEMPORARY-1"></a>
+<h2 class="section">1.6 TEMPORARY</h2>
+<a name="index-TEMPORARY"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">TEMPORARY.
+</pre></td></tr></table>
+
+<p>@cmd{TEMPORARY} is used to make the effects of transformations
+following its execution temporary.  These transformations will
+affect only the execution of the next procedure or procedure-like
+command.  Their effects will not be saved to the active dataset.
+</p>
+<p>The only specification on @cmd{TEMPORARY} is the command name.
+</p>
+<p>@cmd{TEMPORARY} may not appear within a @cmd{DO IF} or @cmd{LOOP}
+construct.  It may appear only once between procedures and
+procedure-like commands.
+</p>
+<p>Scratch variables cannot be used following @cmd{TEMPORARY}.
+</p>
+<p>An example may help to clarify:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">DATA LIST /X 1-2.
+BEGIN DATA.
+ 2
+ 4
+10
+15
+20
+24
+END DATA.
+
+COMPUTE X=X/2.
+
+TEMPORARY.
+COMPUTE X=X+3.
+
+DESCRIPTIVES X.
+DESCRIPTIVES X.
+</pre></td></tr></table>
+
+<p>The data read by the first @cmd{DESCRIPTIVES} are 4, 5, 8,
+10.5, 13, 15.  The data read by the first @cmd{DESCRIPTIVES} are 1, 2,
+5, 7.5, 10, 12.
+</p>
+<hr size="6">
+<a name="WEIGHT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#TEMPORARY" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="WEIGHT-1"></a>
+<h2 class="section">1.7 WEIGHT</h2>
+<a name="index-WEIGHT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">WEIGHT BY <var>var_name</var>.
+WEIGHT OFF.
+</pre></td></tr></table>
+
+<p>@cmd{WEIGHT} assigns cases varying weights,
+changing the frequency distribution of the active dataset.  Execution of
+@cmd{WEIGHT} is delayed until data have been read.
+</p>
+<p>If a variable name is specified, @cmd{WEIGHT} causes the values of that
+variable to be used as weighting factors for subsequent statistical
+procedures.  Use of keyword @subcmd{BY} is optional but recommended.  Weighting
+variables must be numeric.  Scratch variables may not be used for
+weighting (@pxref{Scratch Variables}).
+</p>
+<p>When @subcmd{OFF} is specified, subsequent statistical procedures will weight all
+cases equally.
+</p>
+<p>A positive integer weighting factor <var>w</var> on a case will yield the
+same statistical output as would replicating the case <var>w</var> times.
+A weighting factor of 0 is treated for statistical purposes as if the
+case did not exist in the input.  Weighting values need not be
+integers, but negative and system-missing values for the weighting
+variable are interpreted as weighting factors of 0.  User-missing
+values are not treated specially.
+</p>
+<p>When @cmd{WEIGHT} is specified after @cmd{TEMPORARY}, it affects only
+the next procedure (see section <a href="#TEMPORARY">TEMPORARY</a>).
+</p>
+<p>@cmd{WEIGHT} does not cause cases in the active dataset to be
+replicated in memory.
+</p><hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Data-Selection" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,3075 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Statistics"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#DESCRIPTIVES" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Statistics-1"></a>
+<h1 class="chapter">1. Statistics</h1>
+
+<p>This chapter documents the statistical procedures that @pspp{} supports so
+far.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#DESCRIPTIVES">1.1 DESCRIPTIVES</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Descriptive statistics.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#FREQUENCIES">1.2 FREQUENCIES</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 Frequency tables.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#EXAMINE">1.3 EXAMINE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     Testing data for normality.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GRAPH">1.4 GRAPH</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Plot data.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#CORRELATIONS">1.5 CORRELATIONS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Correlation tables.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#CROSSTABS">1.6 CROSSTABS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Crosstabulation tables.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#FACTOR">1.7 FACTOR</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Factor analysis and Principal Components analysis.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GLM">1.8 GLM</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                         Univariate Linear Models.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#LOGISTIC-REGRESSION">1.9 LOGISTIC REGRESSION</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Bivariate Logistic Regression.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#MEANS">1.10 MEANS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Average values and other statistics.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#NPAR-TESTS">1.11 NPAR TESTS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Nonparametric tests.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#T_002dTEST">1.12 T-TEST</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Test hypotheses about means.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#ONEWAY">1.13 ONEWAY</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      One way analysis of variance.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#QUICK-CLUSTER">1.14 QUICK CLUSTER</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               K-Means clustering.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#RANK">1.15 RANK</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Compute rank scores.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#REGRESSION">1.16 REGRESSION</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Linear regression.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#RELIABILITY">1.17 RELIABILITY</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 Reliability analysis.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#ROC">1.18 ROC</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                         Receiver Operating Characteristic.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="DESCRIPTIVES"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Statistics" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#FREQUENCIES" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DESCRIPTIVES-1"></a>
+<h2 class="section">1.1 DESCRIPTIVES</h2>
+
+<a name="index-DESCRIPTIVES"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">DESCRIPTIVES
+        /VARIABLES=<var>var_list</var>
+        /MISSING={VARIABLE,LISTWISE} {INCLUDE,NOINCLUDE}
+        /FORMAT={LABELS,NOLABELS} {NOINDEX,INDEX} {LINE,SERIAL}
+        /SAVE
+        /STATISTICS={ALL,MEAN,SEMEAN,STDDEV,VARIANCE,KURTOSIS,
+                     SKEWNESS,RANGE,MINIMUM,MAXIMUM,SUM,DEFAULT,
+                     SESKEWNESS,SEKURTOSIS}
+        /SORT={NONE,MEAN,SEMEAN,STDDEV,VARIANCE,KURTOSIS,SKEWNESS,
+               RANGE,MINIMUM,MAXIMUM,SUM,SESKEWNESS,SEKURTOSIS,NAME}
+              {A,D}
+</pre></td></tr></table>
+
+<p>The @cmd{DESCRIPTIVES} procedure reads the active dataset and outputs
+descriptive
+statistics requested by the user.  In addition, it can optionally
+compute Z-scores.
+</p>
+<p>The @subcmd{VARIABLES} subcommand, which is required, specifies the list of
+variables to be analyzed.  Keyword @subcmd{VARIABLES} is optional.
+</p>
+<p>All other subcommands are optional:
+</p>
+<p>The @subcmd{MISSING} subcommand determines the handling of missing variables.  If
+@subcmd{INCLUDE} is set, then user-missing values are included in the
+calculations.  If @subcmd{NOINCLUDE} is set, which is the default, user-missing
+values are excluded.  If @subcmd{VARIABLE} is set, then missing values are
+excluded on a variable by variable basis; if @subcmd{LISTWISE} is set, then
+the entire case is excluded whenever any value in that case has a
+system-missing or, if @subcmd{INCLUDE} is set, user-missing value.
+</p>
+<p>The @subcmd{FORMAT} subcommand affects the output format.  Currently the
+@subcmd{LABELS/NOLABELS} and @subcmd{NOINDEX/INDEX} settings are not used.
+When @subcmd{SERIAL} is
+set, both valid and missing number of cases are listed in the output;
+when @subcmd{NOSERIAL} is set, only valid cases are listed.
+</p>
+<p>The @subcmd{SAVE} subcommand causes @cmd{DESCRIPTIVES} to calculate Z scores for all
+the specified variables.  The Z scores are saved to new variables.
+Variable names are generated by trying first the original variable name
+with Z prepended and truncated to a maximum of 8 characters, then the
+names ZSC000 through ZSC999, STDZ00 through STDZ09, ZZZZ00 through
+ZZZZ09, ZQZQ00 through ZQZQ09, in that sequence.  In addition, Z score
+variable names can be specified explicitly on @subcmd{VARIABLES} in the variable
+list by enclosing them in parentheses after each variable.
+When Z scores are calculated, @pspp{} ignores @cmd{TEMPORARY},
+treating temporary transformations as permanent.
+</p>
+<p>The @subcmd{STATISTICS} subcommand specifies the statistics to be displayed:
+</p>
+<dl compact="compact">
+<dt> <code>@subcmd{ALL}</code></dt>
+<dd><p>All of the statistics below.
+</p></dd>
+<dt> <code>@subcmd{MEAN}</code></dt>
+<dd><p>Arithmetic mean.
+</p></dd>
+<dt> <code>@subcmd{SEMEAN}</code></dt>
+<dd><p>Standard error of the mean.
+</p></dd>
+<dt> <code>@subcmd{STDDEV}</code></dt>
+<dd><p>Standard deviation.
+</p></dd>
+<dt> <code>@subcmd{VARIANCE}</code></dt>
+<dd><p>Variance.
+</p></dd>
+<dt> <code>@subcmd{KURTOSIS}</code></dt>
+<dd><p>Kurtosis and standard error of the kurtosis.
+</p></dd>
+<dt> <code>@subcmd{SKEWNESS}</code></dt>
+<dd><p>Skewness and standard error of the skewness.
+</p></dd>
+<dt> <code>@subcmd{RANGE}</code></dt>
+<dd><p>Range.
+</p></dd>
+<dt> <code>MINIMUM</code></dt>
+<dd><p>Minimum value.
+</p></dd>
+<dt> <code>MAXIMUM</code></dt>
+<dd><p>Maximum value.
+</p></dd>
+<dt> <code>SUM</code></dt>
+<dd><p>Sum.
+</p></dd>
+<dt> <code>DEFAULT</code></dt>
+<dd><p>Mean, standard deviation of the mean, minimum, maximum.
+</p></dd>
+<dt> <code>SEKURTOSIS</code></dt>
+<dd><p>Standard error of the kurtosis.
+</p></dd>
+<dt> <code>SESKEWNESS</code></dt>
+<dd><p>Standard error of the skewness.
+</p></dd>
+</dl>
+
+<p>The @subcmd{SORT} subcommand specifies how the statistics should be sorted.  Most
+of the possible values should be self-explanatory.  @subcmd{NAME} causes the
+statistics to be sorted by name.  By default, the statistics are listed
+in the order that they are specified on the @subcmd{VARIABLES} subcommand.
+The @subcmd{A} and @subcmd{D} settings request an ascending or descending
+sort order, respectively.
+</p>
+<hr size="6">
+<a name="FREQUENCIES"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DESCRIPTIVES" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#EXAMINE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="FREQUENCIES-1"></a>
+<h2 class="section">1.2 FREQUENCIES</h2>
+
+<a name="index-FREQUENCIES"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">FREQUENCIES
+        /VARIABLES=<var>var_list</var>
+        /FORMAT={TABLE,NOTABLE,LIMIT(<var>limit</var>)}
+                {AVALUE,DVALUE,AFREQ,DFREQ}
+        /MISSING={EXCLUDE,INCLUDE}
+        /STATISTICS={DEFAULT,MEAN,SEMEAN,MEDIAN,MODE,STDDEV,VARIANCE,
+                     KURTOSIS,SKEWNESS,RANGE,MINIMUM,MAXIMUM,SUM,
+                     SESKEWNESS,SEKURTOSIS,ALL,NONE}
+        /NTILES=<var>ntiles</var>
+        /PERCENTILES=percent&hellip;
+        /HISTOGRAM=[MINIMUM(<var>x_min</var>)] [MAXIMUM(<var>x_max</var>)] 
+                   [{FREQ[(<var>y_max</var>)],PERCENT[(<var>y_max</var>)]}] [{NONORMAL,NORMAL}]
+        /PIECHART=[MINIMUM(<var>x_min</var>)] [MAXIMUM(<var>x_max</var>)]
+                  [{FREQ,PERCENT}] [{NOMISSING,MISSING}]
+        /BARCHART=[MINIMUM(<var>x_min</var>)] [MAXIMUM(<var>x_max</var>)]
+                  [{FREQ,PERCENT}]
+        /ORDER={ANALYSIS,VARIABLE}
+
+
+(These options are not currently implemented.)
+        /HBAR=&hellip;
+        /GROUPED=&hellip;
+</pre></td></tr></table>
+
+<p>The @cmd{FREQUENCIES} procedure outputs frequency tables for specified
+variables.
+@cmd{FREQUENCIES} can also calculate and display descriptive statistics
+(including median and mode) and percentiles, and various graphical representations
+of the frequency distribution.
+</p>
+<p>The @subcmd{VARIABLES} subcommand is the only required subcommand.  Specify the
+variables to be analyzed.
+</p>
+<p>The @subcmd{FORMAT} subcommand controls the output format.  It has several
+possible settings:  
+</p>
+<ul class="toc">
+<li> @subcmd{} 
+@subcmd{TABLE}, the default, causes a frequency table to be output for every
+variable specified.  @subcmd{NOTABLE} prevents them from being output.  @subcmd{LIMIT}
+with a numeric argument causes them to be output except when there are
+more than the specified number of values in the table.
+
+</li><li> @subcmd{} 
+Normally frequency tables are sorted in ascending order by value.  This
+is @subcmd{AVALUE}.  @subcmd{DVALUE} tables are sorted in descending order by value.
+@subcmd{AFREQ} and @subcmd{DFREQ} tables are sorted in ascending and descending order,
+respectively, by frequency count.
+</li></ul>
+
+<p>The @subcmd{MISSING} subcommand controls the handling of user-missing values.
+When @subcmd{EXCLUDE}, the default, is set, user-missing values are not included
+in frequency tables or statistics.  When @subcmd{INCLUDE} is set, user-missing
+are included.  System-missing values are never included in statistics,
+but are listed in frequency tables.
+</p>
+<p>The available @subcmd{STATISTICS} are the same as available 
+in @cmd{DESCRIPTIVES} (see section <a href="#DESCRIPTIVES">DESCRIPTIVES</a>), with the addition 
+of @subcmd{MEDIAN}, the data&rsquo;s median
+value, and MODE, the mode.  (If there are multiple modes, the smallest
+value is reported.)  By default, the mean, standard deviation of the
+mean, minimum, and maximum are reported for each variable.
+</p>
+<a name="index-percentiles"></a>
+<p>@subcmd{PERCENTILES} causes the specified percentiles to be reported.
+The percentiles should  be presented at a list of numbers between 0
+and 100 inclusive.  
+The @subcmd{NTILES} subcommand causes the percentiles to be reported at the
+boundaries of the data set divided into the specified number of ranges.
+For instance, @subcmd{/NTILES=4} would cause quartiles to be reported.
+</p>
+<a name="index-histogram"></a>
+<p>The @subcmd{HISTOGRAM} subcommand causes the output to include a histogram for
+each specified numeric variable.  The X axis by default ranges from
+the minimum to the maximum value observed in the data, but the @subcmd{MINIMUM}
+and @subcmd{MAXIMUM} keywords can set an explicit range. 
+<a name="DOCF1" href="#FOOT1">(1)</a>, where <em>IQR(x)</em> is the interquartile range of <em>x</em>
+and <em>n</em> is the number of samples.    Note that
+@cmd{EXAMINE} uses a different algorithm to determine bin sizes.
+Histograms are not created for string variables.
+</p>
+<p>Specify @subcmd{NORMAL} to superimpose a normal curve on the
+histogram.
+</p>
+<a name="index-piechart"></a>
+<p>The @subcmd{PIECHART} subcommand adds a pie chart for each variable to the data.  Each
+slice represents one value, with the size of the slice proportional to
+the value&rsquo;s frequency.  By default, all non-missing values are given
+slices.  
+The @subcmd{MINIMUM} and @subcmd{MAXIMUM} keywords can be used to limit the
+displayed slices to a given range of values.  
+The keyword @subcmd{NOMISSING} causes missing values to be omitted from the
+piechart.  This is the default.
+If instead, @subcmd{MISSING} is specified, then a single slice
+will be included representing all system missing and user-missing cases.
+</p>
+<a name="index-bar-chart"></a>
+<p>The @subcmd{BARCHART} subcommand produces a bar chart for each variable.
+The @subcmd{MINIMUM} and @subcmd{MAXIMUM} keywords can be used to omit
+categories whose counts which lie outside the specified limits.
+The @subcmd{FREQ} option (default) causes the ordinate to display the frequency
+of each category, whereas the @subcmd{PERCENT} option will display relative
+percentages.
+</p>
+<p>The @subcmd{FREQ} and @subcmd{PERCENT} options on @subcmd{HISTOGRAM} and 
+@subcmd{PIECHART} are accepted but not currently honoured.
+</p>
+<p>The @subcmd{ORDER} subcommand is accepted but ignored.
+</p>
+<hr size="6">
+<a name="EXAMINE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#FREQUENCIES" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GRAPH" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="EXAMINE-1"></a>
+<h2 class="section">1.3 EXAMINE</h2>
+
+<a name="index-EXAMINE"></a>
+<a name="index-Exploratory-data-analysis"></a>
+<a name="index-normality_002c-testing"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">EXAMINE
+        VARIABLES= <var>var1</var> [<var>var2</var>] &hellip; [<var>varN</var>]
+           [BY <var>factor1</var> [BY <var>subfactor1</var>]
+             [ <var>factor2</var> [BY <var>subfactor2</var>]]
+             &hellip;
+             [ <var>factor3</var> [BY <var>subfactor3</var>]]
+            ]
+        /STATISTICS={DESCRIPTIVES, EXTREME[(<var>n</var>)], ALL, NONE}
+        /PLOT={BOXPLOT, NPPLOT, HISTOGRAM, SPREADLEVEL[(<var>t</var>)], ALL, NONE}
+        /CINTERVAL <var>p</var>
+        /COMPARE={GROUPS,VARIABLES}
+        /ID=<var>identity_variable</var>
+        /{TOTAL,NOTOTAL}
+        /PERCENTILE=[<var>percentiles</var>]={HAVERAGE, WAVERAGE, ROUND, AEMPIRICAL, EMPIRICAL }
+        /MISSING={LISTWISE, PAIRWISE} [{EXCLUDE, INCLUDE}] 
+		[{NOREPORT,REPORT}]
+
+</pre></td></tr></table>
+
+<p>The @cmd{EXAMINE} command is used to perform exploratory data analysis.
+In particular, it is useful for testing how closely a distribution follows a
+normal distribution, and for finding outliers and extreme values.
+</p>
+<p>The @subcmd{VARIABLES} subcommand is mandatory.  
+It specifies the dependent variables and optionally variables to use as
+factors for the analysis.
+Variables listed before the first @subcmd{BY} keyword (if any) are the 
+dependent variables.
+The dependent variables may optionally be followed by a list of
+factors which tell @pspp{} how to break down the analysis for each
+dependent variable. 
+</p>
+<p>Following the dependent variables, factors may be specified.
+The factors (if desired) should be preceded by a single @subcmd{BY} keyword.
+The format for each factor is 
+</p><table><tr><td>&nbsp;</td><td><pre class="display"><var>factorvar</var> [BY <var>subfactorvar</var>].
+</pre></td></tr></table>
+<p>Each unique combination of the values of  <var>factorvar</var> and
+<var>subfactorvar</var> divide the dataset into <em>cells</em>.
+Statistics will be calculated for each cell
+and for the entire dataset (unless @subcmd{NOTOTAL} is given).
+</p>
+<p>The @subcmd{STATISTICS} subcommand specifies which statistics to show.
+@subcmd{DESCRIPTIVES} will produce a table showing some parametric and
+non-parametrics statistics.
+@subcmd{EXTREME} produces a table showing the extremities of each cell.
+A number in parentheses, <var>n</var> determines
+how many upper and lower extremities to show.
+The default number is 5.
+</p>
+<p>The subcommands @subcmd{TOTAL} and @subcmd{NOTOTAL} are mutually exclusive.
+If @subcmd{TOTAL} appears, then statistics will be produced for the entire dataset
+as well as for each cell.
+If @subcmd{NOTOTAL} appears, then statistics will be produced only for the cells
+(unless no factor variables have been given).
+These subcommands have no effect if there have  been no factor variables
+specified.
+</p>
+<a name="index-boxplot"></a>
+<a name="index-histogram-1"></a>
+<a name="index-npplot"></a>
+<a name="index-spreadlevel-plot"></a>
+<p>The @subcmd{PLOT} subcommand specifies which plots are to be produced if any.
+Available plots are @subcmd{HISTOGRAM}, @subcmd{NPPLOT},  @subcmd{BOXPLOT} and
+@subcmd{SPREADLEVEL}.
+The first three can be used to visualise how closely each cell conforms to a 
+normal distribution, whilst the spread vs. level plot can be useful to visualise
+how the variance of differs between factors.
+Boxplots will also show you the outliers and extreme values.
+<a name="DOCF2" href="#FOOT2">(2)</a>
+</p>
+<p>The @subcmd{SPREADLEVEL} plot displays the interquartile range versus the 
+median.  It takes an optional parameter <var>t</var>, which specifies how the data
+should be transformed prior to plotting.
+The given value <var>t</var> is a power to which the data is raised.  For example, if
+<var>t</var> is given as 2, then the data will be squared.
+Zero, however is a special value.  If <var>t</var> is 0 or 
+is omitted, then data will be transformed by taking its natural logarithm instead of
+raising to the power of <var>t</var>.
+</p>
+<p>The @subcmd{COMPARE} subcommand is only relevant if producing boxplots, and it is only 
+useful there is more than one dependent variable and at least one factor.
+If 
+@subcmd{/COMPARE=GROUPS} is specified, then one plot per dependent variable is produced,
+each of which contain boxplots for all the cells.
+If @subcmd{/COMPARE=VARIABLES} is specified, then one plot per cell is produced,
+each containing one boxplot per dependent variable.
+If the @subcmd{/COMPARE} subcommand is omitted, then @pspp{} behaves as if
+@subcmd{/COMPARE=GROUPS} were given.
+</p> 
+<p>The @subcmd{ID} subcommand is relevant only if @subcmd{/PLOT=BOXPLOT} or 
+@subcmd{/STATISTICS=EXTREME} has been given.
+If given, it should provide the name of a variable which is to be used
+to labels extreme values and outliers.
+Numeric or string variables are permissible.  
+If the @subcmd{ID} subcommand is not given, then the case number will be used for
+labelling.
+</p>
+<p>The @subcmd{CINTERVAL} subcommand specifies the confidence interval to use in
+calculation of the descriptives command.  The default is 95%.
+</p>
+<a name="index-percentiles-1"></a>
+<p>The @subcmd{PERCENTILES} subcommand specifies which percentiles are to be calculated, 
+and which algorithm to use for calculating them.  The default is to
+calculate the 5, 10, 25, 50, 75, 90, 95 percentiles using the
+@subcmd{HAVERAGE} algorithm.
+</p>
+<p>The @subcmd{TOTAL} and @subcmd{NOTOTAL} subcommands are mutually exclusive.  If @subcmd{NOTOTAL}
+is given and factors have been specified in the @subcmd{VARIABLES} subcommand,
+then then statistics for the unfactored dependent variables are
+produced in addition to the factored variables.  If there are no
+factors specified then @subcmd{TOTAL} and @subcmd{NOTOTAL} have no effect.
+</p>
+
+<p>The following example will generate descriptive statistics and histograms for
+two variables <var>score1</var> and <var>score2</var>.
+Two factors are given, <i>viz</i>: <var>gender</var> and <var>gender</var> BY <var>culture</var>.
+Therefore, the descriptives and histograms will be generated for each
+distinct  value
+of <var>gender</var> <em>and</em> for each distinct combination of the values
+of <var>gender</var> and <var>race</var>.
+Since the @subcmd{NOTOTAL} keyword is given, statistics and histograms for 
+<var>score1</var> and <var>score2</var> covering the  whole dataset are not produced.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">EXAMINE <var>score1</var> <var>score2</var> BY 
+        <var>gender</var>
+        <var>gender</var> BY <var>culture</var>
+        /STATISTICS = DESCRIPTIVES
+        /PLOT = HISTOGRAM
+        /NOTOTAL.
+</pre></td></tr></table>
+
+<p>Here is a second example showing how the @cmd{examine} command can be used to find extremities.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">EXAMINE <var>height</var> <var>weight</var> BY 
+        <var>gender</var>
+        /STATISTICS = EXTREME (3)
+        /PLOT = BOXPLOT
+        /COMPARE = GROUPS
+        /ID = <var>name</var>.
+</pre></td></tr></table>
+<p>In this example, we look at the height and weight of a sample of individuals and
+how they differ between male and female.
+A table showing the 3 largest and the 3 smallest values of <var>height</var> and 
+<var>weight</var> for each gender, and for the whole dataset will be shown.
+Boxplots will also be produced.
+Because @subcmd{/COMPARE = GROUPS} was given, boxplots for male and female will be
+shown in the same graphic, allowing us to easily see the difference between
+the genders.
+Since the variable <var>name</var> was specified on the @subcmd{ID} subcommand, this will be
+used to label the extreme values.
+</p>
+<p><strong>Warning!</strong>
+If many dependent variables are specified, or if factor variables are
+specified for which
+there are many distinct values, then @cmd{EXAMINE} will produce a very
+large quantity of output.
+</p>
+<hr size="6">
+<a name="GRAPH"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#EXAMINE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SCATTERPLOT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="GRAPH-1"></a>
+<h2 class="section">1.4 GRAPH</h2>
+
+<a name="index-GRAPH"></a>
+<a name="index-Exploratory-data-analysis-1"></a>
+<a name="index-normality_002c-testing-1"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GRAPH
+        /HISTOGRAM [(NORMAL)]= <var>var</var>
+        /SCATTERPLOT [(BIVARIATE)] = <var>var1</var> WITH <var>var2</var> [BY <var>var3</var>]
+        /BAR = {<var>summary-function</var>(<var>var1</var>) | <var>count-function</var>} BY <var>var2</var> [BY <var>var3</var>] 
+        [ /MISSING={LISTWISE, VARIABLE} [{EXCLUDE, INCLUDE}] ] 
+		[{NOREPORT,REPORT}]
+
+</pre></td></tr></table>
+
+<p>The @cmd{GRAPH} produces graphical plots of data. Only one of the subcommands 
+@subcmd{HISTOGRAM} or @subcmd{SCATTERPLOT} can be specified, i.e. only one plot
+can be produced per call of @cmd{GRAPH}. The @subcmd{MISSING} is optional. 
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SCATTERPLOT">1.4.1 Scatterplot</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Cartesian Plots
+</td></tr>
+<tr><td align="left" valign="top"><a href="#HISTOGRAM">1.4.2 Histogram</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               Histograms
+</td></tr>
+<tr><td align="left" valign="top"><a href="#BAR-CHART">1.4.3 Bar Chart</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               Bar Charts
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="SCATTERPLOT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GRAPH" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#HISTOGRAM" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GRAPH" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Scatterplot"></a>
+<h3 class="subsection">1.4.1 Scatterplot</h3>
+<a name="index-scatterplot"></a>
+
+<p>The subcommand @subcmd{SCATTERPLOT} produces an xy plot of the
+data. The different values of the optional third variable <var>var3</var>
+will result in different colours and/or markers for the plot. The
+following is an example for producing a scatterplot.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">GRAPH   
+        /SCATTERPLOT = <var>height</var> WITH <var>weight</var> BY <var>gender</var>.
+</pre></td></tr></table>
+
+<p>This example will produce a scatterplot where <var>height</var> is plotted versus <var>weight</var>. Depending
+on the value of the <var>gender</var> variable, the colour of the datapoint is different. With
+this plot it is possible to analyze gender differences for <var>height</var> vs. <var>weight</var> relation.
+</p>
+<hr size="6">
+<a name="HISTOGRAM"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SCATTERPLOT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#BAR-CHART" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GRAPH" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Histogram"></a>
+<h3 class="subsection">1.4.2 Histogram</h3>
+<a name="index-histogram-2"></a>
+
+<p>The subcommand @subcmd{HISTOGRAM} produces a histogram. Only one variable is allowed for
+the histogram plot.
+The keyword @subcmd{NORMAL} may be specified in parentheses, to indicate that the ideal normal curve
+should be superimposed over the histogram.
+For an alternative method to produce histograms see section <a href="#EXAMINE">EXAMINE</a>. The
+following example produces a histogram plot for the variable <var>weight</var>.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">GRAPH   
+        /HISTOGRAM = <var>weight</var>.
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="BAR-CHART"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#HISTOGRAM" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#CORRELATIONS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GRAPH" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Bar-Chart"></a>
+<h3 class="subsection">1.4.3 Bar Chart</h3>
+<a name="index-bar-chart-1"></a>
+
+<p>The subcommand @subcmd{BAR} produces a bar chart.
+This subcommand requires that a <var>count-function</var> be specified (with no arguments) or a <var>summary-function</var> with a variable <var>var1</var> in parentheses.
+Following the summary or count function, the keyword @subcmd{BY} should be specified and then a catagorical variable, <var>var2</var>.
+The values of the variable <var>var2</var> determine the labels of the bars to be plotted.
+Optionally a second categorical variable <var>var3</var> may be specified in which case a clustered (grouped) bar chart is produced.
+</p>
+<p>Valid count functions are
+</p><dl compact="compact">
+<dt> @subcmd  COUNT</dt>
+<dd><p>The weighted counts of the cases in each category.
+</p></dd>
+<dt> @subcmd  PCT</dt>
+<dd><p>The weighted counts of the cases in each category expressed as a percentage of the total weights of the cases.
+</p></dd>
+<dt> @subcmd  CUFREQ</dt>
+<dd><p>The cumulative weighted counts of the cases in each category.
+</p></dd>
+<dt> @subcmd  CUPCT</dt>
+<dd><p>The cumulative weighted counts of the cases in each category expressed as a percentage of the total weights of the cases.
+</p></dd>
+</dl>
+
+<p>The summary function is applied to <var>var1</var> across all cases in each category.
+The recognised summary functions are:
+</p><dl compact="compact">
+<dt> @subcmd  SUM</dt>
+<dd><p>The sum.
+</p></dd>
+<dt> @subcmd  MEAN</dt>
+<dd><p>The arithmetic mean.
+</p></dd>
+<dt> @subcmd  MAXIMUM</dt>
+<dd><p>The maximum value.
+</p></dd>
+<dt> @subcmd  MINIMUM</dt>
+<dd><p>The minimum value.
+</p></dd>
+</dl>
+
+<p>The following examples assume a dataset which is the results of a survey.
+Each respondent has indicated annual income, their sex and city of residence.
+One could create a bar chart showing how the mean income varies between of residents of different cities, thus:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">GRAPH  /BAR  = MEAN(<var>income</var>) BY <var>city</var>.
+</pre></td></tr></table>
+
+<p>This can be extended to also indicate how income in each city differs between the sexes.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">GRAPH  /BAR  = MEAN(<var>income</var>) BY <var>city</var> BY <var>sex</var>.
+</pre></td></tr></table>
+
+<p>One might also want to see how many respondents there are from each city.  This can be achieved as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">GRAPH  /BAR  = COUNT BY <var>city</var>.
+</pre></td></tr></table>
+
+<p>Bar charts can also be produced using the <a href="#FREQUENCIES">FREQUENCIES</a> and <a href="#CROSSTABS">CROSSTABS</a> commands.
+</p>
+<hr size="6">
+<a name="CORRELATIONS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#BAR-CHART" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#CROSSTABS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="CORRELATIONS-1"></a>
+<h2 class="section">1.5 CORRELATIONS</h2>
+
+<a name="index-CORRELATIONS"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">CORRELATIONS
+     /VARIABLES = <var>var_list</var> [ WITH <var>var_list</var> ]
+     [
+      .
+      .
+      .
+      /VARIABLES = <var>var_list</var> [ WITH <var>var_list</var> ]
+      /VARIABLES = <var>var_list</var> [ WITH <var>var_list</var> ]
+     ]
+
+     [ /PRINT={TWOTAIL, ONETAIL} {SIG, NOSIG} ]
+     [ /STATISTICS=DESCRIPTIVES XPROD ALL]
+     [ /MISSING={PAIRWISE, LISTWISE} {INCLUDE, EXCLUDE} ]
+</pre></td></tr></table>
+   
+
+<a name="index-correlation"></a>
+<p>The @cmd{CORRELATIONS} procedure produces tables of the Pearson correlation coefficient
+for a set of variables.  The significance of the coefficients are also given.
+</p>
+<p>At least one @subcmd{VARIABLES} subcommand is required. If the @subcmd{WITH} 
+keyword is used, then a non-square correlation table will be produced.
+The variables preceding @subcmd{WITH}, will be used as the rows of the table,
+and the variables following will be the columns of the table.
+If no @subcmd{WITH} subcommand is given, then a square, symmetrical table using all variables is produced.
+</p>
+
+<p>The @cmd{MISSING} subcommand determines the handling of missing variables.  
+If @subcmd{INCLUDE} is set, then user-missing values are included in the
+calculations, but system-missing values are not.
+If @subcmd{EXCLUDE} is set, which is the default, user-missing
+values are excluded as well as system-missing values. 
+</p>
+<p>If @subcmd{LISTWISE} is set, then the entire case is excluded from analysis
+whenever any variable  specified in any @cmd{/VARIABLES} subcommand
+contains a missing value.   
+If @subcmd{PAIRWISE} is set, then a case is considered missing only if either of the
+values  for the particular coefficient are missing.
+The default is @subcmd{PAIRWISE}.
+</p>
+<p>The @subcmd{PRINT} subcommand is used to control how the reported significance values are printed.
+If the @subcmd{TWOTAIL} option is used, then a two-tailed test of significance is 
+printed.  If the @subcmd{ONETAIL} option is given, then a one-tailed test is used.
+The default is @subcmd{TWOTAIL}.
+</p>
+<p>If the @subcmd{NOSIG} option is specified, then correlation coefficients with significance less than
+0.05 are highlighted.
+If @subcmd{SIG} is specified, then no highlighting is performed.  This is the default.
+</p>
+<a name="index-covariance"></a>
+<p>The @subcmd{STATISTICS} subcommand requests additional statistics to be displayed.  The keyword 
+@subcmd{DESCRIPTIVES} requests that the mean, number of non-missing cases, and the non-biased
+estimator of the standard deviation are displayed.
+These statistics will be displayed in a separated table, for all the variables listed
+in any @subcmd{/VARIABLES} subcommand.
+The @subcmd{XPROD} keyword requests cross-product deviations and covariance estimators to 
+be displayed for each pair of variables.
+The keyword @subcmd{ALL} is the union of @subcmd{DESCRIPTIVES} and @subcmd{XPROD}.
+</p>
+<hr size="6">
+<a name="CROSSTABS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#CORRELATIONS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#FACTOR" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="CROSSTABS-1"></a>
+<h2 class="section">1.6 CROSSTABS</h2>
+
+<a name="index-CROSSTABS"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">CROSSTABS
+        /TABLES=<var>var_list</var> BY <var>var_list</var> [BY <var>var_list</var>]&hellip;
+        /MISSING={TABLE,INCLUDE,REPORT}
+        /WRITE={NONE,CELLS,ALL}
+        /FORMAT={TABLES,NOTABLES}
+                {PIVOT,NOPIVOT}
+                {AVALUE,DVALUE}
+                {NOINDEX,INDEX}
+                {BOX,NOBOX}
+        /CELLS={COUNT,ROW,COLUMN,TOTAL,EXPECTED,RESIDUAL,SRESIDUAL,
+                ASRESIDUAL,ALL,NONE}
+        /COUNT={ASIS,CASE,CELL}
+               {ROUND,TRUNCATE}
+        /STATISTICS={CHISQ,PHI,CC,LAMBDA,UC,BTAU,CTAU,RISK,GAMMA,D,
+                     KAPPA,ETA,CORR,ALL,NONE}
+        /BARCHART
+        
+(Integer mode.)
+        /VARIABLES=<var>var_list</var> (<var>low</var>,<var>high</var>)&hellip;
+</pre></td></tr></table>
+
+<p>The @cmd{CROSSTABS} procedure displays crosstabulation
+tables requested by the user.  It can calculate several statistics for
+each cell in the crosstabulation tables.  In addition, a number of
+statistics can be calculated for each table itself.
+</p>
+<p>The @subcmd{TABLES} subcommand is used to specify the tables to be reported.  Any
+number of dimensions is permitted, and any number of variables per
+dimension is allowed.  The @subcmd{TABLES} subcommand may be repeated as many
+times as needed.  This is the only required subcommand in <em>general
+mode</em>.  
+</p>
+<p>Occasionally, one may want to invoke a special mode called <em>integer
+mode</em>.  Normally, in general mode, @pspp{} automatically determines
+what values occur in the data.  In integer mode, the user specifies the
+range of values that the data assumes.  To invoke this mode, specify the
+@subcmd{VARIABLES} subcommand, giving a range of data values in parentheses for
+each variable to be used on the @subcmd{TABLES} subcommand.  Data values inside
+the range are truncated to the nearest integer, then assigned to that
+value.  If values occur outside this range, they are discarded.  When it
+is present, the @subcmd{VARIABLES} subcommand must precede the @subcmd{TABLES}
+subcommand.
+</p>
+<p>In general mode, numeric and string variables may be specified on
+TABLES.  In integer mode, only numeric variables are allowed.
+</p>
+<p>The @subcmd{MISSING} subcommand determines the handling of user-missing values.
+When set to @subcmd{TABLE}, the default, missing values are dropped on a table by
+table basis.  When set to @subcmd{INCLUDE}, user-missing values are included in
+tables and statistics.  When set to @subcmd{REPORT}, which is allowed only in
+integer mode, user-missing values are included in tables but marked with
+an &lsquo;<samp>M</samp>&rsquo; (for &ldquo;missing&rdquo;) and excluded from statistical
+calculations.
+</p>
+<p>Currently the @subcmd{WRITE} subcommand is ignored.
+</p>
+<p>The @subcmd{FORMAT} subcommand controls the characteristics of the
+crosstabulation tables to be displayed.  It has a number of possible
+settings:
+</p>
+<ul class="toc">
+<li>
+@subcmd{TABLES}, the default, causes crosstabulation tables to be output.
+@subcmd{NOTABLES} suppresses them.
+
+</li><li>
+@subcmd{PIVOT}, the default, causes each @subcmd{TABLES} subcommand to be displayed in a
+pivot table format.  @subcmd{NOPIVOT} causes the old-style crosstabulation format
+to be used.
+
+</li><li>
+@subcmd{AVALUE}, the default, causes values to be sorted in ascending order.
+@subcmd{DVALUE} asserts a descending sort order.
+
+</li><li>
+@subcmd{INDEX} and @subcmd{NOINDEX} are currently ignored.
+
+</li><li>
+@subcmd{BOX} and @subcmd{NOBOX} is currently ignored.
+</li></ul>
+
+<p>The @subcmd{CELLS} subcommand controls the contents of each cell in the displayed
+crosstabulation table.  The possible settings are:
+</p>
+<dl compact="compact">
+<dt> COUNT</dt>
+<dd><p>Frequency count.
+</p></dd>
+<dt> ROW</dt>
+<dd><p>Row percent.
+</p></dd>
+<dt> COLUMN</dt>
+<dd><p>Column percent.
+</p></dd>
+<dt> TOTAL</dt>
+<dd><p>Table percent.
+</p></dd>
+<dt> EXPECTED</dt>
+<dd><p>Expected value.
+</p></dd>
+<dt> RESIDUAL </dt>
+<dd><p>Residual.
+</p></dd>
+<dt> SRESIDUAL</dt>
+<dd><p>Standardized residual.
+</p></dd>
+<dt> ASRESIDUAL</dt>
+<dd><p>Adjusted standardized residual.
+</p></dd>
+<dt> ALL</dt>
+<dd><p>All of the above.
+</p></dd>
+<dt> NONE</dt>
+<dd><p>Suppress cells entirely.
+</p></dd>
+</dl>
+
+<p>&lsquo;<samp>/CELLS</samp>&rsquo; without any settings specified requests @subcmd{COUNT}, @subcmd{ROW},
+@subcmd{COLUMN}, and @subcmd{TOTAL}.  
+If @subcmd{CELLS} is not specified at all then only @subcmd{COUNT}
+will be selected.
+</p>
+<p>By default, crosstabulation and statistics use raw case weights,
+without rounding.  Use the @subcmd{/COUNT} subcommand to perform
+rounding: CASE rounds the weights of individual weights as cases are
+read, CELL rounds the weights of cells within each crosstabulation
+table after it has been constructed, and ASIS explicitly specifies the
+default non-rounding behavior.  When rounding is requested, ROUND, the
+default, rounds to the nearest integer and TRUNCATE rounds toward
+zero.
+</p>
+<p>The @subcmd{STATISTICS} subcommand selects statistics for computation:
+</p>
+<dl compact="compact">
+<dt> CHISQ</dt>
+<dd><a name="index-chisquare"></a>
+<a name="index-chi_002dsquare"></a>
+
+<p>Pearson chi-square, likelihood ratio, Fisher&rsquo;s exact test, continuity
+correction, linear-by-linear association.
+</p></dd>
+<dt> PHI</dt>
+<dd><p>Phi.
+</p></dd>
+<dt> CC</dt>
+<dd><p>Contingency coefficient.
+</p></dd>
+<dt> LAMBDA</dt>
+<dd><p>Lambda.
+</p></dd>
+<dt> UC</dt>
+<dd><p>Uncertainty coefficient.
+</p></dd>
+<dt> BTAU</dt>
+<dd><p>Tau-b.
+</p></dd>
+<dt> CTAU</dt>
+<dd><p>Tau-c.
+</p></dd>
+<dt> RISK</dt>
+<dd><p>Risk estimate.
+</p></dd>
+<dt> GAMMA</dt>
+<dd><p>Gamma.
+</p></dd>
+<dt> D</dt>
+<dd><p>Somers&rsquo; D.
+</p></dd>
+<dt> KAPPA</dt>
+<dd><p>Cohen&rsquo;s Kappa.
+</p></dd>
+<dt> ETA</dt>
+<dd><p>Eta.
+</p></dd>
+<dt> CORR</dt>
+<dd><p>Spearman correlation, Pearson&rsquo;s r.
+</p></dd>
+<dt> ALL</dt>
+<dd><p>All of the above.
+</p></dd>
+<dt> NONE</dt>
+<dd><p>No statistics.
+</p></dd>
+</dl>
+
+<p>Selected statistics are only calculated when appropriate for the
+statistic.  Certain statistics require tables of a particular size, and
+some statistics are calculated only in integer mode.
+</p>
+<p>&lsquo;<samp>/STATISTICS</samp>&rsquo; without any settings selects CHISQ.  If the
+@subcmd{STATISTICS} subcommand is not given, no statistics are calculated.
+</p>
+<a name="index-bar-chart-2"></a>
+<p>The &lsquo;<samp>/BARCHART</samp>&rsquo; subcommand produces a clustered bar chart for the first two
+variables on each table.
+If a table has more than two variables, the counts for the third and subsequent levels 
+will be aggregated and the chart will be produces as if there were only two variables.  
+</p>
+
+<p><strong>Please note:</strong> Currently the implementation of @cmd{CROSSTABS} has the
+following limitations:
+</p>
+<ul>
+<li>
+Significance of some symmetric and directional measures is not calculated.
+</li><li>
+Asymptotic standard error is not calculated for
+Goodman and Kruskal&rsquo;s tau or symmetric Somers&rsquo; d.
+</li><li>
+Approximate T is not calculated for symmetric uncertainty coefficient.
+</li></ul>
+
+<p>Fixes for any of these deficiencies would be welcomed.
+</p>
+<hr size="6">
+<a name="FACTOR"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#CROSSTABS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GLM" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="FACTOR-1"></a>
+<h2 class="section">1.7 FACTOR</h2>
+
+<a name="index-FACTOR"></a>
+<a name="index-factor-analysis"></a>
+<a name="index-principal-components-analysis"></a>
+<a name="index-principal-axis-factoring"></a>
+<a name="index-data-reduction"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">FACTOR  VARIABLES=<var>var_list</var>
+
+        [ /METHOD = {CORRELATION, COVARIANCE} ]
+
+        [ /ANALYSIS=<var>var_list</var> ]
+
+        [ /EXTRACTION={PC, PAF}] 
+
+        [ /ROTATION={VARIMAX, EQUAMAX, QUARTIMAX, PROMAX[(<var>k</var>)], NOROTATE}]
+
+        [ /PRINT=[INITIAL] [EXTRACTION] [ROTATION] [UNIVARIATE] [CORRELATION] [COVARIANCE] [DET] [KMO] [SIG] [ALL] [DEFAULT] ]
+
+        [ /PLOT=[EIGEN] ]
+
+        [ /FORMAT=[SORT] [BLANK(<var>n</var>)] [DEFAULT] ]
+
+        [ /CRITERIA=[FACTORS(<var>n</var>)] [MINEIGEN(<var>l</var>)] [ITERATE(<var>m</var>)] [ECONVERGE (<var>delta</var>)] [DEFAULT] ]
+
+        [ /MISSING=[{LISTWISE, PAIRWISE}] [{INCLUDE, EXCLUDE}] ]
+</pre></td></tr></table>
+
+<p>The @cmd{FACTOR} command performs Factor Analysis or Principal Axis Factoring on a dataset.  It may be used to find
+common factors in the data or for data reduction purposes.
+</p>
+<p>The @subcmd{VARIABLES} subcommand is required.  It lists the variables
+which are to partake in the analysis.  (The @subcmd{ANALYSIS}
+subcommand may optionally further limit the variables that
+participate; it is not useful and implemented only for compatibility.)
+</p>
+<p>The @subcmd{/EXTRACTION} subcommand is used to specify the way in which factors (components) are extracted from the data.
+If @subcmd{PC} is specified, then Principal Components Analysis is used.  
+If @subcmd{PAF} is specified, then Principal Axis Factoring is
+used. By default Principal Components Analysis will be used.
+</p>
+<p>The @subcmd{/ROTATION} subcommand is used to specify the method by which the extracted solution will be rotated.
+Three orthogonal rotation methods are available: 
+@subcmd{VARIMAX} (which is the default), @subcmd{EQUAMAX}, and @subcmd{QUARTIMAX}.
+There is one oblique rotation method, <i>viz</i>: @subcmd{PROMAX}.
+Optionally you may enter the power of the promax rotation <var>k</var>, which must be enclosed in parentheses.
+The default value of <var>k</var> is 5.
+If you don&rsquo;t want any rotation to be performed, the word @subcmd{NOROTATE} will prevent the command from performing any
+rotation on the data. 
+</p>
+<p>The @subcmd{/METHOD} subcommand should be used to determine whether the covariance matrix or the correlation matrix of the data is
+to be analysed.  By default, the correlation matrix is analysed.
+</p>
+<p>The @subcmd{/PRINT} subcommand may be used to select which features of the analysis are reported:
+</p>
+<ul>
+<li> @subcmd{UNIVARIATE}
+      A table of mean values, standard deviations and total weights are printed.
+</li><li> @subcmd{INITIAL}
+      Initial communalities and eigenvalues are printed.
+</li><li> @subcmd{EXTRACTION}
+      Extracted communalities and eigenvalues are printed.
+</li><li> @subcmd{ROTATION}
+      Rotated communalities and eigenvalues are printed.
+</li><li> @subcmd{CORRELATION}
+      The correlation matrix is printed.
+</li><li> @subcmd{COVARIANCE}
+      The covariance matrix is printed.
+</li><li> @subcmd{DET}
+      The determinant of the correlation or covariance matrix is printed.
+</li><li> @subcmd{KMO}
+      The Kaiser-Meyer-Olkin measure of sampling adequacy and the Bartlett test of sphericity is printed.
+</li><li> @subcmd{SIG}
+      The significance of the elements of correlation matrix is printed.
+</li><li> @subcmd{ALL}
+      All of the above are printed.
+</li><li> @subcmd{DEFAULT}
+      Identical to @subcmd{INITIAL} and @subcmd{EXTRACTION}.
+</li></ul>
+
+<p>If @subcmd{/PLOT=EIGEN} is given, then a &ldquo;Scree&rdquo; plot of the eigenvalues will be printed.  This can be useful for visualizing
+which factors (components) should be retained.
+</p>
+<p>The @subcmd{/FORMAT} subcommand determined how data are to be displayed in loading matrices.  If @subcmd{SORT} is specified, then the variables
+are sorted in descending order of significance.  If @subcmd{BLANK(<var>n</var>)} is specified, then coefficients whose absolute value is less
+than <var>n</var> will not be printed.  If the keyword @subcmd{DEFAULT} is given, or if no @subcmd{/FORMAT} subcommand is given, then no sorting is 
+performed, and all coefficients will be printed.
+</p>
+<p>The @subcmd{/CRITERIA} subcommand is used to specify how the number of extracted factors (components) are chosen.
+If @subcmd{FACTORS(<var>n</var>)} is
+specified, where <var>n</var> is an integer, then <var>n</var> factors will be extracted.  Otherwise, the @subcmd{MINEIGEN} setting will
+be used.  
+@subcmd{MINEIGEN(<var>l</var>)} requests that all factors whose eigenvalues are greater than or equal to <var>l</var> are extracted.
+The default value of <var>l</var> is 1.    
+The @subcmd{ECONVERGE} setting has effect only when iterative algorithms for factor
+extraction (such as Principal Axis Factoring) are used.   
+@subcmd{ECONVERGE(<var>delta</var>)} specifies that
+iteration should cease when
+the maximum absolute value of the communality estimate between one iteration and the previous is less than <var>delta</var>. The
+default value of <var>delta</var> is 0.001.
+The @subcmd{ITERATE(<var>m</var>)} may appear any number of times and is used for two different purposes.  
+It is used to set the maximum number of iterations (<var>m</var>) for convergence and also to set the maximum number of iterations
+for rotation.
+Whether it affects convergence or rotation depends upon which subcommand follows the @subcmd{ITERATE} subcommand.
+If @subcmd{EXTRACTION} follows, it affects convergence.  
+If @subcmd{ROTATION} follows, it affects rotation.  
+If neither @subcmd{ROTATION} nor @subcmd{EXTRACTION} follow a @subcmd{ITERATE} subcommand it will be ignored.
+The default value of <var>m</var> is 25.
+</p>
+<p>The @cmd{MISSING} subcommand determines the handling of missing variables.  
+If @subcmd{INCLUDE} is set, then user-missing values are included in the
+calculations, but system-missing values are not.
+If @subcmd{EXCLUDE} is set, which is the default, user-missing
+values are excluded as well as system-missing values. 
+This is the default.
+If @subcmd{LISTWISE} is set, then the entire case is excluded from analysis
+whenever any variable  specified in the @cmd{VARIABLES} subcommand
+contains a missing value.   
+If @subcmd{PAIRWISE} is set, then a case is considered missing only if either of the
+values  for the particular coefficient are missing.
+The default is @subcmd{LISTWISE}.
+</p>
+<hr size="6">
+<a name="GLM"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#FACTOR" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#LOGISTIC-REGRESSION" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="GLM-1"></a>
+<h2 class="section">1.8 GLM</h2>
+
+<a name="index-GLM"></a>
+<a name="index-univariate-analysis-of-variance"></a>
+<a name="index-fixed-effects"></a>
+<a name="index-factorial-anova"></a>
+<a name="index-analysis-of-variance"></a>
+<a name="index-ANOVA"></a>
+
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GLM <var>dependent_vars</var> BY <var>fixed_factors</var>
+     [/METHOD = SSTYPE(<var>type</var>)]
+     [/DESIGN = <var>interaction_0</var> [<var>interaction_1</var> [... <var>interaction_n</var>]]]
+     [/INTERCEPT = {INCLUDE|EXCLUDE}]
+     [/MISSING = {INCLUDE|EXCLUDE}]
+</pre></td></tr></table>
+
+<p>The @cmd{GLM} procedure can be used for fixed effects factorial Anova.
+</p>
+<p>The <var>dependent_vars</var> are the variables to be analysed.
+You may analyse several variables in the same command in which case they should all
+appear before the <code>BY</code> keyword.
+</p>
+<p>The <var>fixed_factors</var> list must be one or more categorical variables.  Normally it
+will not make sense to enter a scalar variable in the <var>fixed_factors</var> and doing
+so may cause @pspp{} to do a lot of unnecessary processing.
+</p>
+<p>The @subcmd{METHOD} subcommand is used to change the method for producing the sums of
+squares.  Available values of <var>type</var> are 1, 2 and 3.  The default is type 3.
+</p>
+<p>You may specify a custom design using the @subcmd{DESIGN} subcommand.
+The design comprises a list of interactions where each interaction is a 
+list of variables separated by a &lsquo;<samp>*</samp>&rsquo;.  For example the command
+</p><table><tr><td>&nbsp;</td><td><pre class="display">GLM subject BY sex age_group race
+    /DESIGN = age_group sex group age_group*sex age_group*race
+</pre></td></tr></table>
+<p>specifies the model <em>subject = age_group + sex + race + age_group*sex + age_group*race</em>.
+If no @subcmd{DESIGN} subcommand is specified, then the default is all possible combinations
+of the fixed factors.  That is to say
+</p><table><tr><td>&nbsp;</td><td><pre class="display">GLM subject BY sex age_group race
+</pre></td></tr></table>
+<p>implies the model
+<em>subject = age_group + sex + race + age_group*sex + age_group*race + sex*race + age_group*sex*race</em>.
+</p>
+
+<p>The @subcmd{MISSING} subcommand determines the handling of missing
+variables.  
+If @subcmd{INCLUDE} is set then, for the purposes of GLM analysis,
+only system-missing values are considered
+to be missing; user-missing values are not regarded as missing.
+If @subcmd{EXCLUDE} is set, which is the default, then user-missing
+values are considered to be missing as well as system-missing values. 
+A case for which any dependent variable or any factor
+variable has a missing value is excluded from the analysis.
+</p>
+<hr size="6">
+<a name="LOGISTIC-REGRESSION"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GLM" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#MEANS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="LOGISTIC-REGRESSION-1"></a>
+<h2 class="section">1.9 LOGISTIC REGRESSION</h2>
+
+<a name="index-LOGISTIC-REGRESSION"></a>
+<a name="index-logistic-regression"></a>
+<a name="index-bivariate-logistic-regression"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">LOGISTIC REGRESSION [VARIABLES =] <var>dependent_var</var> WITH <var>predictors</var>
+
+     [/CATEGORICAL = <var>categorical_predictors</var>]
+
+     [{/NOCONST | /ORIGIN | /NOORIGIN }]
+
+     [/PRINT = [SUMMARY] [DEFAULT] [CI(<var>confidence</var>)] [ALL]]
+
+     [/CRITERIA = [BCON(<var>min_delta</var>)] [ITERATE(<var>max_interations</var>)]
+                  [LCON(<var>min_likelihood_delta</var>)] [EPS(<var>min_epsilon</var>)]
+                  [CUT(<var>cut_point</var>)]]
+
+     [/MISSING = {INCLUDE|EXCLUDE}]
+</pre></td></tr></table>
+
+<p>Bivariate Logistic Regression is used when you want to explain a dichotomous dependent
+variable in terms of one or more predictor variables.
+</p>
+<p>The minimum command is
+</p><table><tr><td>&nbsp;</td><td><pre class="example">LOGISTIC REGRESSION <var>y</var> WITH <var>x1</var> <var>x2</var> &hellip; <var>xn</var>.
+</pre></td></tr></table>
+<p>Here, <var>y</var> is the dependent variable, which must be dichotomous and <var>x1</var> &hellip; <var>xn</var>
+are the predictor variables whose coefficients the procedure estimates.
+</p>
+<p>By default, a constant term is included in the model.
+Hence, the full model is
+<em>
+\bf y 
+= b_0 + b_1 \bf x_1 
++ b_2 \bf x_2 
++ \dots
++ b_n \bf x_n
+</em>
+</p>
+<p>Predictor variables which are categorical in nature should be listed on the @subcmd{/CATEGORICAL} subcommand.
+Simple variables as well as interactions between variables may be listed here.
+</p>
+<p>If you want a model without the constant term <em>b_0</em>, use the keyword @subcmd{/ORIGIN}.
+@subcmd{/NOCONST} is a synonym for @subcmd{/ORIGIN}.
+</p>
+<p>An iterative Newton-Raphson procedure is used to fit the model.
+The @subcmd{/CRITERIA} subcommand is used to specify the stopping criteria of the procedure,
+and other parameters.
+The value of <var>cut_point</var> is used in the classification table.  It is the 
+threshold above which predicted values are considered to be 1.  Values
+of <var>cut_point</var> must lie in the range [0,1].
+During iterations, if any one of the stopping criteria are satisfied, the procedure is
+considered complete.
+The stopping criteria are:
+</p><ul>
+<li> The number of iterations exceeds <var>max_iterations</var>.  
+      The default value of <var>max_iterations</var> is 20.
+</li><li> The change in the all coefficient estimates are less than <var>min_delta</var>.
+The default value of <var>min_delta</var> is 0.001.
+</li><li> The magnitude of change in the likelihood estimate is less than <var>min_likelihood_delta</var>.
+The default value of <var>min_delta</var> is zero.
+This means that this criterion is disabled.
+</li><li> The differential of the estimated probability for all cases is less than <var>min_epsilon</var>.
+In other words, the probabilities are close to zero or one.
+The default value of <var>min_epsilon</var> is 0.00000001.
+</li></ul>
+
+
+<p>The @subcmd{PRINT} subcommand controls the display of optional statistics.
+Currently there is one such option, @subcmd{CI}, which indicates that the 
+confidence interval of the odds ratio should be displayed as well as its value.
+@subcmd{CI} should be followed by an integer in parentheses, to indicate the
+confidence level of the desired confidence interval.
+</p>
+<p>The @subcmd{MISSING} subcommand determines the handling of missing
+variables.  
+If @subcmd{INCLUDE} is set, then user-missing values are included in the
+calculations, but system-missing values are not.
+If @subcmd{EXCLUDE} is set, which is the default, user-missing
+values are excluded as well as system-missing values. 
+This is the default.
+</p>
+<hr size="6">
+<a name="MEANS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#LOGISTIC-REGRESSION" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="MEANS-1"></a>
+<h2 class="section">1.10 MEANS</h2>
+
+<a name="index-MEANS"></a>
+<a name="index-means"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">MEANS [TABLES =] 
+      {<var>var_list</var>} 
+        [ BY {<var>var_list</var>} [BY {<var>var_list</var>} [BY {<var>var_list</var>} &hellip; ]]]
+
+      [ /{<var>var_list</var>} 
+         [ BY {<var>var_list</var>} [BY {<var>var_list</var>} [BY {<var>var_list</var>} &hellip; ]]] ]
+
+      [/CELLS = [MEAN] [COUNT] [STDDEV] [SEMEAN] [SUM] [MIN] [MAX] [RANGE]
+        [VARIANCE] [KURT] [SEKURT] 
+        [SKEW] [SESKEW] [FIRST] [LAST] 
+        [HARMONIC] [GEOMETRIC] 
+        [DEFAULT]
+        [ALL]
+        [NONE] ]
+
+      [/MISSING = [TABLE] [INCLUDE] [DEPENDENT]]
+</pre></td></tr></table>
+
+
+<p>You can use the @cmd{MEANS} command to calculate the arithmetic mean and similar
+statistics, either for the dataset as a whole or for categories of data.
+</p>
+<p>The simplest form of the command is
+</p><table><tr><td>&nbsp;</td><td><pre class="example">MEANS <var>v</var>.
+</pre></td></tr></table>
+<p>which calculates the mean, count and standard deviation for <var>v</var>.
+If you specify a grouping variable, for example
+</p><table><tr><td>&nbsp;</td><td><pre class="example">MEANS <var>v</var> BY <var>g</var>.
+</pre></td></tr></table>
+<p>then the means, counts and standard deviations for <var>v</var> after having
+been grouped by <var>g</var> will be calculated.
+Instead of the mean, count and standard deviation, you could specify the statistics
+in which you are interested:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">MEANS <var>x</var> <var>y</var> BY <var>g</var>
+      /CELLS = HARMONIC SUM MIN.
+</pre></td></tr></table>
+<p>This example calculates the harmonic mean, the sum and the minimum values of <var>x</var> and <var>y</var>
+grouped by <var>g</var>.
+</p>
+<p>The @subcmd{CELLS} subcommand specifies which statistics to calculate.  The available statistics
+are:
+</p><ul>
+<li> @subcmd{MEAN}
+<a name="index-arithmetic-mean"></a>
+      The arithmetic mean.
+</li><li> @subcmd{COUNT}
+      The count of the values.
+</li><li> @subcmd{STDDEV}
+      The standard deviation.
+</li><li> @subcmd{SEMEAN}
+      The standard error of the mean.
+</li><li> @subcmd{SUM}
+      The sum of the values.
+</li><li> @subcmd{MIN}
+      The minimum value.
+</li><li> @subcmd{MAX}
+      The maximum value.
+</li><li> @subcmd{RANGE}
+      The difference between the maximum and minimum values.
+</li><li> @subcmd{VARIANCE}
+      The variance.
+</li><li> @subcmd{FIRST}
+      The first value in the category.
+</li><li> @subcmd{LAST}
+      The last value in the category.
+</li><li> @subcmd{SKEW}
+      The skewness.
+</li><li> @subcmd{SESKEW}
+      The standard error of the skewness.
+</li><li> @subcmd{KURT}
+      The kurtosis
+</li><li> @subcmd{SEKURT}
+      The standard error of the kurtosis.
+</li><li> @subcmd{HARMONIC}
+<a name="index-harmonic-mean"></a>
+      The harmonic mean.
+</li><li> @subcmd{GEOMETRIC}
+<a name="index-geometric-mean"></a>
+      The geometric mean.
+</li></ul>
+
+<p>In addition, three special keywords are recognized:
+</p><ul>
+<li> @subcmd{DEFAULT}
+      This is the same as @subcmd{MEAN} @subcmd{COUNT} @subcmd{STDDEV}.
+</li><li> @subcmd{ALL}
+      All of the above statistics will be calculated.
+</li><li> @subcmd{NONE}
+      No statistics will be calculated (only a summary will be shown).
+</li></ul>
+
+
+<p>More than one <em>table</em> can be specified in a single command. 
+Each table is separated by a &lsquo;<samp>/</samp>&rsquo;. For
+example
+</p><table><tr><td>&nbsp;</td><td><pre class="example">MEANS TABLES =
+      <var>c</var> <var>d</var> <var>e</var> BY <var>x</var>
+      /<var>a</var> <var>b</var> BY <var>x</var> <var>y</var>
+      /<var>f</var> BY <var>y</var> BY <var>z</var>.
+</pre></td></tr></table>
+<p>has three tables (the &lsquo;<samp>TABLE =</samp>&rsquo; is optional).
+The first table has three dependent variables <var>c</var>, <var>d</var> and <var>e</var>
+and a single categorical variable <var>x</var>.
+The second table has two dependent variables <var>a</var> and <var>b</var>, 
+and two categorical variables <var>x</var> and <var>y</var>.
+The third table has a single dependent variables <var>f</var>
+and a categorical variable formed by the combination of <var>y</var> and <var>z</var>.
+</p>
+
+<p>By default values are omitted from the analysis only if missing values
+(either system missing or user missing)
+for any of the variables directly involved in their calculation are 
+encountered.
+This behaviour can be modified with the  @subcmd{/MISSING} subcommand.
+Three options are possible: @subcmd{TABLE}, @subcmd{INCLUDE} and @subcmd{DEPENDENT}.
+</p>
+<p>@subcmd{/MISSING = TABLE} causes cases to be dropped if any variable is missing 
+in the table specification currently being processed, regardless of 
+whether it is needed to calculate the statistic.
+</p>
+<p>@subcmd{/MISSING = INCLUDE} says that user missing values, either in the dependent
+variables or in the categorical variables should be taken at their face
+value, and not excluded.
+</p>
+<p>@subcmd{/MISSING = DEPENDENT} says that user missing values, in the dependent
+variables should be taken at their face value, however cases which 
+have user missing values for the categorical variables should be omitted 
+from the calculation.
+</p>
+<hr size="6">
+<a name="NPAR-TESTS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#MEANS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#BINOMIAL" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="NPAR-TESTS-1"></a>
+<h2 class="section">1.11 NPAR TESTS</h2>
+
+<a name="index-NPAR-TESTS"></a>
+<a name="index-nonparametric-tests"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">NPAR TESTS
+     
+     nonparametric test subcommands
+     .
+     .
+     .
+     
+     [ /STATISTICS={DESCRIPTIVES} ]
+
+     [ /MISSING={ANALYSIS, LISTWISE} {INCLUDE, EXCLUDE} ]
+
+     [ /METHOD=EXACT [ TIMER [(<var>n</var>)] ] ]
+</pre></td></tr></table>
+
+<p>@cmd{NPAR TESTS} performs nonparametric tests. 
+Non parametric tests make very few assumptions about the distribution of the 
+data.
+One or more tests may be specified by using the corresponding subcommand.
+If the @subcmd{/STATISTICS} subcommand is also specified, then summary statistics are 
+produces for each variable that is the subject of any test.
+</p>
+<p>Certain tests may take a long time to execute, if an exact figure is required.
+Therefore, by default asymptotic approximations are used unless the
+subcommand @subcmd{/METHOD=EXACT} is specified.  
+Exact tests give more accurate results, but may take an unacceptably long 
+time to perform.  If the @subcmd{TIMER} keyword is used, it sets a maximum time,
+after which the test will be abandoned, and a warning message printed.
+The time, in minutes, should be specified in parentheses after the @subcmd{TIMER} keyword.
+If the @subcmd{TIMER} keyword is given without this figure, then a default value of 5 minutes 
+is used.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#BINOMIAL">1.11.1 Binomial test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Binomial Test
+</td></tr>
+<tr><td align="left" valign="top"><a href="#CHISQUARE">1.11.2 Chisquare Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#COCHRAN">1.11.3 Cochran Q Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#FRIEDMAN">1.11.4 Friedman Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#KENDALL">1.11.5 Kendall&rsquo;s W Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#KOLMOGOROV_002dSMIRNOV">1.11.6 Kolmogorov-Smirnov Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#KRUSKAL_002dWALLIS">1.11.7 Kruskal-Wallis Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#MANN_002dWHITNEY">1.11.8 Mann-Whitney U Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#MCNEMAR">1.11.9 McNemar Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#MEDIAN">1.11.10 Median Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#RUNS">1.11.11 Runs Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#SIGN">1.11.12 Sign Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    The Sign Test
+</td></tr>
+<tr><td align="left" valign="top"><a href="#WILCOXON">1.11.13 Wilcoxon Matched Pairs Signed Ranks Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Wilcoxon Signed Ranks Test
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="BINOMIAL"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#CHISQUARE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Binomial-test"></a>
+<h3 class="subsection">1.11.1 Binomial test</h3>
+<a name="index-BINOMIAL"></a>
+<a name="index-binomial-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /BINOMIAL[(<var>p</var>)]=<var>var_list</var>[(<var>value1</var>[, <var>value2</var>)] ] ]
+</pre></td></tr></table>
+
+
+<p>The @subcmd{/BINOMIAL} subcommand compares the observed distribution of a dichotomous 
+variable with that of a binomial distribution.
+The variable <var>p</var> specifies the test proportion of the binomial 
+distribution.  
+The default value of 0.5 is assumed if <var>p</var> is omitted.
+</p>
+<p>If a single value appears after the variable list, then that value is
+used as the threshold to partition the observed values. Values less
+than or equal to the threshold value form the first category.  Values
+greater than the threshold form the second category. 
+</p>
+<p>If two values appear after the variable list, then they will be used
+as the values which a variable must take to be in the respective
+category. 
+Cases for which a variable takes a value equal to neither of the specified  
+values, take no part in the test for that variable.
+</p>
+<p>If no values appear, then the variable must assume dichotomous
+values.
+If more than two distinct, non-missing values for a variable
+under test are encountered then an error occurs.
+</p>
+<p>If the test proportion is equal to 0.5, then a two tailed test is
+reported.   For any other test proportion, a one tailed test is
+reported.   
+For one tailed tests, if the test proportion is less than
+or equal to the observed proportion, then the significance of
+observing the observed proportion or more is reported.
+If the test proportion is more than the observed proportion, then the
+significance of observing the observed proportion or less is reported.
+That is to say, the test is always performed in the observed
+direction. 
+</p>
+<p>@pspp{} uses a very precise approximation to the gamma function to
+compute the binomial significance.  Thus, exact results are reported
+even for very large sample sizes.
+</p>
+
+
+<hr size="6">
+<a name="CHISQUARE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#BINOMIAL" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#COCHRAN" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Chisquare-Test"></a>
+<h3 class="subsection">1.11.2 Chisquare Test</h3>
+<a name="index-CHISQUARE"></a>
+<a name="index-chisquare-test"></a>
+
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /CHISQUARE=<var>var_list</var>[(<var>lo</var>,<var>hi</var>)] [/EXPECTED={EQUAL|<var>f1</var>, <var>f2</var> &hellip; <var>fn</var>}] ]
+</pre></td></tr></table>
+
+
+
+<p>The @subcmd{/CHISQUARE} subcommand produces a chi-square statistic for the differences 
+between the expected and observed frequencies of the categories of a variable. 
+Optionally, a range of values may appear after the variable list.  
+If a range is given, then non integer values are truncated, and values
+outside the  specified range are excluded from the analysis.
+</p>
+<p>The @subcmd{/EXPECTED} subcommand specifies the expected values of each
+category.  
+There must be exactly one non-zero expected value, for each observed
+category, or the @subcmd{EQUAL} keyword must be specified.
+You may use the notation @subcmd{<var>n</var>*<var>f</var>} to specify <var>n</var>
+consecutive expected categories all taking a frequency of <var>f</var>.
+The frequencies given are proportions, not absolute frequencies.  The
+sum of the frequencies need not be 1.
+If no @subcmd{/EXPECTED} subcommand is given, then then equal frequencies 
+are expected.
+</p>
+
+<hr size="6">
+<a name="COCHRAN"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#CHISQUARE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#FRIEDMAN" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Cochran-Q-Test"></a>
+<h3 class="subsection">1.11.3 Cochran Q Test</h3>
+<a name="index-Cochran"></a>
+<a name="index-Cochran-Q-test"></a>
+<a name="index-Q_002c-Cochran-Q"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /COCHRAN = <var>var_list</var> ]
+</pre></td></tr></table>
+
+<p>The Cochran Q test is used to test for differences between three or more groups.
+The data for <var>var_list</var> in all cases must assume exactly two distinct values (other than missing values). 
+</p>
+<p>The value of Q will be displayed and its Asymptotic significance based on a chi-square distribution.
+</p>
+<hr size="6">
+<a name="FRIEDMAN"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#COCHRAN" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#KENDALL" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Friedman-Test"></a>
+<h3 class="subsection">1.11.4 Friedman Test</h3>
+<a name="index-FRIEDMAN"></a>
+<a name="index-Friedman-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /FRIEDMAN = <var>var_list</var> ]
+</pre></td></tr></table>
+
+<p>The Friedman test is used to test for differences between repeated measures when
+there is no indication that the distributions are normally distributed.
+</p>
+<p>A list of variables which contain the measured data must be given.  The procedure
+prints the sum of ranks for each variable, the test statistic and its significance.
+</p>
+<hr size="6">
+<a name="KENDALL"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#FRIEDMAN" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#KOLMOGOROV_002dSMIRNOV" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Kendall_0027s-W-Test"></a>
+<h3 class="subsection">1.11.5 Kendall&rsquo;s W Test</h3>
+<a name="index-KENDALL"></a>
+<a name="index-Kendall_0027s-W-test"></a>
+<a name="index-coefficient-of-concordance"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /KENDALL = <var>var_list</var> ]
+</pre></td></tr></table>
+
+<p>The Kendall test investigates whether an arbitrary number of related samples come from the 
+same population.
+It is identical to the Friedman test except that the additional statistic W, Kendall&rsquo;s Coefficient of Concordance is printed.
+It has the range [0,1] &mdash; a value of zero indicates no agreement between the samples whereas a value of
+unity indicates complete agreement.
+</p>
+
+<hr size="6">
+<a name="KOLMOGOROV_002dSMIRNOV"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#KENDALL" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#KRUSKAL_002dWALLIS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Kolmogorov_002dSmirnov-Test"></a>
+<h3 class="subsection">1.11.6 Kolmogorov-Smirnov Test</h3>
+<a name="index-KOLMOGOROV_002dSMIRNOV"></a>
+<a name="index-K_002dS"></a>
+<a name="index-Kolmogorov_002dSmirnov-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /KOLMOGOROV-SMIRNOV ({NORMAL [<var>mu</var>, <var>sigma</var>], UNIFORM [<var>min</var>, <var>max</var>], POISSON [<var>lambda</var>], EXPONENTIAL [<var>scale</var>] }) = <var>var_list</var> ]
+</pre></td></tr></table>
+
+<p>The one sample Kolmogorov-Smirnov subcommand is used to test whether or not a dataset is
+drawn from a particular distribution.  Four distributions are supported, <i>viz:</i>
+Normal, Uniform, Poisson and Exponential.
+</p>
+<p>Ideally you should provide the parameters of the distribution against which you wish to test
+the data. For example, with the normal distribution  the mean (<var>mu</var>)and standard deviation (<var>sigma</var>)
+should be given; with the uniform distribution, the minimum (<var>min</var>)and maximum (<var>max</var>) value should
+be provided.
+However, if the parameters are omitted they will be imputed from the data. Imputing the
+parameters reduces the power of the test so should be avoided if possible.
+</p>
+<p>In the following example, two variables <var>score</var> and <var>age</var> are tested to see if
+they follow a normal distribution with a mean of 3.5 and a standard deviation of 2.0.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  NPAR TESTS
+        /KOLMOGOROV-SMIRNOV (normal 3.5 2.0) = <var>score</var> <var>age</var>.
+</pre></td></tr></table>
+<p>If the variables need to be tested against different distributions, then a separate
+subcommand must be used.  For example the following syntax tests <var>score</var> against
+a normal distribution with mean of 3.5 and standard deviation of 2.0 whilst <var>age</var>
+is tested against a normal distribution of mean 40 and standard deviation 1.5.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  NPAR TESTS
+        /KOLMOGOROV-SMIRNOV (normal 3.5 2.0) = <var>score</var>
+        /KOLMOGOROV-SMIRNOV (normal 40 1.5) =  <var>age</var>.
+</pre></td></tr></table>
+
+<p>The abbreviated subcommand  @subcmd{K-S} may be used in place of @subcmd{KOLMOGOROV-SMIRNOV}.
+</p>
+<hr size="6">
+<a name="KRUSKAL_002dWALLIS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#KOLMOGOROV_002dSMIRNOV" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#MANN_002dWHITNEY" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Kruskal_002dWallis-Test"></a>
+<h3 class="subsection">1.11.7 Kruskal-Wallis Test</h3>
+<a name="index-KRUSKAL_002dWALLIS"></a>
+<a name="index-K_002dW"></a>
+<a name="index-Kruskal_002dWallis-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /KRUSKAL-WALLIS = <var>var_list</var> BY var (<var>lower</var>, <var>upper</var>) ]
+</pre></td></tr></table>
+
+<p>The Kruskal-Wallis test is used to compare data from an 
+arbitrary number of populations.  It does not assume normality.
+The data to be compared are specified by <var>var_list</var>.
+The categorical variable determining the groups to which the
+data belongs is given by <var>var</var>. The limits <var>lower</var> and
+<var>upper</var> specify the valid range of <var>var</var>. Any cases for
+which <var>var</var> falls outside [<var>lower</var>, <var>upper</var>] will be
+ignored.
+</p>
+<p>The mean rank of each group as well as the chi-squared value and significance
+of the test will be printed.
+The abbreviated subcommand  @subcmd{K-W} may be used in place of @subcmd{KRUSKAL-WALLIS}.
+</p>
+
+<hr size="6">
+<a name="MANN_002dWHITNEY"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#KRUSKAL_002dWALLIS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#MCNEMAR" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Mann_002dWhitney-U-Test"></a>
+<h3 class="subsection">1.11.8 Mann-Whitney U Test</h3>
+<a name="index-MANN_002dWHITNEY"></a>
+<a name="index-M_002dW"></a>
+<a name="index-Mann_002dWhitney-U-test"></a>
+<a name="index-U_002c-Mann_002dWhitney-U"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /MANN-WHITNEY = <var>var_list</var> BY var (<var>group1</var>, <var>group2</var>) ]
+</pre></td></tr></table>
+
+<p>The Mann-Whitney subcommand is used to test whether two groups of data come from different populations.
+The variables to be tested should be specified in <var>var_list</var> and the grouping variable, that determines to which group the test variables belong, in <var>var</var>.
+<var>Var</var> may be either a string or an alpha variable.
+<var>Group1</var> and <var>group2</var> specify the
+two values of <var>var</var> which determine the groups of the test data.
+Cases for which the <var>var</var> value is neither <var>group1</var> or <var>group2</var> will be ignored.
+</p>
+<p>The value of the Mann-Whitney U statistic, the Wilcoxon W, and the significance will be printed.
+The abbreviated subcommand  @subcmd{M-W} may be used in place of @subcmd{MANN-WHITNEY}.
+</p>
+<hr size="6">
+<a name="MCNEMAR"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#MANN_002dWHITNEY" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#MEDIAN" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="McNemar-Test"></a>
+<h3 class="subsection">1.11.9 McNemar Test</h3>
+<a name="index-MCNEMAR"></a>
+<a name="index-McNemar-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /MCNEMAR <var>var_list</var> [ WITH <var>var_list</var> [ (PAIRED) ]]]
+</pre></td></tr></table>
+
+<p>Use McNemar&rsquo;s test to analyse the significance of the difference between
+pairs of correlated proportions.
+</p>
+<p>If the <code>WITH</code> keyword is omitted, then tests for all
+combinations of the listed variables are performed.
+If the <code>WITH</code> keyword is given, and the <code>(PAIRED)</code> keyword
+is also given, then the number of variables preceding <code>WITH</code>
+must be the same as the number following it.
+In this case, tests for each respective pair of variables are
+performed.
+If the <code>WITH</code> keyword is given, but the
+<code>(PAIRED)</code> keyword is omitted, then tests for each combination
+of variable preceding <code>WITH</code> against variable following
+<code>WITH</code> are performed.
+</p>
+<p>The data in each variable must be dichotomous.  If there are more
+than two distinct variables an error will occur and the test will
+not be run.
+</p>
+<hr size="6">
+<a name="MEDIAN"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#MCNEMAR" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#RUNS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Median-Test"></a>
+<h3 class="subsection">1.11.10 Median Test</h3>
+<a name="index-MEDIAN"></a>
+<a name="index-Median-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /MEDIAN [(<var>value</var>)] = <var>var_list</var> BY <var>variable</var> (<var>value1</var>, <var>value2</var>) ]
+</pre></td></tr></table>
+
+<p>The median test is used to test whether independent samples come from 
+populations with a common median.
+The median of the populations against which the samples are to be tested
+may be given in parentheses immediately after the 
+@subcmd{/MEDIAN} subcommand.  If it is not given, the median will be imputed from the 
+union of all the samples.
+</p>
+<p>The variables of the samples to be tested should immediately follow the &lsquo;<samp>=</samp>&rsquo; sign. The
+keyword <code>BY</code> must come next, and then the grouping variable.  Two values
+in parentheses should follow.  If the first value is greater than the second,
+then a 2 sample test is performed using these two values to determine the groups.
+If however, the first variable is less than the second, then a <i>k</i> sample test is
+conducted and the group values used are all values encountered which lie in the
+range [<var>value1</var>,<var>value2</var>].
+</p>
+
+<hr size="6">
+<a name="RUNS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#MEDIAN" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SIGN" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Runs-Test"></a>
+<h3 class="subsection">1.11.11 Runs Test</h3>
+<a name="index-RUNS"></a>
+<a name="index-runs-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /RUNS ({MEAN, MEDIAN, MODE, <var>value</var>})  = <var>var_list</var> ]
+</pre></td></tr></table>
+
+<p>The @subcmd{/RUNS} subcommand tests whether a data sequence is randomly ordered.
+</p>
+<p>It works by examining the number of times a variable&rsquo;s value crosses a given threshold. 
+The desired threshold must be specified within parentheses.
+It may either be specified as a number or as one of @subcmd{MEAN}, @subcmd{MEDIAN} or @subcmd{MODE}.
+Following the threshold specification comes the list of variables whose values are to be
+tested.
+</p>
+<p>The subcommand shows the number of runs, the asymptotic significance based on the
+length of the data.
+</p>
+<hr size="6">
+<a name="SIGN"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#RUNS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#WILCOXON" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Sign-Test"></a>
+<h3 class="subsection">1.11.12 Sign Test</h3>
+<a name="index-SIGN"></a>
+<a name="index-sign-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /SIGN <var>var_list</var> [ WITH <var>var_list</var> [ (PAIRED) ]]]
+</pre></td></tr></table>
+
+<p>The @subcmd{/SIGN} subcommand tests for differences between medians of the 
+variables listed.
+The test does not make any assumptions about the
+distribution of the data.
+</p>
+<p>If the <code>WITH</code> keyword is omitted, then tests for all
+combinations of the listed variables are performed.
+If the <code>WITH</code> keyword is given, and the <code>(PAIRED)</code> keyword
+is also given, then the number of variables preceding <code>WITH</code>
+must be the same as the number following it.
+In this case, tests for each respective pair of variables are
+performed.
+If the <code>WITH</code> keyword is given, but the
+<code>(PAIRED)</code> keyword is omitted, then tests for each combination
+of variable preceding <code>WITH</code> against variable following
+<code>WITH</code> are performed.
+</p>
+<hr size="6">
+<a name="WILCOXON"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SIGN" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#T_002dTEST" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#NPAR-TESTS" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Wilcoxon-Matched-Pairs-Signed-Ranks-Test"></a>
+<h3 class="subsection">1.11.13 Wilcoxon Matched Pairs Signed Ranks Test</h3>
+<a name="index-WILCOXON"></a>
+<a name="index-wilcoxon-matched-pairs-signed-ranks-test"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     [ /WILCOXON <var>var_list</var> [ WITH <var>var_list</var> [ (PAIRED) ]]]
+</pre></td></tr></table>
+
+<p>The @subcmd{/WILCOXON} subcommand tests for differences between medians of the 
+variables listed.
+The test does not make any assumptions about the variances of the samples.
+It does however assume that the distribution is symmetrical.
+</p>
+<p>If the @subcmd{WITH} keyword is omitted, then tests for all
+combinations of the listed variables are performed.
+If the @subcmd{WITH} keyword is given, and the @subcmd{(PAIRED)} keyword
+is also given, then the number of variables preceding @subcmd{WITH}
+must be the same as the number following it.
+In this case, tests for each respective pair of variables are
+performed.
+If the @subcmd{WITH} keyword is given, but the
+@subcmd{(PAIRED)} keyword is omitted, then tests for each combination
+of variable preceding @subcmd{WITH} against variable following
+@subcmd{WITH} are performed.
+</p>
+<hr size="6">
+<a name="T_002dTEST"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#WILCOXON" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#One-Sample-Mode" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="T_002dTEST-1"></a>
+<h2 class="section">1.12 T-TEST</h2>
+
+<a name="index-T_002dTEST"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">T-TEST
+        /MISSING={ANALYSIS,LISTWISE} {EXCLUDE,INCLUDE}
+        /CRITERIA=CI(<var>confidence</var>)
+
+
+(One Sample mode.)
+        TESTVAL=<var>test_value</var>
+        /VARIABLES=<var>var_list</var>
+
+
+(Independent Samples mode.)
+        GROUPS=var(<var>value1</var> [, <var>value2</var>])
+        /VARIABLES=<var>var_list</var>
+
+
+(Paired Samples mode.)
+        PAIRS=<var>var_list</var> [WITH <var>var_list</var> [(PAIRED)] ]
+
+</pre></td></tr></table>
+
+
+<p>The @cmd{T-TEST} procedure outputs tables used in testing hypotheses about 
+means.  
+It operates in one of three modes:
+</p><ul>
+<li> One Sample mode.
+</li><li> Independent Groups mode.
+</li><li> Paired mode.
+</li></ul>
+
+<p>Each of these modes are described in more detail below.
+There are two optional subcommands which are common to all modes.
+</p>
+<p>The @cmd{/CRITERIA} subcommand tells @pspp{} the confidence interval used
+in the tests.  The default value is 0.95.
+</p>
+
+<p>The @cmd{MISSING} subcommand determines the handling of missing
+variables.  
+If @subcmd{INCLUDE} is set, then user-missing values are included in the
+calculations, but system-missing values are not.
+If @subcmd{EXCLUDE} is set, which is the default, user-missing
+values are excluded as well as system-missing values. 
+This is the default.
+</p>
+<p>If @subcmd{LISTWISE} is set, then the entire case is excluded from analysis
+whenever any variable  specified in the @subcmd{/VARIABLES}, @subcmd{/PAIRS} or 
+@subcmd{/GROUPS} subcommands contains a missing value.   
+If @subcmd{ANALYSIS} is set, then missing values are excluded only in the analysis for
+which they would be needed. This is the default.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#One-Sample-Mode">1.12.1 One Sample Mode</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Testing against a hypothesized mean
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Independent-Samples-Mode">1.12.2 Independent Samples Mode</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    Testing two independent groups for equal mean
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Paired-Samples-Mode">1.12.3 Paired Samples Mode</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Testing two interdependent groups for equal mean
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="One-Sample-Mode"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#T_002dTEST" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Independent-Samples-Mode" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#T_002dTEST" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="One-Sample-Mode-1"></a>
+<h3 class="subsection">1.12.1 One Sample Mode</h3>
+
+<p>The @subcmd{TESTVAL} subcommand invokes the One Sample mode.
+This mode is used to test a population mean against a hypothesized
+mean. 
+The value given to the @subcmd{TESTVAL} subcommand is the value against
+which you wish to test.
+In this mode, you must also use the @subcmd{/VARIABLES} subcommand to
+tell @pspp{} which variables you wish to test.
+</p>
+<hr size="6">
+<a name="Independent-Samples-Mode"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#One-Sample-Mode" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Paired-Samples-Mode" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#T_002dTEST" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Independent-Samples-Mode-1"></a>
+<h3 class="subsection">1.12.2 Independent Samples Mode</h3>
+
+<p>The @subcmd{GROUPS} subcommand invokes Independent Samples mode or
+&lsquo;Groups&rsquo; mode. 
+This mode is used to test whether two groups of values have the
+same population mean.
+In this mode, you must also use the @subcmd{/VARIABLES} subcommand to
+tell @pspp{} the dependent variables you wish to test.
+</p>
+<p>The variable given in the @subcmd{GROUPS} subcommand is the independent
+variable which determines to which group the samples belong.
+The values in parentheses are the specific values of the independent
+variable for each group.
+If the parentheses are omitted and no values are given, the default values 
+of 1.0 and 2.0 are assumed.
+</p>
+<p>If the independent variable is numeric, 
+it is acceptable to specify only one value inside the parentheses.
+If you do this, cases where the independent variable is
+greater than or equal to this value belong to the first group, and cases
+less than this value belong to the second group.
+When using this form of the @subcmd{GROUPS} subcommand, missing values in
+the independent variable are excluded on a listwise basis, regardless
+of whether @subcmd{/MISSING=LISTWISE} was specified.
+</p>
+
+<hr size="6">
+<a name="Paired-Samples-Mode"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Independent-Samples-Mode" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#ONEWAY" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#T_002dTEST" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Paired-Samples-Mode-1"></a>
+<h3 class="subsection">1.12.3 Paired Samples Mode</h3>
+
+<p>The @cmd{PAIRS} subcommand introduces Paired Samples mode.
+Use this mode when repeated measures have been taken from the same
+samples.
+If the @subcmd{WITH} keyword is omitted, then tables for all
+combinations of variables given in the @cmd{PAIRS} subcommand are
+generated. 
+If the @subcmd{WITH} keyword is given, and the @subcmd{(PAIRED)} keyword
+is also given, then the number of variables preceding @subcmd{WITH}
+must be the same as the number following it.
+In this case, tables for each respective pair of variables are
+generated.
+In the event that the @subcmd{WITH} keyword is given, but the
+@subcmd{(PAIRED)} keyword is omitted, then tables for each combination
+of variable preceding @subcmd{WITH} against variable following
+@subcmd{WITH} are generated.
+</p>
+
+<hr size="6">
+<a name="ONEWAY"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Paired-Samples-Mode" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#QUICK-CLUSTER" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="ONEWAY-1"></a>
+<h2 class="section">1.13 ONEWAY</h2>
+
+<a name="index-ONEWAY"></a>
+<a name="index-analysis-of-variance-1"></a>
+<a name="index-ANOVA-1"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">ONEWAY
+        [/VARIABLES = ] <var>var_list</var> BY <var>var</var>
+        /MISSING={ANALYSIS,LISTWISE} {EXCLUDE,INCLUDE}
+        /CONTRAST= <var>value1</var> [, <var>value2</var>] ... [,<var>valueN</var>]
+        /STATISTICS={DESCRIPTIVES,HOMOGENEITY}
+        /POSTHOC={BONFERRONI, GH, LSD, SCHEFFE, SIDAK, TUKEY, ALPHA ([<var>value</var>])}
+</pre></td></tr></table>
+
+<p>The @cmd{ONEWAY} procedure performs a one-way analysis of variance of
+variables factored by a single independent variable.
+It is used to compare the means of a population
+divided into more than two groups. 
+</p>
+<p>The dependent variables to be analysed should be given in the @subcmd{VARIABLES}
+subcommand.  
+The list of variables must be followed by the @subcmd{BY} keyword and
+the name of the independent (or factor) variable.
+</p>
+<p>You can use the @subcmd{STATISTICS} subcommand to tell @pspp{} to display
+ancillary information.  The options accepted are:
+</p><ul>
+<li> DESCRIPTIVES
+Displays descriptive statistics about the groups factored by the independent
+variable.
+</li><li> HOMOGENEITY
+Displays the Levene test of Homogeneity of Variance for the
+variables and their groups.
+</li></ul>
+
+<p>The @subcmd{CONTRAST} subcommand is used when you anticipate certain
+differences between the groups.
+The subcommand must be followed by a list of numerals which are the
+coefficients of the groups to be tested.
+The number of coefficients must correspond to the number of distinct
+groups (or values of the independent variable).
+If the total sum of the coefficients are not zero, then @pspp{} will
+display a warning, but will proceed with the analysis.
+The @subcmd{CONTRAST} subcommand may be given up to 10 times in order
+to specify different contrast tests.
+The @subcmd{MISSING} subcommand defines how missing values are handled.
+If @subcmd{LISTWISE} is specified then cases which have missing values for 
+the independent variable or any dependent variable will be ignored.
+If @subcmd{ANALYSIS} is specified, then cases will be ignored if the independent
+variable is missing or if the dependent variable currently being 
+analysed is missing.  The default is @subcmd{ANALYSIS}.
+A setting of @subcmd{EXCLUDE} means that variables whose values are
+user-missing are to be excluded from the analysis. A setting of
+@subcmd{INCLUDE} means they are to be included.  The default is @subcmd{EXCLUDE}.
+</p>
+<p>Using the <code>POSTHOC</code> subcommand you can perform multiple
+pairwise comparisons on the data. The following comparison methods
+are available:
+</p><ul>
+<li> @subcmd{LSD}
+Least Significant Difference.
+</li><li> @subcmd{TUKEY}
+Tukey Honestly Significant Difference.
+</li><li> @subcmd{BONFERRONI}
+Bonferroni test.
+</li><li> @subcmd{SCHEFFE}
+Scheff&eacute;&rsquo;s test.
+</li><li> @subcmd{SIDAK}
+Sidak test.
+</li><li> @subcmd{GH}
+The Games-Howell test.
+</li></ul>
+
+<p>The optional syntax <code>ALPHA(<var>value</var>)</code> is used to indicate
+that <var>value</var> should be used as the
+confidence level for which the posthoc tests will be performed.
+The default is 0.05.
+</p>
+<hr size="6">
+<a name="QUICK-CLUSTER"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#ONEWAY" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#RANK" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="QUICK-CLUSTER-1"></a>
+<h2 class="section">1.14 QUICK CLUSTER</h2>
+<a name="index-QUICK-CLUSTER"></a>
+
+<a name="index-K_002dmeans-clustering"></a>
+<a name="index-clustering"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">QUICK CLUSTER <var>var_list</var>
+      [/CRITERIA=CLUSTERS(<var>k</var>) [MXITER(<var>max_iter</var>)] CONVERGE(<var>epsilon</var>) [NOINITIAL]]
+      [/MISSING={EXCLUDE,INCLUDE} {LISTWISE, PAIRWISE}]
+      [/PRINT={INITIAL} {CLUSTER}]
+</pre></td></tr></table>
+
+<p>The @cmd{QUICK CLUSTER} command performs k-means clustering on the
+dataset.  This is useful when you wish to allocate cases into clusters
+of similar values and you already know the number of clusters.
+</p>
+<p>The minimum specification is &lsquo;<samp>QUICK CLUSTER</samp>&rsquo; followed by the names
+of the variables which contain the cluster data.  Normally you will also
+want to specify @subcmd{/CRITERIA=CLUSTERS(<var>k</var>)} where <var>k</var> is the
+number of clusters.  If this is not specified, then <var>k</var> defaults to 2.
+</p>
+<p>If you use @subcmd{/CRITERIA=NOINITIAL} then a naive algorithm to select
+the initial clusters is used.   This will provide for faster execution but
+less well separated initial clusters and hence possibly an inferior final
+result.
+</p>
+
+<p>@cmd{QUICK CLUSTER} uses an iterative algorithm to select the clusters centers.
+The subcommand  @subcmd{/CRITERIA=MXITER(<var>max_iter</var>)} sets the maximum number of iterations.
+During classification, @pspp{} will continue iterating until until <var>max_iter</var>
+iterations have been done or the convergence criterion (see below) is fulfilled.
+The default value of <var>max_iter</var> is 2.
+</p>
+<p>If however, you specify @subcmd{/CRITERIA=NOUPDATE} then after selecting the initial centers,
+no further update to the cluster centers is done.  In this case, <var>max_iter</var>, if specified.
+is ignored.
+</p>
+<p>The subcommand  @subcmd{/CRITERIA=CONVERGE(<var>epsilon</var>)} is used
+to set the convergence criterion.  The value of convergence criterion is  <var>epsilon</var>
+times the minimum distance between the <em>initial</em> cluster centers.  Iteration stops when
+the  mean cluster distance between  one iteration and the next  
+is less than the convergence criterion.  The default value of <var>epsilon</var> is zero.
+</p>
+<p>The @subcmd{MISSING} subcommand determines the handling of missing variables.  
+If @subcmd{INCLUDE} is set, then user-missing values are considered at their face
+value and not as missing values.
+If @subcmd{EXCLUDE} is set, which is the default, user-missing
+values are excluded as well as system-missing values. 
+</p>
+<p>If @subcmd{LISTWISE} is set, then the entire case is excluded from the analysis
+whenever any of the clustering variables contains a missing value.   
+If @subcmd{PAIRWISE} is set, then a case is considered missing only if all the
+clustering variables contain missing values.  Otherwise it is clustered
+on the basis of the non-missing values.
+The default is @subcmd{LISTWISE}.
+</p>
+<p>The @subcmd{PRINT} subcommand requests additional output to be printed.
+If @subcmd{INITIAL} is set, then the initial cluster memberships will
+be printed.
+If @subcmd{CLUSTER} is set, the cluster memberships of the individual
+cases will be displayed (potentially generating lengthy output).
+</p>
+
+<hr size="6">
+<a name="RANK"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#QUICK-CLUSTER" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#REGRESSION" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="RANK-1"></a>
+<h2 class="section">1.15 RANK</h2>
+
+<a name="index-RANK"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">RANK
+        [VARIABLES=] <var>var_list</var> [{A,D}] [BY <var>var_list</var>]
+        /TIES={MEAN,LOW,HIGH,CONDENSE}
+        /FRACTION={BLOM,TUKEY,VW,RANKIT}
+        /PRINT[={YES,NO}
+        /MISSING={EXCLUDE,INCLUDE}
+
+        /RANK [INTO <var>var_list</var>]
+        /NTILES(k) [INTO <var>var_list</var>]
+        /NORMAL [INTO <var>var_list</var>]
+        /PERCENT [INTO <var>var_list</var>]
+        /RFRACTION [INTO <var>var_list</var>]
+        /PROPORTION [INTO <var>var_list</var>]
+        /N [INTO <var>var_list</var>]
+        /SAVAGE [INTO <var>var_list</var>]
+</pre></td></tr></table>
+
+<p>The @cmd{RANK} command ranks variables and stores the results into new
+variables. 
+</p>
+<p>The @subcmd{VARIABLES} subcommand, which is mandatory, specifies one or
+more variables whose values are to be ranked.  
+After each variable, &lsquo;<samp>A</samp>&rsquo; or &lsquo;<samp>D</samp>&rsquo; may appear, indicating that
+the variable is to be ranked in ascending or descending order.
+Ascending is the default.
+If a @subcmd{BY} keyword appears, it should be followed by a list of variables
+which are to serve as group variables.  
+In this case, the cases are gathered into groups, and ranks calculated
+for each group.
+</p>
+<p>The @subcmd{TIES} subcommand specifies how tied values are to be treated.  The
+default is to take the mean value of all the tied cases.
+</p>
+<p>The @subcmd{FRACTION} subcommand specifies how proportional ranks are to be
+calculated.  This only has any effect if @subcmd{NORMAL} or @subcmd{PROPORTIONAL} rank
+functions are requested.
+</p>
+<p>The @subcmd{PRINT} subcommand may be used to specify that a summary of the rank
+variables created should appear in the output.
+</p>
+<p>The function subcommands are @subcmd{RANK}, @subcmd{NTILES}, @subcmd{NORMAL}, @subcmd{PERCENT}, @subcmd{RFRACTION},
+@subcmd{PROPORTION} and @subcmd{SAVAGE}.  Any number of function subcommands may appear.
+If none are given, then the default is RANK.
+The @subcmd{NTILES} subcommand must take an integer specifying the number of
+partitions into which values should be ranked.
+Each subcommand may be followed by the @subcmd{INTO} keyword and a list of
+variables which are the variables to be created and receive the rank
+scores.  There may be as many variables specified as there are
+variables named on the @subcmd{VARIABLES} subcommand.  If fewer are specified,
+then the variable names are automatically created.
+</p>
+<p>The @subcmd{MISSING} subcommand determines how user missing values are to be
+treated. A setting of @subcmd{EXCLUDE} means that variables whose values are
+user-missing are to be excluded from the rank scores. A setting of
+@subcmd{INCLUDE} means they are to be included.  The default is @subcmd{EXCLUDE}.
+</p>
+<hr size="6">
+<a name="REGRESSION"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#RANK" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Syntax" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="REGRESSION-1"></a>
+<h2 class="section">1.16 REGRESSION</h2>
+
+<a name="index-regression"></a>
+<a name="index-linear-regression"></a>
+<p>The @cmd{REGRESSION} procedure fits linear models to data via least-squares
+estimation. The procedure is appropriate for data which satisfy those
+assumptions typical in linear regression:
+</p>
+<ul>
+<li> The data set contains <em>n</em> observations of a dependent variable, say
+<em>Y_1,&hellip;,Y_n</em>, and <em>n</em> observations of one or more explanatory
+variables.
+Let <em>X_11, X_12</em>, &hellip;, <em>X_1n</em> denote the <em>n</em> observations
+of the first explanatory variable;
+<em>X_21</em>,&hellip;,<em>X_2n</em> denote the <em>n</em> observations of the second
+explanatory variable;
+<em>X_k1</em>,&hellip;,<em>X_kn</em> denote the <em>n</em> observations of 
+the <em>k</em>th explanatory variable.
+
+</li><li> The dependent variable <em>Y</em> has the following relationship to the 
+explanatory variables:
+<em>Y_i = b_0 + b_1 X_1i + ... + b_k X_ki + Z_i</em>
+where <em>b_0, b_1, &hellip;, b_k</em> are unknown
+coefficients, and <em>Z_1,&hellip;,Z_n</em> are independent, normally
+distributed <em>noise</em> terms with mean zero and common variance.
+The noise, or <em>error</em> terms are unobserved.
+This relationship is called the <em>linear model</em>.
+</li></ul>
+
+<p>The @cmd{REGRESSION} procedure estimates the coefficients
+<em>b_0,&hellip;,b_k</em> and produces output relevant to inferences for the
+linear model. 
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Syntax">1.16.1 Syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Syntax definition.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Examples">1.16.2 Examples</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Using the REGRESSION procedure.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Syntax"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#REGRESSION" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Examples" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#REGRESSION" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Syntax-1"></a>
+<h3 class="subsection">1.16.1 Syntax</h3>
+
+<a name="index-REGRESSION"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">REGRESSION
+        /VARIABLES=<var>var_list</var>
+        /DEPENDENT=<var>var_list</var>
+        /STATISTICS={ALL, DEFAULTS, R, COEFF, ANOVA, BCOV, CI[<var>conf</var>]}
+        /SAVE={PRED, RESID}
+</pre></td></tr></table>
+
+<p>The @cmd{REGRESSION} procedure reads the active dataset and outputs
+statistics relevant to the linear model specified by the user.
+</p>
+<p>The @subcmd{VARIABLES} subcommand, which is required, specifies the list of
+variables to be analyzed.  Keyword @subcmd{VARIABLES} is required. The
+@subcmd{DEPENDENT} subcommand specifies the dependent variable of the linear
+model. The @subcmd{DEPENDENT} subcommand is required. All variables listed in
+the @subcmd{VARIABLES} subcommand, but not listed in the @subcmd{DEPENDENT} subcommand,
+are treated as explanatory variables in the linear model.
+</p>
+<p>All other subcommands are optional:
+</p>
+<p>The @subcmd{STATISTICS} subcommand specifies which statistics are to be displayed.
+The following keywords are accepted:
+</p>
+<dl compact="compact">
+<dt> @subcmd  ALL</dt>
+<dd><p>All of the statistics below.
+</p></dd>
+<dt> @subcmd  R</dt>
+<dd><p>The ratio of the sums of squares due to the model to the total sums of
+squares for the dependent variable.
+</p></dd>
+<dt> @subcmd  COEFF</dt>
+<dd><p>A table containing the estimated model coefficients and their standard errors.
+</p></dd>
+<dt> @subcmd  CI (<var>conf</var>)</dt>
+<dd><p>This item is only relevant if COEFF has also been selected.  It specifies that the
+confidence interval for the coefficients should be printed.  The optional value <var>conf</var>,
+which must be in parentheses, is the desired confidence level expressed as a percentage.
+</p></dd>
+<dt> @subcmd  ANOVA</dt>
+<dd><p>Analysis of variance table for the model.
+</p></dd>
+<dt> @subcmd  BCOV</dt>
+<dd><p>The covariance matrix for the estimated model coefficients.
+</p></dd>
+<dt> @subcmd  DEFAULT</dt>
+<dd><p>The same as if R, COEFF, and ANOVA had been selected.
+This is what you get if the /STATISTICS command is not specified,
+or if it is specified without any parameters.
+</p></dd>
+</dl>
+
+<p>The @subcmd{SAVE} subcommand causes @pspp{} to save the residuals or predicted
+values from the fitted
+model to the active dataset. @pspp{} will store the residuals in a variable
+called &lsquo;<samp>RES1</samp>&rsquo; if no such variable exists, &lsquo;<samp>RES2</samp>&rsquo; if &lsquo;<samp>RES1</samp>&rsquo; 
+already exists,
+&lsquo;<samp>RES3</samp>&rsquo; if &lsquo;<samp>RES1</samp>&rsquo; and &lsquo;<samp>RES2</samp>&rsquo; already exist, etc. It will
+choose the name of
+the variable for the predicted values similarly, but with &lsquo;<samp>PRED</samp>&rsquo; as a
+prefix.
+When @subcmd{SAVE} is used, @pspp{} ignores @cmd{TEMPORARY}, treating
+temporary transformations as permanent.
+</p>
+<hr size="6">
+<a name="Examples"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Syntax" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#RELIABILITY" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#REGRESSION" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Examples-1"></a>
+<h3 class="subsection">1.16.2 Examples</h3>
+<p>The following @pspp{} syntax will generate the default output and save the
+predicted values and residuals to the active dataset.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">title 'Demonstrate REGRESSION procedure'.
+data list / v0 1-2 (A) v1 v2 3-22 (10).
+begin data.
+b  7.735648 -23.97588
+b  6.142625 -19.63854
+a  7.651430 -25.26557
+c  6.125125 -16.57090
+a  8.245789 -25.80001
+c  6.031540 -17.56743
+a  9.832291 -28.35977
+c  5.343832 -16.79548
+a  8.838262 -29.25689
+b  6.200189 -18.58219
+end data.
+list.
+regression /variables=v0 v1 v2 /statistics defaults /dependent=v2 
+           /save pred resid /method=enter.
+</pre></td></tr></table>
+
+
+<hr size="6">
+<a name="RELIABILITY"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Examples" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#ROC" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="RELIABILITY-1"></a>
+<h2 class="section">1.17 RELIABILITY</h2>
+
+<a name="index-RELIABILITY"></a>
+<table><tr><td>&nbsp;</td><td><pre class="display">RELIABILITY
+        /VARIABLES=<var>var_list</var>
+        /SCALE (<var>name</var>) = {<var>var_list</var>, ALL}
+        /MODEL={ALPHA, SPLIT[(<var>n</var>)]}
+        /SUMMARY={TOTAL,ALL}
+        /MISSING={EXCLUDE,INCLUDE}
+</pre></td></tr></table>
+
+<a name="index-Cronbach_0027s-Alpha"></a>
+<p>The @cmd{RELIABILITY} command performs reliability analysis on the data.
+</p>
+<p>The @subcmd{VARIABLES} subcommand is required. It determines the set of variables 
+upon which analysis is to be performed.
+</p>
+<p>The @subcmd{SCALE} subcommand determines which variables reliability is to be 
+calculated for.  If it is omitted, then analysis for all variables named
+in the @subcmd{VARIABLES} subcommand will be used.
+Optionally, the <var>name</var> parameter may be specified to set a string name 
+for the scale.
+</p>
+<p>The @subcmd{MODEL} subcommand determines the type of analysis. If @subcmd{ALPHA} is specified, 
+then Cronbach&rsquo;s Alpha is calculated for the scale.  If the model is @subcmd{SPLIT}, 
+then the variables  are divided into 2 subsets.  An optional parameter 
+<var>n</var> may be given, to specify how many variables to be in the first subset.
+If <var>n</var> is omitted, then it defaults to one half of the variables in the 
+scale, or one half minus one if there are an odd number of variables.
+The default model is @subcmd{ALPHA}.
+</p>
+<p>By default, any cases with user missing, or system missing values for 
+any variables given 
+in the @subcmd{VARIABLES} subcommand will be omitted from analysis.
+The @subcmd{MISSING} subcommand determines whether user missing values are to 
+be included or excluded in the analysis.
+</p>
+<p>The @subcmd{SUMMARY} subcommand determines the type of summary analysis to be performed.
+Currently there is only one type: @subcmd{SUMMARY=TOTAL}, which displays per-item
+analysis tested against the totals.
+</p>
+
+
+<hr size="6">
+<a name="ROC"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#RELIABILITY" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="ROC-1"></a>
+<h2 class="section">1.18 ROC</h2>
+
+<a name="index-ROC"></a>
+<a name="index-Receiver-Operating-Characteristic"></a>
+<a name="index-Area-under-curve"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">ROC     <var>var_list</var> BY <var>state_var</var> (<var>state_value</var>)
+        /PLOT = { CURVE [(REFERENCE)], NONE }
+        /PRINT = [ SE ] [ COORDINATES ]
+        /CRITERIA = [ CUTOFF({INCLUDE,EXCLUDE}) ]
+          [ TESTPOS ({LARGE,SMALL}) ]
+          [ CI (<var>confidence</var>) ]
+          [ DISTRIBUTION ({FREE, NEGEXPO }) ]
+        /MISSING={EXCLUDE,INCLUDE}
+</pre></td></tr></table>
+
+
+<p>The @cmd{ROC} command is used to plot the receiver operating characteristic curve 
+of a dataset, and to estimate the area under the curve.
+This is useful for analysing the efficacy of a variable as a predictor of a state of nature.
+</p>
+<p>The mandatory <var>var_list</var> is the list of predictor variables.
+The variable <var>state_var</var> is the variable whose values represent the actual states, 
+and <var>state_value</var> is the value of this variable which represents the positive state.
+</p>
+<p>The optional subcommand @subcmd{PLOT} is used to determine if and how the @subcmd{ROC} curve is drawn.
+The keyword @subcmd{CURVE} means that the @subcmd{ROC} curve should be drawn, and the optional keyword @subcmd{REFERENCE},
+which should be enclosed in parentheses, says that the diagonal reference line should be drawn.
+If the keyword @subcmd{NONE} is given, then no @subcmd{ROC} curve is drawn.
+By default, the curve is drawn with no reference line.
+</p>
+<p>The optional subcommand @subcmd{PRINT} determines which additional tables should be printed.
+Two additional tables are available. 
+The @subcmd{SE} keyword says that standard error of the area under the curve should be printed as well as
+the area itself.
+In addition, a p-value under the null hypothesis that the area under the curve equals 0.5 will be
+printed.
+The @subcmd{COORDINATES} keyword says that a table of coordinates of the @subcmd{ROC} curve should be printed.
+</p>
+<p>The @subcmd{CRITERIA} subcommand has four optional parameters:
+</p><ul>
+<li> The @subcmd{TESTPOS} parameter may be @subcmd{LARGE} or @subcmd{SMALL}.
+@subcmd{LARGE} is the default, and says that larger values in the predictor variables are to be 
+considered positive.  @subcmd{SMALL} indicates that smaller values should be considered positive.
+
+</li><li> The @subcmd{CI} parameter specifies the confidence interval that should be printed.
+It has no effect if the @subcmd{SE} keyword in the @subcmd{PRINT} subcommand has not been given.
+
+</li><li> The @subcmd{DISTRIBUTION} parameter determines the method to be used when estimating the area
+under the curve.  
+There are two possibilities, <i>viz</i>: @subcmd{FREE} and @subcmd{NEGEXPO}.
+The @subcmd{FREE} method uses a non-parametric estimate, and the @subcmd{NEGEXPO} method a bi-negative 
+exponential distribution estimate.
+The @subcmd{NEGEXPO} method should only be used when the number of positive actual states is
+equal to the number of negative actual states.
+The default is @subcmd{FREE}.
+
+</li><li> The @subcmd{CUTOFF} parameter is for compatibility and is ignored.
+</li></ul>
+
+<p>The @subcmd{MISSING} subcommand determines whether user missing values are to 
+be included or excluded in the analysis.  The default behaviour is to
+exclude them.
+Cases are excluded on a listwise basis; if any of the variables in <var>var_list</var> 
+or if the variable <var>state_var</var> is missing, then the entire case will be 
+excluded.
+</p>
+<hr size="6">
+<a name="SEC_Foot"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>Footnotes</h1>
+<h3><a name="FOOT1" href="#DOCF1">(1)</a></h3>
+<p>The number of
+bins is chosen according to the Freedman-Diaconis rule:
+<em>2 \times IQR(x)n^-1/3
+</em></p><h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>@subcmd{HISTOGRAM} uses Sturges&rsquo; rule to determine the number of
+bins, as approximately <em>1 + \log2(n)</em>, where <em>n</em> is the number of samples.
+Note that @cmd{FREQUENCIES} uses a different algorithm to find the bin size.
+</p><hr size="1">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Statistics" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

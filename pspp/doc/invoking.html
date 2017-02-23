@@ -1,0 +1,874 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Invoking-PSPP"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#Main-Options" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Invoking-pspp"></a>
+<h1 class="chapter">1. Invoking <code>pspp</code></h1>
+<a name="index-invocation"></a>
+<a name="index-_0040pspp_007b_007d_002c-invoking"></a>
+
+<p>@pspp{} has two separate user interfaces.  This chapter describes
+<code>pspp</code>, @pspp{}&rsquo;s command-line driven text-based user interface.
+The following chapter briefly describes PSPPIRE, the graphical user
+interface to @pspp{}.
+</p>
+<p>The sections below describe the <code>pspp</code> program&rsquo;s command-line
+interface.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Main-Options">1.1 Main Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                
+</td></tr>
+<tr><td align="left" valign="top"><a href="#PDF-PostScript-and-SVG-Output-Options">1.2 PDF, PostScript, and SVG Output Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Plain-Text-Output-Options">1.3 Plain Text Output Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   
+</td></tr>
+<tr><td align="left" valign="top"><a href="#HTML-Output-Options">1.4 HTML Output Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+<tr><td align="left" valign="top"><a href="#OpenDocument-Output-Options">1.5 OpenDocument Output Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Comma_002dSeparated-Value-Output-Options">1.6 Comma-Separated Value Output Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Main-Options"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#PDF-PostScript-and-SVG-Output-Options" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Main-Options-1"></a>
+<h2 class="section">1.1 Main Options</h2>
+
+<p>Here is a summary of all the options, grouped by type, followed by
+explanations in the same order.
+</p>
+<p>In the table, arguments to long options also apply to any
+corresponding short options.
+</p>
+<dl compact="compact">
+<dt> <em>Non-option arguments</em></dt>
+<dd><table><tr><td>&nbsp;</td><td><pre class="example"><var>syntax-file</var>
+</pre></td></tr></table>
+
+</dd>
+<dt> <em>Output options</em></dt>
+<dd><table><tr><td>&nbsp;</td><td><pre class="example">-o, --output=<var>output-file</var>
+-O <var>option</var>=<var>value</var>
+-O format=<var>format</var>
+-O device={terminal|listing}
+--no-output
+-e, --error-file=<var>error-file</var>
+</pre></td></tr></table>
+
+</dd>
+<dt> <em>Language options</em></dt>
+<dd><table><tr><td>&nbsp;</td><td><pre class="example">-I, --include=<var>dir</var>
+-I-, --no-include
+-b, --batch
+-i, --interactive
+-r, --no-statrc
+-a, --algorithm={compatible|enhanced}
+-x, --syntax={compatible|enhanced}
+--syntax-encoding=<var>encoding</var>
+</pre></td></tr></table>
+
+</dd>
+<dt> <em>Informational options</em></dt>
+<dd><table><tr><td>&nbsp;</td><td><pre class="example">-h, --help
+-V, --version
+</pre></td></tr></table>
+
+</dd>
+<dt> <em>Other options</em></dt>
+<dd><table><tr><td>&nbsp;</td><td><pre class="example">-s, --safer
+--testing-mode
+</pre></td></tr></table>
+</dd>
+</dl>
+
+<dl compact="compact">
+<dt> <var>syntax-file</var></dt>
+<dd><p>Read and execute the named syntax file.  If no syntax files are
+specified, @pspp{} prompts for commands.  If any syntax files are
+specified, @pspp{} by default exits after it runs them, but you may make
+it prompt for commands by specifying &lsquo;<samp>-</samp>&rsquo; as an additional syntax
+file.
+</p>
+</dd>
+<dt> &lsquo;<samp>-o <var>output-file</var></samp>&rsquo;</dt>
+<dd><p>Write output to <var>output-file</var>.  @pspp{} has several different output
+drivers that support output in various formats (use &lsquo;<samp>--help</samp>&rsquo; to
+list the available formats).  Specify this option more than once to
+produce multiple output files, presumably in different formats.
+</p>
+<p>Use &lsquo;<samp>-</samp>&rsquo; as <var>output-file</var> to write output to standard output.
+</p>
+<p>If no &lsquo;<samp>-o</samp>&rsquo; option is used, then @pspp{} writes text and CSV
+output to standard output and other kinds of output to whose name is
+based on the format, e.g. &lsquo;<tt>pspp.pdf</tt>&rsquo; for PDF output.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O <var>option</var>=<var>value</var></samp>&rsquo;</dt>
+<dd><p>Sets an option for the output file configured by a preceding
+&lsquo;<samp>-o</samp>&rsquo;.  Most options are specific to particular output formats.
+A few options that apply generically are listed below.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O format=<var>format</var></samp>&rsquo;</dt>
+<dd><p>@pspp{} uses the extension of the file name given on &lsquo;<samp>-o</samp>&rsquo; to
+select an output format.  Use this option to override this choice by
+specifying an alternate format, e.g. &lsquo;<samp>-o pspp.out -O html</samp>&rsquo; to
+write HTML to a file named &lsquo;<tt>pspp.out</tt>&rsquo;.  Use &lsquo;<samp>--help</samp>&rsquo; to
+list the available formats.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O device={terminal|listing}</samp>&rsquo;</dt>
+<dd><p>Sets whether @pspp{} considers the output device configured by the
+preceding &lsquo;<samp>-o</samp>&rsquo; to be a terminal or a listing device.  This
+affects what output will be sent to the device, as configured by the
+SET command&rsquo;s output routing subcommands (@pxref{SET}).  By default,
+output written to standard output is considered a terminal device and
+other output is considered a listing device.
+</p>
+</dd>
+<dt> &lsquo;<samp>--no-output</samp>&rsquo;</dt>
+<dd><p>Disables output entirely, if neither &lsquo;<samp>-o</samp>&rsquo; nor &lsquo;<samp>-O</samp>&rsquo; is
+also used.  If one of those options is used, &lsquo;<samp>--no-output</samp>&rsquo; has
+no effect.
+</p>
+</dd>
+<dt> &lsquo;<samp>-e <var>error-file</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--error-file=<var>error-file</var></samp>&rsquo;</dt>
+<dd><p>Configures a file to receive @pspp{} error, warning, and note messages in
+plain text format.  Use &lsquo;<samp>-</samp>&rsquo; as <var>error-file</var> to write messages
+to standard output.  The default error file is standard output in the
+absence of these options, but this is suppressed if an output device
+writes to standard output (or another terminal), to avoid printing
+every message twice.  Use &lsquo;<samp>none</samp>&rsquo; as <var>error-file</var> to
+explicitly suppress the default.
+</p>
+</dd>
+<dt> &lsquo;<samp>-I <var>dir</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--include=<var>dir</var></samp>&rsquo;</dt>
+<dd><p>Appends <var>dir</var> to the set of directories searched by the @cmd{INCLUDE}
+(@pxref{INCLUDE}) and @cmd{INSERT} (@pxref{INSERT}) commands.
+</p>
+</dd>
+<dt> &lsquo;<samp>-I-</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--no-include</samp>&rsquo;</dt>
+<dd><p>Clears all directories from the include path, including directories
+inserted in the include path by default.  The default include path is
+&lsquo;<tt>.</tt>&rsquo; (the current directory), followed by &lsquo;<tt>.pspp</tt>&rsquo; in the
+user&rsquo;s home directory, followed by @pspp{}&rsquo;s system configuration
+directory (usually &lsquo;<tt>/etc/pspp</tt>&rsquo; or &lsquo;<tt>/usr/local/etc/pspp</tt>&rsquo;).
+</p>
+</dd>
+<dt> &lsquo;<samp>-b</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--batch</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-i</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--interactive</samp>&rsquo;</dt>
+<dd><p>These options forces syntax files to be interpreted in batch mode or
+interactive mode, respectively, rather than the default &ldquo;auto&rdquo; mode.
+@xref{Syntax Variants}, for a description of the differences.
+</p>
+</dd>
+<dt> &lsquo;<samp>-r</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--no-statrc</samp>&rsquo;</dt>
+<dd><p>Disables running &lsquo;<tt>rc</tt>&rsquo; at @pspp{} startup time.
+</p>
+</dd>
+<dt> &lsquo;<samp>-a {enhanced|compatible}</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--algorithm={enhanced|compatible}</samp>&rsquo;</dt>
+<dd><p>With <code>enhanced</code>, the default, @pspp{} uses the best implemented
+algorithms for statistical procedures.  With <code>compatible</code>,
+however, @pspp{} will in some cases use inferior algorithms to produce
+the same results as the proprietary program SPSS.
+</p>
+<p>Some commands have subcommands that override this setting on a per
+command basis.
+</p>
+</dd>
+<dt> &lsquo;<samp>-x {enhanced|compatible}</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--syntax={enhanced|compatible}</samp>&rsquo;</dt>
+<dd><p>With <code>enhanced</code>, the default, @pspp{} accepts its own extensions
+beyond those compatible with the proprietary program SPSS.  With
+<code>compatible</code>, @pspp{} rejects syntax that uses these extensions.
+</p>
+</dd>
+<dt> &lsquo;<samp>--syntax-encoding=<var>encoding</var></samp>&rsquo;</dt>
+<dd><p>Specifies <var>encoding</var> as the encoding for syntax files named on the
+command line.  The <var>encoding</var> also becomes the default encoding
+for other syntax files read during the @pspp{} session by the
+@cmd{INCLUDE} and @cmd{INSERT} commands.  @xref{INSERT}, for the
+accepted forms of <var>encoding</var>.
+</p>
+</dd>
+<dt> &lsquo;<samp>--help</samp>&rsquo;</dt>
+<dd><p>Prints a message describing @pspp{} command-line syntax and the available
+device formats, then exits.
+</p>
+</dd>
+<dt> &lsquo;<samp>-V</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--version</samp>&rsquo;</dt>
+<dd><p>Prints a brief message listing @pspp{}&rsquo;s version, warranties you don&rsquo;t
+have, copying conditions and copyright, and e-mail address for bug
+reports, then exits.
+</p>
+</dd>
+<dt> &lsquo;<samp>-s</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--safer</samp>&rsquo;</dt>
+<dd><p>Disables certain unsafe operations.  This includes the @subcmd{ERASE} and
+@subcmd{HOST} commands, as well as use of pipes as input and output files.
+</p>
+</dd>
+<dt> &lsquo;<samp>--testing-mode</samp>&rsquo;</dt>
+<dd><p>Invoke heuristics to assist with testing @pspp{}.  For use
+by <code>make check</code> and similar scripts.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="PDF-PostScript-and-SVG-Output-Options"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Main-Options" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Plain-Text-Output-Options" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="PDF_002c-PostScript_002c-and-SVG-Output-Options"></a>
+<h2 class="section">1.2 PDF, PostScript, and SVG Output Options</h2>
+<a name="index-PDF"></a>
+<a name="index-Postscript"></a>
+<a name="index-SVG"></a>
+
+<p>To produce output in PDF, PostScript, and SVG formats, specify
+&lsquo;<samp>-o <var>file</var></samp>&rsquo; on the @pspp{} command line, optionally followed
+by any of the options shown in the table below to customize the output
+format.
+</p>
+<p>PDF, PostScript, and SVG output is only available if your installation
+of @pspp{} was compiled with the Cairo library.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-O format={pdf|ps|svg}</samp>&rsquo;</dt>
+<dd><p>Specify the output format.  This is only necessary if the file name
+given on &lsquo;<samp>-o</samp>&rsquo; does not end in &lsquo;<tt>.pdf</tt>&rsquo;, &lsquo;<tt>.ps</tt>&rsquo;, or
+&lsquo;<tt>.svg</tt>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O paper-size=<var>paper-size</var></samp>&rsquo;</dt>
+<dd><p>Paper size, as a name (e.g. <code>a4</code>, <code>letter</code>) or
+measurements (e.g. <code>210x297</code>, <code>8.5x11in</code>).
+</p>
+<p>The default paper size is taken from the <code>PAPERSIZE</code> environment
+variable or the file indicated by the <code>PAPERCONF</code> environment
+variable, if either variable is set.  If not, and your system supports
+the <code>LC_PAPER</code> locale category, then the default paper size is
+taken from the locale.  Otherwise, if &lsquo;<tt>/etc/papersize</tt>&rsquo; exists,
+the default paper size is read from it.  As a last resort, A4 paper is
+assumed.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O foreground-color=<var>color</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O background-color=<var>color</var></samp>&rsquo;</dt>
+<dd><p>Sets <var>color</var> as the color to be used for the background or foreground.
+Color should be given in the format <code>#<var>RRRR</var><var>GGGG</var><var>BBBB</var></code>,
+where <var>RRRR</var>, <var>GGGG</var> and <var>BBBB</var> are 4 character hexadecimal
+representations of the red, green and blue components respectively.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O orientation=<var>orientation</var></samp>&rsquo;</dt>
+<dd><p>Either <code>portrait</code> or <code>landscape</code>.  Default: <code>portrait</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O left-margin=<var>dimension</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O right-margin=<var>dimension</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O top-margin=<var>dimension</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O bottom-margin=<var>dimension</var></samp>&rsquo;</dt>
+<dd><p>Sets the margins around the page.  See
+below for the allowed forms of <var>dimension</var> Default: <code>0.5in</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O prop-font=<var>font-name</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O emph-font=<var>font-name</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O fixed-font=<var>font-name</var></samp>&rsquo;</dt>
+<dd><p>Sets the font used for proportional, emphasized, or fixed-pitch text.
+Most systems support CSS-like font names such as &ldquo;serif&rdquo; and
+&ldquo;monospace&rdquo;, but a wide range of system-specific font are likely to
+be supported as well.
+</p>
+<p>Default: proportional font <code>serif</code>, emphasis font <code>serif
+italic</code>, fixed-pitch font <code>monospace</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O font-size=<var>font-size</var></samp>&rsquo;</dt>
+<dd><p>Sets the size of the default fonts, in thousandths of a point.  Default:
+10000 (10 point).
+</p>
+</dd>
+<dt> &lsquo;<samp>-O line-gutter=<var>dimension</var></samp>&rsquo;</dt>
+<dd><p>Sets the width of white space on either side of lines that border text
+or graphics objects.  Default: <code>1pt</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O line-spacing=<var>dimension</var></samp>&rsquo;</dt>
+<dd><p>Sets the spacing between the lines in a double line in a table.
+Default: <code>1pt</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O line-width=<var>dimension</var></samp>&rsquo;</dt>
+<dd><p>Sets the width of the lines used in tables.  Default: <code>0.5pt</code>.
+</p></dd>
+</dl>
+
+<p>Each <var>dimension</var> value above may be specified in various units
+based on its suffix: &lsquo;<samp>mm</samp>&rsquo; for millimeters, &lsquo;<samp>in</samp>&rsquo; for inches,
+or &lsquo;<samp>pt</samp>&rsquo; for points.  Lacking a suffix, numbers below 50 are
+assumed to be in inches and those about 50 are assumed to be in
+millimeters.
+</p>
+<hr size="6">
+<a name="Plain-Text-Output-Options"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#PDF-PostScript-and-SVG-Output-Options" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#HTML-Output-Options" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Plain-Text-Output-Options-1"></a>
+<h2 class="section">1.3 Plain Text Output Options</h2>
+
+<p>@pspp{} can produce plain text output, drawing boxes using ASCII or
+Unicode line drawing characters.  To produce plain text output,
+specify &lsquo;<samp>-o <var>file</var></samp>&rsquo; on the @pspp{} command line, optionally
+followed by options from the table below to customize the output
+format.
+</p>
+<p>Plain text output is encoded in UTF-8.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-O format=txt</samp>&rsquo;</dt>
+<dd><p>Specify the output format.  This is only necessary if the file name
+given on &lsquo;<samp>-o</samp>&rsquo; does not end in &lsquo;<tt>.txt</tt>&rsquo; or &lsquo;<tt>.list</tt>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O charts={<var>template</var>.png|none}</samp>&rsquo;</dt>
+<dd><p>Name for chart files included in output.  The value should be a file
+name that includes a single &lsquo;<samp>#</samp>&rsquo; and ends in &lsquo;<tt>png</tt>&rsquo;.  When a
+chart is output, the &lsquo;<samp>#</samp>&rsquo; is replaced by the chart number.  The
+default is the file name specified on &lsquo;<samp>-o</samp>&rsquo; with the extension
+stripped off and replaced by &lsquo;<tt>-#.png</tt>&rsquo;.
+</p>
+<p>Specify <code>none</code> to disable chart output.  Charts are always
+disabled if your installation of @pspp{} was compiled without the
+Cairo library.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O foreground-color=<var>color</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-O background-color=<var>color</var></samp>&rsquo;</dt>
+<dd><p>Sets <var>color</var> as the color to be used for the background or foreground to 
+be used for charts.
+Color should be given in the format <code>#<var>RRRR</var><var>GGGG</var><var>BBBB</var></code>,
+where <var>RRRR</var>, <var>GGGG</var> and <var>BBBB</var> are 4 character hexadecimal
+representations of the red, green and blue components respectively.
+If charts are disabled, this option has no effect.
+</p>
+
+</dd>
+<dt> &lsquo;<samp>-O paginate=<var>boolean</var></samp>&rsquo;</dt>
+<dd><p>If set, @pspp{} writes an ASCII formfeed the end of every page.  Default:
+<code>off</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O headers=<var>boolean</var></samp>&rsquo;</dt>
+<dd><p>If enabled, @pspp{} prints two lines of header information giving title
+and subtitle, page number, date and time, and @pspp{} version are printed
+at the top of every page.  These two lines are in addition to any top
+margin requested.  Default: <code>off</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O length=<var>line-count</var></samp>&rsquo;</dt>
+<dd><p>Physical length of a page.  Headers and margins are subtracted from
+this value.  You may specify the number of lines as a number, or for
+screen output you may specify <code>auto</code> to track the height of the
+terminal as it changes.  Default: <code>66</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O width=<var>character-count</var></samp>&rsquo;</dt>
+<dd><p>Width of a page, in characters.  Margins are subtracted from this
+value.  For screen output you may specify <code>auto</code> in place of a
+number to track the width of the terminal as it changes.  Default:
+<code>79</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O top-margin=<var>top-margin-lines</var></samp>&rsquo;</dt>
+<dd><p>Length of the top margin, in lines.  @pspp{} subtracts this value from
+the page length.  Default: <code>0</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O bottom-margin=<var>bottom-margin-lines</var></samp>&rsquo;</dt>
+<dd><p>Length of the bottom margin, in lines.  @pspp{} subtracts this value from
+the page length.  Default: <code>0</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O box={ascii|unicode}</samp>&rsquo;</dt>
+<dd><p>Sets the characters used for lines in tables.  
+If set to 
+<code>ascii</code> the characters &lsquo;<samp>-</samp>&rsquo;, &lsquo;<samp>|</samp>&rsquo;, and &lsquo;<samp>+</samp>&rsquo; for single-width
+lines and &lsquo;<samp>=</samp>&rsquo; and &lsquo;<samp>#</samp>&rsquo; for double-width lines are used.
+If set to <code>unicode</code> then  Unicode box drawing characters will be used.
+The default is <code>unicode</code> if the locale&rsquo;s character encoding is &quot;UTF-8&quot;
+or <code>ascii</code> otherwise.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O emphasis={none|bold|underline}</samp>&rsquo;</dt>
+<dd><p>How to emphasize text.  Bold and underline emphasis are achieved with
+overstriking, which may not be supported by all the software to which
+you might pass the output.  Default: <code>none</code>.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="HTML-Output-Options"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Plain-Text-Output-Options" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#OpenDocument-Output-Options" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="HTML-Output-Options-1"></a>
+<h2 class="section">1.4 HTML Output Options</h2>
+<a name="index-HTML"></a>
+<p>To produce output in HTML format, specify &lsquo;<samp>-o <var>file</var></samp>&rsquo; on
+the @pspp{} command line, optionally followed by any of the options shown
+in the table below to customize the output format.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-O format=html</samp>&rsquo;</dt>
+<dd><p>Specify the output format.  This is only necessary if the file name
+given on &lsquo;<samp>-o</samp>&rsquo; does not end in &lsquo;<tt>.html</tt>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O charts={<var>template</var>.png|none}</samp>&rsquo;</dt>
+<dd><p>Sets the name used for chart files.  See section <a href="#Plain-Text-Output-Options">Plain Text Output Options</a>,
+for details.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O borders=<var>boolean</var></samp>&rsquo;</dt>
+<dd><p>Decorate the tables with borders.  If set to false, the tables produced
+will have no borders.  The default value is true.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O css=<var>boolean</var></samp>&rsquo;</dt>
+<dd><p>Use cascading style sheets.  Cascading style sheets give an improved appearance
+and can be used to produce pages which fit a certain web site&rsquo;s style.
+The default value is true.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="OpenDocument-Output-Options"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#HTML-Output-Options" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Comma_002dSeparated-Value-Output-Options" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="OpenDocument-Output-Options-1"></a>
+<h2 class="section">1.5 OpenDocument Output Options</h2>
+
+<p>To produce output as an OpenDocument text (ODT) document, specify
+&lsquo;<samp>-o <var>file</var></samp>&rsquo; on the @pspp{} command line.  If <var>file</var> does
+not end in &lsquo;<tt>.odt</tt>&rsquo;, you must also specify &lsquo;<samp>-O format=odt</samp>&rsquo;.
+</p>
+<p>ODT support is only available if your installation of @pspp{} was
+compiled with the libxml2 library.
+</p>
+<p>The OpenDocument output format does not have any configurable options.
+</p>
+<hr size="6">
+<a name="Comma_002dSeparated-Value-Output-Options"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#OpenDocument-Output-Options" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Comma_002dSeparated-Value-Output-Options-1"></a>
+<h2 class="section">1.6 Comma-Separated Value Output Options</h2>
+
+<p>To produce output in comma-separated value (CSV) format, specify
+&lsquo;<samp>-o <var>file</var></samp>&rsquo; on the @pspp{} command line, optionally followed
+by any of the options shown in the table below to customize the output
+format.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-O format=csv</samp>&rsquo;</dt>
+<dd><p>Specify the output format.  This is only necessary if the file name
+given on &lsquo;<samp>-o</samp>&rsquo; does not end in &lsquo;<tt>.csv</tt>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O separator=<var>field-separator</var></samp>&rsquo;</dt>
+<dd><p>Sets the character used to separate fields.  Default: a comma
+(&lsquo;<samp>,</samp>&rsquo;).
+</p>
+</dd>
+<dt> &lsquo;<samp>-O quote=<var>qualifier</var></samp>&rsquo;</dt>
+<dd><p>Sets <var>qualifier</var> as the character used to quote fields that
+contain white space, the separator (or any of the characters in the
+separator, if it contains more than one character), or the quote
+character itself.  If <var>qualifier</var> is longer than one character,
+only the first character is used; if <var>qualifier</var> is the empty
+string, then fields are never quoted.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O titles=<var>boolean</var></samp>&rsquo;</dt>
+<dd><p>Whether table titles (brief descriptions) should be printed.  Default:
+<code>on</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-O captions=<var>boolean</var></samp>&rsquo;</dt>
+<dd><p>Whether table captions (more extensive descriptions) should be
+printed.  Default: on.
+</p></dd>
+</dl>
+
+<p>The CSV format used is an extension to that specified in RFC 4180:
+</p>
+<dl compact="compact">
+<dt> Tables</dt>
+<dd><p>Each table row is output on a separate line, and each column is output
+as a field.  The contents of a cell that spans multiple rows or
+columns is output only for the top-left row and column; the rest are
+output as empty fields.
+</p>
+</dd>
+<dt> Titles</dt>
+<dd><p>When a table has a title and titles are enabled, the title is output
+just above the table as a single field prefixed by &lsquo;<samp>Table:</samp>&rsquo;.
+</p>
+</dd>
+<dt> Captions</dt>
+<dd><p>When a table has a caption and captions are enabled, the caption is
+output just below the table as a single field prefixed by
+&lsquo;<samp>Caption:</samp>&rsquo;.
+</p>
+</dd>
+<dt> Footnotes</dt>
+<dd><p>Within a table, footnote markers are output as bracketed letters
+following the cell&rsquo;s contents, e.g.&nbsp;&lsquo;<samp>[a]</samp>&rsquo;, &lsquo;<samp>[b]</samp>&rsquo;,
+<small class="enddots">...</small>  The footnotes themselves are output following the body of
+the table, as a separate two-column table introduced with a line that
+says &lsquo;<samp>Footnotes:</samp>&rsquo;.  Each row in the table represent one footnote:
+the first column is the marker, the second column is the text.
+</p>
+</dd>
+<dt> Text</dt>
+<dd><p>Text in output is printed as a field on a line by itself.  The TITLE
+and SUBTITLE produce similar output, prefixed by &lsquo;<samp>Title:</samp>&rsquo; or
+&lsquo;<samp>Subtitle:</samp>&rsquo;, respectively.
+</p>
+</dd>
+<dt> Messages</dt>
+<dd><p>Errors, warnings, and notes are printed the same way as text.
+</p>
+</dd>
+<dt> Charts</dt>
+<dd><p>Charts are not included in CSV output.
+</p></dd>
+</dl>
+
+<p>Successive output items are separated by a blank line.
+</p>
+<hr size="6">
+<a name="Invoking-PSPPIRE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Comma_002dSeparated-Value-Output-Options" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#The-graphic-user-interface" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Invoking-psppire"></a>
+<h1 class="chapter">2. Invoking <code>psppire</code></h1>
+<hr size="6">
+<a name="The-graphic-user-interface"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPPIRE" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section">2.1 The graphic user interface</h2>
+<a name="index-Graphic-user-interface"></a>
+<a name="index-PSPPIRE"></a>
+
+<p>The PSPPIRE graphic user interface for @pspp{} can perform all
+functionality of the command line interface.  In addition it gives an
+instantaneous view of the data, variables and statistical output.
+</p>
+<p>The graphic user interface can be started by typing <code>psppire</code> at a 
+command prompt.
+Alternatively many systems have a system of interactive menus or buttons 
+from which <code>psppire</code> can be started by a series of mouse clicks.
+</p>
+<p>Once the principles of the @pspp{} system are understood, 
+the graphic user interface is designed to be largely intuitive, and
+for this reason is covered only very briefly by this manual.
+</p><hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Invoking-PSPP" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

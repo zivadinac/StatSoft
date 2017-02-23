@@ -1,0 +1,593 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Combining-Data-Files"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#Combining-Files-Common-Syntax" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Combining-Data-Files-1"></a>
+<h1 class="chapter">1. Combining Data Files</h1>
+
+<p>This chapter describes commands that allow data from system files,
+portable files, and open datasets to be combined to
+form a new active dataset.  These commands can combine data files in the
+following ways:
+</p>
+<ul>
+<li>
+@cmd{ADD FILES} interleaves or appends the cases from each input file.
+It is used with input files that have variables in common, but
+distinct sets of cases.
+
+</li><li>
+@cmd{MATCH FILES} adds the data together in cases that match across
+multiple input files.  It is used with input files that have cases in
+common, but different information about each case.
+
+</li><li>
+@cmd{UPDATE} updates a master data file from data in a set of
+transaction files.  Each case in a transaction data file modifies a
+matching case in the primary data file, or it adds a new case if no
+matching case can be found.
+</li></ul>
+
+<p>These commands share the majority of their syntax, which is described
+in the following section, followed by one section for each command
+that describes its specific syntax and semantics.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Combining-Files-Common-Syntax">1.1 Common Syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#ADD-FILES">1.2 ADD FILES</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Interleave cases from multiple files.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#MATCH-FILES">1.3 MATCH FILES</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 Merge cases from multiple files.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#UPDATE">1.4 UPDATE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Update cases using transactional data.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Combining-Files-Common-Syntax"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#ADD-FILES" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Common-Syntax"></a>
+<h2 class="section">1.1 Common Syntax</h2>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">Per input file:
+        /FILE={*,&rsquo;<var>file_name</var>&rsquo;}
+        [/RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;]
+        [/IN=<var>var_name</var>]
+        [/SORT]
+
+Once per command:
+        /BY <var>var_list</var>[({D|A})] [<var>var_list</var>[({D|A}]]&hellip;
+        [/DROP=<var>var_list</var>]
+        [/KEEP=<var>var_list</var>]
+        [/FIRST=<var>var_name</var>]
+        [/LAST=<var>var_name</var>]
+        [/MAP]
+</pre></td></tr></table>
+
+<p>This section describes the syntactical features in common among the
+@cmd{ADD FILES}, @cmd{MATCH FILES}, and @cmd{UPDATE} commands.  The
+following sections describe details specific to each command.
+</p>
+<p>Each of these commands reads two or more input files and combines them.  
+The command&rsquo;s output becomes the new active dataset.
+None of the commands actually change the input files.
+Therefore, if you want the changes to become permanent, you must explicitly
+save them using an appropriate procedure or transformation (@pxref{System and Portable File IO}).
+</p>
+<p>The syntax of each command begins with a specification of the files to
+be read as input.  For each input file, specify FILE with a system
+file or portable file&rsquo;s name as a string, a dataset (@pxref{Datasets})
+or file handle name, (@pxref{File Handles}), or an asterisk (&lsquo;<samp>*</samp>&rsquo;)
+to use the active dataset as input.  Use of portable files on @subcmd{FILE} is a
+@pspp{} extension.
+</p>
+<p>At least two @subcmd{FILE} subcommands must be specified.  If the active dataset
+is used as an input source, then @cmd{TEMPORARY} must not be in
+effect.
+</p>
+<p>Each @subcmd{FILE} subcommand may be followed by any number of @subcmd{RENAME}
+subcommands that specify a parenthesized group or groups of variable
+names as they appear in the input file, followed by those variables&rsquo;
+new names, separated by an equals sign (@subcmd{=}),
+e.g. @subcmd{/RENAME=(OLD1=NEW1)(OLD2=NEW2)}.  To rename a single
+variable, the parentheses may be omitted: @subcmd{/RENAME=<var>old</var>=<var>new</var>}.
+Within a parenthesized group, variables are renamed simultaneously, so
+that @subcmd{/RENAME=(<var>A</var> <var>B</var>=<var>B</var> <var>A</var>)} exchanges the
+names of variables <var>A</var> and <var>B</var>.
+Otherwise, renaming occurs in left-to-right order.
+</p>
+<p>Each @subcmd{FILE} subcommand may optionally be followed by a single @subcmd{IN}
+subcommand, which creates a numeric variable with the specified name
+and format F1.0.  The IN variable takes value 1 in an output case if
+the given input file contributed to that output case, and 0 otherwise.
+The @subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} subcommands have no effect on IN variables.
+</p>
+<p>If @subcmd{BY} is used (see below), the @subcmd{SORT} keyword must be specified after a
+@subcmd{FILE} if that input file is not already sorted on the @subcmd{BY} variables.
+When @subcmd{SORT} is specified, @pspp{} sorts the input file&rsquo;s data on the @subcmd{BY}
+variables before it applies it to the command.  When @subcmd{SORT} is used, @subcmd{BY}
+is required.  @subcmd{SORT} is a @pspp{} extension.
+</p>
+<p>@pspp{} merges the dictionaries of all of the input files to form the
+dictionary of the new active dataset, like so:
+</p>
+<ul>
+<li>
+The variables in the new active dataset are the union of all the input files&rsquo;
+variables, matched based on their name.  When a single input file
+contains a variable with a given name, the output file will contain
+exactly that variable.  When more than one input file contains a
+variable with a given name, those variables must all have the same
+type (numeric or string) and, for string variables, the same width.
+Variables are matched after renaming with the @subcmd{RENAME} subcommand.
+Thus, @subcmd{RENAME} can be used to resolve conflicts.
+
+</li><li>
+The variable label for each output variable is taken from the first
+specified input file that has a variable label for that variable, and
+similarly for value labels and missing values.
+
+</li><li>
+The file label of the new active dataset (@pxref{FILE LABEL}) is that of the
+first specified @subcmd{FILE} that has a file label.
+
+</li><li>
+The documents in the new active dataset (@pxref{DOCUMENT}) are the
+concatenation of all the input files&rsquo; documents, in the order in which
+the @subcmd{FILE} subcommands are specified.
+
+</li><li>
+If all of the input files are weighted on the same variable, then the
+new active dataset is weighted on that variable.  Otherwise, the new
+active dataset is not weighted.
+</li></ul>
+
+<p>The remaining subcommands apply to the output file as a whole, rather
+than to individual input files.  They must be specified at the end of
+the command specification, following all of the @subcmd{FILE} and related
+subcommands.  The most important of these subcommands is @subcmd{BY}, which
+specifies a set of one or more variables that may be used to find
+corresponding cases in each of the input files.  The variables
+specified on @subcmd{BY} must be present in all of the input files.
+Furthermore, if any of the input files are not sorted on the @subcmd{BY}
+variables, then @subcmd{SORT} must be specified for those input files.
+</p>
+<p>The variables listed on @subcmd{BY} may include (A) or (D) annotations to
+specify ascending or descending sort order.  @xref{SORT CASES}, for
+more details on this notation.  Adding (A) or (D) to the @subcmd{BY} subcommand
+specification is a @pspp{} extension.
+</p>
+<p>The @subcmd{DROP} subcommand can be used to specify a list of variables to
+exclude from the output.  By contrast, the @subcmd{KEEP} subcommand can be used
+to specify variables to include in the output; all variables not
+listed are dropped.  @subcmd{DROP} and @subcmd{KEEP} are executed in left-to-right order
+and may be repeated any number of times.  @subcmd{DROP} and @subcmd{KEEP} do not affect
+variables created by the @subcmd{IN}, @subcmd{FIRST}, and @subcmd{LAST} subcommands, which are
+always included in the new active dataset, but they can be used to drop
+@subcmd{BY} variables.
+</p>
+<p>The @subcmd{FIRST} and @subcmd{LAST} subcommands are optional.  They may only be
+specified on @cmd{MATCH FILES} and @cmd{ADD FILES}, and only when @subcmd{BY}
+is used.  @subcmd{FIRST} and @subcmd{LIST} each adds a numeric variable to the new
+active dataset, with the name given as the subcommand&rsquo;s argument and F1.0
+print and write formats.  The value of the @subcmd{FIRST} variable is 1 in the
+first output case with a given set of values for the @subcmd{BY} variables, and
+0 in other cases.  Similarly, the @subcmd{LAST} variable is 1 in the last case
+with a given of @subcmd{BY} values, and 0 in other cases.
+</p>
+<p>When any of these commands creates an output case, variables that are
+only in files that are not present for the current case are set to the
+system-missing value for numeric variables or spaces for string
+variables.
+</p>
+<p>These commands may combine any number of files, limited only by the
+machine&rsquo;s memory.
+</p>
+<hr size="6">
+<a name="ADD-FILES"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Combining-Files-Common-Syntax" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#MATCH-FILES" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="ADD-FILES-1"></a>
+<h2 class="section">1.2 ADD FILES</h2>
+<a name="index-ADD-FILES"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">ADD FILES
+
+Per input file:
+        /FILE={*,&rsquo;<var>file_name</var>&rsquo;}
+        [/RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;]
+        [/IN=<var>var_name</var>]
+        [/SORT]
+
+Once per command:
+        [/BY <var>var_list</var>[({D|A})] [<var>var_list</var>[({D|A})]&hellip;]]
+        [/DROP=<var>var_list</var>]
+        [/KEEP=<var>var_list</var>]
+        [/FIRST=<var>var_name</var>]
+        [/LAST=<var>var_name</var>]
+        [/MAP]
+</pre></td></tr></table>
+
+<p>@cmd{ADD FILES} adds cases from multiple input files.  The output,
+which replaces the active dataset, consists all of the cases in all of
+the input files.
+</p>
+<p>@subcmd{ADD FILES} shares the bulk of its syntax with other @pspp{} commands for
+combining multiple data files.  See section <a href="#Combining-Files-Common-Syntax">Common Syntax</a>,
+above, for an explanation of this common syntax.
+</p>
+<p>When @subcmd{BY} is not used, the output of @subcmd{ADD FILES} consists of all the cases
+from the first input file specified, followed by all the cases from
+the second file specified, and so on.  When @subcmd{BY} is used, the output is
+additionally sorted on the @subcmd{BY} variables.
+</p>
+<p>When @subcmd{ADD FILES} creates an output case, variables that are not part of
+the input file from which the case was drawn are set to the
+system-missing value for numeric variables or spaces for string
+variables.
+</p>
+<hr size="6">
+<a name="MATCH-FILES"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#ADD-FILES" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#UPDATE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="MATCH-FILES-1"></a>
+<h2 class="section">1.3 MATCH FILES</h2>
+<a name="index-MATCH-FILES"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">MATCH FILES
+
+Per input file:
+        /{FILE,TABLE}={*,&rsquo;<var>file_name</var>&rsquo;}
+        [/RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;]
+        [/IN=<var>var_name</var>]
+        [/SORT]
+
+Once per command:
+        /BY <var>var_list</var>[({D|A}] [<var>var_list</var>[({D|A})]&hellip;]
+        [/DROP=<var>var_list</var>]
+        [/KEEP=<var>var_list</var>]
+        [/FIRST=<var>var_name</var>]
+        [/LAST=<var>var_name</var>]
+        [/MAP]
+</pre></td></tr></table>
+
+<p>@cmd{MATCH FILES} merges sets of corresponding cases in multiple
+input files into single cases in the output, combining their data.
+</p>
+<p>@cmd{MATCH FILES} shares the bulk of its syntax with other @pspp{} commands for
+combining multiple data files.  See section <a href="#Combining-Files-Common-Syntax">Common Syntax</a>,
+above, for an explanation of this common syntax.
+</p>
+<p>How @cmd{MATCH FILES} matches up cases from the input files depends on
+whether @subcmd{BY} is specified:
+</p>
+<ul>
+<li>
+If @subcmd{BY} is not used, @cmd{MATCH FILES} combines the first case from each input
+file to produce the first output case, then the second case from each
+input file for the second output case, and so on.  If some input files
+have fewer cases than others, then the shorter files do not contribute
+to cases output after their input has been exhausted.
+
+</li><li>
+If @subcmd{BY} is used, @cmd{MATCH FILES} combines cases from each input file that
+have identical values for the @subcmd{BY} variables.
+
+<p>When @subcmd{BY} is used, @subcmd{TABLE} subcommands may be used to introduce <em>table
+lookup file</em>.  @subcmd{TABLE} has same syntax as @subcmd{FILE}, and the @subcmd{RENAME}, @subcmd{IN}, and
+@subcmd{SORT} subcommands may follow a @subcmd{TABLE} in the same way as @subcmd{FILE}.
+Regardless of the number of @subcmd{TABLE}s, at least one @subcmd{FILE} must specified.
+Table lookup files are treated in the same way as other input files
+for most purposes and, in particular, table lookup files must be
+sorted on the @subcmd{BY} variables or the @subcmd{SORT} subcommand must be specified
+for that @subcmd{TABLE}.
+</p>
+<p>Cases in table lookup files are not consumed after they have been used
+once.  This means that data in table lookup files can correspond to
+any number of cases in @subcmd{FILE} input files.  Table lookup files are
+analogous to lookup tables in traditional relational database systems.
+</p>
+<p>If a table lookup file contains more than one case with a given set of
+@subcmd{BY} variables, only the first case is used.
+</p></li></ul>
+
+<p>When @cmd{MATCH FILES} creates an output case, variables that are only in
+files that are not present for the current case are set to the
+system-missing value for numeric variables or spaces for string
+variables.
+</p>
+<hr size="6">
+<a name="UPDATE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#MATCH-FILES" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="UPDATE-1"></a>
+<h2 class="section">1.4 UPDATE</h2>
+<a name="index-UPDATE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">UPDATE
+
+Per input file:
+        /FILE={*,&rsquo;<var>file_name</var>&rsquo;}
+        [/RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;]
+        [/IN=<var>var_name</var>]
+        [/SORT]
+
+Once per command:
+        /BY <var>var_list</var>[({D|A})] [<var>var_list</var>[({D|A})]]&hellip;
+        [/DROP=<var>var_list</var>]
+        [/KEEP=<var>var_list</var>]
+        [/MAP]
+</pre></td></tr></table>
+
+<p>@cmd{UPDATE} updates a <em>master file</em> by applying modifications
+from one or more <em>transaction files</em>.  
+</p>
+<p>@cmd{UPDATE} shares the bulk of its syntax with other @pspp{} commands for
+combining multiple data files.  See section <a href="#Combining-Files-Common-Syntax">Common Syntax</a>,
+above, for an explanation of this common syntax.
+</p>
+<p>At least two @subcmd{FILE} subcommands must be specified.  The first @subcmd{FILE}
+subcommand names the master file, and the rest name transaction files.
+Every input file must either be sorted on the variables named on the
+@subcmd{BY} subcommand, or the @subcmd{SORT} subcommand must be used just after the @subcmd{FILE}
+subcommand for that input file.
+</p>
+<p>@cmd{UPDATE} uses the variables specified on the @subcmd{BY} subcommand, which is
+required, to attempt to match each case in a transaction file with a
+case in the master file:
+</p>
+<ul>
+<li>
+When a match is found, then the values of the variables present in the
+transaction file replace those variables&rsquo; values in the new active
+file.  If there are matching cases in more than more transaction file,
+@pspp{} applies the replacements from the first transaction file, then
+from the second transaction file, and so on.  Similarly, if a single
+transaction file has cases with duplicate @subcmd{BY} values, then those are
+applied in order to the master file.
+
+<p>When a variable in a transaction file has a missing value or when a string
+variable&rsquo;s value is all blanks, that value is never used to update the
+master file.
+</p>
+</li><li>
+If a case in the master file has no matching case in any transaction
+file, then it is copied unchanged to the output.
+
+</li><li>
+If a case in a transaction file has no matching case in the master
+file, then it causes a new case to be added to the output, initialized
+from the values in the transaction file.
+</li></ul>
+<hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Combining-Data-Files" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

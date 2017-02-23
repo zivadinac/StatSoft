@@ -1,0 +1,2342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Expressions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#Boolean-Values" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Mathematical-Expressions"></a>
+<h1 class="chapter">1. Mathematical Expressions</h1>
+<a name="index-expressions_002c-mathematical"></a>
+<a name="index-mathematical-expressions"></a>
+
+<p>Expressions share a common syntax each place they appear in @pspp{}
+commands.  Expressions are made up of <em>operands</em>, which can be
+numbers, strings, or variable names, separated by <em>operators</em>.
+There are five types of operators: grouping, arithmetic, logical,
+relational, and functions.
+</p>
+<p>Every operator takes one or more operands as input and yields exactly
+one result as output.  Depending on the operator, operands accept
+strings or numbers as operands.  With few exceptions, operands may be
+full-fledged expressions in themselves.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Boolean-Values">1.1 Boolean Values</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 Boolean values
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Missing-Values-in-Expressions">1.2 Missing Values in Expressions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  Using missing values in expressions
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Grouping-Operators">1.3 Grouping Operators</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             parentheses
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Arithmetic-Operators">1.4 Arithmetic Operators</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           add sub mul div pow
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Logical-Operators">1.5 Logical Operators</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              AND NOT OR
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Relational-Operators">1.6 Relational Operators</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           EQ GE GT LE LT NE
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Functions">1.7 Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      More-sophisticated operators
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Order-of-Operations">1.8 Operator Precedence</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            Operator precedence
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Boolean-Values"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Expressions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Missing-Values-in-Expressions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Boolean-Values-1"></a>
+<h2 class="section">1.1 Boolean Values</h2>
+<a name="index-Boolean"></a>
+<a name="index-values_002c-Boolean"></a>
+
+<p>Some @pspp{} operators and expressions work with Boolean values, which
+represent true/false conditions.  Booleans have only three possible
+values: 0 (false), 1 (true), and system-missing (unknown).
+System-missing is neither true nor false and indicates that the true
+value is unknown.
+</p>
+<p>Boolean-typed operands or function arguments must take on one of these
+three values.  Other values are considered false, but provoke a warning
+when the expression is evaluated.
+</p>
+<p>Strings and Booleans are not compatible, and neither may be used in
+place of the other.
+</p>
+<hr size="6">
+<a name="Missing-Values-in-Expressions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Boolean-Values" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Grouping-Operators" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Missing-Values-in-Expressions-1"></a>
+<h2 class="section">1.2 Missing Values in Expressions</h2>
+
+<p>Most numeric operators yield system-missing when given any
+system-missing operand.  A string operator given any system-missing
+operand typically results in the empty string.  Exceptions are listed
+under particular operator descriptions.
+</p>
+<p>String user-missing values are not treated specially in expressions.
+</p>
+<p>User-missing values for numeric variables are always transformed into
+the system-missing value, except inside the arguments to the
+<code>VALUE</code> and <code>SYSMIS</code> functions.
+</p>
+<p>The missing-value functions can be used to precisely control how missing
+values are treated in expressions.  See section <a href="#Missing-Value-Functions">Missing-Value Functions</a>, for
+more details.
+</p>
+<hr size="6">
+<a name="Grouping-Operators"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Missing-Values-in-Expressions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Arithmetic-Operators" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Grouping-Operators-1"></a>
+<h2 class="section">1.3 Grouping Operators</h2>
+<a name="index-parentheses"></a>
+<a name="index-_0028--_0029"></a>
+<a name="index-grouping-operators"></a>
+<a name="index-operators_002c-grouping"></a>
+
+<p>Parentheses (&lsquo;<samp>()</samp>&rsquo;) are the grouping operators.  Surround an
+expression with parentheses to force early evaluation.
+</p>
+<p>Parentheses also surround the arguments to functions, but in that
+situation they act as punctuators, not as operators.
+</p>
+<hr size="6">
+<a name="Arithmetic-Operators"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Grouping-Operators" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Logical-Operators" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Arithmetic-Operators-1"></a>
+<h2 class="section">1.4 Arithmetic Operators</h2>
+<a name="index-operators_002c-arithmetic"></a>
+<a name="index-arithmetic-operators"></a>
+
+<p>The arithmetic operators take numeric operands and produce numeric
+results.
+</p>
+<dl compact="compact">
+<dd><a name="index-_002b"></a>
+<a name="index-addition"></a>
+</dd>
+<dt> <code><var>a</var> + <var>b</var></code></dt>
+<dd><p>Yields the sum of <var>a</var> and <var>b</var>.
+</p>
+<a name="index-_002d"></a>
+<a name="index-subtraction"></a>
+</dd>
+<dt> <code><var>a</var> - <var>b</var></code></dt>
+<dd><p>Subtracts <var>b</var> from <var>a</var> and yields the difference.
+</p>
+<a name="index-_002a"></a>
+<a name="index-multiplication"></a>
+</dd>
+<dt> <code><var>a</var> * <var>b</var></code></dt>
+<dd><p>Yields the product of <var>a</var> and <var>b</var>.  If either <var>a</var> or
+<var>b</var> is 0, then the result is 0, even if the other operand is
+missing.
+</p>
+<a name="index-_002f"></a>
+<a name="index-division"></a>
+</dd>
+<dt> <code><var>a</var> / <var>b</var></code></dt>
+<dd><p>Divides <var>a</var> by <var>b</var> and yields the quotient.  If <var>a</var> is 0,
+then the result is 0, even if <var>b</var> is missing.  If <var>b</var> is zero,
+the result is system-missing.
+</p>
+<a name="index-_002a_002a"></a>
+<a name="index-exponentiation"></a>
+</dd>
+<dt> <code><var>a</var> ** <var>b</var></code></dt>
+<dd><p>Yields the result of raising <var>a</var> to the power <var>b</var>.  If
+<var>a</var> is negative and <var>b</var> is not an integer, the result is
+system-missing.  The result of <code>0**0</code> is system-missing as well.
+</p>
+<a name="index-_002d-1"></a>
+<a name="index-negation"></a>
+</dd>
+<dt> <code>- <var>a</var></code></dt>
+<dd><p>Reverses the sign of <var>a</var>.  
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="Logical-Operators"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Arithmetic-Operators" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Relational-Operators" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Logical-Operators-1"></a>
+<h2 class="section">1.5 Logical Operators</h2>
+<a name="index-logical-operators"></a>
+<a name="index-operators_002c-logical"></a>
+
+<a name="index-true"></a>
+<a name="index-false"></a>
+<a name="index-Boolean-1"></a>
+<a name="index-values_002c-system_002dmissing"></a>
+<a name="index-system_002dmissing"></a>
+<p>The logical operators take logical operands and produce logical
+results, meaning &ldquo;true or false.&rdquo;  Logical operators are
+not true Boolean operators because they may also result in a
+system-missing value.  See section <a href="#Boolean-Values">Boolean Values</a>, for more information.
+</p>
+<dl compact="compact">
+<dd><a name="index-AND"></a>
+<a name="index-_0026"></a>
+<a name="index-intersection_002c-logical"></a>
+<a name="index-logical-intersection"></a>
+</dd>
+<dt> <code><var>a</var> AND <var>b</var></code></dt>
+<dt> <code><var>a</var> &amp; <var>b</var></code></dt>
+<dd><p>True if both <var>a</var> and <var>b</var> are true, false otherwise.  If one
+operand is false, the result is false even if the other is missing.  If
+both operands are missing, the result is missing.
+</p>
+<a name="index-OR"></a>
+<a name="index-_007c"></a>
+<a name="index-union_002c-logical"></a>
+<a name="index-logical-union"></a>
+</dd>
+<dt> <code><var>a</var> OR <var>b</var></code></dt>
+<dt> <code><var>a</var> | <var>b</var></code></dt>
+<dd><p>True if at least one of <var>a</var> and <var>b</var> is true.  If one operand is
+true, the result is true even if the other operand is missing.  If both
+operands are missing, the result is missing.
+</p>
+<a name="index-NOT"></a>
+<a name="index-_007e"></a>
+<a name="index-inversion_002c-logical"></a>
+<a name="index-logical-inversion"></a>
+</dd>
+<dt> <code>NOT <var>a</var></code></dt>
+<dt> <code>~ <var>a</var></code></dt>
+<dd><p>True if <var>a</var> is false.  If the operand is missing, then the result
+is missing.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="Relational-Operators"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Logical-Operators" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Relational-Operators-1"></a>
+<h2 class="section">1.6 Relational Operators</h2>
+
+<p>The relational operators take numeric or string operands and produce Boolean
+results.
+</p>
+<p>Strings cannot be compared to numbers.  When strings of different
+lengths are compared, the shorter string is right-padded with spaces
+to match the length of the longer string.
+</p>
+<p>The results of string comparisons, other than tests for equality or
+inequality, depend on the character set in use.  String comparisons
+are case-sensitive.
+</p>
+<dl compact="compact">
+<dd><a name="index-equality_002c-testing"></a>
+<a name="index-testing-for-equality"></a>
+<a name="index-EQ"></a>
+<a name="index-_003d"></a>
+</dd>
+<dt> <code><var>a</var> EQ <var>b</var></code></dt>
+<dt> <code><var>a</var> = <var>b</var></code></dt>
+<dd><p>True if <var>a</var> is equal to <var>b</var>.
+</p>
+<a name="index-less-than-or-equal-to"></a>
+<a name="index-LE"></a>
+<a name="index-_003c_003d"></a>
+</dd>
+<dt> <code><var>a</var> LE <var>b</var></code></dt>
+<dt> <code><var>a</var> &lt;= <var>b</var></code></dt>
+<dd><p>True if <var>a</var> is less than or equal to <var>b</var>.
+</p>
+<a name="index-less-than"></a>
+<a name="index-LT"></a>
+<a name="index-_003c"></a>
+</dd>
+<dt> <code><var>a</var> LT <var>b</var></code></dt>
+<dt> <code><var>a</var> &lt; <var>b</var></code></dt>
+<dd><p>True if <var>a</var> is less than <var>b</var>.
+</p>
+<a name="index-greater-than-or-equal-to"></a>
+<a name="index-GE"></a>
+<a name="index-_003e_003d"></a>
+</dd>
+<dt> <code><var>a</var> GE <var>b</var></code></dt>
+<dt> <code><var>a</var> &gt;= <var>b</var></code></dt>
+<dd><p>True if <var>a</var> is greater than or equal to <var>b</var>.
+</p>
+<a name="index-greater-than"></a>
+<a name="index-GT"></a>
+<a name="index-_003e"></a>
+</dd>
+<dt> <code><var>a</var> GT <var>b</var></code></dt>
+<dt> <code><var>a</var> &gt; <var>b</var></code></dt>
+<dd><p>True if <var>a</var> is greater than <var>b</var>.
+</p>
+<a name="index-inequality_002c-testing"></a>
+<a name="index-testing-for-inequality"></a>
+<a name="index-NE"></a>
+<a name="index-_007e_003d"></a>
+<a name="index-_003c_003e"></a>
+</dd>
+<dt> <code><var>a</var> NE <var>b</var></code></dt>
+<dt> <code><var>a</var> ~= <var>b</var></code></dt>
+<dt> <code><var>a</var> &lt;&gt; <var>b</var></code></dt>
+<dd><p>True if <var>a</var> is not equal to <var>b</var>.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Relational-Operators" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Mathematics" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Functions-1"></a>
+<h2 class="section">1.7 Functions</h2>
+<a name="index-functions"></a>
+
+<a name="index-mathematics"></a>
+<a name="index-operators"></a>
+<a name="index-parentheses-1"></a>
+<a name="index-_0028"></a>
+<a name="index-_0029"></a>
+<a name="index-names_002c-of-functions"></a>
+<p>@pspp{} functions provide mathematical abilities above and beyond
+those possible using simple operators.  Functions have a common
+syntax: each is composed of a function name followed by a left
+parenthesis, one or more arguments, and a right parenthesis.
+</p>
+<p>Function names are not reserved.  Their names are specially treated
+only when followed by a left parenthesis, so that &lsquo;<samp>EXP(10)</samp>&rsquo;
+refers to the constant value <em>e</em> raised to the 10th power, but
+&lsquo;<samp>EXP</samp>&rsquo; by itself refers to the value of a variable called <code>EXP</code>.
+</p>
+<p>The sections below describe each function in detail.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Mathematics">1.7.1 Mathematical Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 EXP LG10 LN LNGAMMA SQRT
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Miscellaneous-Mathematics">1.7.2 Miscellaneous Mathematical Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   ABS MOD MOD10 RND TRUNC
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Trigonometry">1.7.3 Trigonometric Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                ACOS ARCOS ARSIN ARTAN ASIN ATAN COS SIN TAN
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Missing-Value-Functions">1.7.4 Missing-Value Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     MISSING NMISS NVALID SYSMIS VALUE
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Set-Membership">1.7.5 Set-Membership Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              ANY RANGE
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Statistical-Functions">1.7.6 Statistical Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       CFVAR MAX MEAN MEDIAN MIN SD SUM VARIANCE
+</td></tr>
+<tr><td align="left" valign="top"><a href="#String-Functions">1.7.7 String Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            CONCAT INDEX LENGTH LOWER LPAD LTRIM NUMBER 
+                                REPLACE RINDEX RPAD RTRIM STRING STRUNC SUBSTR
+                                UPCASE
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Time-and-Date">1.7.8 Time &amp; Date Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               CTIME.xxx DATE.xxx TIME.xxx XDATE.xxx
+                                DATEDIFF DATESUM
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Miscellaneous-Functions">1.7.9 Miscellaneous Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     LAG YRMODA VALUELABEL
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Statistical-Distribution-Functions">1.7.10 Statistical Distribution Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  PDF CDF SIG IDF RV NPDF NCDF
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Mathematics"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Functions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Miscellaneous-Mathematics" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Mathematical-Functions"></a>
+<h3 class="subsection">1.7.1 Mathematical Functions</h3>
+<a name="index-mathematics_002c-advanced"></a>
+
+<p>Advanced mathematical functions take numeric arguments and produce
+numeric results.
+</p>
+<dl>
+<dt><a name="index-EXP"></a><u>Function:</u> <b>EXP</b><i> (<var>exponent</var>)</i></dt>
+<dd><p>Returns <em>e</em> (approximately 2.71828) raised to power <var>exponent</var>.
+</p></dd></dl>
+
+<a name="index-logarithms"></a>
+<dl>
+<dt><a name="index-LG10"></a><u>Function:</u> <b>LG10</b><i> (<var>number</var>)</i></dt>
+<dd><p>Takes the base-10 logarithm of <var>number</var>.  If <var>number</var> is
+not positive, the result is system-missing.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-LN"></a><u>Function:</u> <b>LN</b><i> (<var>number</var>)</i></dt>
+<dd><p>Takes the base-<em>e</em> logarithm of <var>number</var>.  If <var>number</var> is
+not positive, the result is system-missing.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-LNGAMMA"></a><u>Function:</u> <b>LNGAMMA</b><i> (<var>number</var>)</i></dt>
+<dd><p>Yields the base-<em>e</em> logarithm of the complete gamma of <var>number</var>.
+If <var>number</var> is a negative integer, the result is system-missing.
+</p></dd></dl>
+
+<a name="index-square-roots"></a>
+<dl>
+<dt><a name="index-SQRT"></a><u>Function:</u> <b>SQRT</b><i> (<var>number</var>)</i></dt>
+<dd><p>Takes the square root of <var>number</var>.  If <var>number</var> is negative,
+the result is system-missing.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Miscellaneous-Mathematics"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Mathematics" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Trigonometry" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Miscellaneous-Mathematical-Functions"></a>
+<h3 class="subsection">1.7.2 Miscellaneous Mathematical Functions</h3>
+<a name="index-mathematics_002c-miscellaneous"></a>
+
+<p>Miscellaneous mathematical functions take numeric arguments and produce
+numeric results.
+</p>
+<a name="index-absolute-value"></a>
+<dl>
+<dt><a name="index-ABS"></a><u>Function:</u> <b>ABS</b><i> (<var>number</var>)</i></dt>
+<dd><p>Results in the absolute value of <var>number</var>.
+</p></dd></dl>
+
+<a name="index-modulus"></a>
+<dl>
+<dt><a name="index-MOD"></a><u>Function:</u> <b>MOD</b><i> (<var>numerator</var>, <var>denominator</var>)</i></dt>
+<dd><p>Returns the remainder (modulus) of <var>numerator</var> divided by
+<var>denominator</var>.  If <var>numerator</var> is 0, then the result is 0,
+even if <var>denominator</var> is missing.  If <var>denominator</var> is 0, the
+result is system-missing.
+</p></dd></dl>
+
+<a name="index-modulus_002c-by-10"></a>
+<dl>
+<dt><a name="index-MOD10"></a><u>Function:</u> <b>MOD10</b><i> (<var>number</var>)</i></dt>
+<dd><p>Returns the remainder when <var>number</var> is divided by 10.  If
+<var>number</var> is negative, MOD10(<var>number</var>) is negative or zero.
+</p></dd></dl>
+
+<a name="index-rounding"></a>
+<dl>
+<dt><a name="index-RND"></a><u>Function:</u> <b>RND</b><i> (<var>number</var> [, <var>mult</var>[, <var>fuzzbits</var>]])</i></dt>
+<dd><p>Rounds <var>number</var> and rounds it to a multiple of <var>mult</var> (by
+default 1).  Halves are rounded away from zero, as are values that
+fall short of halves by less than <var>fuzzbits</var> of errors in the
+least-significant bits of <var>number</var>.  If <var>fuzzbits</var> is not
+specified then the default is taken from SET FUZZBITS (@pxref{SET
+FUZZBITS}), which is 6 unless overridden.
+</p></dd></dl>
+
+<a name="index-truncation"></a>
+<dl>
+<dt><a name="index-TRUNC"></a><u>Function:</u> <b>TRUNC</b><i> (<var>number</var> [, <var>mult</var>[, <var>fuzzbits</var>]])</i></dt>
+<dd><p>Rounds <var>number</var> to a multiple of <var>mult</var>, toward zero.  For the
+default <var>mult</var> of 1, this is equivalent to discarding the
+fractional part of <var>number</var>.  Values that fall short of a multiple
+of <var>mult</var> by less than <var>fuzzbits</var> of errors in the
+least-significant bits of <var>number</var> are rounded away from zero.  If
+<var>fuzzbits</var> is not specified then the default is taken from SET
+FUZZBITS (@pxref{SET FUZZBITS}), which is 6 unless overridden.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Trigonometry"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Miscellaneous-Mathematics" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Missing-Value-Functions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Trigonometric-Functions"></a>
+<h3 class="subsection">1.7.3 Trigonometric Functions</h3>
+<a name="index-trigonometry"></a>
+
+<p>Trigonometric functions take numeric arguments and produce numeric
+results.
+</p>
+<a name="index-arccosine"></a>
+<a name="index-inverse-cosine"></a>
+<dl>
+<dt><a name="index-ARCOS"></a><u>Function:</u> <b>ARCOS</b><i> (<var>number</var>)</i></dt>
+<dt><a name="index-ACOS"></a><u>Function:</u> <b>ACOS</b><i> (<var>number</var>)</i></dt>
+<dd><p>Takes the arccosine, in radians, of <var>number</var>.  Results in
+system-missing if <var>number</var> is not between -1 and 1 inclusive.
+This function is a @pspp{} extension.
+</p></dd></dl>
+
+<a name="index-arcsine"></a>
+<a name="index-inverse-sine"></a>
+<dl>
+<dt><a name="index-ARSIN"></a><u>Function:</u> <b>ARSIN</b><i> (<var>number</var>)</i></dt>
+<dt><a name="index-ASIN"></a><u>Function:</u> <b>ASIN</b><i> (<var>number</var>)</i></dt>
+<dd><p>Takes the arcsine, in radians, of <var>number</var>.  Results in
+system-missing if <var>number</var> is not between -1 and 1 inclusive.
+</p></dd></dl>
+
+<a name="index-arctangent"></a>
+<a name="index-inverse-tangent"></a>
+<dl>
+<dt><a name="index-ARTAN"></a><u>Function:</u> <b>ARTAN</b><i> (<var>number</var>)</i></dt>
+<dt><a name="index-ATAN"></a><u>Function:</u> <b>ATAN</b><i> (<var>number</var>)</i></dt>
+<dd><p>Takes the arctangent, in radians, of <var>number</var>.
+</p></dd></dl>
+
+<a name="index-cosine"></a>
+<dl>
+<dt><a name="index-COS"></a><u>Function:</u> <b>COS</b><i> (<var>angle</var>)</i></dt>
+<dd><p>Takes the cosine of <var>angle</var> which should be in radians.
+</p></dd></dl>
+
+<a name="index-sine"></a>
+<dl>
+<dt><a name="index-SIN"></a><u>Function:</u> <b>SIN</b><i> (<var>angle</var>)</i></dt>
+<dd><p>Takes the sine of <var>angle</var> which should be in radians.
+</p></dd></dl>
+
+<a name="index-tangent"></a>
+<dl>
+<dt><a name="index-TAN"></a><u>Function:</u> <b>TAN</b><i> (<var>angle</var>)</i></dt>
+<dd><p>Takes the tangent of <var>angle</var> which should be in radians.
+Results in system-missing at values
+of <var>angle</var> that are too close to odd multiples of <em>\pi/2</em>.
+Portability: none.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Missing-Value-Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Trigonometry" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Set-Membership" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Missing_002dValue-Functions"></a>
+<h3 class="subsection">1.7.4 Missing-Value Functions</h3>
+<a name="index-missing-values"></a>
+<a name="index-values_002c-missing"></a>
+<a name="index-functions_002c-missing_002dvalue"></a>
+
+<p>Missing-value functions take various numeric arguments and yield
+various types of results.  Except where otherwise stated below, the
+normal rules of evaluation apply within expression arguments to these
+functions.  In particular, user-missing values for numeric variables
+are converted to system-missing values.
+</p>
+<dl>
+<dt><a name="index-MISSING"></a><u>Function:</u> <b>MISSING</b><i> (<var>expr</var>)</i></dt>
+<dd><p>Returns 1 if <var>expr</var> has the system-missing value, 0 otherwise.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-NMISS"></a><u>Function:</u> <b>NMISS</b><i> (<var>expr</var> [, <var>expr</var>]&hellip;)</i></dt>
+<dd><p>Each argument must be a numeric expression.  Returns the number of
+system-missing values in the list, which may include variable ranges
+using the <code><var>var1</var> TO <var>var2</var></code> syntax.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-NVALID"></a><u>Function:</u> <b>NVALID</b><i> (<var>expr</var> [, <var>expr</var>]&hellip;)</i></dt>
+<dd><p>Each argument must be a numeric expression.  Returns the number of
+values in the list that are not system-missing.  The list may include
+variable ranges using the <code><var>var1</var> TO <var>var2</var></code> syntax.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-SYSMIS"></a><u>Function:</u> <b>SYSMIS</b><i> (<var>expr</var>)</i></dt>
+<dd><p>When <var>expr</var> is simply the name of a numeric variable, returns 1 if
+the variable has the system-missing value, 0 if it is user-missing or
+not missing.  If given <var>expr</var> takes another form, results in 1 if
+the value is system-missing, 0 otherwise.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-VALUE"></a><u>Function:</u> <b>VALUE</b><i> (<var>variable</var>)</i></dt>
+<dd><p>Prevents the user-missing values of <var>variable</var> from being
+transformed into system-missing values, and always results in the
+actual value of <var>variable</var>, whether it is valid, user-missing, or
+system-missing.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Set-Membership"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Missing-Value-Functions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistical-Functions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Set_002dMembership-Functions"></a>
+<h3 class="subsection">1.7.5 Set-Membership Functions</h3>
+<a name="index-set-membership"></a>
+<a name="index-membership_002c-of-set"></a>
+
+<p>Set membership functions determine whether a value is a member of a set.
+They take a set of numeric arguments or a set of string arguments, and
+produce Boolean results.
+</p>
+<p>String comparisons are performed according to the rules given in
+<a href="#Relational-Operators">Relational Operators</a>.
+</p>
+<dl>
+<dt><a name="index-ANY"></a><u>Function:</u> <b>ANY</b><i> (<var>value</var>, <var>set</var> [, <var>set</var>]&hellip;)</i></dt>
+<dd><p>Results in true if <var>value</var> is equal to any of the <var>set</var>
+values.  Otherwise, results in false.  If <var>value</var> is
+system-missing, returns system-missing.  System-missing values in
+<var>set</var> do not cause <code>ANY</code> to return system-missing.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-RANGE"></a><u>Function:</u> <b>RANGE</b><i> (<var>value</var>, <var>low</var>, <var>high</var> [, <var>low</var>, <var>high</var>]&hellip;)</i></dt>
+<dd><p>Results in true if <var>value</var> is in any of the intervals bounded by
+<var>low</var> and <var>high</var> inclusive.  Otherwise, results in false.
+Each <var>low</var> must be less than or equal to its corresponding
+<var>high</var> value.  <var>low</var> and <var>high</var> must be given in pairs.
+If <var>value</var> is system-missing, returns system-missing.
+System-missing values in <var>set</var> do not cause <code>RANGE</code> to return
+system-missing.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Statistical-Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Set-Membership" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#String-Functions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Statistical-Functions-1"></a>
+<h3 class="subsection">1.7.6 Statistical Functions</h3>
+<a name="index-functions_002c-statistical"></a>
+<a name="index-statistics"></a>
+
+<p>Statistical functions compute descriptive statistics on a list of
+values.  Some statistics can be computed on numeric or string values;
+other can only be computed on numeric values.  Their results have the
+same type as their arguments.  The current case&rsquo;s weighting factor
+(@pxref{WEIGHT}) has no effect on statistical functions.
+</p>
+<p>These functions&rsquo; argument lists may include entire ranges of variables
+using the <code><var>var1</var> TO <var>var2</var></code> syntax.
+</p>
+<a name="index-arguments_002c-minimum-valid"></a>
+<a name="index-minimum-valid-number-of-arguments"></a>
+<p>Unlike most functions, statistical functions can return non-missing
+values even when some of their arguments are missing.  Most
+statistical functions, by default, require only 1 non-missing value to
+have a non-missing return, but <code>CFVAR</code>, <code>SD</code>, and <code>VARIANCE</code> require 2.
+These defaults can be increased (but not decreased) by appending a dot
+and the minimum number of valid arguments to the function name.  For
+example, @subcmd{MEAN.3(X, Y, Z)} would only return non-missing if all
+of &lsquo;<samp>X</samp>&rsquo;, &lsquo;<samp>Y</samp>&rsquo;, and &lsquo;<samp>Z</samp>&rsquo; were valid.
+</p>
+<a name="index-coefficient-of-variation"></a>
+<a name="index-variation_002c-coefficient-of"></a>
+<dl>
+<dt><a name="index-CFVAR"></a><u>Function:</u> <b>CFVAR</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the coefficient of variation of the values of <var>number</var>.
+(The coefficient of variation is the standard deviation divided by the
+mean.)
+</p></dd></dl>
+
+<a name="index-maximum"></a>
+<dl>
+<dt><a name="index-MAX"></a><u>Function:</u> <b>MAX</b><i> (<var>value</var>, <var>value</var>[, &hellip;])</i></dt>
+<dd><p>Results in the value of the greatest <var>value</var>.  The <var>value</var>s may
+be numeric or string.
+</p></dd></dl>
+
+<a name="index-mean"></a>
+<dl>
+<dt><a name="index-MEAN"></a><u>Function:</u> <b>MEAN</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the mean of the values of <var>number</var>.
+</p></dd></dl>
+
+<a name="index-median"></a>
+<dl>
+<dt><a name="index-MEDIAN"></a><u>Function:</u> <b>MEDIAN</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the median of the values of <var>number</var>.  Given an even
+number of nonmissing arguments, yields the mean of the two middle
+values.
+</p></dd></dl>
+
+<a name="index-minimum"></a>
+<dl>
+<dt><a name="index-MIN"></a><u>Function:</u> <b>MIN</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the value of the least <var>value</var>.  The <var>value</var>s may
+be numeric or string.
+</p></dd></dl>
+
+<a name="index-standard-deviation"></a>
+<a name="index-deviation_002c-standard"></a>
+<dl>
+<dt><a name="index-SD"></a><u>Function:</u> <b>SD</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the standard deviation of the values of <var>number</var>.
+</p></dd></dl>
+
+<a name="index-sum"></a>
+<dl>
+<dt><a name="index-SUM"></a><u>Function:</u> <b>SUM</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the sum of the values of <var>number</var>.
+</p></dd></dl>
+
+<a name="index-variance"></a>
+<dl>
+<dt><a name="index-VARIANCE"></a><u>Function:</u> <b>VARIANCE</b><i> (<var>number</var>, <var>number</var>[, &hellip;])</i></dt>
+<dd><p>Results in the variance of the values of <var>number</var>.
+</p></dd></dl>
+
+<hr size="6">
+<a name="String-Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Statistical-Functions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="String-Functions-1"></a>
+<h3 class="subsection">1.7.7 String Functions</h3>
+<a name="index-functions_002c-string"></a>
+<a name="index-string-functions"></a>
+
+<p>String functions take various arguments and return various results.
+</p>
+<a name="index-concatenation"></a>
+<a name="index-strings_002c-concatenation-of"></a>
+<dl>
+<dt><a name="index-CONCAT"></a><u>Function:</u> <b>CONCAT</b><i> (<var>string</var>, <var>string</var>[, &hellip;])</i></dt>
+<dd><p>Returns a string consisting of each <var>string</var> in sequence.
+<code>CONCAT(&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;)</code> has a value of <code>&quot;abcdefghi&quot;</code>.
+The resultant string is truncated to a maximum of 255 characters.
+</p></dd></dl>
+
+<a name="index-searching-strings"></a>
+<dl>
+<dt><a name="index-INDEX"></a><u>Function:</u> <b>INDEX</b><i> (<var>haystack</var>, <var>needle</var>)</i></dt>
+<dd><p>Returns a positive integer indicating the position of the first
+occurrence of <var>needle</var> in <var>haystack</var>.  Returns 0 if <var>haystack</var>
+does not contain <var>needle</var>.  Returns system-missing if <var>needle</var>
+is an empty string.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-INDEX-1"></a><u>Function:</u> <b>INDEX</b><i> (<var>haystack</var>, <var>needles</var>, <var>needle_len</var>)</i></dt>
+<dd><p>Divides <var>needles</var> into one or more needles, each with length
+<var>needle_len</var>.
+Searches <var>haystack</var> for the first occurrence of each needle, and
+returns the smallest value.  Returns 0 if <var>haystack</var> does not
+contain any part in <var>needle</var>.  It is an error if <var>needle_len</var>
+does not evenly divide the length of <var>needles</var>.  Returns
+system-missing if <var>needles</var> is an empty string.
+</p></dd></dl>
+
+<a name="index-strings_002c-finding-length-of"></a>
+<dl>
+<dt><a name="index-LENGTH"></a><u>Function:</u> <b>LENGTH</b><i> (<var>string</var>)</i></dt>
+<dd><p>Returns the number of characters in <var>string</var>.
+</p></dd></dl>
+
+<a name="index-strings_002c-case-of"></a>
+<dl>
+<dt><a name="index-LOWER"></a><u>Function:</u> <b>LOWER</b><i> (<var>string</var>)</i></dt>
+<dd><p>Returns a string identical to <var>string</var> except that all uppercase
+letters are changed to lowercase letters.  The definitions of
+&ldquo;uppercase&rdquo; and &ldquo;lowercase&rdquo; are system-dependent.
+</p></dd></dl>
+
+<a name="index-strings_002c-padding"></a>
+<dl>
+<dt><a name="index-LPAD"></a><u>Function:</u> <b>LPAD</b><i> (<var>string</var>, <var>length</var>)</i></dt>
+<dd><p>If <var>string</var> is at least <var>length</var> characters in length, returns
+<var>string</var> unchanged.  Otherwise, returns <var>string</var> padded with
+spaces on the left side to length <var>length</var>.  Returns an empty string
+if <var>length</var> is system-missing, negative, or greater than 255.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-LPAD-1"></a><u>Function:</u> <b>LPAD</b><i> (<var>string</var>, <var>length</var>, <var>padding</var>)</i></dt>
+<dd><p>If <var>string</var> is at least <var>length</var> characters in length, returns
+<var>string</var> unchanged.  Otherwise, returns <var>string</var> padded with
+<var>padding</var> on the left side to length <var>length</var>.  Returns an empty
+string if <var>length</var> is system-missing, negative, or greater than 255, or
+if <var>padding</var> does not contain exactly one character.
+</p></dd></dl>
+
+<a name="index-strings_002c-trimming"></a>
+<a name="index-white-space_002c-trimming"></a>
+<dl>
+<dt><a name="index-LTRIM"></a><u>Function:</u> <b>LTRIM</b><i> (<var>string</var>)</i></dt>
+<dd><p>Returns <var>string</var>, after removing leading spaces.  Other white space,
+such as tabs, carriage returns, line feeds, and vertical tabs, is not
+removed.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-LTRIM-1"></a><u>Function:</u> <b>LTRIM</b><i> (<var>string</var>, <var>padding</var>)</i></dt>
+<dd><p>Returns <var>string</var>, after removing leading <var>padding</var> characters.
+If <var>padding</var> does not contain exactly one character, returns an
+empty string.
+</p></dd></dl>
+
+<a name="index-numbers_002c-converting-from-strings"></a>
+<a name="index-strings_002c-converting-to-numbers"></a>
+<dl>
+<dt><a name="index-NUMBER"></a><u>Function:</u> <b>NUMBER</b><i> (<var>string</var>, <var>format</var>)</i></dt>
+<dd><p>Returns the number produced when <var>string</var> is interpreted according
+to format specifier <var>format</var>.  If the format width <var>w</var> is less
+than the length of <var>string</var>, then only the first <var>w</var>
+characters in <var>string</var> are used, e.g. <code>NUMBER(&quot;123&quot;, F3.0)</code>
+and <code>NUMBER(&quot;1234&quot;, F3.0)</code> both have value 123.  If <var>w</var> is
+greater than <var>string</var>&rsquo;s length, then it is treated as if it were
+right-padded with spaces.  If <var>string</var> is not in the correct
+format for <var>format</var>, system-missing is returned.
+</p></dd></dl>
+
+<a name="index-strings_002c-replacing-substrings"></a>
+<a name="index-replacing-substrings"></a>
+<dl>
+<dt><a name="index-REPLACE"></a><u>Function:</u> <b>REPLACE</b><i> (<var>haystack</var>, <var>needle</var>, <var>replacement</var>[, <var>n</var>])</i></dt>
+<dd><p>Returns string <var>haystack</var> with instances of <var>needle</var> replaced
+by <var>replacement</var>.  If nonnegative integer <var>n</var> is specified, it
+limits the maximum number of replacements; otherwise, all instances of
+<var>needle</var> are replaced.
+</p></dd></dl>
+
+<a name="index-strings_002c-searching-backwards"></a>
+<dl>
+<dt><a name="index-RINDEX"></a><u>Function:</u> <b>RINDEX</b><i> (<var>haystack</var>, <var>needle</var>)</i></dt>
+<dd><p>Returns a positive integer indicating the position of the last
+occurrence of <var>needle</var> in <var>haystack</var>.  Returns 0 if
+<var>haystack</var> does not contain <var>needle</var>.  Returns system-missing if
+<var>needle</var> is an empty string.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-RINDEX-1"></a><u>Function:</u> <b>RINDEX</b><i> (<var>haystack</var>, <var>needle</var>, <var>needle_len</var>)</i></dt>
+<dd><p>Divides <var>needle</var> into parts, each with length <var>needle_len</var>.
+Searches <var>haystack</var> for the last occurrence of each part, and
+returns the largest value.  Returns 0 if <var>haystack</var> does not contain
+any part in <var>needle</var>.  It is an error if <var>needle_len</var> does not
+evenly divide the length of <var>needle</var>.  Returns system-missing
+if <var>needle</var> is an empty string or if needle_len is less than 1.
+</p></dd></dl>
+
+<a name="index-padding-strings"></a>
+<a name="index-strings_002c-padding-1"></a>
+<dl>
+<dt><a name="index-RPAD"></a><u>Function:</u> <b>RPAD</b><i> (<var>string</var>, <var>length</var>)</i></dt>
+<dd><p>If <var>string</var> is at least <var>length</var> characters in length, returns
+<var>string</var> unchanged.  Otherwise, returns <var>string</var> padded with
+spaces on the right to length <var>length</var>.  Returns an empty string if
+<var>length</var> is system-missing, negative, or greater than 255.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-RPAD-1"></a><u>Function:</u> <b>RPAD</b><i> (<var>string</var>, <var>length</var>, <var>padding</var>)</i></dt>
+<dd><p>If <var>string</var> is at least <var>length</var> characters in length, returns
+<var>string</var> unchanged.  Otherwise, returns <var>string</var> padded with
+<var>padding</var> on the right to length <var>length</var>.  Returns an empty
+string if <var>length</var> is system-missing, negative, or greater than 255,
+or if <var>padding</var> does not contain exactly one character.
+</p></dd></dl>
+
+<a name="index-strings_002c-trimming-1"></a>
+<a name="index-white-space_002c-trimming-1"></a>
+<dl>
+<dt><a name="index-RTRIM"></a><u>Function:</u> <b>RTRIM</b><i> (<var>string</var>)</i></dt>
+<dd><p>Returns <var>string</var>, after removing trailing spaces.  Other types of
+white space are not removed.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-RTRIM-1"></a><u>Function:</u> <b>RTRIM</b><i> (<var>string</var>, <var>padding</var>)</i></dt>
+<dd><p>Returns <var>string</var>, after removing trailing <var>padding</var> characters.
+If <var>padding</var> does not contain exactly one character, returns an
+empty string.
+</p></dd></dl>
+
+<a name="index-strings_002c-converting-from-numbers"></a>
+<a name="index-numbers_002c-converting-to-strings"></a>
+<dl>
+<dt><a name="index-STRING"></a><u>Function:</u> <b>STRING</b><i> (<var>number</var>, <var>format</var>)</i></dt>
+<dd><p>Returns a string corresponding to <var>number</var> in the format given by
+format specifier <var>format</var>.  For example, <code>STRING(123.56, F5.1)</code>
+has the value <code>&quot;123.6&quot;</code>.
+</p></dd></dl>
+
+<a name="index-strings_002c-trimming-2"></a>
+<a name="index-strings_002c-truncating"></a>
+<a name="index-white-space_002c-trimming-2"></a>
+<dl>
+<dt><a name="index-STRUNC"></a><u>Function:</u> <b>STRUNC</b><i> (<var>string</var>, <var>n</var>)</i></dt>
+<dd><p>Returns <var>string</var>, first trimming it to at most <var>n</var> bytes, then
+removing trailing spaces.  Returns an empty string if <var>n</var> is
+missing or negative.
+</p></dd></dl>
+
+<a name="index-substrings"></a>
+<a name="index-strings_002c-taking-substrings-of"></a>
+<dl>
+<dt><a name="index-SUBSTR"></a><u>Function:</u> <b>SUBSTR</b><i> (<var>string</var>, <var>start</var>)</i></dt>
+<dd><p>Returns a string consisting of the value of <var>string</var> from position
+<var>start</var> onward.  Returns an empty string if <var>start</var> is system-missing,
+less than 1, or greater than the length of <var>string</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-SUBSTR-1"></a><u>Function:</u> <b>SUBSTR</b><i> (<var>string</var>, <var>start</var>, <var>count</var>)</i></dt>
+<dd><p>Returns a string consisting of the first <var>count</var> characters from
+<var>string</var> beginning at position <var>start</var>.  Returns an empty string
+if <var>start</var> or <var>count</var> is system-missing, if <var>start</var> is less
+than 1 or greater than the number of characters in <var>string</var>, or if
+<var>count</var> is less than 1.  Returns a string shorter than <var>count</var>
+characters if <var>start</var> + <var>count</var> - 1 is greater than the number
+of characters in <var>string</var>.  Examples: <code>SUBSTR(&quot;abcdefg&quot;, 3, 2)</code>
+has value <code>&quot;cd&quot;</code>; <code>SUBSTR(&quot;nonsense&quot;, 4, 10)</code> has the value
+<code>&quot;sense&quot;</code>.
+</p></dd></dl>
+
+<a name="index-case-conversion"></a>
+<a name="index-strings_002c-case-of-1"></a>
+<dl>
+<dt><a name="index-UPCASE"></a><u>Function:</u> <b>UPCASE</b><i> (<var>string</var>)</i></dt>
+<dd><p>Returns <var>string</var>, changing lowercase letters to uppercase letters.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Time-and-Date"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#String-Functions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date-Concepts" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Time-_0026-Date-Functions"></a>
+<h3 class="subsection">1.7.8 Time &amp; Date Functions</h3>
+<a name="index-functions_002c-time-_0026-date"></a>
+<a name="index-times"></a>
+<a name="index-dates"></a>
+
+<a name="index-dates_002c-valid"></a>
+<p>For compatibility, @pspp{} considers dates before 15 Oct 1582 invalid.
+Most time and date functions will not accept earlier dates.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Time-and-Date-Concepts">1.7.8.1 How times &amp; dates are defined and represented</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#Time-Construction">1.7.8.2 Functions that Produce Times</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           TIME.{DAYS HMS}
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Time-Extraction">1.7.8.3 Functions that Examine Times</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             CTIME.{DAYS HOURS MINUTES SECONDS}
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Date-Construction">1.7.8.4 Functions that Produce Dates</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           DATE.{DMY MDY MOYR QYR WKYR YRDAY}
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Date-Extraction">1.7.8.5 Functions that Examine Dates</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             XDATE.{DATE HOUR JDAY MDAY MINUTE MONTH
+                                       QUARTER SECOND TDAY TIME WEEK
+                                       WKDAY YEAR}
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Time-and-Date-Arithmetic">1.7.8.6 Time and Date Arithmetic</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    DATEDIFF DATESUM
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Time-and-Date-Concepts"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Time-and-Date" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-Construction" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="How-times-_0026-dates-are-defined-and-represented"></a>
+<h4 class="subsubsection">1.7.8.1 How times &amp; dates are defined and represented</h4>
+
+<a name="index-time_002c-concepts"></a>
+<a name="index-time_002c-intervals"></a>
+<p>Times and dates are handled by @pspp{} as single numbers.  A
+<em>time</em> is an interval.  @pspp{} measures times in seconds.
+Thus, the following intervals correspond with the numeric values given:
+</p>                
+<table><tr><td>&nbsp;</td><td><pre class="example">          10 minutes                        600
+          1 hour                          3,600
+          1 day, 3 hours, 10 seconds     97,210
+          40 days                     3,456,000
+</pre></td></tr></table>
+
+<a name="index-dates_002c-concepts"></a>
+<a name="index-time_002c-instants-of"></a>
+<p>A <em>date</em>, on the other hand, is a particular instant in the past
+or the future.  @pspp{} represents a date as a number of seconds since
+midnight preceding 14 Oct 1582.  Because midnight preceding the dates
+given below correspond with the numeric @pspp{} dates given:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">              15 Oct 1582                86,400
+               4 Jul 1776         6,113,318,400
+               1 Jan 1900        10,010,390,400
+               1 Oct 1978        12,495,427,200
+              24 Aug 1995        13,028,601,600
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="Time-Construction"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Time-and-Date-Concepts" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-Extraction" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Functions-that-Produce-Times"></a>
+<h4 class="subsubsection">1.7.8.2 Functions that Produce Times</h4>
+<a name="index-times_002c-constructing"></a>
+<a name="index-constructing-times"></a>
+
+<p>These functions take numeric arguments and return numeric values that
+represent times.
+</p>
+<a name="index-days"></a>
+<a name="index-time_002c-in-days"></a>
+<dl>
+<dt><a name="index-TIME_002eDAYS"></a><u>Function:</u> <b>TIME.DAYS</b><i> (<var>ndays</var>)</i></dt>
+<dd><p>Returns a time corresponding to <var>ndays</var> days.
+</p></dd></dl>
+
+<a name="index-hours_002dminutes_002dseconds"></a>
+<a name="index-time_002c-in-hours_002dminutes_002dseconds"></a>
+<dl>
+<dt><a name="index-TIME_002eHMS"></a><u>Function:</u> <b>TIME.HMS</b><i> (<var>nhours</var>, <var>nmins</var>, <var>nsecs</var>)</i></dt>
+<dd><p>Returns a time corresponding to <var>nhours</var> hours, <var>nmins</var>
+minutes, and <var>nsecs</var> seconds.  The arguments may not have mixed
+signs: if any of them are positive, then none may be negative, and
+vice versa.  
+</p></dd></dl>
+
+<hr size="6">
+<a name="Time-Extraction"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Time-Construction" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Date-Construction" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Functions-that-Examine-Times"></a>
+<h4 class="subsubsection">1.7.8.3 Functions that Examine Times</h4>
+<a name="index-extraction_002c-of-time"></a>
+<a name="index-time-examination"></a>
+<a name="index-examination_002c-of-times"></a>
+<a name="index-time_002c-lengths-of"></a>
+
+<p>These functions take numeric arguments in @pspp{} time format and
+give numeric results.
+</p>
+<a name="index-days-1"></a>
+<a name="index-time_002c-in-days-1"></a>
+<dl>
+<dt><a name="index-CTIME_002eDAYS"></a><u>Function:</u> <b>CTIME.DAYS</b><i> (<var>time</var>)</i></dt>
+<dd><p>Results in the number of days and fractional days in <var>time</var>.
+</p></dd></dl>
+
+<a name="index-hours"></a>
+<a name="index-time_002c-in-hours"></a>
+<dl>
+<dt><a name="index-CTIME_002eHOURS"></a><u>Function:</u> <b>CTIME.HOURS</b><i> (<var>time</var>)</i></dt>
+<dd><p>Results in the number of hours and fractional hours in <var>time</var>.
+</p></dd></dl>
+
+<a name="index-minutes"></a>
+<a name="index-time_002c-in-minutes"></a>
+<dl>
+<dt><a name="index-CTIME_002eMINUTES"></a><u>Function:</u> <b>CTIME.MINUTES</b><i> (<var>time</var>)</i></dt>
+<dd><p>Results in the number of minutes and fractional minutes in <var>time</var>.
+</p></dd></dl>
+
+<a name="index-seconds"></a>
+<a name="index-time_002c-in-seconds"></a>
+<dl>
+<dt><a name="index-CTIME_002eSECONDS"></a><u>Function:</u> <b>CTIME.SECONDS</b><i> (<var>time</var>)</i></dt>
+<dd><p>Results in the number of seconds and fractional seconds in <var>time</var>.
+(<code>CTIME.SECONDS</code> does nothing; <code>CTIME.SECONDS(<var>x</var>)</code> is
+equivalent to <code><var>x</var></code>.)
+</p></dd></dl>
+
+<hr size="6">
+<a name="Date-Construction"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Time-Extraction" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Date-Extraction" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Functions-that-Produce-Dates"></a>
+<h4 class="subsubsection">1.7.8.4 Functions that Produce Dates</h4>
+<a name="index-dates_002c-constructing"></a>
+<a name="index-constructing-dates"></a>
+
+<a name="index-arguments_002c-of-date-construction-functions"></a>
+<p>These functions take numeric arguments and give numeric results that
+represent dates.  Arguments taken by these functions are:
+</p>
+<dl compact="compact">
+<dt> <var>day</var></dt>
+<dd><p>Refers to a day of the month between 1 and 31.  Day 0 is also accepted
+and refers to the final day of the previous month.  Days 29, 30, and
+31 are accepted even in months that have fewer days and refer to a day
+near the beginning of the following month.
+</p>
+</dd>
+<dt> <var>month</var></dt>
+<dd><p>Refers to a month of the year between 1 and 12.  Months 0 and 13 are
+also accepted and refer to the last month of the preceding year and
+the first month of the following year, respectively.
+</p>
+</dd>
+<dt> <var>quarter</var></dt>
+<dd><p>Refers to a quarter of the year between 1 and 4.  The quarters of the
+year begin on the first day of months 1, 4, 7, and 10.
+</p>
+</dd>
+<dt> <var>week</var></dt>
+<dd><p>Refers to a week of the year between 1 and 53.
+</p>
+</dd>
+<dt> <var>yday</var></dt>
+<dd><p>Refers to a day of the year between 1 and 366.
+</p>
+</dd>
+<dt> <var>year</var></dt>
+<dd><p>Refers to a year, 1582 or greater.  Years between 0 and 99 are treated
+according to the epoch set on SET EPOCH, by default beginning 69 years
+before the current date (@pxref{SET EPOCH}).
+</p></dd>
+</dl>
+
+<a name="index-arguments_002c-invalid"></a>
+<p>If these functions&rsquo; arguments are out-of-range, they are correctly
+normalized before conversion to date format.  Non-integers are rounded
+toward zero.
+</p>
+<a name="index-day_002dmonth_002dyear"></a>
+<a name="index-dates_002c-day_002dmonth_002dyear"></a>
+<dl>
+<dt><a name="index-DATE_002eDMY"></a><u>Function:</u> <b>DATE.DMY</b><i> (<var>day</var>, <var>month</var>, <var>year</var>)</i></dt>
+<dt><a name="index-DATE_002eMDY"></a><u>Function:</u> <b>DATE.MDY</b><i> (<var>month</var>, <var>day</var>, <var>year</var>)</i></dt>
+<dd><p>Results in a date value corresponding to the midnight before day
+<var>day</var> of month <var>month</var> of year <var>year</var>.
+</p></dd></dl>
+
+<a name="index-month_002dyear"></a>
+<a name="index-dates_002c-month_002dyear"></a>
+<dl>
+<dt><a name="index-DATE_002eMOYR"></a><u>Function:</u> <b>DATE.MOYR</b><i> (<var>month</var>, <var>year</var>)</i></dt>
+<dd><p>Results in a date value corresponding to the midnight before the first
+day of month <var>month</var> of year <var>year</var>.
+</p></dd></dl>
+
+<a name="index-quarter_002dyear"></a>
+<a name="index-dates_002c-quarter_002dyear"></a>
+<dl>
+<dt><a name="index-DATE_002eQYR"></a><u>Function:</u> <b>DATE.QYR</b><i> (<var>quarter</var>, <var>year</var>)</i></dt>
+<dd><p>Results in a date value corresponding to the midnight before the first
+day of quarter <var>quarter</var> of year <var>year</var>.
+</p></dd></dl>
+
+<a name="index-week_002dyear"></a>
+<a name="index-dates_002c-week_002dyear"></a>
+<dl>
+<dt><a name="index-DATE_002eWKYR"></a><u>Function:</u> <b>DATE.WKYR</b><i> (<var>week</var>, <var>year</var>)</i></dt>
+<dd><p>Results in a date value corresponding to the midnight before the first
+day of week <var>week</var> of year <var>year</var>.
+</p></dd></dl>
+
+<a name="index-year_002dday"></a>
+<a name="index-dates_002c-year_002dday"></a>
+<dl>
+<dt><a name="index-DATE_002eYRDAY"></a><u>Function:</u> <b>DATE.YRDAY</b><i> (<var>year</var>, <var>yday</var>)</i></dt>
+<dd><p>Results in a date value corresponding to the day
+<var>yday</var> of year <var>year</var>.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Date-Extraction"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Date-Construction" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date-Arithmetic" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Functions-that-Examine-Dates"></a>
+<h4 class="subsubsection">1.7.8.5 Functions that Examine Dates</h4>
+<a name="index-extraction_002c-of-dates"></a>
+<a name="index-date-examination"></a>
+
+<a name="index-arguments_002c-of-date-extraction-functions"></a>
+<p>These functions take numeric arguments in @pspp{} date or time
+format and give numeric results.  These names are used for arguments:
+</p>
+<dl compact="compact">
+<dt> <var>date</var></dt>
+<dd><p>A numeric value in @pspp{} date format.
+</p>
+</dd>
+<dt> <var>time</var></dt>
+<dd><p>A numeric value in @pspp{} time format.
+</p>
+</dd>
+<dt> <var>time-or-date</var></dt>
+<dd><p>A numeric value in @pspp{} time or date format.
+</p></dd>
+</dl>
+
+<a name="index-days-2"></a>
+<a name="index-dates_002c-in-days"></a>
+<a name="index-time_002c-in-days-2"></a>
+<dl>
+<dt><a name="index-XDATE_002eDATE"></a><u>Function:</u> <b>XDATE.DATE</b><i> (<var>time-or-date</var>)</i></dt>
+<dd><p>For a time, results in the time corresponding to the number of whole
+days <var>date-or-time</var> includes.  For a date, results in the date
+corresponding to the latest midnight at or before <var>date-or-time</var>;
+that is, gives the date that <var>date-or-time</var> is in.
+</p></dd></dl>
+
+<a name="index-hours-1"></a>
+<a name="index-dates_002c-in-hours"></a>
+<a name="index-time_002c-in-hours-1"></a>
+<dl>
+<dt><a name="index-XDATE_002eHOUR"></a><u>Function:</u> <b>XDATE.HOUR</b><i> (<var>time-or-date</var>)</i></dt>
+<dd><p>For a time, results in the number of whole hours beyond the number of
+whole days represented by <var>date-or-time</var>.  For a date, results in
+the hour (as an integer between 0 and 23) corresponding to
+<var>date-or-time</var>.  
+</p></dd></dl>
+
+<a name="index-day-of-the-year"></a>
+<a name="index-dates_002c-day-of-the-year"></a>
+<dl>
+<dt><a name="index-XDATE_002eJDAY"></a><u>Function:</u> <b>XDATE.JDAY</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the day of the year (as an integer between 1 and 366)
+corresponding to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-day-of-the-month"></a>
+<a name="index-dates_002c-day-of-the-month"></a>
+<dl>
+<dt><a name="index-XDATE_002eMDAY"></a><u>Function:</u> <b>XDATE.MDAY</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the day of the month (as an integer between 1 and 31)
+corresponding to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-minutes-1"></a>
+<a name="index-dates_002c-in-minutes"></a>
+<a name="index-time_002c-in-minutes-1"></a>
+<dl>
+<dt><a name="index-XDATE_002eMINUTE"></a><u>Function:</u> <b>XDATE.MINUTE</b><i> (<var>time-or-date</var>)</i></dt>
+<dd><p>Results in the number of minutes (as an integer between 0 and 59) after
+the last hour in <var>time-or-date</var>. 
+</p></dd></dl>
+
+<a name="index-months"></a>
+<a name="index-dates_002c-in-months"></a>
+<dl>
+<dt><a name="index-XDATE_002eMONTH"></a><u>Function:</u> <b>XDATE.MONTH</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the month of the year (as an integer between 1 and 12)
+corresponding to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-quarters"></a>
+<a name="index-dates_002c-in-quarters"></a>
+<dl>
+<dt><a name="index-XDATE_002eQUARTER"></a><u>Function:</u> <b>XDATE.QUARTER</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the quarter of the year (as an integer between 1 and 4)
+corresponding to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-seconds-1"></a>
+<a name="index-dates_002c-in-seconds"></a>
+<a name="index-time_002c-in-seconds-1"></a>
+<dl>
+<dt><a name="index-XDATE_002eSECOND"></a><u>Function:</u> <b>XDATE.SECOND</b><i> (<var>time-or-date</var>)</i></dt>
+<dd><p>Results in the number of whole seconds after the last whole minute (as
+an integer between 0 and 59) in <var>time-or-date</var>.
+</p></dd></dl>
+
+<a name="index-days-3"></a>
+<a name="index-times_002c-in-days"></a>
+<dl>
+<dt><a name="index-XDATE_002eTDAY"></a><u>Function:</u> <b>XDATE.TDAY</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the number of whole days from 14 Oct 1582 to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-time"></a>
+<a name="index-dates_002c-time-of-day"></a>
+<dl>
+<dt><a name="index-XDATE_002eTIME"></a><u>Function:</u> <b>XDATE.TIME</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the time of day at the instant corresponding to <var>date</var>,
+as a time value.  This is the number of seconds since
+midnight on the day corresponding to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-week"></a>
+<a name="index-dates_002c-in-weeks"></a>
+<dl>
+<dt><a name="index-XDATE_002eWEEK"></a><u>Function:</u> <b>XDATE.WEEK</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the week of the year (as an integer between 1 and 53)
+corresponding to <var>date</var>.
+</p></dd></dl>
+
+<a name="index-day-of-the-week"></a>
+<a name="index-weekday"></a>
+<a name="index-dates_002c-day-of-the-week"></a>
+<a name="index-dates_002c-in-weekdays"></a>
+<dl>
+<dt><a name="index-XDATE_002eWKDAY"></a><u>Function:</u> <b>XDATE.WKDAY</b><i> (<var>date</var>)</i></dt>
+<dd><p>Results in the day of week (as an integer between 1 and 7) corresponding
+to <var>date</var>, where 1 represents Sunday.
+</p></dd></dl>
+
+<a name="index-years"></a>
+<a name="index-dates_002c-in-years"></a>
+<dl>
+<dt><a name="index-XDATE_002eYEAR"></a><u>Function:</u> <b>XDATE.YEAR</b><i> (<var>date</var>)</i></dt>
+<dd><p>Returns the year (as an integer 1582 or greater) corresponding to
+<var>date</var>.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Time-and-Date-Arithmetic"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Date-Extraction" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Miscellaneous-Functions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Time-and-Date-Arithmetic-1"></a>
+<h4 class="subsubsection">1.7.8.6 Time and Date Arithmetic</h4>
+
+<a name="index-time_002c-mathematical-properties-of"></a>
+<a name="index-mathematics_002c-applied-to-times-_0026-dates"></a>
+<a name="index-dates_002c-mathematical-properties-of"></a>
+<p>Ordinary arithmetic operations on dates and times often produce
+sensible results.  Adding a time to, or subtracting one from, a date
+produces a new date that much earlier or later.  The difference of two
+dates yields the time between those dates.  Adding two times produces
+the combined time.  Multiplying a time by a scalar produces a time
+that many times longer.  Since times and dates are just numbers, the
+ordinary addition and subtraction operators are employed for these
+purposes.
+</p>
+<p>Adding two dates does not produce a useful result.
+</p>
+<p>Dates and times may have very large values.  Thus,
+it is not a good idea to take powers of these values; also, the
+accuracy of some procedures may be affected.  If necessary, convert
+times or dates in seconds to some other unit, like days or years,
+before performing analysis.
+</p>
+<p>@pspp{} supplies a few functions for date arithmetic:
+</p>
+<dl>
+<dt><a name="index-DATEDIFF"></a><u>Function:</u> <b>DATEDIFF</b><i> (<var>date2</var>, <var>date1</var>, <var>unit</var>)</i></dt>
+<dd><p>Returns the span of time from <var>date1</var> to <var>date2</var> in terms of
+<var>unit</var>, which must be a quoted string, one of &lsquo;<samp>years</samp>&rsquo;,
+&lsquo;<samp>quarters</samp>&rsquo;, &lsquo;<samp>months</samp>&rsquo;, &lsquo;<samp>weeks</samp>&rsquo;, &lsquo;<samp>days</samp>&rsquo;,
+&lsquo;<samp>hours</samp>&rsquo;, &lsquo;<samp>minutes</samp>&rsquo;, and &lsquo;<samp>seconds</samp>&rsquo;.  The result is an
+integer, truncated toward zero.
+</p>
+<p>One year is considered to span from a given date to the same month,
+day, and time of day the next year.  Thus, from Jan.&nbsp;1 of one
+year to Jan.&nbsp;1 the next year is considered to be a full year, but
+Feb.&nbsp;29 of a leap year to the following Feb.&nbsp;28 is not.
+Similarly, one month spans from a given day of the month to the same
+day of the following month.  Thus, there is never a full month from
+Jan.&nbsp;31 of a given year to any day in the following February.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-DATESUM"></a><u>Function:</u> <b>DATESUM</b><i> (<var>date</var>, <var>quantity</var>, <var>unit</var>[, <var>method</var>])</i></dt>
+<dd><p>Returns <var>date</var> advanced by the given <var>quantity</var> of the
+specified <var>unit</var>, which must be one of the strings &lsquo;<samp>years</samp>&rsquo;,
+&lsquo;<samp>quarters</samp>&rsquo;, &lsquo;<samp>months</samp>&rsquo;, &lsquo;<samp>weeks</samp>&rsquo;, &lsquo;<samp>days</samp>&rsquo;,
+&lsquo;<samp>hours</samp>&rsquo;, &lsquo;<samp>minutes</samp>&rsquo;, and &lsquo;<samp>seconds</samp>&rsquo;.
+</p>
+<p>When <var>unit</var> is &lsquo;<samp>years</samp>&rsquo;, &lsquo;<samp>quarters</samp>&rsquo;, or &lsquo;<samp>months</samp>&rsquo;,
+only the integer part of <var>quantity</var> is considered.  Adding one of
+these units can cause the day of the month to exceed the number of
+days in the month.  In this case, the <var>method</var> comes into
+play: if it is omitted or specified as &lsquo;<samp>closest</samp>&rsquo; (as a quoted
+string), then the resulting day is the last day of the month;
+otherwise, if it is specified as &lsquo;<samp>rollover</samp>&rsquo;, then the extra days
+roll over into the following month.
+</p>
+<p>When <var>unit</var> is &lsquo;<samp>weeks</samp>&rsquo;, &lsquo;<samp>days</samp>&rsquo;, &lsquo;<samp>hours</samp>&rsquo;,
+&lsquo;<samp>minutes</samp>&rsquo;, or &lsquo;<samp>seconds</samp>&rsquo;, the <var>quantity</var> is not rounded
+to an integer and <var>method</var>, if specified, is ignored.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Miscellaneous-Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Time-and-Date-Arithmetic" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistical-Distribution-Functions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Miscellaneous-Functions-1"></a>
+<h3 class="subsection">1.7.9 Miscellaneous Functions</h3>
+<a name="index-functions_002c-miscellaneous"></a>
+
+<a name="index-cross_002dcase-function"></a>
+<a name="index-function_002c-cross_002dcase"></a>
+<dl>
+<dt><a name="index-LAG"></a><u>Function:</u> <b>LAG</b><i> (<var>variable</var>[, <var>n</var>])</i></dt>
+<dd><p><a name="LAG"></a>
+</p>
+<p><var>variable</var> must be a numeric or string variable name.  <code>LAG</code>
+yields the value of that variable for the case <var>n</var> before the
+current one.  Results in system-missing (for numeric variables) or
+blanks (for string variables) for the first <var>n</var> cases.
+</p>
+<p><code>LAG</code> obtains values from the cases that become the new active
+dataset
+after a procedure executes.  Thus, <code>LAG</code> will not return values
+from cases dropped by transformations such as @cmd{SELECT IF}, and
+transformations like @cmd{COMPUTE} that modify data will change the
+values returned by <code>LAG</code>.  These are both the case whether these
+transformations precede or follow the use of <code>LAG</code>.
+</p>
+<p>If <code>LAG</code> is used before @cmd{TEMPORARY}, then the values it returns
+are those in cases just before @cmd{TEMPORARY}.  <code>LAG</code> may not be
+used after @cmd{TEMPORARY}.
+</p>
+<p>If omitted, <var>ncases</var> defaults to 1.  Otherwise, <var>ncases</var> must
+be a small positive constant integer.  There is no explicit limit, but
+use of a large value will increase memory consumption.
+</p></dd></dl>
+
+<a name="index-date_002c-Julian"></a>
+<a name="index-Julian-date"></a>
+<dl>
+<dt><a name="index-YRMODA"></a><u>Function:</u> <b>YRMODA</b><i> (<var>year</var>, <var>month</var>, <var>day</var>)</i></dt>
+<dd><p><var>year</var> is a year, either between 0 and 99 or at least 1582.
+Unlike other @pspp{} date functions, years between 0 and 99 always
+correspond to 1900 through 1999.  <var>month</var> is a month between 1 and
+13.  <var>day</var> is a day between 0 and 31.  A <var>day</var> of 0 refers to
+the last day of the previous month, and a <var>month</var> of 13 refers to
+the first month of the next year.  <var>year</var> must be in range.
+<var>year</var>, <var>month</var>, and <var>day</var> must all be integers.
+</p>
+<p><code>YRMODA</code> results in the number of days between 15 Oct 1582 and
+the date specified, plus one.  The date passed to <code>YRMODA</code> must be
+on or after 15 Oct 1582.  15 Oct 1582 has a value of 1.
+</p></dd></dl>
+
+<a name="index-value-label"></a>
+<dl>
+<dt><a name="index-_0028-1"></a><u>Function:</u> VALUELABEL <b>(</b><i><var>variable</var>)</i></dt>
+<dd><p>Returns a string matching the label associated with the current value
+of <var>variable</var>.  If the current value of <var>variable</var> has no
+associated label, then this function returns the empty string.
+<var>variable</var> may be a numeric or string variable.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Statistical-Distribution-Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Miscellaneous-Functions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Continuous-Distributions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Statistical-Distribution-Functions-1"></a>
+<h3 class="subsection">1.7.10 Statistical Distribution Functions</h3>
+
+<p>@pspp{} can calculate several functions of standard statistical
+distributions.  These functions are named systematically based on the
+function and the distribution.  The table below describes the
+statistical distribution functions in general:
+</p>
+<dl compact="compact">
+<dt> PDF.<var>dist</var> (<var>x</var>[, <var>param</var>&hellip;])</dt>
+<dd><p>Probability density function for <var>dist</var>.  The domain of <var>x</var>
+depends on <var>dist</var>.  For continuous distributions, the result is
+the density of the probability function at <var>x</var>, and the range is
+nonnegative real numbers.  For discrete distributions, the result is
+the probability of <var>x</var>.
+</p>
+</dd>
+<dt> CDF.<var>dist</var> (<var>x</var>[, <var>param</var>&hellip;])</dt>
+<dd><p>Cumulative distribution function for <var>dist</var>, that is, the
+probability that a random variate drawn from the distribution is less
+than <var>x</var>.  The domain of <var>x</var> depends <var>dist</var>.  The result is
+a probability.
+</p>
+</dd>
+<dt> SIG.<var>dist</var> (<var>x</var>[, <var>param</var>&hellip;)</dt>
+<dd><p>Tail probability function for <var>dist</var>, that is, the probability
+that a random variate drawn from the distribution is greater than
+<var>x</var>.  The domain of <var>x</var> depends <var>dist</var>.  The result is a
+probability.  Only a few distributions include an <code>SIG</code> function.
+</p>
+</dd>
+<dt> IDF.<var>dist</var> (<var>p</var>[, <var>param</var>&hellip;])</dt>
+<dd><p>Inverse distribution function for <var>dist</var>, the value of <var>x</var> for
+which the CDF would yield <var>p</var>.  The value of <var>p</var> is a
+probability.  The range depends on <var>dist</var> and is identical to the
+domain for the corresponding CDF.
+</p>
+</dd>
+<dt> RV.<var>dist</var> ([<var>param</var>&hellip;])</dt>
+<dd><p>Random variate function for <var>dist</var>.  The range depends on the
+distribution.
+</p>
+</dd>
+<dt> NPDF.<var>dist</var> (<var>x</var>[, <var>param</var>&hellip;])</dt>
+<dd><p>Noncentral probability density function.  The result is the density of
+the given noncentral distribution at <var>x</var>.  The domain of <var>x</var>
+depends on <var>dist</var>.  The range is nonnegative real numbers.  Only a
+few distributions include an <code>NPDF</code> function.
+</p>
+</dd>
+<dt> NCDF.<var>dist</var> (<var>x</var>[, <var>param</var>&hellip;])</dt>
+<dd><p>Noncentral cumulative distribution function for <var>dist</var>, that is,
+the probability that a random variate drawn from the given noncentral
+distribution is less than <var>x</var>.  The domain of <var>x</var> depends
+<var>dist</var>.  The result is a probability.  Only a few distributions
+include an NCDF function.
+</p></dd>
+</dl>
+
+<p>The individual distributions are described individually below.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Continuous-Distributions">1.7.10.1 Continuous Distributions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Discrete-Distributions">1.7.10.2 Discrete Distributions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Continuous-Distributions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Statistical-Distribution-Functions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Discrete-Distributions" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistical-Distribution-Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Continuous-Distributions-1"></a>
+<h4 class="subsubsection">1.7.10.1 Continuous Distributions</h4>
+
+<p>The following continuous distributions are available:
+</p>
+<dl>
+<dt><a name="index-PDF_002eBETA"></a><u>Function:</u> <b>PDF.BETA</b><i> (<var>x</var>)</i></dt>
+<dt><a name="index-CDF_002eBETA"></a><u>Function:</u> <b>CDF.BETA</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eBETA"></a><u>Function:</u> <b>IDF.BETA</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eBETA"></a><u>Function:</u> <b>RV.BETA</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-NPDF_002eBETA"></a><u>Function:</u> <b>NPDF.BETA</b><i> (<var>x</var>, <var>a</var>, <var>b</var>, <var>lambda</var>)</i></dt>
+<dt><a name="index-NCDF_002eBETA"></a><u>Function:</u> <b>NCDF.BETA</b><i> (<var>x</var>, <var>a</var>, <var>b</var>, <var>lambda</var>)</i></dt>
+<dd><p>Beta distribution with shape parameters <var>a</var> and <var>b</var>.  The
+noncentral distribution takes an additional parameter <var>lambda</var>.
+Constraints: <var>a</var> &gt; 0, <var>b</var> &gt; 0, <var>lambda</var> &gt;= 0, 0 &lt;= <var>x</var>
+&lt;= 1, 0 &lt;= <var>p</var> &lt;= 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eBVNOR"></a><u>Function:</u> <b>PDF.BVNOR</b><i> (<var>x0</var>, <var>x1</var>, <var>rho</var>)</i></dt>
+<dt><a name="index-CDF_002eVBNOR"></a><u>Function:</u> <b>CDF.VBNOR</b><i> (<var>x0</var>, <var>x1</var>, <var>rho</var>)</i></dt>
+<dd><p>Bivariate normal distribution of two standard normal variables with
+correlation coefficient <var>rho</var>.  Two variates <var>x0</var> and <var>x1</var>
+must be provided.  Constraints: 0 &lt;= <var>rho</var> &lt;= 1, 0 &lt;= <var>p</var> &lt;= 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eCAUCHY"></a><u>Function:</u> <b>PDF.CAUCHY</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eCAUCHY"></a><u>Function:</u> <b>CDF.CAUCHY</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eCAUCHY"></a><u>Function:</u> <b>IDF.CAUCHY</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eCAUCHY"></a><u>Function:</u> <b>RV.CAUCHY</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Cauchy distribution with location parameter <var>a</var> and scale
+parameter <var>b</var>.  Constraints: <var>b</var> &gt; 0, 0 &lt; <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-CDF_002eCHISQ"></a><u>Function:</u> <b>CDF.CHISQ</b><i> (<var>x</var>, <var>df</var>)</i></dt>
+<dt><a name="index-SIG_002eCHISQ"></a><u>Function:</u> <b>SIG.CHISQ</b><i> (<var>x</var>, <var>df</var>)</i></dt>
+<dt><a name="index-IDF_002eCHISQ"></a><u>Function:</u> <b>IDF.CHISQ</b><i> (<var>p</var>, <var>df</var>)</i></dt>
+<dt><a name="index-RV_002eCHISQ"></a><u>Function:</u> <b>RV.CHISQ</b><i> (<var>df</var>)</i></dt>
+<dt><a name="index-NCDF_002eCHISQ"></a><u>Function:</u> <b>NCDF.CHISQ</b><i> (<var>x</var>, <var>df</var>, <var>lambda</var>)</i></dt>
+<dd><p>Chi-squared distribution with <var>df</var> degrees of freedom.  The
+noncentral distribution takes an additional parameter <var>lambda</var>.
+Constraints: <var>df</var> &gt; 0, <var>lambda</var> &gt; 0, <var>x</var> &gt;= 0, 0 &lt;=
+<var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eEXP"></a><u>Function:</u> <b>PDF.EXP</b><i> (<var>x</var>, <var>a</var>)</i></dt>
+<dt><a name="index-CDF_002eEXP"></a><u>Function:</u> <b>CDF.EXP</b><i> (<var>x</var>, <var>a</var>)</i></dt>
+<dt><a name="index-IDF_002eEXP"></a><u>Function:</u> <b>IDF.EXP</b><i> (<var>p</var>, <var>a</var>)</i></dt>
+<dt><a name="index-RV_002eEXP"></a><u>Function:</u> <b>RV.EXP</b><i> (<var>a</var>)</i></dt>
+<dd><p>Exponential distribution with scale parameter <var>a</var>.  The inverse of
+<var>a</var> represents the rate of decay.  Constraints: <var>a</var> &gt; 0,
+<var>x</var> &gt;= 0, 0 &lt;= <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eXPOWER"></a><u>Function:</u> <b>PDF.XPOWER</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eXPOWER"></a><u>Function:</u> <b>RV.XPOWER</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Exponential power distribution with positive scale parameter <var>a</var>
+and nonnegative power parameter <var>b</var>.  Constraints: <var>a</var> &gt; 0,
+<var>b</var> &gt;= 0, <var>x</var> &gt;= 0, 0 &lt;= <var>p</var> &lt;= 1.  This distribution is a
+@pspp{} extension.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eF"></a><u>Function:</u> <b>PDF.F</b><i> (<var>x</var>, <var>df1</var>, <var>df2</var>)</i></dt>
+<dt><a name="index-CDF_002eF"></a><u>Function:</u> <b>CDF.F</b><i> (<var>x</var>, <var>df1</var>, <var>df2</var>)</i></dt>
+<dt><a name="index-SIG_002eF"></a><u>Function:</u> <b>SIG.F</b><i> (<var>x</var>, <var>df1</var>, <var>df2</var>)</i></dt>
+<dt><a name="index-IDF_002eF"></a><u>Function:</u> <b>IDF.F</b><i> (<var>p</var>, <var>df1</var>, <var>df2</var>)</i></dt>
+<dt><a name="index-RV_002eF"></a><u>Function:</u> <b>RV.F</b><i> (<var>df1</var>, <var>df2</var>)</i></dt>
+<dd><p>F-distribution of two chi-squared deviates with <var>df1</var> and
+<var>df2</var> degrees of freedom.  The noncentral distribution takes an
+additional parameter <var>lambda</var>.  Constraints: <var>df1</var> &gt; 0,
+<var>df2</var> &gt; 0, <var>lambda</var> &gt;= 0, <var>x</var> &gt;= 0, 0 &lt;= <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eGAMMA"></a><u>Function:</u> <b>PDF.GAMMA</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eGAMMA"></a><u>Function:</u> <b>CDF.GAMMA</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eGAMMA"></a><u>Function:</u> <b>IDF.GAMMA</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eGAMMA"></a><u>Function:</u> <b>RV.GAMMA</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Gamma distribution with shape parameter <var>a</var> and scale parameter
+<var>b</var>.  Constraints: <var>a</var> &gt; 0, <var>b</var> &gt; 0, <var>x</var> &gt;= 0, 0 &lt;=
+<var>p</var> &lt; 1.
+</p></dd></dl>
+
+
+
+<dl>
+<dt><a name="index-PDF_002eLANDAU"></a><u>Function:</u> <b>PDF.LANDAU</b><i> (<var>x</var>)</i></dt>
+<dt><a name="index-RV_002eLANDAU"></a><u>Function:</u> <b>RV.LANDAU</b><i> ()</i></dt>
+<dd><p>Landau distribution.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eLAPLACE"></a><u>Function:</u> <b>PDF.LAPLACE</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eLAPLACE"></a><u>Function:</u> <b>CDF.LAPLACE</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eLAPLACE"></a><u>Function:</u> <b>IDF.LAPLACE</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eLAPLACE"></a><u>Function:</u> <b>RV.LAPLACE</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Laplace distribution with location parameter <var>a</var> and scale
+parameter <var>b</var>.  Constraints: <var>b</var> &gt; 0, 0 &lt; <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-RV_002eLEVY"></a><u>Function:</u> <b>RV.LEVY</b><i> (<var>c</var>, <var>alpha</var>)</i></dt>
+<dd><p>Levy symmetric alpha-stable distribution with scale <var>c</var> and
+exponent <var>alpha</var>.  Constraints: 0 &lt; <var>alpha</var> &lt;= 2.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-RV_002eLVSKEW"></a><u>Function:</u> <b>RV.LVSKEW</b><i> (<var>c</var>, <var>alpha</var>, <var>beta</var>)</i></dt>
+<dd><p>Levy skew alpha-stable distribution with scale <var>c</var>, exponent
+<var>alpha</var>, and skewness parameter <var>beta</var>.  Constraints: 0 &lt;
+<var>alpha</var> &lt;= 2, -1 &lt;= <var>beta</var> &lt;= 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eLOGISTIC"></a><u>Function:</u> <b>PDF.LOGISTIC</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eLOGISTIC"></a><u>Function:</u> <b>CDF.LOGISTIC</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eLOGISTIC"></a><u>Function:</u> <b>IDF.LOGISTIC</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eLOGISTIC"></a><u>Function:</u> <b>RV.LOGISTIC</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Logistic distribution with location parameter <var>a</var> and scale
+parameter <var>b</var>.  Constraints: <var>b</var> &gt; 0, 0 &lt; <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eLNORMAL"></a><u>Function:</u> <b>PDF.LNORMAL</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eLNORMAL"></a><u>Function:</u> <b>CDF.LNORMAL</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eLNORMAL"></a><u>Function:</u> <b>IDF.LNORMAL</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eLNORMAL"></a><u>Function:</u> <b>RV.LNORMAL</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Lognormal distribution with parameters <var>a</var> and <var>b</var>.
+Constraints: <var>a</var> &gt; 0, <var>b</var> &gt; 0, <var>x</var> &gt;= 0, 0 &lt;= <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eNORMAL"></a><u>Function:</u> <b>PDF.NORMAL</b><i> (<var>x</var>, <var>mu</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-CDF_002eNORMAL"></a><u>Function:</u> <b>CDF.NORMAL</b><i> (<var>x</var>, <var>mu</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-IDF_002eNORMAL"></a><u>Function:</u> <b>IDF.NORMAL</b><i> (<var>p</var>, <var>mu</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-RV_002eNORMAL"></a><u>Function:</u> <b>RV.NORMAL</b><i> (<var>mu</var>, <var>sigma</var>)</i></dt>
+<dd><p>Normal distribution with mean <var>mu</var> and standard deviation
+<var>sigma</var>.  Constraints: <var>b</var> &gt; 0, 0 &lt; <var>p</var> &lt; 1.  Three
+additional functions are available as shorthand:
+</p>
+<dl>
+<dt><a name="index-CDFNORM"></a><u>Function:</u> <b>CDFNORM</b><i> (<var>x</var>)</i></dt>
+<dd><p>Equivalent to CDF.NORMAL(<var>x</var>, 0, 1).
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PROBIT"></a><u>Function:</u> <b>PROBIT</b><i> (<var>p</var>)</i></dt>
+<dd><p>Equivalent to IDF.NORMAL(<var>p</var>, 0, 1).
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-NORMAL"></a><u>Function:</u> <b>NORMAL</b><i> (<var>sigma</var>)</i></dt>
+<dd><p>Equivalent to RV.NORMAL(0, <var>sigma</var>).
+</p></dd></dl>
+</dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eNTAIL"></a><u>Function:</u> <b>PDF.NTAIL</b><i> (<var>x</var>, <var>a</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-RV_002eNTAIL"></a><u>Function:</u> <b>RV.NTAIL</b><i> (<var>a</var>, <var>sigma</var>)</i></dt>
+<dd><p>Normal tail distribution with lower limit <var>a</var> and standard
+deviation <var>sigma</var>.  This distribution is a @pspp{} extension.
+Constraints: <var>a</var> &gt; 0, <var>x</var> &gt; <var>a</var>, 0 &lt; <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002ePARETO"></a><u>Function:</u> <b>PDF.PARETO</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002ePARETO"></a><u>Function:</u> <b>CDF.PARETO</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002ePARETO"></a><u>Function:</u> <b>IDF.PARETO</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002ePARETO"></a><u>Function:</u> <b>RV.PARETO</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Pareto distribution with threshold parameter <var>a</var> and shape
+parameter <var>b</var>.  Constraints: <var>a</var> &gt; 0, <var>b</var> &gt; 0, <var>x</var> &gt;=
+<var>a</var>, 0 &lt;= <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eRAYLEIGH"></a><u>Function:</u> <b>PDF.RAYLEIGH</b><i> (<var>x</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-CDF_002eRAYLEIGH"></a><u>Function:</u> <b>CDF.RAYLEIGH</b><i> (<var>x</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-IDF_002eRAYLEIGH"></a><u>Function:</u> <b>IDF.RAYLEIGH</b><i> (<var>p</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-RV_002eRAYLEIGH"></a><u>Function:</u> <b>RV.RAYLEIGH</b><i> (<var>sigma</var>)</i></dt>
+<dd><p>Rayleigh distribution with scale parameter <var>sigma</var>.  This
+distribution is a @pspp{} extension.  Constraints: <var>sigma</var> &gt; 0,
+<var>x</var> &gt; 0.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eRTAIL"></a><u>Function:</u> <b>PDF.RTAIL</b><i> (<var>x</var>, <var>a</var>, <var>sigma</var>)</i></dt>
+<dt><a name="index-RV_002eRTAIL"></a><u>Function:</u> <b>RV.RTAIL</b><i> (<var>a</var>, <var>sigma</var>)</i></dt>
+<dd><p>Rayleigh tail distribution with lower limit <var>a</var> and scale
+parameter <var>sigma</var>.  This distribution is a @pspp{} extension.
+Constraints: <var>a</var> &gt; 0, <var>sigma</var> &gt; 0, <var>x</var> &gt; <var>a</var>.
+</p></dd></dl>
+
+
+
+<dl>
+<dt><a name="index-PDF_002eT"></a><u>Function:</u> <b>PDF.T</b><i> (<var>x</var>, <var>df</var>)</i></dt>
+<dt><a name="index-CDF_002eT"></a><u>Function:</u> <b>CDF.T</b><i> (<var>x</var>, <var>df</var>)</i></dt>
+<dt><a name="index-IDF_002eT"></a><u>Function:</u> <b>IDF.T</b><i> (<var>p</var>, <var>df</var>)</i></dt>
+<dt><a name="index-RV_002eT"></a><u>Function:</u> <b>RV.T</b><i> (<var>df</var>)</i></dt>
+<dd><p>T-distribution with <var>df</var> degrees of freedom.  The noncentral
+distribution takes an additional parameter <var>lambda</var>.  Constraints:
+<var>df</var> &gt; 0, 0 &lt; <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eT1G"></a><u>Function:</u> <b>PDF.T1G</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eT1G"></a><u>Function:</u> <b>CDF.T1G</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eT1G"></a><u>Function:</u> <b>IDF.T1G</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Type-1 Gumbel distribution with parameters <var>a</var> and <var>b</var>.  This
+distribution is a @pspp{} extension.  Constraints: 0 &lt; <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eT2G"></a><u>Function:</u> <b>PDF.T2G</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eT2G"></a><u>Function:</u> <b>CDF.T2G</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eT2G"></a><u>Function:</u> <b>IDF.T2G</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Type-2 Gumbel distribution with parameters <var>a</var> and <var>b</var>.  This
+distribution is a @pspp{} extension.  Constraints: <var>x</var> &gt; 0, 0 &lt;
+<var>p</var> &lt; 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eUNIFORM"></a><u>Function:</u> <b>PDF.UNIFORM</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eUNIFORM"></a><u>Function:</u> <b>CDF.UNIFORM</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eUNIFORM"></a><u>Function:</u> <b>IDF.UNIFORM</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eUNIFORM"></a><u>Function:</u> <b>RV.UNIFORM</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Uniform distribution with parameters <var>a</var> and <var>b</var>.
+Constraints: <var>a</var> &lt;= <var>x</var> &lt;= <var>b</var>, 0 &lt;= <var>p</var> &lt;= 1.  An
+additional function is available as shorthand:
+</p>
+<dl>
+<dt><a name="index-UNIFORM"></a><u>Function:</u> <b>UNIFORM</b><i> (<var>b</var>)</i></dt>
+<dd><p>Equivalent to RV.UNIFORM(0, <var>b</var>).
+</p></dd></dl>
+</dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eWEIBULL"></a><u>Function:</u> <b>PDF.WEIBULL</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-CDF_002eWEIBULL"></a><u>Function:</u> <b>CDF.WEIBULL</b><i> (<var>x</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-IDF_002eWEIBULL"></a><u>Function:</u> <b>IDF.WEIBULL</b><i> (<var>p</var>, <var>a</var>, <var>b</var>)</i></dt>
+<dt><a name="index-RV_002eWEIBULL"></a><u>Function:</u> <b>RV.WEIBULL</b><i> (<var>a</var>, <var>b</var>)</i></dt>
+<dd><p>Weibull distribution with parameters <var>a</var> and <var>b</var>.
+Constraints: <var>a</var> &gt; 0, <var>b</var> &gt; 0, <var>x</var> &gt;= 0, 0 &lt;= <var>p</var> &lt; 1.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Discrete-Distributions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Continuous-Distributions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Order-of-Operations" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Statistical-Distribution-Functions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Discrete-Distributions-1"></a>
+<h4 class="subsubsection">1.7.10.2 Discrete Distributions</h4>
+
+<p>The following discrete distributions are available:
+</p>
+<dl>
+<dt><a name="index-PDF_002eBERNOULLI"></a><u>Function:</u> <b>PDF.BERNOULLI</b><i> (<var>x</var>)</i></dt>
+<dt><a name="index-CDF_002eBERNOULLI"></a><u>Function:</u> <b>CDF.BERNOULLI</b><i> (<var>x</var>, <var>p</var>)</i></dt>
+<dt><a name="index-RV_002eBERNOULLI"></a><u>Function:</u> <b>RV.BERNOULLI</b><i> (<var>p</var>)</i></dt>
+<dd><p>Bernoulli distribution with probability of success <var>p</var>.
+Constraints: <var>x</var> = 0 or 1, 0 &lt;= <var>p</var> &lt;= 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eBINOM"></a><u>Function:</u> <b>PDF.BINOM</b><i> (<var>x</var>, <var>n</var>, <var>p</var>)</i></dt>
+<dt><a name="index-CDF_002eBINOM"></a><u>Function:</u> <b>CDF.BINOM</b><i> (<var>x</var>, <var>n</var>, <var>p</var>)</i></dt>
+<dt><a name="index-RV_002eBINOM"></a><u>Function:</u> <b>RV.BINOM</b><i> (<var>n</var>, <var>p</var>)</i></dt>
+<dd><p>Binomial distribution with <var>n</var> trials and probability of success
+<var>p</var>.  Constraints: integer <var>n</var> &gt; 0, 0 &lt;= <var>p</var> &lt;= 1, integer
+<var>x</var> &lt;= <var>n</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eGEOM"></a><u>Function:</u> <b>PDF.GEOM</b><i> (<var>x</var>, <var>n</var>, <var>p</var>)</i></dt>
+<dt><a name="index-CDF_002eGEOM"></a><u>Function:</u> <b>CDF.GEOM</b><i> (<var>x</var>, <var>n</var>, <var>p</var>)</i></dt>
+<dt><a name="index-RV_002eGEOM"></a><u>Function:</u> <b>RV.GEOM</b><i> (<var>n</var>, <var>p</var>)</i></dt>
+<dd><p>Geometric distribution with probability of success <var>p</var>.
+Constraints: 0 &lt;= <var>p</var> &lt;= 1, integer <var>x</var> &gt; 0.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eHYPER"></a><u>Function:</u> <b>PDF.HYPER</b><i> (<var>x</var>, <var>a</var>, <var>b</var>, <var>c</var>)</i></dt>
+<dt><a name="index-CDF_002eHYPER"></a><u>Function:</u> <b>CDF.HYPER</b><i> (<var>x</var>, <var>a</var>, <var>b</var>, <var>c</var>)</i></dt>
+<dt><a name="index-RV_002eHYPER"></a><u>Function:</u> <b>RV.HYPER</b><i> (<var>a</var>, <var>b</var>, <var>c</var>)</i></dt>
+<dd><p>Hypergeometric distribution when <var>b</var> objects out of <var>a</var> are
+drawn and <var>c</var> of the available objects are distinctive.
+Constraints: integer <var>a</var> &gt; 0, integer <var>b</var> &lt;= <var>a</var>, integer
+<var>c</var> &lt;= <var>a</var>, integer <var>x</var> &gt;= 0.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eLOG"></a><u>Function:</u> <b>PDF.LOG</b><i> (<var>x</var>, <var>p</var>)</i></dt>
+<dt><a name="index-RV_002eLOG"></a><u>Function:</u> <b>RV.LOG</b><i> (<var>p</var>)</i></dt>
+<dd><p>Logarithmic distribution with probability parameter <var>p</var>.
+Constraints: 0 &lt;= <var>p</var> &lt; 1, <var>x</var> &gt;= 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002eNEGBIN"></a><u>Function:</u> <b>PDF.NEGBIN</b><i> (<var>x</var>, <var>n</var>, <var>p</var>)</i></dt>
+<dt><a name="index-CDF_002eNEGBIN"></a><u>Function:</u> <b>CDF.NEGBIN</b><i> (<var>x</var>, <var>n</var>, <var>p</var>)</i></dt>
+<dt><a name="index-RV_002eNEGBIN"></a><u>Function:</u> <b>RV.NEGBIN</b><i> (<var>n</var>, <var>p</var>)</i></dt>
+<dd><p>Negative binomial distribution with number of successes parameter
+<var>n</var> and probability of success parameter <var>p</var>.  Constraints:
+integer <var>n</var> &gt;= 0, 0 &lt; <var>p</var> &lt;= 1, integer <var>x</var> &gt;= 1.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-PDF_002ePOISSON"></a><u>Function:</u> <b>PDF.POISSON</b><i> (<var>x</var>, <var>mu</var>)</i></dt>
+<dt><a name="index-CDF_002ePOISSON"></a><u>Function:</u> <b>CDF.POISSON</b><i> (<var>x</var>, <var>mu</var>)</i></dt>
+<dt><a name="index-RV_002ePOISSON"></a><u>Function:</u> <b>RV.POISSON</b><i> (<var>mu</var>)</i></dt>
+<dd><p>Poisson distribution with mean <var>mu</var>.  Constraints: <var>mu</var> &gt; 0,
+integer <var>x</var> &gt;= 0.
+</p></dd></dl>
+
+<hr size="6">
+<a name="Order-of-Operations"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Discrete-Distributions" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Operator-Precedence"></a>
+<h2 class="section">1.8 Operator Precedence</h2>
+<a name="index-operator-precedence"></a>
+<a name="index-precedence_002c-operator"></a>
+<a name="index-order-of-operations"></a>
+<a name="index-operations_002c-order-of"></a>
+
+<p>The following table describes operator precedence.  Smaller-numbered
+levels in the table have higher precedence.  Within a level,
+operations are always performed from left to right.  The first
+occurrence of &lsquo;<samp>-</samp>&rsquo; represents unary negation, the second binary
+subtraction.
+</p>
+<ol>
+<li>
+<code>(  )</code>
+</li><li>
+<code>**</code>
+</li><li>
+<code>-</code>
+</li><li>
+<code>*  /</code>
+</li><li>
+<code>+  -</code>
+</li><li>
+<code>EQ  GE  GT  LE  LT  NE</code>
+</li><li>
+<code>AND  NOT  OR</code>
+</li></ol>
+<hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Expressions" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

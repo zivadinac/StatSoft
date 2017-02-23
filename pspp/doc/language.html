@@ -1,0 +1,2122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Language"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#Tokens" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="The-_0040pspp_007b_007d-language"></a>
+<h1 class="chapter">1. The @pspp{} language</h1>
+<a name="index-language_002c-_0040pspp_007b_007d"></a>
+<a name="index-_0040pspp_007b_007d_002c-language"></a>
+
+<p>This chapter discusses elements common to many @pspp{} commands.
+Later chapters will describe individual commands in detail.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Tokens">1.1 Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Characters combine to form tokens.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Commands">1.2 Forming commands of tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Tokens combine to form commands.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Syntax-Variants">1.3 Syntax Variants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Batch vs. Interactive mode
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Types-of-Commands">1.4 Types of Commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           Commands come in several flavors.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Order-of-Commands">1.5 Order of Commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           Commands combine to form syntax files.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Missing-Observations">1.6 Handling missing observations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#Datasets">1.7 Datasets</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Data organization.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Files">1.8 Files Used by @pspp{}</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Files used by @pspp{}.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#File-Handles">1.9 File Handles</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                How files are named.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#BNF">1.10 Backus-Naur Form</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                         How command syntax is described.
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Tokens"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Language" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Commands" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Tokens-1"></a>
+<h2 class="section">1.1 Tokens</h2>
+<a name="index-language_002c-lexical-analysis"></a>
+<a name="index-language_002c-tokens"></a>
+<a name="index-tokens"></a>
+<a name="index-lexical-analysis"></a>
+
+<p>@pspp{} divides most syntax file lines into series of short chunks
+called <em>tokens</em>.
+Tokens are then grouped to form commands, each of which tells
+@pspp{} to take some action&mdash;read in data, write out data, perform
+a statistical procedure, etc.  Each type of token is
+described below.
+</p>
+<dl compact="compact">
+<dd><a name="index-identifiers"></a>
+</dd>
+<dt> <strong>Identifiers</strong></dt>
+<dd><p>Identifiers are names that typically specify variables, commands, or
+subcommands.  The first character in an identifier must be a letter,
+&lsquo;<samp>#</samp>&rsquo;, or &lsquo;<samp>@</samp>&rsquo;.  The remaining characters in the identifier
+must be letters, digits, or one of the following special characters:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"> .  _  $  #  @
+</pre></td></tr></table>
+
+<a name="index-case_002dsensitivity"></a>
+<p>Identifiers may be any length, but only the first 64 bytes are
+significant.  Identifiers are not case-sensitive: <code>foobar</code>,
+<code>Foobar</code>, <code>FooBar</code>, <code>FOOBAR</code>, and <code>FoObaR</code> are
+different representations of the same identifier.
+</p>
+<a name="index-identifiers_002c-reserved"></a>
+<a name="index-reserved-identifiers"></a>
+<p>Some identifiers are reserved.  Reserved identifiers may not be used
+in any context besides those explicitly described in this manual.  The
+reserved identifiers are:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"> ALL  AND  BY  EQ  GE  GT  LE  LT  NE  NOT  OR  TO  WITH
+</pre></td></tr></table>
+
+</dd>
+<dt> <strong>Keywords</strong></dt>
+<dd><p>Keywords are a subclass of identifiers that form a fixed part of
+command syntax.  For example, command and subcommand names are
+keywords.  Keywords may be abbreviated to their first 3 characters if
+this abbreviation is unambiguous.  (Unique abbreviations of 3 or more
+characters are also accepted: &lsquo;<samp>FRE</samp>&rsquo;, &lsquo;<samp>FREQ</samp>&rsquo;, and
+&lsquo;<samp>FREQUENCIES</samp>&rsquo; are equivalent when the last is a keyword.)
+</p>
+<p>Reserved identifiers are always used as keywords.  Other identifiers
+may be used both as keywords and as user-defined identifiers, such as
+variable names.
+</p>
+</dd>
+<dt> <strong>Numbers</strong></dt>
+<dd><a name="index-numbers"></a>
+<a name="index-integers"></a>
+<a name="index-reals"></a>
+<p>Numbers are expressed in decimal.  A decimal point is optional.
+Numbers may be expressed in scientific notation by adding &lsquo;<samp>e</samp>&rsquo; and
+a base-10 exponent, so that &lsquo;<samp>1.234e3</samp>&rsquo; has the value 1234.  Here
+are some more examples of valid numbers:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">-5  3.14159265359  1e100  -.707  8945.
+</pre></td></tr></table>
+
+<p>Negative numbers are expressed with a &lsquo;<samp>-</samp>&rsquo; prefix.  However, in
+situations where a literal &lsquo;<samp>-</samp>&rsquo; token is expected, what appears to
+be a negative number is treated as &lsquo;<samp>-</samp>&rsquo; followed by a positive
+number.
+</p>
+<p>No white space is allowed within a number token, except for horizontal
+white space between &lsquo;<samp>-</samp>&rsquo; and the rest of the number.
+</p>
+<p>The last example above, &lsquo;<samp>8945.</samp>&rsquo; will be interpreted as two
+tokens, &lsquo;<samp>8945</samp>&rsquo; and &lsquo;<samp>.</samp>&rsquo;, if it is the last token on a line.
+See section <a href="#Commands">Forming commands of tokens</a>.
+</p>
+</dd>
+<dt> <strong>Strings</strong></dt>
+<dd><a name="index-strings"></a>
+<a name="index-_0027"></a>
+<a name="index-_0022"></a>
+<a name="index-case_002dsensitivity-1"></a>
+<p>Strings are literal sequences of characters enclosed in pairs of
+single quotes (&lsquo;<samp>'</samp>&rsquo;) or double quotes (&lsquo;<samp>&quot;</samp>&rsquo;).  To include the
+character used for quoting in the string, double it, e.g.
+&lsquo;<samp>'it''s an apostrophe'</samp>&rsquo;.  White space and case of letters are
+significant inside strings.
+</p>
+<p>Strings can be concatenated using &lsquo;<samp>+</samp>&rsquo;, so that &lsquo;<samp>&quot;a&quot; + 'b' +
+'c'</samp>&rsquo; is equivalent to &lsquo;<samp>'abc'</samp>&rsquo;.  So that a long string may be
+broken across lines, a line break may precede or follow, or both
+precede and follow, the &lsquo;<samp>+</samp>&rsquo;.  (However, an entirely blank line
+preceding or following the &lsquo;<samp>+</samp>&rsquo; is interpreted as ending the
+current command.)
+</p>
+<p>Strings may also be expressed as hexadecimal character values by
+prefixing the initial quote character by &lsquo;<samp>x</samp>&rsquo; or &lsquo;<samp>X</samp>&rsquo;.
+Regardless of the syntax file or active dataset&rsquo;s encoding, the
+hexadecimal digits in the string are interpreted as Unicode characters
+in UTF-8 encoding.
+</p>
+<p>Individual Unicode code points may also be expressed by specifying the
+hexadecimal code point number in single or double quotes preceded by
+&lsquo;<samp>u</samp>&rsquo; or &lsquo;<samp>U</samp>&rsquo;.  For example, Unicode code point U+1D11E, the
+musical G clef character, could be expressed as <code>U'1D11E'</code>.
+Invalid Unicode code points (above U+10FFFF or in between U+D800 and
+U+DFFF) are not allowed.
+</p>
+<p>When strings are concatenated with &lsquo;<samp>+</samp>&rsquo;, each segment&rsquo;s prefix is
+considered individually.  For example, <code>'The G clef symbol is:' +
+u&quot;1d11e&quot; + &quot;.&quot;</code> inserts a G clef symbol in the middle of an otherwise
+plain text string.
+</p>
+</dd>
+<dt> <strong>Punctuators and Operators</strong></dt>
+<dd><a name="index-punctuators"></a>
+<a name="index-operators"></a>
+<p>These tokens are the punctuators and operators:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"> ,  /  =  (  )  +  -  *  /  **  &lt;  &lt;=  &lt;&gt;  &gt;  &gt;=  ~=  &amp;  |  .
+</pre></td></tr></table>
+
+<p>Most of these appear within the syntax of commands, but the period
+(&lsquo;<samp>.</samp>&rsquo;) punctuator is used only at the end of a command.  It is a
+punctuator only as the last character on a line (except white space).
+When it is the last non-space character on a line, a period is not
+treated as part of another token, even if it would otherwise be part
+of, e.g., an identifier or a floating-point number.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="Commands"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Tokens" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Syntax-Variants" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Forming-commands-of-tokens"></a>
+<h2 class="section">1.2 Forming commands of tokens</h2>
+
+<a name="index-_0040pspp_007b_007d_002c-command-structure"></a>
+<a name="index-language_002c-command-structure"></a>
+<a name="index-commands_002c-structure"></a>
+
+<p>Most @pspp{} commands share a common structure.  A command begins with a
+command name, such as @cmd{FREQUENCIES}, @cmd{DATA LIST}, or @cmd{N OF
+CASES}.  The command name may be abbreviated to its first word, and
+each word in the command name may be abbreviated to its first three
+or more characters, where these abbreviations are unambiguous.
+</p>
+<p>The command name may be followed by one or more <em>subcommands</em>.
+Each subcommand begins with a subcommand name, which may be
+abbreviated to its first three letters.  Some subcommands accept a
+series of one or more specifications, which follow the subcommand
+name, optionally separated from it by an equals sign
+(&lsquo;<samp>=</samp>&rsquo;). Specifications may be separated from each other
+by commas or spaces.  Each subcommand must be separated from the next (if any)
+by a forward slash (&lsquo;<samp>/</samp>&rsquo;).
+</p>
+<p>There are multiple ways to mark the end of a command.  The most common
+way is to end the last line of the command with a period (&lsquo;<samp>.</samp>&rsquo;) as
+described in the previous section (see section <a href="#Tokens">Tokens</a>).  A blank line, or
+one that consists only of white space or comments, also ends a command.
+</p>
+<hr size="6">
+<a name="Syntax-Variants"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Commands" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Types-of-Commands" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Syntax-Variants-1"></a>
+<h2 class="section">1.3 Syntax Variants</h2>
+
+<a name="index-Batch-syntax"></a>
+<a name="index-Interactive-syntax"></a>
+
+<p>There are three variants of command syntax, which vary only in how
+they detect the end of one command and the start of the next.
+</p>
+<p>In <em>interactive mode</em>, which is the default for syntax typed at a
+command prompt, a period as the last non-blank character on a line
+ends a command.  A blank line also ends a command.
+</p>
+<p>In <em>batch mode</em>, an end-of-line period or a blank line also ends a
+command.  Additionally, it treats any line that has a non-blank
+character in the leftmost column as beginning a new command.  Thus, in
+batch mode the second and subsequent lines in a command must be
+indented.
+</p>
+<p>Regardless of the syntax mode, a plus sign, minus sign, or period in
+the leftmost column of a line is ignored and causes that line to begin
+a new command.  This is most useful in batch mode, in which the first
+line of a new command could not otherwise be indented, but it is
+accepted regardless of syntax mode.
+</p>
+<p>The default mode for reading commands from a file is <em>auto mode</em>.
+It is the same as batch mode, except that a line with a non-blank in
+the leftmost column only starts a new command if that line begins with
+the name of a @pspp{} command.  This correctly interprets most valid @pspp{}
+syntax files regardless of the syntax mode for which they are
+intended.
+</p>
+<p>The &lsquo;<samp>--interactive</samp>&rsquo; (or &lsquo;<samp>-i</samp>&rsquo;) or &lsquo;<samp>--batch</samp>&rsquo; (or
+&lsquo;<samp>-b</samp>&rsquo;) options set the syntax mode for files listed on the @pspp{}
+command line.  @xref{Main Options}, for more details.
+</p>
+<hr size="6">
+<a name="Types-of-Commands"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Syntax-Variants" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Order-of-Commands" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Types-of-Commands-1"></a>
+<h2 class="section">1.4 Types of Commands</h2>
+
+<p>Commands in @pspp{} are divided roughly into six categories:
+</p>
+<dl compact="compact">
+<dt> <strong>Utility commands</strong></dt>
+<dd><a name="index-utility-commands"></a>
+<p>Set or display various global options that affect @pspp{} operations.
+May appear anywhere in a syntax file.  @xref{Utilities, , Utility
+commands}.
+</p>
+</dd>
+<dt> <strong>File definition commands</strong></dt>
+<dd><a name="index-file-definition-commands"></a>
+<p>Give instructions for reading data from text files or from special
+binary &ldquo;system files&rdquo;.  Most of these commands replace any previous
+data or variables with new data or
+variables.  At least one file definition command must appear before the first command in any of
+the categories below.  @xref{Data Input and Output}.
+</p>
+</dd>
+<dt> <strong>Input program commands</strong></dt>
+<dd><a name="index-input-program-commands"></a>
+<p>Though rarely used, these provide tools for reading data files
+in arbitrary textual or binary formats.  @xref{INPUT PROGRAM}.
+</p>
+</dd>
+<dt> <strong>Transformations</strong></dt>
+<dd><a name="index-transformations"></a>
+<p>Perform operations on data and write data to output files.  Transformations
+are not carried out until a procedure is executed.  
+</p>
+</dd>
+<dt> <strong>Restricted transformations</strong></dt>
+<dd><a name="index-restricted-transformations"></a>
+<p>Transformations that cannot appear in certain contexts.  See section <a href="#Order-of-Commands">Order of Commands</a>, for details.
+</p>
+</dd>
+<dt> <strong>Procedures</strong></dt>
+<dd><a name="index-procedures"></a>
+<p>Analyze data, writing results of analyses to the listing file.  Cause
+transformations specified earlier in the file to be performed.  In a
+more general sense, a <em>procedure</em> is any command that causes the
+active dataset (the data) to be read.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="Order-of-Commands"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Types-of-Commands" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Missing-Observations" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Order-of-Commands-1"></a>
+<h2 class="section">1.5 Order of Commands</h2>
+<a name="index-commands_002c-ordering"></a>
+<a name="index-order-of-commands"></a>
+
+<p>@pspp{} does not place many restrictions on ordering of commands.  The
+main restriction is that variables must be defined before they are otherwise
+referenced.  This section describes the details of command ordering,
+but most users will have no need to refer to them.
+</p>
+<p>@pspp{} possesses five internal states, called <em>initial</em>, <em>input-program</em>
+<em>file-type</em>, <em>transformation</em>, and <em>procedure</em> states.  (Please note the
+distinction between the @cmd{INPUT PROGRAM} and @cmd{FILE TYPE}
+<em>commands</em> and the <em>input-program</em> and <em>file-type</em> <em>states</em>.)
+</p>
+<p>@pspp{} starts in the initial state.  Each successful completion
+of a command may cause a state transition.  Each type of command has its
+own rules for state transitions:
+</p>
+<dl compact="compact">
+<dt> <strong>Utility commands</strong></dt>
+<dd><ul>
+<li>
+Valid in any state.
+</li><li>
+Do not cause state transitions.  Exception: when @cmd{N OF CASES}
+is executed in the procedure state, it causes a transition to the
+transformation state.
+</li></ul>
+
+</dd>
+<dt> <strong>@cmd{DATA LIST}</strong></dt>
+<dd><ul>
+<li>
+Valid in any state.
+</li><li>
+When executed in the initial or procedure state, causes a transition to
+the transformation state.  
+</li><li>
+Clears the active dataset if executed in the procedure or transformation
+state.
+</li></ul>
+
+</dd>
+<dt> <strong>@cmd{INPUT PROGRAM}</strong></dt>
+<dd><ul>
+<li>
+Invalid in input-program and file-type states.
+</li><li>
+Causes a transition to the intput-program state.  
+</li><li>
+Clears the active dataset.
+</li></ul>
+
+</dd>
+<dt> <strong>@cmd{FILE TYPE}</strong></dt>
+<dd><ul>
+<li>
+Invalid in intput-program and file-type states.
+</li><li>
+Causes a transition to the file-type state.
+</li><li>
+Clears the active dataset.
+</li></ul>
+
+</dd>
+<dt> <strong>Other file definition commands</strong></dt>
+<dd><ul>
+<li>
+Invalid in input-program and file-type states.
+</li><li>
+Cause a transition to the transformation state.
+</li><li>
+Clear the active dataset, except for @cmd{ADD FILES}, @cmd{MATCH FILES},
+and @cmd{UPDATE}.
+</li></ul>
+
+</dd>
+<dt> <strong>Transformations</strong></dt>
+<dd><ul>
+<li>
+Invalid in initial and file-type states.
+</li><li>
+Cause a transition to the transformation state.
+</li></ul>
+
+</dd>
+<dt> <strong>Restricted transformations</strong></dt>
+<dd><ul>
+<li>
+Invalid in initial, input-program, and file-type states.
+</li><li>
+Cause a transition to the transformation state.
+</li></ul>
+
+</dd>
+<dt> <strong>Procedures</strong></dt>
+<dd><ul>
+<li>
+Invalid in initial, input-program, and file-type states.
+</li><li>
+Cause a transition to the procedure state.
+</li></ul>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Missing-Observations"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Order-of-Commands" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Datasets" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Handling-missing-observations"></a>
+<h2 class="section">1.6 Handling missing observations</h2>
+<a name="index-missing-values"></a>
+<a name="index-values_002c-missing"></a>
+
+<p>@pspp{} includes special support for unknown numeric data values.
+Missing observations are assigned a special value, called the
+<em>system-missing value</em>.  This &ldquo;value&rdquo; actually indicates the
+absence of a value; it means that the actual value is unknown.  Procedures
+automatically exclude from analyses those observations or cases that
+have missing values.  Details of missing value exclusion depend on the
+procedure and can often be controlled by the user; refer to
+descriptions of individual procedures for details.
+</p>
+<p>The system-missing value exists only for numeric variables.  String
+variables always have a defined value, even if it is only a string of
+spaces.
+</p>
+<p>Variables, whether numeric or string, can have designated
+<em>user-missing values</em>.  Every user-missing value is an actual value
+for that variable.  However, most of the time user-missing values are
+treated in the same way as the system-missing value.
+</p>
+<p>For more information on missing values, see the following sections:
+<a href="#Datasets">Datasets</a>, @ref{MISSING VALUES}, @ref{Expressions}.  See also the
+documentation on individual procedures for information on how they
+handle missing values.
+</p>
+<hr size="6">
+<a name="Datasets"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Missing-Observations" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Attributes" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Datasets-1"></a>
+<h2 class="section">1.7 Datasets</h2>
+<a name="index-dataset"></a>
+<a name="index-variable"></a>
+<a name="index-dictionary"></a>
+
+<p>@pspp{} works with data organized into <em>datasets</em>.  A dataset
+consists of a set of <em>variables</em>, which taken together are said to
+form a <em>dictionary</em>, and one or more <em>cases</em>, each of which
+has one value for each variable.
+</p>
+<p>At any given time @pspp{} has exactly one distinguished dataset, called
+the <em>active dataset</em>.  Most @pspp{} commands work only with the
+active dataset.  In addition to the active dataset, @pspp{} also supports
+any number of additional open datasets.  The @cmd{DATASET} commands
+can choose a new active dataset from among those that are open, as
+well as create and destroy datasets (@pxref{DATASET}).
+</p>
+<p>The sections below describe variables in more detail.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Attributes">1.7.1 Attributes of Variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Attributes of variables.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#System-Variables">1.7.2 Variables Automatically Defined by @pspp{}</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            Variables automatically defined by @pspp{}.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Sets-of-Variables">1.7.3 Lists of variable names</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="#Input-and-Output-Formats">1.7.4 Input and Output Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    Input and output formats.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Scratch-Variables">1.7.5 Scratch Variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           Variables deleted by procedures.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Attributes"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Datasets" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-Variables" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Datasets" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Attributes-of-Variables"></a>
+<h3 class="subsection">1.7.1 Attributes of Variables</h3>
+<a name="index-variables_002c-attributes-of"></a>
+<a name="index-attributes-of-variables"></a>
+<p>Each variable has a number of attributes, including:
+</p>
+<dl compact="compact">
+<dt> <strong>Name</strong></dt>
+<dd><p>An identifier, up to 64 bytes long.  Each variable must have a different name.
+See section <a href="#Tokens">Tokens</a>.
+</p>
+<p>Some system variable names begin with &lsquo;<samp>$</samp>&rsquo;, but user-defined
+variables&rsquo; names may not begin with &lsquo;<samp>$</samp>&rsquo;.
+</p>
+<a name="index-_002e"></a>
+<a name="index-period"></a>
+<a name="index-variable-names_002c-ending-with-period"></a>
+<p>The final character in a variable name should not be &lsquo;<samp>.</samp>&rsquo;, because
+such an identifier will be misinterpreted when it is the final token
+on a line: <code>FOO.</code> will be divided into two separate tokens,
+&lsquo;<samp>FOO</samp>&rsquo; and &lsquo;<samp>.</samp>&rsquo;, indicating end-of-command.  See section <a href="#Tokens">Tokens</a>.
+</p>
+<a name="index-_005f"></a>
+<p>The final character in a variable name should not be &lsquo;<samp>_</samp>&rsquo;, because
+some such identifiers are used for special purposes by @pspp{}
+procedures.
+</p>
+<p>As with all @pspp{} identifiers, variable names are not case-sensitive.
+@pspp{} capitalizes variable names on output the same way they were
+capitalized at their point of definition in the input.
+</p>
+<a name="index-variables_002c-type"></a>
+<a name="index-type-of-variables"></a>
+</dd>
+<dt> <strong>Type</strong></dt>
+<dd><p>Numeric or string.
+</p>
+<a name="index-variables_002c-width"></a>
+<a name="index-width-of-variables"></a>
+</dd>
+<dt> <strong>Width</strong></dt>
+<dd><p>(string variables only) String variables with a width of 8 characters or
+fewer are called <em>short string variables</em>.  Short string variables
+may be used in a few contexts where <em>long string variables</em> (those
+with widths greater than 8) are not allowed.
+</p>
+</dd>
+<dt> <strong>Position</strong></dt>
+<dd><p>Variables in the dictionary are arranged in a specific order.
+@cmd{DISPLAY} can be used to show this order: see @ref{DISPLAY}.
+</p>
+</dd>
+<dt> <strong>Initialization</strong></dt>
+<dd><p>Either reinitialized to 0 or spaces for each case, or left at its
+existing value.  @xref{LEAVE}.
+</p>
+<a name="index-missing-values-1"></a>
+<a name="index-values_002c-missing-1"></a>
+</dd>
+<dt> <strong>Missing values</strong></dt>
+<dd><p>Optionally, up to three values, or a range of values, or a specific
+value plus a range, can be specified as <em>user-missing values</em>.
+There is also a <em>system-missing value</em> that is assigned to an
+observation when there is no other obvious value for that observation.
+Observations with missing values are automatically excluded from
+analyses.  User-missing values are actual data values, while the
+system-missing value is not a value at all.  See section <a href="#Missing-Observations">Handling missing observations</a>.
+</p>
+<a name="index-variable-labels"></a>
+<a name="index-labels_002c-variable"></a>
+</dd>
+<dt> <strong>Variable label</strong></dt>
+<dd><p>A string that describes the variable.  @xref{VARIABLE LABELS}.
+</p>
+<a name="index-value-labels"></a>
+<a name="index-labels_002c-value"></a>
+</dd>
+<dt> <strong>Value label</strong></dt>
+<dd><p>Optionally, these associate each possible value of the variable with a
+string.  @xref{VALUE LABELS}.
+</p>
+<a name="index-print-format"></a>
+</dd>
+<dt> <strong>Print format</strong></dt>
+<dd><p>Display width, format, and (for numeric variables) number of decimal
+places.  This attribute does not affect how data are stored, just how
+they are displayed.  Example: a width of 8, with 2 decimal places.
+See section <a href="#Input-and-Output-Formats">Input and Output Formats</a>.
+</p>
+<a name="index-write-format"></a>
+</dd>
+<dt> <strong>Write format</strong></dt>
+<dd><p>Similar to print format, but used by the @cmd{WRITE} command
+(@pxref{WRITE}).
+</p>
+<a name="index-custom-attributes"></a>
+</dd>
+<dt> <strong>Custom attributes</strong></dt>
+<dd><p>User-defined associations between names and values.  @xref{VARIABLE
+ATTRIBUTE}.
+</p>
+<a name="index-variable-role"></a>
+</dd>
+<dt> <strong>Role</strong></dt>
+<dd><p>The intended role of a variable for use in dialog boxes in graphical
+user interfaces.  @xref{VARIABLE ROLE}.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="System-Variables"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Attributes" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Sets-of-Variables" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Datasets" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Variables-Automatically-Defined-by-_0040pspp_007b_007d"></a>
+<h3 class="subsection">1.7.2 Variables Automatically Defined by @pspp{}</h3>
+<a name="index-system-variables"></a>
+<a name="index-variables_002c-system"></a>
+
+<p>There are seven system variables.  These are not like ordinary
+variables because system variables are not always stored.  They can be used only
+in expressions.  These system variables, whose values and output formats
+cannot be modified, are described below.
+</p>
+<dl compact="compact">
+<dd><a name="index-_0024CASENUM"></a>
+</dd>
+<dt> <code>$CASENUM</code></dt>
+<dd><p>Case number of the case at the moment.  This changes as cases are
+shuffled around.
+</p>
+<a name="index-_0024DATE"></a>
+</dd>
+<dt> <code>$DATE</code></dt>
+<dd><p>Date the @pspp{} process was started, in format A9, following the
+pattern <code>DD MMM YY</code>.
+</p>
+<a name="index-_0024JDATE"></a>
+</dd>
+<dt> <code>$JDATE</code></dt>
+<dd><p>Number of days between 15 Oct 1582 and the time the @pspp{} process
+was started.
+</p>
+<a name="index-_0024LENGTH"></a>
+</dd>
+<dt> <code>$LENGTH</code></dt>
+<dd><p>Page length, in lines, in format F11.
+</p>
+<a name="index-_0024SYSMIS"></a>
+</dd>
+<dt> <code>$SYSMIS</code></dt>
+<dd><p>System missing value, in format F1.
+</p>
+<a name="index-_0024TIME"></a>
+</dd>
+<dt> <code>$TIME</code></dt>
+<dd><p>Number of seconds between midnight 14 Oct 1582 and the time the active dataset
+was read, in format F20.
+</p>
+<a name="index-_0024WIDTH"></a>
+</dd>
+<dt> <code>$WIDTH</code></dt>
+<dd><p>Page width, in characters, in format F3.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="Sets-of-Variables"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#System-Variables" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Datasets" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Lists-of-variable-names"></a>
+<h3 class="subsection">1.7.3 Lists of variable names</h3>
+<a name="index-TO-convention"></a>
+<a name="index-convention_002c-TO"></a>
+
+<p>To refer to a set of variables, list their names one after another.
+Optionally, their names may be separated by commas.  To include a
+range of variables from the dictionary in the list, write the name of
+the first and last variable in the range, separated by <code>TO</code>.  For
+instance, if the dictionary contains six variables with the names
+<code>ID</code>, <code>X1</code>, <code>X2</code>, <code>GOAL</code>, <code>MET</code>, and
+<code>NEXTGOAL</code>, in that order, then <code>X2 TO MET</code> would include
+variables <code>X2</code>, <code>GOAL</code>, and <code>MET</code>.
+</p>
+<p>Commands that define variables, such as @cmd{DATA LIST}, give
+<code>TO</code> an alternate meaning.  With these commands, <code>TO</code> define
+sequences of variables whose names end in consecutive integers.  The
+syntax is two identifiers that begin with the same root and end with
+numbers, separated by <code>TO</code>.  The syntax <code>X1 TO X5</code> defines 5
+variables, named <code>X1</code>, <code>X2</code>, <code>X3</code>, <code>X4</code>, and
+<code>X5</code>.  The syntax <code>ITEM0008 TO ITEM0013</code> defines 6
+variables, named <code>ITEM0008</code>, <code>ITEM0009</code>, <code>ITEM0010</code>,
+<code>ITEM0011</code>, <code>ITEM0012</code>, and <code>ITEM00013</code>.  The syntaxes
+<code>QUES001 TO QUES9</code> and <code>QUES6 TO QUES3</code> are invalid.
+</p>
+<p>After a set of variables has been defined with @cmd{DATA LIST} or
+another command with this method, the same set can be referenced on
+later commands using the same syntax.
+</p>
+<hr size="6">
+<a name="Input-and-Output-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Sets-of-Variables" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Basic-Numeric-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Datasets" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Input-and-Output-Formats-1"></a>
+<h3 class="subsection">1.7.4 Input and Output Formats</h3>
+
+<a name="index-formats"></a>
+<p>An <em>input format</em> describes how to interpret the contents of an
+input field as a number or a string.  It might specify that the field
+contains an ordinary decimal number, a time or date, a number in binary
+or hexadecimal notation, or one of several other notations.  Input
+formats are used by commands such as @cmd{DATA LIST} that read data or
+syntax files into the @pspp{} active dataset.
+</p>
+<p>Every input format corresponds to a default <em>output format</em> that
+specifies the formatting used when the value is output later.  It is
+always possible to explicitly specify an output format that resembles
+the input format.  Usually, this is the default, but in cases where the
+input format is unfriendly to human readability, such as binary or
+hexadecimal formats, the default output format is an easier-to-read
+decimal format.
+</p>
+<p>Every variable has two output formats, called its <em>print format</em> and
+<em>write format</em>.  Print formats are used in most output contexts;
+write formats are used only by @cmd{WRITE} (@pxref{WRITE}).  Newly
+created variables have identical print and write formats, and
+@cmd{FORMATS}, the most commonly used command for changing formats
+(@pxref{FORMATS}), sets both of them to the same value as well.  Thus,
+most of the time, the distinction between print and write formats is
+unimportant.
+</p>
+<p>Input and output formats are specified to @pspp{} with 
+a <em>format specification</em> of the
+form @subcmd{<var>TYPE</var><var>w</var>} or <code>TYPE<var>w</var>.<var>d</var></code>, where
+<var>TYPE</var> is one of the format types described later, <var>w</var> is a
+field width measured in columns, and <var>d</var> is an optional number of
+decimal places.  If <var>d</var> is omitted, a value of 0 is assumed.  Some
+formats do not allow a nonzero <var>d</var> to be specified.
+</p>
+<p>The following sections describe the input and output formats supported
+by @pspp{}.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#Basic-Numeric-Formats">1.7.4.1 Basic Numeric Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Custom-Currency-Formats">1.7.4.2 Custom Currency Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Legacy-Numeric-Formats">1.7.4.3 Legacy Numeric Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Binary-and-Hexadecimal-Numeric-Formats">1.7.4.4 Binary and Hexadecimal Numeric Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Time-and-Date-Formats">1.7.4.5 Time and Date Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#Date-Component-Formats">1.7.4.6 Date Component Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+<tr><td align="left" valign="top"><a href="#String-Formats">1.7.4.7 String Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Basic-Numeric-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Custom-Currency-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Basic-Numeric-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.1 Basic Numeric Formats</h4>
+
+<a name="index-numeric-formats"></a>
+<p>The basic numeric formats are used for input and output of real numbers
+in standard or scientific notation.  The following table shows an
+example of how each format displays positive and negative numbers with
+the default decimal point setting:
+</p>
+<div class="float">
+<table>
+<thead><tr><th>Format</th><th><code>&nbsp;3141.59</code></th><th><code>-3141.59</code></th></tr></thead>
+<tr><td>F8.2</td><td><code>&nbsp;3141.59</code></td><td><code>-3141.59</code></td></tr>
+<tr><td>COMMA9.2</td><td><code>&nbsp;3,141.59</code></td><td><code>-3,141.59</code></td></tr>
+<tr><td>DOT9.2</td><td><code>&nbsp;3.141,59</code></td><td><code>-3.141,59</code></td></tr>
+<tr><td>DOLLAR10.2</td><td><code>&nbsp;$3,141.59</code></td><td><code>-$3,141.59</code></td></tr>
+<tr><td>PCT9.2</td><td><code>&nbsp;3141.59%</code></td><td><code>-3141.59%</code></td></tr>
+<tr><td>E8.1</td><td><code>&nbsp;3.1E+003</code></td><td><code>-3.1E+003</code></td></tr>
+</table>
+</div>
+<p>On output, numbers in F format are expressed in standard decimal
+notation with the requested number of decimal places.  The other formats
+output some variation on this style:
+</p>
+<ul>
+<li>
+Numbers in COMMA format are additionally grouped every three digits by
+inserting a grouping character.  The grouping character is ordinarily a
+comma, but it can be changed to a period (@pxref{SET DECIMAL}).
+
+</li><li>
+DOT format is like COMMA format, but it interchanges the role of the
+decimal point and grouping characters.  That is, the current grouping
+character is used as a decimal point and vice versa.
+
+</li><li>
+DOLLAR format is like COMMA format, but it prefixes the number with
+&lsquo;<samp>$</samp>&rsquo;.
+
+</li><li>
+PCT format is like F format, but adds &lsquo;<samp>%</samp>&rsquo; after the number.
+
+</li><li>
+The E format always produces output in scientific notation.
+</li></ul>
+
+<p>On input, the basic numeric formats accept positive and numbers in
+standard decimal notation or scientific notation.  Leading and trailing
+spaces are allowed.  An empty or all-spaces field, or one that contains
+only a single period, is treated as the system missing value.
+</p>
+<p>In scientific notation, the exponent may be introduced by a sign
+(&lsquo;<samp>+</samp>&rsquo; or &lsquo;<samp>-</samp>&rsquo;), or by one of the letters &lsquo;<samp>e</samp>&rsquo; or &lsquo;<samp>d</samp>&rsquo;
+(in uppercase or lowercase), or by a letter followed by a sign.  A
+single space may follow the letter or the sign or both.
+</p>
+<p>On fixed-format @cmd{DATA LIST} (@pxref{DATA LIST FIXED}) and in a few
+other contexts, decimals are implied when the field does not contain a
+decimal point.  In F6.5 format, for example, the field <code>314159</code> is
+taken as the value 3.14159 with implied decimals.  Decimals are never
+implied if an explicit decimal point is present or if scientific
+notation is used.
+</p>
+<p>E and F formats accept the basic syntax already described.  The other
+formats allow some additional variations:
+</p>
+<ul>
+<li>
+COMMA, DOLLAR, and DOT formats ignore grouping characters within the
+integer part of the input field.  The identity of the grouping
+character depends on the format.
+
+</li><li>
+DOLLAR format allows a dollar sign to precede the number.  In a negative
+number, the dollar sign may precede or follow the minus sign.
+
+</li><li>
+PCT format allows a percent sign to follow the number.
+</li></ul>
+
+<p>All of the basic number formats have a maximum field width of 40 and
+accept no more than 16 decimal places, on both input and output.  Some
+additional restrictions apply:
+</p>
+<ul>
+<li>
+As input formats, the basic numeric formats allow no more decimal places
+than the field width.  As output formats, the field width must be
+greater than the number of decimal places; that is, large enough to
+allow for a decimal point and the number of requested decimal places.
+DOLLAR and PCT formats must allow an additional column for &lsquo;<samp>$</samp>&rsquo; or
+&lsquo;<samp>%</samp>&rsquo;.
+
+</li><li>
+The default output format for a given input format increases the field
+width enough to make room for optional input characters.  If an input
+format calls for decimal places, the width is increased by 1 to make
+room for an implied decimal point.  COMMA, DOT, and DOLLAR formats also
+increase the output width to make room for grouping characters.  DOLLAR
+and PCT further increase the output field width by 1 to make room for
+&lsquo;<samp>$</samp>&rsquo; or &lsquo;<samp>%</samp>&rsquo;.  The increased output width is capped at 40, the
+maximum field width.
+
+</li><li>
+The E format is exceptional.  For output, E format has a minimum width
+of 7 plus the number of decimal places.  The default output format for
+an E input format is an E format with at least 3 decimal places and
+thus a minimum width of 10.
+</li></ul>
+
+<p>More details of basic numeric output formatting are given below:
+</p>
+<ul>
+<li>
+Output rounds to nearest, with ties rounded away from zero.  Thus, 2.5
+is output as <code>3</code> in F1.0 format, and -1.125 as <code>-1.13</code> in F5.1
+format.
+
+</li><li>
+The system-missing value is output as a period in a field of spaces,
+placed in the decimal point&rsquo;s position, or in the rightmost column if no
+decimal places are requested.  A period is used even if the decimal
+point character is a comma.
+
+</li><li>
+A number that does not fill its field is right-justified within the
+field.
+
+</li><li>
+A number is too large for its field causes decimal places to be dropped
+to make room.  If dropping decimals does not make enough room,
+scientific notation is used if the field is wide enough.  If a number
+does not fit in the field, even in scientific notation, the overflow is
+indicated by filling the field with asterisks (&lsquo;<samp>*</samp>&rsquo;).
+
+</li><li>
+COMMA, DOT, and DOLLAR formats insert grouping characters only if space
+is available for all of them.  Grouping characters are never inserted
+when all decimal places must be dropped.  Thus, 1234.56 in COMMA5.2
+format is output as &lsquo;<samp>&nbsp;1235</samp>&rsquo; without a comma, even though there
+is room for one, because all decimal places were dropped.
+
+</li><li>
+DOLLAR or PCT format drop the &lsquo;<samp>$</samp>&rsquo; or &lsquo;<samp>%</samp>&rsquo; only if the number
+would not fit at all without it.  Scientific notation with &lsquo;<samp>$</samp>&rsquo; or
+&lsquo;<samp>%</samp>&rsquo; is preferred to ordinary decimal notation without it.
+
+</li><li>
+Except in scientific notation, a decimal point is included only when
+it is followed by a digit.  If the integer part of the number being
+output is 0, and a decimal point is included, then the zero before the
+decimal point is dropped.
+
+<p>In scientific notation, the number always includes a decimal point,
+even if it is not followed by a digit.
+</p>
+</li><li>
+A negative number includes a minus sign only in the presence of a
+nonzero digit: -0.01 is output as &lsquo;<samp>-.01</samp>&rsquo; in F4.2 format but as
+&lsquo;<samp>&nbsp;&nbsp;.0</samp>&rsquo; in F4.1 format.  Thus, a &ldquo;negative zero&rdquo; never
+includes a minus sign.
+
+</li><li>
+In negative numbers output in DOLLAR format, the dollar sign follows the
+negative sign.  Thus, -9.99 in DOLLAR6.2 format is output as
+<code>-$9.99</code>.
+
+</li><li>
+In scientific notation, the exponent is output as &lsquo;<samp>E</samp>&rsquo; followed by
+&lsquo;<samp>+</samp>&rsquo; or &lsquo;<samp>-</samp>&rsquo; and exactly three digits.  Numbers with magnitude
+less than 10**-999 or larger than 10**999 are not supported by most
+computers, but if they are supported then their output is considered
+to overflow the field and will be output as asterisks.
+
+</li><li>
+On most computers, no more than 15 decimal digits are significant in
+output, even if more are printed.  In any case, output precision cannot
+be any higher than input precision; few data sets are accurate to 15
+digits of precision.  Unavoidable loss of precision in intermediate
+calculations may also reduce precision of output.
+
+</li><li>
+Special values such as infinities and &ldquo;not a number&rdquo; values are
+usually converted to the system-missing value before printing.  In a few
+circumstances, these values are output directly.  In fields of width 3
+or greater, special values are output as however many characters will
+fit from <code>+Infinity</code> or <code>-Infinity</code> for infinities, from
+<code>NaN</code> for &ldquo;not a number,&rdquo; or from <code>Unknown</code> for other values
+(if any are supported by the system).  In fields under 3 columns wide,
+special values are output as asterisks.
+</li></ul>
+
+<hr size="6">
+<a name="Custom-Currency-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Basic-Numeric-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Legacy-Numeric-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Custom-Currency-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.2 Custom Currency Formats</h4>
+
+<a name="index-currency-formats"></a>
+<p>The custom currency formats are closely related to the basic numeric
+formats, but they allow users to customize the output format.  The
+SET command configures custom currency formats, using the syntax
+</p><table><tr><td>&nbsp;</td><td><pre class="display">SET CC<var>x</var>=<tt>&quot;</tt><var>string</var><tt>&quot;</tt>.
+</pre></td></tr></table>
+<p>where <var>x</var> is A, B, C, D, or E, and <var>string</var> is no more than 16
+characters long.
+</p>
+<p><var>string</var> must contain exactly three commas or exactly three periods
+(but not both), except that a single quote character may be used to
+&ldquo;escape&rdquo; a following comma, period, or single quote.  If three commas
+are used, commas will be used for grouping in output, and a period will
+be used as the decimal point.  Uses of periods reverses these roles.
+</p>
+<p>The commas or periods divide <var>string</var> into four fields, called the
+<em>negative prefix</em>, <em>prefix</em>, <em>suffix</em>, and <em>negative
+suffix</em>, respectively.  The prefix and suffix are added to output
+whenever space is available.  The negative prefix and negative suffix
+are always added to a negative number when the output includes a nonzero
+digit.
+</p>
+<p>The following syntax shows how custom currency formats could be used to
+reproduce basic numeric formats:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">SET CCA=&quot;-,,,&quot;.  /* Same as COMMA.
+SET CCB=&quot;-...&quot;.  /* Same as DOT.
+SET CCC=&quot;-,$,,&quot;. /* Same as DOLLAR.
+SET CCD=&quot;-,,%,&quot;. /* Like PCT, but groups with commas.
+</pre></td></tr></table>
+
+<p>Here are some more examples of custom currency formats.  The final
+example shows how to use a single quote to escape a delimiter:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">SET CCA=&quot;,EUR,,-&quot;.   /* Euro.
+SET CCB=&quot;(,USD ,,)&quot;. /* US dollar.
+SET CCC=&quot;-.R$..&quot;.    /* Brazilian real.
+SET CCD=&quot;-,, NIS,&quot;.  /* Israel shekel.
+SET CCE=&quot;-.Rp'. ..&quot;. /* Indonesia Rupiah.
+</pre></td></tr></table>
+
+<p>These formats would yield the following output:
+</p>
+<div class="float">
+<table>
+<thead><tr><th>Format</th><th><code>&nbsp;3145.59</code></th><th><code>-3145.59</code></th></tr></thead>
+<tr><td>CCA12.2</td><td><code>&nbsp;EUR3,145.59</code></td><td><code>EUR3,145.59-</code></td></tr>
+<tr><td>CCB14.2</td><td><code>&nbsp;&nbsp;USD 3,145.59</code></td><td><code>(USD 3,145.59)</code></td></tr>
+<tr><td>CCC11.2</td><td><code>&nbsp;R$3.145,59</code></td><td><code>-R$3.145,59</code></td></tr>
+<tr><td>CCD13.2</td><td><code>&nbsp;3,145.59 NIS</code></td><td><code>-3,145.59 NIS</code></td></tr>
+<tr><td>CCE10.0</td><td><code>&nbsp;Rp. 3.146</code></td><td><code>-Rp. 3.146</code></td></tr>
+</table>
+</div>
+<p>The default for all the custom currency formats is &lsquo;<samp>-,,,</samp>&rsquo;,
+equivalent to COMMA format.
+</p>
+<hr size="6">
+<a name="Legacy-Numeric-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Custom-Currency-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Binary-and-Hexadecimal-Numeric-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Legacy-Numeric-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.3 Legacy Numeric Formats</h4>
+
+<p>The N and Z numeric formats provide compatibility with legacy file
+formats.  They have much in common:
+</p>
+<ul>
+<li>
+Output is rounded to the nearest representable value, with ties rounded
+away from zero.
+
+</li><li>
+Numbers too large to display are output as a field filled with asterisks
+(&lsquo;<samp>*</samp>&rsquo;).
+
+</li><li>
+The decimal point is always implicitly the specified number of digits
+from the right edge of the field, except that Z format input allows an
+explicit decimal point.
+
+</li><li>
+Scientific notation may not be used.
+
+</li><li>
+The system-missing value is output as a period in a field of spaces.
+The period is placed just to the right of the implied decimal point in
+Z format, or at the right end in N format or in Z format if no decimal
+places are requested.  A period is used even if the decimal point
+character is a comma.
+
+</li><li>
+Field width may range from 1 to 40.  Decimal places may range from 0 up
+to the field width, to a maximum of 16.
+
+</li><li>
+When a legacy numeric format used for input is converted to an output
+format, it is changed into the equivalent F format.  The field width is
+increased by 1 if any decimal places are specified, to make room for a
+decimal point.  For Z format, the field width is increased by 1 more
+column, to make room for a negative sign.  The output field width is
+capped at 40 columns.
+</li></ul>
+
+<a name="N-Format"></a>
+<h4 class="subsubheading">N Format</h4>
+
+<p>The N format supports input and output of fields that contain only
+digits.  On input, leading or trailing spaces, a decimal point, or any
+other non-digit character causes the field to be read as the
+system-missing value.  As a special exception, an N format used on
+@cmd{DATA LIST FREE} or @cmd{DATA LIST LIST} is treated as the
+equivalent F format.
+</p>
+<p>On output, N pads the field on the left with zeros.  Negative numbers
+are output like the system-missing value.
+</p>
+<a name="Z-Format"></a>
+<h4 class="subsubheading">Z Format</h4>
+
+<p>The Z format is a &ldquo;zoned decimal&rdquo; format used on IBM mainframes.  Z
+format encodes the sign as part of the final digit, which must be one of
+the following:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">0123456789
+{ABCDEFGHI
+}JKLMNOPQR
+</pre></td></tr></table>
+<p>where the characters in each row represent digits 0 through 9 in order.
+Characters in the first two rows indicate a positive sign; those in the
+third indicate a negative sign.
+</p>
+<p>On output, Z fields are padded on the left with spaces.  On input,
+leading and trailing spaces are ignored.  Any character in an input
+field other than spaces, the digit characters above, and &lsquo;<samp>.</samp>&rsquo; causes
+the field to be read as system-missing.
+</p>
+<p>The decimal point character for input and output is always &lsquo;<samp>.</samp>&rsquo;,
+even if the decimal point character is a comma (@pxref{SET DECIMAL}).
+</p>
+<p>Nonzero, negative values output in Z format are marked as negative even
+when no nonzero digits are output.  For example, -0.2 is output in Z1.0
+format as &lsquo;<samp>J</samp>&rsquo;.  The &ldquo;negative zero&rdquo; value supported by most
+machines is output as positive.
+</p>
+<hr size="6">
+<a name="Binary-and-Hexadecimal-Numeric-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Legacy-Numeric-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Time-and-Date-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Binary-and-Hexadecimal-Numeric-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.4 Binary and Hexadecimal Numeric Formats</h4>
+
+<a name="index-binary-formats"></a>
+<a name="index-hexadecimal-formats"></a>
+<p>The binary and hexadecimal formats are primarily designed for
+compatibility with existing machine formats, not for human readability.
+All of them therefore have a F format as default output format.  Some of
+these formats are only portable between machines with compatible byte
+ordering (endianness) or floating-point format.
+</p>
+<p>Binary formats use byte values that in text files are interpreted as
+special control functions, such as carriage return and line feed.  Thus,
+data in binary formats should not be included in syntax files or read
+from data files with variable-length records, such as ordinary text
+files.  They may be read from or written to data files with fixed-length
+records.  @xref{FILE HANDLE}, for information on working with
+fixed-length records.
+</p>
+<a name="P-and-PK-Formats"></a>
+<h4 class="subsubheading">P and PK Formats</h4>
+
+<p>These are binary-coded decimal formats, in which every byte (except the
+last, in P format) represents two decimal digits.  The most-significant
+4 bits of the first byte is the most-significant decimal digit, the
+least-significant 4 bits of the first byte is the next decimal digit,
+and so on.
+</p>
+<p>In P format, the most-significant 4 bits of the last byte are the
+least-significant decimal digit.  The least-significant 4 bits represent
+the sign: decimal 15 indicates a negative value, decimal 13 indicates a
+positive value.
+</p>
+<p>Numbers are rounded downward on output.  The system-missing value and
+numbers outside representable range are output as zero.
+</p>
+<p>The maximum field width is 16.  Decimal places may range from 0 up to
+the number of decimal digits represented by the field.
+</p>
+<p>The default output format is an F format with twice the input field
+width, plus one column for a decimal point (if decimal places were
+requested).
+</p>
+<a name="IB-and-PIB-Formats"></a>
+<h4 class="subsubheading">IB and PIB Formats</h4>
+
+<p>These are integer binary formats.  IB reads and writes 2&rsquo;s complement
+binary integers, and PIB reads and writes unsigned binary integers.  The
+byte ordering is by default the host machine&rsquo;s, but SET RIB may be used
+to select a specific byte ordering for reading (@pxref{SET RIB}) and
+SET WIB, similarly, for writing (@pxref{SET WIB}).
+</p>
+<p>The maximum field width is 8.  Decimal places may range from 0 up to the
+number of decimal digits in the largest value representable in the field
+width.
+</p>
+<p>The default output format is an F format whose width is the number of
+decimal digits in the largest value representable in the field width,
+plus 1 if the format has decimal places.
+</p>
+<a name="RB-Format"></a>
+<h4 class="subsubheading">RB Format</h4>
+
+<p>This is a binary format for real numbers.  By default it reads and
+writes the host machine&rsquo;s floating-point format, but SET RRB may be
+used to select an alternate floating-point format for reading
+(@pxref{SET RRB}) and SET WRB, similarly, for writing (@pxref{SET
+WRB}).
+</p>
+<p>The recommended field width depends on the floating-point format.
+NATIVE (the default format), IDL, IDB, VD, VG, and ZL formats should use
+a field width of 8.  ISL, ISB, VF, and ZS formats should use a field
+width of 4.  Other field widths will not produce useful results.  The
+maximum field width is 8.  No decimal places may be specified.
+</p>
+<p>The default output format is F8.2.
+</p>
+<a name="PIBHEX-and-RBHEX-Formats"></a>
+<h4 class="subsubheading">PIBHEX and RBHEX Formats</h4>
+
+<p>These are hexadecimal formats, for reading and writing binary formats
+where each byte has been recoded as a pair of hexadecimal digits.
+</p>
+<p>A hexadecimal field consists solely of hexadecimal digits
+&lsquo;<samp>0</samp>&rsquo;&hellip;&lsquo;<samp>9</samp>&rsquo; and &lsquo;<samp>A</samp>&rsquo;&hellip;&lsquo;<samp>F</samp>&rsquo;.  Uppercase and
+lowercase are accepted on input; output is in uppercase.
+</p>
+<p>Other than the hexadecimal representation, these formats are equivalent
+to PIB and RB formats, respectively.  However, bytes in PIBHEX format
+are always ordered with the most-significant byte first (big-endian
+order), regardless of the host machine&rsquo;s native byte order or @pspp{}
+settings.
+</p>
+<p>Field widths must be even and between 2 and 16.  RBHEX format allows no
+decimal places; PIBHEX allows as many decimal places as a PIB format
+with half the given width.
+</p>
+<hr size="6">
+<a name="Time-and-Date-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Binary-and-Hexadecimal-Numeric-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Date-Component-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Time-and-Date-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.5 Time and Date Formats</h4>
+
+<a name="index-time-formats"></a>
+<a name="index-date-formats"></a>
+<p>In @pspp{}, a <em>time</em> is an interval.  The time formats translate
+between human-friendly descriptions of time intervals and @pspp{}&rsquo;s
+internal representation of time intervals, which is simply the number of
+seconds in the interval.  @pspp{} has two time formats:
+</p>
+<div class="float">
+<table>
+<thead><tr><th>Time Format</th><th>Template</th><th>Example</th></tr></thead>
+<tr><td>TIME</td><td><code>hh:MM:SS.ss</code></td><td><code>04:31:17.01</code></td></tr>
+<tr><td>DTIME</td><td><code>DD HH:MM:SS.ss</code></td><td><code>00 04:31:17.01</code></td></tr>
+</table>
+</div>
+<p>A <em>date</em> is a moment in the past or the future.  Internally, @pspp{}
+represents a date as the number of seconds since the <em>epoch</em>,
+midnight, Oct. 14, 1582.  The date formats translate between
+human-readable dates and @pspp{}&rsquo;s numeric representation of dates and
+times.  @pspp{} has several date formats:
+</p>
+<div class="float">
+<table>
+<thead><tr><th>Date Format</th><th>Template</th><th>Example</th></tr></thead>
+<tr><td>DATE</td><td><code>dd-mmm-yyyy</code></td><td><code>01-OCT-1978</code></td></tr>
+<tr><td>ADATE</td><td><code>mm/dd/yyyy</code></td><td><code>10/01/1978</code></td></tr>
+<tr><td>EDATE</td><td><code>dd.mm.yyyy</code></td><td><code>01.10.1978</code></td></tr>
+<tr><td>JDATE</td><td><code>yyyyjjj</code></td><td><code>1978274</code></td></tr>
+<tr><td>SDATE</td><td><code>yyyy/mm/dd</code></td><td><code>1978/10/01</code></td></tr>
+<tr><td>QYR</td><td><code>q Q yyyy</code></td><td><code>3 Q 1978</code></td></tr>
+<tr><td>MOYR</td><td><code>mmm yyyy</code></td><td><code>OCT 1978</code></td></tr>
+<tr><td>WKYR</td><td><code>ww WK yyyy</code></td><td><code>40 WK 1978</code></td></tr>
+<tr><td>DATETIME</td><td><code>dd-mmm-yyyy HH:MM:SS.ss</code></td><td><code>01-OCT-1978 04:31:17.01</code></td></tr>
+</table>
+</div>
+<p>The templates in the preceding tables describe how the time and date
+formats are input and output:
+</p>
+<dl compact="compact">
+<dt> <code>dd</code></dt>
+<dd><p>Day of month, from 1 to 31.  Always output as two digits.
+</p>
+</dd>
+<dt> <code>mm</code></dt>
+<dt> <code>mmm</code></dt>
+<dd><p>Month.  In output, <code>mm</code> is output as two digits, <code>mmm</code> as the
+first three letters of an English month name (January, February,
+&hellip;).  In input, both of these formats, plus Roman numerals, are
+accepted.
+</p>
+</dd>
+<dt> <code>yyyy</code></dt>
+<dd><p>Year.  In output, DATETIME always produces a 4-digit year; other
+formats can produce a 2- or 4-digit year.  The century assumed for
+2-digit years depends on the EPOCH setting (@pxref{SET EPOCH}).  In
+output, a year outside the epoch causes the whole field to be filled
+with asterisks (&lsquo;<samp>*</samp>&rsquo;).
+</p>
+</dd>
+<dt> <code>jjj</code></dt>
+<dd><p>Day of year (Julian day), from 1 to 366.  This is exactly three digits
+giving the count of days from the start of the year.  January 1 is
+considered day 1.
+</p>
+</dd>
+<dt> <code>q</code></dt>
+<dd><p>Quarter of year, from 1 to 4.  Quarters start on January 1, April 1,
+July 1, and October 1.
+</p>
+</dd>
+<dt> <code>ww</code></dt>
+<dd><p>Week of year, from 1 to 53.  Output as exactly two digits.  January 1 is
+the first day of week 1.
+</p>
+</dd>
+<dt> <code>DD</code></dt>
+<dd><p>Count of days, which may be positive or negative.  Output as at least
+two digits.
+</p>
+</dd>
+<dt> <code>hh</code></dt>
+<dd><p>Count of hours, which may be positive or negative.  Output as at least
+two digits.
+</p>
+</dd>
+<dt> <code>HH</code></dt>
+<dd><p>Hour of day, from 0 to 23.  Output as exactly two digits.
+</p>
+</dd>
+<dt> <code>MM</code></dt>
+<dd><p>Minute of hour, from 0 to 59.  Output as exactly two digits.
+</p>
+</dd>
+<dt> <code>SS.ss</code></dt>
+<dd><p>Seconds within minute, from 0 to 59.  The integer part is output as
+exactly two digits.  On output, seconds and fractional seconds may or
+may not be included, depending on field width and decimal places.  On
+input, seconds and fractional seconds are optional.  The DECIMAL setting
+controls the character accepted and displayed as the decimal point
+(@pxref{SET DECIMAL}).
+</p></dd>
+</dl>
+
+<p>For output, the date and time formats use the delimiters indicated in
+the table.  For input, date components may be separated by spaces or by
+one of the characters &lsquo;<samp>-</samp>&rsquo;, &lsquo;<samp>/</samp>&rsquo;, &lsquo;<samp>.</samp>&rsquo;, or &lsquo;<samp>,</samp>&rsquo;, and
+time components may be separated by spaces, &lsquo;<samp>:</samp>&rsquo;, or &lsquo;<samp>.</samp>&rsquo;.  On
+input, the &lsquo;<samp>Q</samp>&rsquo; separating quarter from year and the &lsquo;<samp>WK</samp>&rsquo;
+separating week from year may be uppercase or lowercase, and the spaces
+around them are optional.
+</p>
+<p>On input, all time and date formats accept any amount of leading and
+trailing white space.
+</p>
+<p>The maximum width for time and date formats is 40 columns.  Minimum
+input and output width for each of the time and date formats is shown
+below:
+</p>
+<div class="float">
+<table>
+<thead><tr><th>Format</th><th>Min. Input Width</th><th>Min. Output Width</th><th>Option</th></tr></thead>
+<tr><td>DATE</td><td>8</td><td>9</td><td>4-digit year</td></tr>
+<tr><td>ADATE</td><td>8</td><td>8</td><td>4-digit year</td></tr>
+<tr><td>EDATE</td><td>8</td><td>8</td><td>4-digit year</td></tr>
+<tr><td>JDATE</td><td>5</td><td>5</td><td>4-digit year</td></tr>
+<tr><td>SDATE</td><td>8</td><td>8</td><td>4-digit year</td></tr>
+<tr><td>QYR</td><td>4</td><td>6</td><td>4-digit year</td></tr>
+<tr><td>MOYR</td><td>6</td><td>6</td><td>4-digit year</td></tr>
+<tr><td>WKYR</td><td>6</td><td>8</td><td>4-digit year</td></tr>
+<tr><td>DATETIME</td><td>17</td><td>17</td><td>seconds</td></tr>
+<tr><td>TIME</td><td>5</td><td>5</td><td>seconds</td></tr>
+<tr><td>DTIME</td><td>8</td><td>8</td><td>seconds</td></tr>
+</table>
+</div><p>In the table, &ldquo;Option&rdquo; describes what increased output width enables:
+</p>
+<dl compact="compact">
+<dt> 4-digit year</dt>
+<dd><p>A field 2 columns wider than minimum will include a 4-digit year.
+(DATETIME format always includes a 4-digit year.)
+</p>
+</dd>
+<dt> seconds</dt>
+<dd><p>A field 3 columns wider than minimum will include seconds as well as
+minutes.  A field 5 columns wider than minimum, or more, can also
+include a decimal point and fractional seconds (but no more than allowed
+by the format&rsquo;s decimal places).
+</p></dd>
+</dl>
+
+<p>For the time and date formats, the default output format is the same as
+the input format, except that @pspp{} increases the field width, if
+necessary, to the minimum allowed for output.
+</p>
+<p>Time or dates narrower than the field width are right-justified within
+the field.
+</p>
+<p>When a time or date exceeds the field width, characters are trimmed from
+the end until it fits.  This can occur in an unusual situation, e.g.
+with a year greater than 9999 (which adds an extra digit), or for a
+negative value on TIME or DTIME (which adds a leading minus sign).
+</p>
+
+<p>The system-missing value is output as a period at the right end of the
+field.  
+</p>
+<hr size="6">
+<a name="Date-Component-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Time-and-Date-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#String-Formats" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Date-Component-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.6 Date Component Formats</h4>
+
+<p>The WKDAY and MONTH formats provide input and output for the names of
+weekdays and months, respectively.
+</p>
+<p>On output, these formats convert a number between 1 and 7, for WKDAY, or
+between 1 and 12, for MONTH, into the English name of a day or month,
+respectively.  If the name is longer than the field, it is trimmed to
+fit.  If the name is shorter than the field, it is padded on the right
+with spaces.  Values outside the valid range, and the system-missing
+value, are output as all spaces.
+</p>
+<p>On input, English weekday or month names (in uppercase or lowercase) are
+converted back to their corresponding numbers.  Weekday and month names
+may be abbreviated to their first 2 or 3 letters, respectively.
+</p>
+<p>The field width may range from 2 to 40, for WKDAY, or from 3 to 40, for
+MONTH.  No decimal places are allowed.
+</p>
+<p>The default output format is the same as the input format.
+</p>
+<hr size="6">
+<a name="String-Formats"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Date-Component-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Scratch-Variables" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Input-and-Output-Formats" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="String-Formats-1"></a>
+<h4 class="subsubsection">1.7.4.7 String Formats</h4>
+
+<a name="index-string-formats"></a>
+<p>The A and AHEX formats are the only ones that may be assigned to string
+variables.  Neither format allows any decimal places.
+</p>
+<p>In A format, the entire field is treated as a string value.  The field
+width may range from 1 to 32,767, the maximum string width.  The default
+output format is the same as the input format.
+</p>
+<p>In AHEX format, the field is composed of characters in a string encoded
+as hex digit pairs.  On output, hex digits are output in uppercase; on
+input, uppercase and lowercase are both accepted.  The default output
+format is A format with half the input width.
+</p>
+<hr size="6">
+<a name="Scratch-Variables"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#String-Formats" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Files" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Datasets" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Scratch-Variables-1"></a>
+<h3 class="subsection">1.7.5 Scratch Variables</h3>
+
+<a name="index-scratch-variables"></a>
+<p>Most of the time, variables don&rsquo;t retain their values between cases.
+Instead, either they&rsquo;re being read from a data file or the active dataset,
+in which case they assume the value read, or, if created with
+@cmd{COMPUTE} or
+another transformation, they&rsquo;re initialized to the system-missing value
+or to blanks, depending on type.
+</p>
+<p>However, sometimes it&rsquo;s useful to have a variable that keeps its value
+between cases.  You can do this with @cmd{LEAVE} (@pxref{LEAVE}), or you can
+use a <em>scratch variable</em>.  Scratch variables are variables whose
+names begin with an octothorpe (&lsquo;<samp>#</samp>&rsquo;).  
+</p>
+<p>Scratch variables have the same properties as variables left with
+@cmd{LEAVE}: they retain their values between cases, and for the first
+case they are initialized to 0 or blanks.  They have the additional
+property that they are deleted before the execution of any procedure.
+For this reason, scratch variables can&rsquo;t be used for analysis.  To use
+a scratch variable in an analysis, use @cmd{COMPUTE} (@pxref{COMPUTE})
+to copy its value into an ordinary variable, then use that ordinary
+variable in the analysis.
+</p>
+<hr size="6">
+<a name="Files"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Scratch-Variables" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#File-Handles" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Files-Used-by-_0040pspp_007b_007d"></a>
+<h2 class="section">1.8 Files Used by @pspp{}</h2>
+
+<p>@pspp{} makes use of many files each time it runs.  Some of these it
+reads, some it writes, some it creates.  Here is a table listing the
+most important of these files:
+</p>
+<dl compact="compact">
+<dd><a name="index-file_002c-command"></a>
+<a name="index-file_002c-syntax-file"></a>
+<a name="index-command-file"></a>
+<a name="index-syntax-file"></a>
+</dd>
+<dt> <strong>command file</strong></dt>
+<dt> <strong>syntax file</strong></dt>
+<dd><p>These names (synonyms) refer to the file that contains instructions
+that tell @pspp{} what to do.  The syntax file&rsquo;s name is specified on
+the @pspp{} command line.  Syntax files can also be read with
+@cmd{INCLUDE} (@pxref{INCLUDE}).
+</p>
+<a name="index-file_002c-data"></a>
+<a name="index-data-file"></a>
+</dd>
+<dt> <strong>data file</strong></dt>
+<dd><p>Data files contain raw data in text or binary format.  Data can also
+be embedded in a syntax file with @cmd{BEGIN DATA} and @cmd{END DATA}.
+</p>
+<a name="index-file_002c-output"></a>
+<a name="index-output-file"></a>
+</dd>
+<dt> <strong>listing file</strong></dt>
+<dd><p>One or more output files are created by @pspp{} each time it is
+run.  The output files receive the tables and charts produced by
+statistical procedures.  The output files may be in any number of formats,
+depending on how @pspp{} is configured.
+</p>
+<a name="index-system-file"></a>
+<a name="index-file_002c-system"></a>
+</dd>
+<dt> <strong>system file</strong></dt>
+<dd><p>System files are binary files that store a dictionary and a set of
+cases.  @cmd{GET} and @cmd{SAVE} read and write system files.
+</p>
+<a name="index-portable-file"></a>
+<a name="index-file_002c-portable"></a>
+</dd>
+<dt> <strong>portable file</strong></dt>
+<dd><p>Portable files are files in a text-based format that store a dictionary
+and a set of cases.  @cmd{IMPORT} and @cmd{EXPORT} read and write
+portable files.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="File-Handles"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Files" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#BNF" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="File-Handles-1"></a>
+<h2 class="section">1.9 File Handles</h2>
+<a name="index-file-handles"></a>
+
+<p>A <em>file handle</em> is a reference to a data file, system file, or 
+portable file.  Most often, a file handle is specified as the
+name of a file as a string, that is, enclosed within &lsquo;<samp>'</samp>&rsquo; or
+&lsquo;<samp>&quot;</samp>&rsquo;.
+</p>
+<p>A file name string that begins or ends with &lsquo;<samp>|</samp>&rsquo; is treated as the
+name of a command to pipe data to or from.  You can use this feature
+to read data over the network using a program such as &lsquo;<samp>curl</samp>&rsquo;
+(e.g. <code>GET '|curl -s -S http://example.com/mydata.sav'</code>), to
+read compressed data from a file using a program such as &lsquo;<samp>zcat</samp>&rsquo;
+(e.g. <code>GET '|zcat mydata.sav.gz'</code>), and for many other
+purposes.
+</p>
+<p>@pspp{} also supports declaring named file handles with the @cmd{FILE
+HANDLE} command.  This command associates an identifier of your choice
+(the file handle&rsquo;s name) with a file.  Later, the file handle name can
+be substituted for the name of the file.  When @pspp{} syntax accesses a
+file multiple times, declaring a named file handle simplifies updating
+the syntax later to use a different file.  Use of @cmd{FILE HANDLE} is
+also required to read data files in binary formats.  @xref{FILE HANDLE},
+for more information.
+</p>
+<p>In some circumstances, @pspp{} must distinguish whether a file handle
+refers to a system file or a portable file.  When this is necessary to
+read a file, e.g. as an input file for @cmd{GET} or @cmd{MATCH FILES},
+@pspp{} uses the file&rsquo;s contents to decide.  In the context of writing a
+file, e.g. as an output file for @cmd{SAVE} or @cmd{AGGREGATE}, @pspp{}
+decides based on the file&rsquo;s name: if it ends in &lsquo;<samp>.por</samp>&rsquo; (with any
+capitalization), then @pspp{} writes a portable file; otherwise, @pspp{}
+writes a system file.
+</p>
+<p>INLINE is reserved as a file handle name.  It refers to the &ldquo;data
+file&rdquo; embedded into the syntax file between @cmd{BEGIN DATA} and
+@cmd{END DATA}.  @xref{BEGIN DATA}, for more information.
+</p>
+<p>The file to which a file handle refers may be reassigned on a later
+@cmd{FILE HANDLE} command if it is first closed using @cmd{CLOSE FILE
+HANDLE}.  @xref{CLOSE FILE HANDLE}, for
+more information.
+</p>
+<hr size="6">
+<a name="BNF"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#File-Handles" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Language" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Backus_002dNaur-Form"></a>
+<h2 class="section">1.10 Backus-Naur Form</h2>
+<a name="index-BNF"></a>
+<a name="index-Backus_002dNaur-Form"></a>
+<a name="index-command-syntax_002c-description-of"></a>
+<a name="index-description-of-command-syntax"></a>
+
+<p>The syntax of some parts of the @pspp{} language is presented in this
+manual using the formalism known as <em>Backus-Naur Form</em>, or BNF. The
+following table describes BNF:
+</p>
+<ul>
+<li><a name="index-keywords"></a>
+<a name="index-terminals"></a>
+</li><li>
+Words in all-uppercase are @pspp{} keyword tokens.  In BNF, these are
+often called <em>terminals</em>.  There are some special terminals, which
+are written in lowercase for clarity:
+
+<dl compact="compact">
+<dd><a name="index-number"></a>
+</dd>
+<dt> <code>number</code></dt>
+<dd><p>A real number.
+</p>
+<a name="index-integer"></a>
+</dd>
+<dt> <code>integer</code></dt>
+<dd><p>An integer number.
+</p>
+<a name="index-string"></a>
+</dd>
+<dt> <code>string</code></dt>
+<dd><p>A string.
+</p>
+<a name="index-var_002dname"></a>
+</dd>
+<dt> <code>var-name</code></dt>
+<dd><p>A single variable name.
+</p>
+<a name="index-operators-1"></a>
+<a name="index-punctuators-1"></a>
+</dd>
+<dt> <code>=</code>, <code>/</code>, <code>+</code>, <code>-</code>, etc.</dt>
+<dd><p>Operators and punctuators.
+</p>
+<a name="index-_002e-1"></a>
+</dd>
+<dt> <code>.</code></dt>
+<dd><p>The end of the command.  This is not necessarily an actual dot in the
+syntax file: See section <a href="#Commands">Forming commands of tokens</a>, for more details.
+</p></dd>
+</dl>
+
+</li><li>
+<a name="index-productions"></a>
+<a name="index-nonterminals"></a>
+Other words in all lowercase refer to BNF definitions, called
+<em>productions</em>.  These productions are also known as
+<em>nonterminals</em>.  Some nonterminals are very common, so they are
+defined here in English for clarity:
+
+<dl compact="compact">
+<dd><a name="index-var_002dlist"></a>
+</dd>
+<dt> <code>var-list</code></dt>
+<dd><p>A list of one or more variable names or the keyword <code>ALL</code>.
+</p>
+<a name="index-expression"></a>
+</dd>
+<dt> <code>expression</code></dt>
+<dd><p>An expression.  @xref{Expressions}, for details.
+</p></dd>
+</dl>
+
+</li><li>
+<a name="index-_0060_0060is-defined-as_0027_0027"></a>
+<a name="index-productions-1"></a>
+&lsquo;<samp>::=</samp>&rsquo; means &ldquo;is defined as&rdquo;.  The left side of &lsquo;<samp>::=</samp>&rsquo; gives
+the name of the nonterminal being defined.  The right side of &lsquo;<samp>::=</samp>&rsquo;
+gives the definition of that nonterminal.  If the right side is empty,
+then one possible expansion of that nonterminal is nothing.  A BNF
+definition is called a <em>production</em>.
+
+</li><li>
+<a name="index-terminals-and-nonterminals_002c-differences"></a>
+So, the key difference between a terminal and a nonterminal is that a
+terminal cannot be broken into smaller parts&mdash;in fact, every terminal
+is a single token (see section <a href="#Tokens">Tokens</a>).  On the other hand, nonterminals are
+composed of a (possibly empty) sequence of terminals and nonterminals.
+Thus, terminals indicate the deepest level of syntax description.  (In
+parsing theory, terminals are the leaves of the parse tree; nonterminals
+form the branches.)
+
+</li><li>
+<a name="index-start-symbol"></a>
+<a name="index-symbol_002c-start"></a>
+The first nonterminal defined in a set of productions is called the
+<em>start symbol</em>.  The start symbol defines the entire syntax for
+that command.
+</li></ul>
+<hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Language" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

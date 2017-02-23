@@ -1,0 +1,1623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Utilities"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#ADD-DOCUMENT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Utilities-1"></a>
+<h1 class="chapter">1. Utilities</h1>
+
+<p>Commands that don&rsquo;t fit any other category are placed here.
+</p>
+<p>Most of these commands are not affected by commands like @cmd{IF} and
+@cmd{LOOP}:
+they take effect only once, unconditionally, at the time that they are
+encountered in the input.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#ADD-DOCUMENT">1.1 ADD DOCUMENT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Add documentary text to the active dataset.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#CACHE">1.2 CACHE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Ignored for compatibility.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#CD">1.3 CD</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                          Change the current directory.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#COMMENT">1.4 COMMENT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     Document your syntax file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#DOCUMENT">1.5 DOCUMENT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Document the active dataset.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#DISPLAY-DOCUMENTS">1.6 DISPLAY DOCUMENTS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           Display active dataset documents.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#DISPLAY-FILE-LABEL">1.7 DISPLAY FILE LABEL</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          Display the active dataset label.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#DROP-DOCUMENTS">1.8 DROP DOCUMENTS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Remove documents from the active dataset.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#ECHO">1.9 ECHO</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Write a string to the output stream.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#ERASE">1.10 ERASE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Erase a file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#EXECUTE">1.11 EXECUTE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     Execute pending transformations.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#FILE-LABEL">1.12 FILE LABEL</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Set the active dataset&rsquo;s label.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#FINISH">1.13 FINISH</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Terminate the @pspp{} session.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#HOST">1.14 HOST</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Temporarily return to the operating system.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#INCLUDE">1.15 INCLUDE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     Include a file within the current one.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#INSERT">1.16 INSERT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Insert a file within the current one.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#OUTPUT">1.17 OUTPUT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Modify the appearance of the output.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#PERMISSIONS">1.18 PERMISSIONS</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 Change permissions on a file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#PRESERVE-and-RESTORE">1.19 PRESERVE and RESTORE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        Saving settings and restoring them later.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SET">1.20 SET</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                         Adjust @pspp{} runtime parameters.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SHOW">1.21 SHOW</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Display runtime parameters.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SUBTITLE">1.22 SUBTITLE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Provide a document subtitle.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#TITLE">1.23 TITLE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Provide a document title.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="ADD-DOCUMENT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Utilities" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#CACHE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="ADD-DOCUMENT-1"></a>
+<h2 class="section">1.1 ADD DOCUMENT</h2>
+<a name="index-ADD-DOCUMENT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">ADD DOCUMENT 
+    &rsquo;line one&rsquo; &rsquo;line two&rsquo; &hellip; &rsquo;last line&rsquo; .
+</pre></td></tr></table>
+
+
+<p>@cmd{ADD DOCUMENT} adds one or more lines of descriptive commentary to 
+the active dataset.  Documents added in this way are saved to system files.
+They can be viewed using @cmd{SYSFILE INFO} or @cmd{DISPLAY
+DOCUMENTS}.  They can be removed from the active dataset with @cmd{DROP
+DOCUMENTS}.
+</p>
+<p>Each line of documentary text must be enclosed in quotation marks, and 
+may not be more than 80 bytes long. See section <a href="#DOCUMENT">DOCUMENT</a>.
+</p>
+<hr size="6">
+<a name="CACHE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#ADD-DOCUMENT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#CD" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="CACHE-1"></a>
+<h2 class="section">1.2 CACHE</h2>
+<a name="index-CACHE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">CACHE.
+</pre></td></tr></table>
+
+<p>This command is accepted, for compatibility, but it has no effect.
+</p>
+<hr size="6">
+<a name="CD"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#CACHE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#COMMENT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="CD-1"></a>
+<h2 class="section">1.3 CD</h2>
+<a name="index-CD"></a>
+<a name="index-directory"></a>
+<a name="index-changing-directory"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">CD &rsquo;new directory&rsquo; .
+</pre></td></tr></table>
+
+
+<p>@cmd{CD} changes the current directory.  The new directory will become that specified by the command.
+</p>
+<hr size="6">
+<a name="COMMENT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#CD" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#DOCUMENT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="COMMENT-1"></a>
+<h2 class="section">1.4 COMMENT</h2>
+<a name="index-COMMENT"></a>
+<a name="index-_002a"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">Two possibles syntaxes:
+        COMMENT comment text &hellip; .
+        *comment text &hellip; .
+</pre></td></tr></table>
+
+<p>@cmd{COMMENT} is ignored.  It is used to provide information to
+the author and other readers of the @pspp{} syntax file.  
+</p>
+<p>@cmd{COMMENT} can extend over any number of lines.  Don&rsquo;t forget to
+terminate it with a dot or a blank line.
+</p>
+
+
+<hr size="6">
+<a name="DOCUMENT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#COMMENT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#DISPLAY-DOCUMENTS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DOCUMENT-1"></a>
+<h2 class="section">1.5 DOCUMENT</h2>
+<a name="index-DOCUMENT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">DOCUMENT <var>documentary_text</var>.
+</pre></td></tr></table>
+
+<p>@cmd{DOCUMENT} adds one or more lines of descriptive commentary to the
+active dataset.  Documents added in this way are saved to system files.
+They can be viewed using @cmd{SYSFILE INFO} or @cmd{DISPLAY
+DOCUMENTS}.  They can be removed from the active dataset with @cmd{DROP
+DOCUMENTS}.
+</p>
+<p>Specify the <var>documentary text</var> following the @subcmd{DOCUMENT} keyword.  
+It is interpreted literally &mdash; any quotes or other punctuation marks 
+will be included in the file.
+You can extend the documentary text over as many lines as necessary.  
+Lines are truncated at 80 bytes.  Don&rsquo;t forget to terminate
+the command with a dot or a blank line. See section <a href="#ADD-DOCUMENT">ADD DOCUMENT</a>.
+</p>
+<hr size="6">
+<a name="DISPLAY-DOCUMENTS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DOCUMENT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#DISPLAY-FILE-LABEL" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DISPLAY-DOCUMENTS-1"></a>
+<h2 class="section">1.6 DISPLAY DOCUMENTS</h2>
+<a name="index-DISPLAY-DOCUMENTS"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">DISPLAY DOCUMENTS.
+</pre></td></tr></table>
+
+<p>@cmd{DISPLAY DOCUMENTS} displays the documents in the active dataset.  Each
+document is preceded by a line giving the time and date that it was
+added.  See section <a href="#DOCUMENT">DOCUMENT</a>.
+</p>
+<hr size="6">
+<a name="DISPLAY-FILE-LABEL"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DISPLAY-DOCUMENTS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#DROP-DOCUMENTS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DISPLAY-FILE-LABEL-1"></a>
+<h2 class="section">1.7 DISPLAY FILE LABEL</h2>
+<a name="index-DISPLAY-FILE-LABEL"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">DISPLAY FILE LABEL.
+</pre></td></tr></table>
+
+<p>@cmd{DISPLAY FILE LABEL} displays the file label contained in the
+active dataset,
+if any.  See section <a href="#FILE-LABEL">FILE LABEL</a>.
+</p>
+<p>This command is a @pspp{} extension.
+</p>
+<hr size="6">
+<a name="DROP-DOCUMENTS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DISPLAY-FILE-LABEL" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#ECHO" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="DROP-DOCUMENTS-1"></a>
+<h2 class="section">1.8 DROP DOCUMENTS</h2>
+<a name="index-DROP-DOCUMENTS"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">DROP DOCUMENTS.
+</pre></td></tr></table>
+
+<p>@cmd{DROP DOCUMENTS} removes all documents from the active dataset.
+New documents can be added with @cmd{DOCUMENT} (see section <a href="#DOCUMENT">DOCUMENT</a>).
+</p>
+<p>@cmd{DROP DOCUMENTS} changes only the active dataset.  It does not modify any
+system files stored on disk.
+</p>
+<hr size="6">
+<a name="ECHO"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#DROP-DOCUMENTS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#ERASE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="ECHO-1"></a>
+<h2 class="section">1.9 ECHO</h2>
+<a name="index-ECHO"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">ECHO &rsquo;arbitrary text&rsquo; .
+</pre></td></tr></table>
+
+<p>Use @cmd{ECHO} to write arbitrary text to the output stream. The text should be enclosed in quotation marks following the normal rules for string tokens (@pxref{Tokens}).
+</p>
+<hr size="6">
+<a name="ERASE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#ECHO" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#EXECUTE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="ERASE-1"></a>
+<h2 class="section">1.10 ERASE</h2>
+<a name="index-ERASE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">ERASE FILE <var>file_name</var>.
+</pre></td></tr></table>
+
+<p>@cmd{ERASE FILE} deletes a file from the local filesystem.
+<var>file_name</var> must be quoted.
+This command cannot be used if the SAFER (see section <a href="#SET">SET</a>) setting is active.
+</p>
+
+<hr size="6">
+<a name="EXECUTE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#ERASE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#FILE-LABEL" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="EXECUTE-1"></a>
+<h2 class="section">1.11 EXECUTE</h2>
+<a name="index-EXECUTE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">EXECUTE.
+</pre></td></tr></table>
+
+<p>@cmd{EXECUTE} causes the active dataset to be read and all pending
+transformations to be executed.
+</p>
+<hr size="6">
+<a name="FILE-LABEL"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#EXECUTE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#FINISH" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="FILE-LABEL-1"></a>
+<h2 class="section">1.12 FILE LABEL</h2>
+<a name="index-FILE-LABEL"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">FILE LABEL <var>file_label</var>.
+</pre></td></tr></table>
+
+<p>@cmd{FILE LABEL} provides a title for the active dataset.  This
+title will be saved into system files and portable files that are
+created during this @pspp{} run.
+</p>
+<p><var>file_label</var> should not be quoted.
+If quotes are included, they are literally interpreted and become part of the file label.
+</p>
+<hr size="6">
+<a name="FINISH"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#FILE-LABEL" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#HOST" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="FINISH-1"></a>
+<h2 class="section">1.13 FINISH</h2>
+<a name="index-FINISH"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">FINISH.
+</pre></td></tr></table>
+
+<p>@cmd{FINISH} terminates the current @pspp{} session and returns
+control to the operating system.
+</p>
+<hr size="6">
+<a name="HOST"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#FINISH" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#INCLUDE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="HOST-1"></a>
+<h2 class="section">1.14 HOST</h2>
+<a name="index-HOST"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">HOST.
+HOST COMMAND=[&rsquo;<var>command</var>&rsquo;...].
+</pre></td></tr></table>
+
+<p>@cmd{HOST} suspends the current @pspp{} session and temporarily returns control 
+to the operating system.
+This command cannot be used if the SAFER (see section <a href="#SET">SET</a>) setting is active.
+</p>
+<p>If the @subcmd{COMMAND} subcommand is specified, as a sequence of shell
+commands as quoted strings within square brackets, then @pspp{} executes
+them together in a single subshell.
+</p>
+<p>If no subcommands are specified, then @pspp{} invokes an interactive
+subshell.
+</p>
+<hr size="6">
+<a name="INCLUDE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#HOST" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#INSERT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="INCLUDE-1"></a>
+<h2 class="section">1.15 INCLUDE</h2>
+<a name="index-INCLUDE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">        INCLUDE [FILE=]&rsquo;<var>file_name</var>&rsquo; [ENCODING=&rsquo;<var>encoding</var>&rsquo;].
+</pre></td></tr></table>
+
+<p>@cmd{INCLUDE} causes the @pspp{} command processor to read an
+additional command file as if it were included bodily in the current
+command file.
+If errors are encountered in the included file, then command processing will 
+stop and no more commands will be processed.
+Include files may be nested to any depth, up to the limit of available
+memory.
+</p>
+<p>The @cmd{INSERT} command (see section <a href="#INSERT">INSERT</a>) is a more flexible
+alternative to @cmd{INCLUDE}.  An @cmd{INCLUDE} command acts the same as
+@cmd{INSERT} with @subcmd{ERROR=STOP CD=NO SYNTAX=BATCH} specified.
+</p>
+<p>The optional @subcmd{ENCODING} subcommand has the same meaning as with @cmd{INSERT}.
+</p>
+<hr size="6">
+<a name="INSERT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#INCLUDE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#OUTPUT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="INSERT-1"></a>
+<h2 class="section">1.16 INSERT</h2>
+<a name="index-INSERT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">     INSERT [FILE=]&rsquo;<var>file_name</var>&rsquo;
+        [CD={NO,YES}]
+        [ERROR={CONTINUE,STOP}]
+        [SYNTAX={BATCH,INTERACTIVE}]
+        [ENCODING={LOCALE, &rsquo;<var>charset_name</var>&rsquo;}].
+</pre></td></tr></table>
+
+<p>@cmd{INSERT} is similar to @cmd{INCLUDE} (see section <a href="#INCLUDE">INCLUDE</a>) 
+but somewhat more flexible.
+It causes the command processor to read a file as if it were embedded in the 
+current command file.
+</p>
+<p>If @subcmd{CD=YES} is specified, then before including the file, the
+current directory  will be changed to the directory of the included
+file.  
+The default setting is &lsquo;<samp>CD=NO</samp>&rsquo;.
+Note that this directory will remain current until it is
+changed explicitly (with the @cmd{CD} command, or a subsequent
+@cmd{INSERT} command with the &lsquo;<samp>CD=YES</samp>&rsquo; option).
+It will not revert to its original setting even after the included
+file is finished processing.
+</p>
+<p>If @subcmd{ERROR=STOP} is specified, errors encountered in the
+inserted file will cause processing to immediately cease.
+Otherwise processing will continue at the next command.
+The default setting is @subcmd{ERROR=CONTINUE}.
+</p>
+<p>If @subcmd{SYNTAX=INTERACTIVE} is specified then the syntax contained in
+the included file must conform to interactive syntax
+conventions. @xref{Syntax Variants}.
+The default setting is @subcmd{SYNTAX=BATCH}.
+</p>
+<p>@subcmd{ENCODING} optionally specifies the character set used by the included
+file.  Its argument, which is not case-sensitive, must be in one of
+the following forms:
+</p>
+<dl compact="compact">
+<dt> @subcmd{LOCALE}</dt>
+<dd><p>The encoding used by the system locale, or as overridden by the 
+@cmd{SET} command (see section <a href="#SET">SET</a>).  On GNU/Linux and other Unix-like systems,
+environment variables, e.g. <code>LANG</code> or <code>LC_ALL</code>, determine the
+system locale.
+</p>
+</dd>
+<dt> <var>charset_name</var></dt>
+<dd><p>One of the character set names listed by <acronym>IANA</acronym> at
+<a href="http://www.iana.org/assignments/character-sets">http://www.iana.org/assignments/character-sets</a>.  Some examples
+are <code>ASCII</code> (United States), <code>ISO-8859-1</code> (western Europe),
+<code>EUC-JP</code> (Japan), and <code>windows-1252</code> (Windows).  Not all
+systems support all character sets.
+</p>
+</dd>
+<dt> <code>Auto,<var>encoding</var></code></dt>
+<dd><p>Automatically detects whether a syntax file is encoded in an Unicode
+encoding such as UTF-8, UTF-16, or UTF-32.  If it is not, then @pspp{}
+generally assumes that the file is encoded in <var>encoding</var> (an <acronym>IANA</acronym>
+character set name).  However, if <var>encoding</var> is UTF-8, and the
+syntax file is not valid UTF-8, @pspp{} instead assumes that the file
+is encoded in <code>windows-1252</code>.
+</p>
+<p>For best results, <var>encoding</var> should be an <acronym>ASCII</acronym>-compatible
+encoding (the most common locale encodings are all <acronym>ASCII</acronym>-compatible),
+because encodings that are not <acronym>ASCII</acronym> compatible cannot be
+automatically distinguished from UTF-8.
+</p>
+</dd>
+<dt> <code>Auto</code></dt>
+<dt> <code>Auto,Locale</code></dt>
+<dd><p>Automatic detection, as above, with the default encoding taken from
+the system locale or the setting on @subcmd{SET LOCALE}.
+</p></dd>
+</dl>
+
+<p>When ENCODING is not specified, the default is taken from the
+&lsquo;<samp>--syntax-encoding</samp>&rsquo; command option, if it was specified, and
+otherwise it is <code>Auto</code>.
+</p>
+<hr size="6">
+<a name="OUTPUT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#INSERT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#PERMISSIONS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="OUTPUT-1"></a>
+<h2 class="section">1.17 OUTPUT</h2>
+<a name="index-OUTPUT"></a>
+<a name="index-precision_002c-of-output"></a>
+<a name="index-decimal-places"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">OUTPUT MODIFY
+       /SELECT TABLES
+       /TABLECELLS SELECT = [ {SIGNIFICANCE, COUNT} ]
+                   FORMAT = <var>fmt_spec</var>.
+</pre></td></tr></table>
+<p>@note{In the above synopsis the characters &lsquo;<samp>[</samp>&rsquo; and &lsquo;<samp>]</samp>&rsquo; are literals.
+They must appear in the syntax to be interpreted.}
+</p>
+<p>@cmd{OUTPUT} changes the appearance of the tables in which results are printed.
+In particular, it can be used to set the format and precision to which results are displayed.
+</p>
+<p>After running this command, the default table appearance parameters will have been modified and  each 
+new output table generated will use the new parameters.
+</p>
+<p>Following <code>/TABLECELLS SELECT =</code> a list of cell classes must appear, enclosed in square
+brackets.  This list determines the classes of values should be selected for modification.
+Each class can be:
+</p>
+<dl compact="compact">
+<dt> SIGNIFICANCE</dt>
+<dd><p>Significance of tests (p-values).
+</p>
+</dd>
+<dt> COUNT</dt>
+<dd><p>Counts or sums of weights.
+</p></dd>
+</dl>
+
+<p>The value of <var>fmt_spec</var> must be a valid output format (@pxref{Input and Output Formats}).
+Note that not all possible formats are meaningful for all classes.
+</p>
+<hr size="6">
+<a name="PERMISSIONS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#OUTPUT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#PRESERVE-and-RESTORE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="PERMISSIONS-1"></a>
+<h2 class="section">1.18 PERMISSIONS</h2>
+<a name="index-PERMISSIONS"></a>
+<a name="index-mode"></a>
+<a name="index-file-mode"></a>
+<a name="index-changing-file-permissions"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">PERMISSIONS
+        FILE=&rsquo;<var>file_name</var>&rsquo;
+        /PERMISSIONS = {READONLY,WRITEABLE}.
+</pre></td></tr></table>
+
+<p>@cmd{PERMISSIONS} changes the permissions of a file.  
+There is one mandatory subcommand which specifies the permissions to
+which the file should be changed.  
+If you set a file&rsquo;s  permission  to @subcmd{READONLY}, then the file will become
+unwritable either by you or anyone else on the system.
+If you set the permission to @subcmd{WRITEABLE}, then the file will become
+writeable by you; the permissions afforded to others will be
+unchanged.
+This command cannot be used if the @subcmd{SAFER} (see section <a href="#SET">SET</a>) setting is active.
+</p>
+
+<hr size="6">
+<a name="PRESERVE-and-RESTORE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#PERMISSIONS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SET" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="PRESERVE-and-RESTORE-1"></a>
+<h2 class="section">1.19 PRESERVE and RESTORE</h2>
+<a name="index-PRESERVE"></a>
+<a name="index-RESTORE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">PRESERVE.
+&hellip;
+RESTORE.
+</pre></td></tr></table>
+
+<p>@cmd{PRESERVE} saves all of the settings that @cmd{SET} (see section <a href="#SET">SET</a>)
+can adjust.  A later @cmd{RESTORE} command restores those settings.
+</p>
+<p>@cmd{PRESERVE} can be nested up to five levels deep.
+</p>
+<hr size="6">
+<a name="SET"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#PRESERVE-and-RESTORE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SHOW" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SET-1"></a>
+<h2 class="section">1.20 SET</h2>
+<a name="index-SET"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SET
+
+(data input)
+        /BLANKS={SYSMIS,&rsquo;.&rsquo;,number}
+        /DECIMAL={DOT,COMMA}
+        /FORMAT=<var>fmt_spec</var>
+        /EPOCH={AUTOMATIC,<var>year</var>}
+        /RIB={NATIVE,MSBFIRST,LSBFIRST,VAX}
+        /RRB={NATIVE,ISL,ISB,IDL,IDB,VF,VD,VG,ZS,ZL}
+
+(interaction)
+        /MXERRS=<var>max_errs</var>
+        /MXWARNS=<var>max_warnings</var>
+        /WORKSPACE=<var>workspace_size</var>
+
+(syntax execution)
+        /LOCALE=&rsquo;<var>locale</var>&rsquo;
+        /MEXPAND={ON,OFF}
+        /MITERATE=<var>max_iterations</var>
+        /MNEST=<var>max_nest</var>
+        /MPRINT={ON,OFF}
+        /MXLOOPS=<var>max_loops</var>
+        /SEED={RANDOM,<var>seed_value</var>}
+        /UNDEFINED={WARN,NOWARN}
+        /FUZZBITS=<var>fuzzbits</var>
+
+(data output)
+        /CC{A,B,C,D,E}={&rsquo;<var>npre</var>,<var>pre</var>,<var>suf</var>,<var>nsuf</var>&rsquo;,&rsquo;<var>npre</var>.<var>pre</var>.<var>suf</var>.<var>nsuf</var>&rsquo;}
+        /DECIMAL={DOT,COMMA}
+        /FORMAT=<var>fmt_spec</var>
+        /WIB={NATIVE,MSBFIRST,LSBFIRST,VAX}
+        /WRB={NATIVE,ISL,ISB,IDL,IDB,VF,VD,VG,ZS,ZL}
+
+(output routing)
+        /ERRORS={ON,OFF,TERMINAL,LISTING,BOTH,NONE}
+        /MESSAGES={ON,OFF,TERMINAL,LISTING,BOTH,NONE}
+        /PRINTBACK={ON,OFF,TERMINAL,LISTING,BOTH,NONE}
+        /RESULTS={ON,OFF,TERMINAL,LISTING,BOTH,NONE}
+
+(output driver options)
+        /HEADERS={NO,YES,BLANK}
+        /LENGTH={NONE,<var>n_lines</var>}
+        /MORE={ON,OFF}
+        /WIDTH={NARROW,WIDTH,<var>n_characters</var>}
+        /TNUMBERS={VALUES,LABELS,BOTH}
+        /TVARS={NAMES,LABELS,BOTH}
+
+(logging)
+        /JOURNAL={ON,OFF} [&rsquo;<var>file_name</var>&rsquo;]
+
+(system files)
+        /COMPRESSION={ON,OFF}
+        /SCOMPRESSION={ON,OFF}
+
+(miscellaneous)
+        /SAFER=ON
+        /LOCALE=&rsquo;<var>string</var>&rsquo;
+
+
+(obsolete settings accepted for compatibility, but ignored)
+        /BOXSTRING={&rsquo;<var>xxx</var>&rsquo;,&rsquo;<var>xxxxxxxxxxx</var>&rsquo;}
+        /CASE={UPPER,UPLOW}
+        /CPI=cpi_value
+        /HIGHRES={ON,OFF}
+        /HISTOGRAM=&rsquo;<var>c</var>&rsquo;
+        /LOWRES={AUTO,ON,OFF}
+        /LPI=<var>lpi_value</var>
+        /MENUS={STANDARD,EXTENDED}
+        /MXMEMORY=<var>max_memory</var>
+        /SCRIPTTAB=&rsquo;c&rsquo;
+        /TB1={&rsquo;<var>xxx</var>&rsquo;,&rsquo;<var>xxxxxxxxxxx</var>&rsquo;}
+        /TBFONTS=&rsquo;<var>string</var>&rsquo;
+        /XSORT={YES,NO}
+</pre></td></tr></table>
+
+<p>@cmd{SET} allows the user to adjust several parameters relating to
+@pspp{}&rsquo;s execution.  Since there are many subcommands to this command, its
+subcommands will be examined in groups.
+</p>
+<p>For subcommands that take boolean values, @subcmd{ON} and @subcmd{YES} are synonymous, 
+as are @subcmd{OFF} and @subcmd{NO}, when used as subcommand values.
+</p>
+<p>The data input subcommands affect the way that data is read from data
+files.  The data input subcommands are
+</p>
+<dl compact="compact">
+<dt> BLANKS</dt>
+<dd><p><a name="SET-BLANKS"></a>
+This is the value assigned to an item data item that is empty or
+contains only white space.  An argument of SYSMIS or &rsquo;.&rsquo; will cause the
+system-missing value to be assigned to null items.  This is the
+default.  Any real value may be assigned.
+</p>
+</dd>
+<dt> DECIMAL</dt>
+<dd><p><a name="SET-DECIMAL"></a>
+This value may be set to @subcmd{DOT} or @subcmd{COMMA}.
+Setting it to @subcmd{DOT} causes the decimal point character to be
+&lsquo;<samp>.</samp>&rsquo; and the grouping character to be &lsquo;<samp>,</samp>&rsquo;.
+Setting it to @subcmd{COMMA}
+causes the decimal point character to be &lsquo;<samp>,</samp>&rsquo; and the grouping
+character to be &lsquo;<samp>.</samp>&rsquo;.
+If the setting is @subcmd{COMMA}, then &lsquo;<samp>,</samp>&rsquo; will not be treated
+as a field separator in the @cmd{DATA LIST} command (@pxref{DATA LIST}).
+The default value is determined from the system locale.
+</p>
+</dd>
+<dt> FORMAT</dt>
+<dd><p>Allows the default numeric input/output format to be specified.  The
+default is F8.2.  @xref{Input and Output Formats}.
+</p>
+</dd>
+<dt> EPOCH</dt>
+<dd><p><a name="SET-EPOCH"></a>
+Specifies the range of years used when a 2-digit year is read from a
+data file or used in a date construction expression (@pxref{Date
+Construction}).  If a 4-digit year is specified for the epoch, then
+2-digit years are interpreted starting from that year, known as the
+epoch.  If @subcmd{AUTOMATIC} (the default) is specified, then the epoch begins
+69 years before the current date.
+</p>
+</dd>
+<dt> RIB</dt>
+<dd><p><a name="SET-RIB"></a> 
+</p>
+<p>@pspp{} extension to set the byte ordering (endianness) used for reading
+data in IB or PIB format (@pxref{Binary and Hexadecimal Numeric
+Formats}).  In @subcmd{MSBFIRST} ordering, the most-significant byte appears at
+the left end of a IB or PIB field.  In @subcmd{LSBFIRST} ordering, the
+least-significant byte appears at the left end.  @subcmd{VAX} ordering is like
+@subcmd{MSBFIRST}, except that each pair of bytes is in reverse order.  @subcmd{NATIVE},
+the default, is equivalent to @subcmd{MSBFIRST} or @subcmd{LSBFIRST} depending on the
+native format of the machine running @pspp{}.
+</p>
+</dd>
+<dt> RRB</dt>
+<dd><p><a name="SET-RRB"></a>
+</p>
+<p>@pspp{} extension to set the floating-point format used for reading data in
+RB format (@pxref{Binary and Hexadecimal Numeric Formats}).  The
+possibilities are:
+</p>
+<dl compact="compact">
+<dt> NATIVE</dt>
+<dd><p>The native format of the machine running @pspp{}.  Equivalent to either IDL
+or IDB.
+</p>
+</dd>
+<dt> ISL</dt>
+<dd><p>32-bit IEEE 754 single-precision floating point, in little-endian byte
+order.
+</p>
+</dd>
+<dt> ISB</dt>
+<dd><p>32-bit IEEE 754 single-precision floating point, in big-endian byte
+order.
+</p>
+</dd>
+<dt> IDL</dt>
+<dd><p>64-bit IEEE 754 double-precision floating point, in little-endian byte
+order.
+</p>
+</dd>
+<dt> IDB</dt>
+<dd><p>64-bit IEEE 754 double-precision floating point, in big-endian byte
+order.
+</p>
+</dd>
+<dt> VF</dt>
+<dd><p>32-bit VAX F format, in VAX-endian byte order.
+</p>
+</dd>
+<dt> VD</dt>
+<dd><p>64-bit VAX D format, in VAX-endian byte order.
+</p>
+</dd>
+<dt> VG</dt>
+<dd><p>64-bit VAX G format, in VAX-endian byte order.
+</p>
+</dd>
+<dt> ZS</dt>
+<dd><p>32-bit IBM Z architecture short format hexadecimal floating point, in
+big-endian byte order.  
+</p>
+</dd>
+<dt> ZL</dt>
+<dd><p>64-bit IBM Z architecture long format hexadecimal floating point, in
+big-endian byte order.
+</p>
+<p>Z architecture also supports IEEE 754 floating point.  The ZS and ZL
+formats are only for use with very old input files.
+</p></dd>
+</dl>
+<p>The default is NATIVE.
+</p></dd>
+</dl>
+
+<p>Interaction subcommands affect the way that @pspp{} interacts with an
+online user.  The interaction subcommands are
+</p>
+<dl compact="compact">
+<dt> MXERRS</dt>
+<dd><p>The maximum number of errors before @pspp{} halts processing of the current
+command file.  The default is 50.
+</p>
+</dd>
+<dt> MXWARNS</dt>
+<dd><p>The maximum number of warnings + errors before @pspp{} halts processing the
+current command file.  
+The special value of zero means that all warning situations should be ignored.
+No warnings will be issued, except a single initial warning advising the user
+that warnings will not be given.
+The default value is 100.
+</p></dd>
+</dl>
+
+<p>Syntax execution subcommands control the way that @pspp{} commands
+execute.  The syntax execution subcommands are
+</p>
+<dl compact="compact">
+<dt> LOCALE</dt>
+<dd><p>Overrides the system locale for the purpose of reading and writing
+syntax and data files.  The argument should be a locale name in the
+general form <code><var>language</var>_<var>country</var>.<var>encoding</var></code>, where <var>language</var>
+and <var>country</var> are 2-character language and country abbreviations,
+respectively, and <var>encoding</var> is an <acronym>IANA</acronym> character set name.
+Example locales are <code>en_US.UTF-8</code> (UTF-8 encoded English as
+spoken in the United States) and <code>ja_JP.EUC-JP</code> (EUC-JP encoded
+Japanese as spoken in Japan).
+</p>
+</dd>
+<dt> MEXPAND</dt>
+<dt> MITERATE</dt>
+<dt> MNEST</dt>
+<dt> MPRINT</dt>
+<dd><p>Currently not used.
+</p>
+</dd>
+<dt> MXLOOPS</dt>
+<dd><p>The maximum number of iterations for an uncontrolled loop (@pxref{LOOP}).
+The default <var>max_loops</var> is 40.
+</p>
+</dd>
+<dt> SEED</dt>
+<dd><p>The initial pseudo-random number seed.  Set to a real number or to
+RANDOM, which will obtain an initial seed from the current time of day.
+</p>
+</dd>
+<dt> UNDEFINED</dt>
+<dd><p>Currently not used.
+</p>
+</dd>
+<dt> FUZZBITS</dt>
+<dd><p><a name="SET-FUZZBITS"></a>
+The maximum number of bits of errors in the least-significant places
+to accept for rounding up a value that is almost halfway between two
+possibilities for rounding with the RND operator (@pxref{Miscellaneous
+Mathematics}).  The default <var>fuzzbits</var> is 6.
+</p>
+</dd>
+<dt> WORKSPACE</dt>
+<dd><p>The maximum amount of memory (in kilobytes) that @pspp{} will use to store data being processed.
+If memory in excess of the workspace size is required, then @pspp{} will start
+to use temporary files to store the data.
+Setting a higher value will, in general, mean procedures will run faster, 
+but may cause other applications to run slower.
+On platforms without virtual memory management, setting a very large workspace
+may cause @pspp{} to abort.
+<a name="index-workspace"></a>
+<a name="index-memory_002c-amount-used-to-store-cases"></a>
+</p></dd>
+</dl>
+
+<p>Data output subcommands affect the format of output data.  These
+subcommands are
+</p>
+<dl compact="compact">
+<dt> CCA</dt>
+<dt> CCB</dt>
+<dt> CCC</dt>
+<dt> CCD</dt>
+<dt> CCE</dt>
+<dd><p><a name="CCx-Settings"></a>
+</p>
+<p>Set up custom currency formats.  @xref{Custom Currency Formats}, for
+details.
+</p>
+</dd>
+<dt> DECIMAL</dt>
+<dd><p>The default @subcmd{DOT} setting causes the decimal point character to be
+&lsquo;<samp>.</samp>&rsquo;.  A setting of @subcmd{COMMA} causes the decimal point character to be
+&lsquo;<samp>,</samp>&rsquo;.
+</p>
+</dd>
+<dt> FORMAT</dt>
+<dd><p>Allows the default numeric input/output format to be specified.  The
+default is F8.2.  @xref{Input and Output Formats}.
+</p>
+</dd>
+<dt> WIB</dt>
+<dd><p><a name="SET-WIB"></a> 
+</p>
+<p>@pspp{} extension to set the byte ordering (endianness) used for writing
+data in IB or PIB format (@pxref{Binary and Hexadecimal Numeric
+Formats}).  In @subcmd{MSBFIRST} ordering, the most-significant byte appears at
+the left end of a IB or PIB field.  In @subcmd{LSBFIRST} ordering, the
+least-significant byte appears at the left end.  @subcmd{VAX} ordering is like
+@subcmd{MSBFIRST}, except that each pair of bytes is in reverse order.  @subcmd{NATIVE},
+the default, is equivalent to @subcmd{MSBFIRST} or @subcmd{LSBFIRST} depending on the
+native format of the machine running @pspp{}.
+</p>
+</dd>
+<dt> WRB</dt>
+<dd><p><a name="SET-WRB"></a>
+</p>
+<p>@pspp{} extension to set the floating-point format used for writing data in
+RB format (@pxref{Binary and Hexadecimal Numeric Formats}).  The choices
+are the same as @subcmd{SET RIB}.  The default is @subcmd{NATIVE}.
+</p></dd>
+</dl>
+
+<p>In the @pspp{} text-based interface, the output routing subcommands
+affect where output is sent.  The following values are allowed for
+each of these subcommands:
+</p>
+<dl compact="compact">
+<dt> OFF</dt>
+<dt> NONE</dt>
+<dd><p>Discard this kind of output.
+</p>
+</dd>
+<dt> TERMINAL</dt>
+<dd><p>Write this output to the terminal, but not to listing files and other
+output devices.
+</p>
+</dd>
+<dt> LISTING</dt>
+<dd><p>Write this output to listing files and other output devices, but not
+to the terminal.
+</p>
+</dd>
+<dt> ON</dt>
+<dt> BOTH</dt>
+<dd><p>Write this type of output to all output devices.
+</p></dd>
+</dl>
+
+<p>These output routing subcommands are:
+</p>
+<dl compact="compact">
+<dt> ERRORS</dt>
+<dd><p>Applies to error and warning messages.  The default is @subcmd{BOTH}.
+</p>
+</dd>
+<dt> MESSAGES</dt>
+<dd><p>Applies to notes.  The default is @subcmd{BOTH}.
+</p>
+</dd>
+<dt> PRINTBACK</dt>
+<dd><p>Determines whether the syntax used for input is printed back as part
+of the output.  The default is @subcmd{NONE}.
+</p>
+</dd>
+<dt> RESULTS</dt>
+<dd><p>Applies to everything not in one of the above categories, such as the
+results of statistical procedures.  The default is @subcmd{BOTH}.
+</p></dd>
+</dl>
+
+<p>These subcommands have no effect on output in the @pspp{} GUI
+environment.
+</p>
+<p>Output driver option subcommands affect output drivers&rsquo; settings.  These
+subcommands are
+</p>
+<dl compact="compact">
+<dt> HEADERS</dt>
+<dt> LENGTH</dt>
+<dt> MORE</dt>
+<dt> WIDTH</dt>
+<dt> TNUMBERS</dt>
+<dd><p>The @subcmd{TNUMBERS} option sets the way in which values are displayed in output tables.
+The valid settings are @subcmd{VALUES}, @subcmd{LABELS} and @subcmd{BOTH}.
+If @subcmd{TNUMBERS} is set to @subcmd{VALUES}, then all values are displayed with their literal value 
+(which for a numeric value is a number and for a string value an alphanumeric string).
+If @subcmd{TNUMBERS} is set to @subcmd{LABELS}, then values are displayed using their assigned labels if any.
+(@xref{VALUE LABELS}.)
+If the a value has no label, then it will be displayed using its literal value.
+If @subcmd{TNUMBERS} is set to @subcmd{BOTH}, then values will be displayed with both their label
+(if any) and their literal value in parentheses.
+</p></dd>
+<dt> TVARS</dt>
+<dd><p>The @subcmd{TVARS} option sets the way in which variables are displayed in output tables.
+The valid settings are @subcmd{NAMES}, @subcmd{LABELS} and @subcmd{BOTH}.
+If @subcmd{TVARS} is set to @subcmd{NAMES}, then all variables are displayed using their names.
+If @subcmd{TVARS} is set to @subcmd{LABELS}, then variables are displayed using their label if one
+has been set.  If no label has been set, then the name will be used.
+(@xref{VARIABLE LABELS}.)
+If @subcmd{TVARS} is set to @subcmd{BOTH}, then variables will be displayed with both their label
+(if any) and their name in parentheses.
+</p></dd>
+</dl>
+
+<a name="index-headers"></a>
+<a name="index-length"></a>
+<a name="index-more"></a>
+<a name="index-pager"></a>
+<a name="index-width"></a>
+<a name="index-tnumbers"></a>
+
+
+<p>Logging subcommands affect logging of commands executed to external
+files.  These subcommands are
+</p>
+<dl compact="compact">
+<dt> JOURNAL</dt>
+<dt> LOG</dt>
+<dd><p>These subcommands, which are synonyms, control the journal.  The
+default is @subcmd{ON}, which causes commands entered interactively to be
+written to the journal file.  Commands included from syntax files that
+are included interactively and error messages printed by @pspp{} are also
+written to the journal file, prefixed by &lsquo;<samp>&gt;</samp>&rsquo;.  @subcmd{OFF} disables use
+of the journal.
+</p>
+<p>The journal is named &lsquo;<tt>pspp.jnl</tt>&rsquo; by default.  A different name may
+be specified.
+</p></dd>
+</dl>
+
+<p>System file subcommands affect the default format of system files
+produced by @pspp{}.  These subcommands are
+</p>
+<dl compact="compact">
+<dt> COMPRESSION</dt>
+<dd><p>Not currently used.
+</p>
+</dd>
+<dt> SCOMPRESSION</dt>
+<dd><p>Whether system files created by @cmd{SAVE} or @cmd{XSAVE} are
+compressed by default.  The default is @subcmd{ON}.
+</p></dd>
+</dl>
+
+<p>Security subcommands affect the operations that commands are allowed to
+perform.  The security subcommands are
+</p>
+<dl compact="compact">
+<dt> SAFER</dt>
+<dd><p>Setting this option disables the following operations:
+</p>
+<ul>
+<li>
+The @cmd{ERASE} command.
+</li><li>
+The @cmd{HOST} command.
+</li><li>
+The @cmd{PERMISSIONS} command.
+</li><li>
+Pipes (file names beginning or ending with &lsquo;<samp>|</samp>&rsquo;).
+</li></ul>
+
+<p>Be aware that this setting does not guarantee safety (commands can still
+overwrite files, for instance) but it is an improvement.
+When set, this setting cannot be reset during the same session, for
+obvious security reasons.
+</p>
+</dd>
+<dt> LOCALE</dt>
+<dd><a name="index-locale"></a>
+<a name="index-encoding_002c-characters"></a>
+<p>This item is used to set the default character encoding.
+The encoding may be specified either as an encoding name or alias
+(see <a href="http://www.iana.org/assignments/character-sets">http://www.iana.org/assignments/character-sets</a>), or
+as a locale name.
+If given as a locale name, only the character encoding of the 
+locale is relevant.
+</p>
+<p>System files written by @pspp{} will use this encoding.
+System files read by @pspp{}, for which the encoding is unknown, will be
+interpreted using this encoding.
+</p>
+<p>The full list of valid encodings and locale names/alias are operating system
+dependent.
+The following are all examples of acceptable syntax on common GNU/Linux
+systems.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">SET LOCALE='iso-8859-1'.
+
+SET LOCALE='ru_RU.cp1251'.
+
+SET LOCALE='japanese'.
+</pre></td></tr></table>
+
+<p>Contrary to intuition, this command does not affect any aspect 
+of the system&rsquo;s locale.
+</p></dd>
+</dl>
+
+<hr size="6">
+<a name="SHOW"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SET" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SUBTITLE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SHOW-1"></a>
+<h2 class="section">1.21 SHOW</h2>
+<a name="index-SHOW"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SHOW
+        [ALL]
+        [BLANKS]
+        [CC]
+        [CCA]
+        [CCB]
+        [CCC]
+        [CCD]
+        [CCE]
+        [COPYING]
+        [DECIMALS]
+        [DIRECTORY]
+        [ENVIRONMENT]
+        [FORMAT]
+        [FUZZBITS]
+        [LENGTH]
+        [MXERRS]
+        [MXLOOPS]
+        [MXWARNS]
+        [N]
+        [SCOMPRESSION]
+        [TEMPDIR]
+        [UNDEFINED]
+        [VERSION]
+        [WARRANTY]
+        [WEIGHT]
+        [WIDTH]
+</pre></td></tr></table>
+
+<p>@cmd{SHOW} can be used to display the current state of @pspp{}&rsquo;s execution
+parameters.  Parameters that can be changed using @cmd{SET}
+(see section <a href="#SET">SET</a>), can be examined using @cmd{SHOW} using the subcommand
+with the same name.  @cmd{SHOW} supports the following additional
+subcommands:
+</p>
+<dl compact="compact">
+<dt> @subcmd{ALL}</dt>
+<dd><p>Show all settings.
+</p></dd>
+<dt> @subcmd{CC}</dt>
+<dd><p>Show all custom currency settings (@subcmd{CCA} through @subcmd{CCE}).
+</p></dd>
+<dt> @subcmd{DIRECTORY}</dt>
+<dd><p>Shows the current working directory.
+</p></dd>
+<dt> @subcmd{ENVIRONMENT}</dt>
+<dd><p>Shows the operating system details.
+</p></dd>
+<dt> @subcmd{N}</dt>
+<dd><p>Reports the number of cases in the active dataset.  The reported number is not
+weighted.  If no dataset is defined, then &lsquo;<samp>Unknown</samp>&rsquo; will be reported.
+</p></dd>
+<dt> @subcmd{TEMPDIR}</dt>
+<dd><p>Shows the path of the directory where temporary files will be stored.
+</p></dd>
+<dt> @subcmd{VERSION}</dt>
+<dd><p>Shows the version of this installation of @pspp{}.
+</p></dd>
+<dt> @subcmd{WARRANTY}</dt>
+<dd><p>Show details of the lack of warranty for @pspp{}.
+</p></dd>
+<dt> @subcmd{COPYING} / @subcmd{LICENSE}</dt>
+<dd><p>Display the terms of @pspp{}&rsquo;s copyright licence (@pxref{License}).
+</p></dd>
+</dl>
+
+<p>Specifying @cmd{SHOW} without any subcommands is equivalent to @subcmd{SHOW ALL}.
+</p>
+<hr size="6">
+<a name="SUBTITLE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SHOW" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#TITLE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SUBTITLE-1"></a>
+<h2 class="section">1.22 SUBTITLE</h2>
+<a name="index-SUBTITLE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SUBTITLE &rsquo;<var>subtitle_string</var>&rsquo;.
+  or
+SUBTITLE <var>subtitle_string</var>.
+</pre></td></tr></table>
+
+<p>@cmd{SUBTITLE} provides a subtitle to a particular @pspp{}
+run.  This subtitle appears at the top of each output page below the
+title, if headers are enabled on the output device.
+</p>
+<p>Specify a subtitle as a string in quotes.  The alternate syntax that did
+not require quotes is now obsolete.  If it is used then the subtitle is
+converted to all uppercase.
+</p>
+<hr size="6">
+<a name="TITLE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SUBTITLE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="TITLE-1"></a>
+<h2 class="section">1.23 TITLE</h2>
+<a name="index-TITLE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">TITLE &rsquo;<var>title_string</var>&rsquo;.
+  or
+TITLE <var>title_string</var>.
+</pre></td></tr></table>
+
+<p>@cmd{TITLE} provides a title to a particular @pspp{} run.
+This title appears at the top of each output page, if headers are enabled
+on the output device.
+</p>
+<p>Specify a title as a string in quotes.  The alternate syntax that did
+not require quotes is now obsolete.  If it is used then the title is
+converted to all uppercase.
+</p><hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Utilities" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

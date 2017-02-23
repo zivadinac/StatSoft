@@ -1,0 +1,1440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on February 22, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Untitled Document</title>
+
+<meta name="description" content="Untitled Document">
+<meta name="keywords" content="Untitled Document">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="System-and-Portable-File-IO"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="#APPLY-DICTIONARY" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="System-and-Portable-File-I_002fO"></a>
+<h1 class="chapter">1. System and Portable File I/O</h1>
+
+<p>The commands in this chapter read, write, and examine system files and
+portable files.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#APPLY-DICTIONARY">1.1 APPLY DICTIONARY</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            Apply system file dictionary to active dataset.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#EXPORT">1.2 EXPORT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Write to a portable file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GET">1.3 GET</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                         Read from a system file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GET-DATA">1.4 GET DATA</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Read from foreign files.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#IMPORT">1.5 IMPORT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Read from a portable file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SAVE">1.6 SAVE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Write to a system file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SAVE-TRANSLATE">1.7 SAVE TRANSLATE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Write data in foreign file formats.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SYSFILE-INFO">1.8 SYSFILE INFO</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Display system file dictionary.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#XEXPORT">1.9 XEXPORT</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     Write to a portable file, as a transformation.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#XSAVE">1.10 XSAVE</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       Write to a system file, as a transformation.
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="APPLY-DICTIONARY"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#EXPORT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="APPLY-DICTIONARY-1"></a>
+<h2 class="section">1.1 APPLY DICTIONARY</h2>
+<a name="index-APPLY-DICTIONARY"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">APPLY DICTIONARY FROM={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}.
+</pre></td></tr></table>
+
+<p>@cmd{APPLY DICTIONARY} applies the variable labels, value labels,
+and missing values taken from a file to corresponding
+variables in the active dataset.  In some cases it also updates the
+weighting variable.
+</p>
+<p>Specify a system file or portable file&rsquo;s name, a data set name
+(@pxref{Datasets}), or a file handle name (@pxref{File Handles}).  The
+dictionary in the file will be read, but it will not replace the
+active dataset&rsquo;s dictionary.  The file&rsquo;s data will not be read.
+</p>
+<p>Only variables with names that exist in both the active dataset and the
+system file are considered.  Variables with the same name but different
+types (numeric, string) will cause an error message.  Otherwise, the
+system file variables&rsquo; attributes will replace those in their matching
+active dataset variables:
+</p>
+<ul>
+<li>
+If a system file variable has a variable label, then it will replace
+the variable label of the active dataset variable.  If the system
+file variable does not have a variable label, then the active dataset
+variable&rsquo;s variable label, if any, will be retained.
+
+</li><li>
+If the system file variable has custom attributes (@pxref{VARIABLE
+ATTRIBUTE}), then those attributes replace the active dataset variable&rsquo;s
+custom attributes.  If the system file variable does not have custom
+attributes, then the active dataset variable&rsquo;s custom attributes, if any,
+will be retained.
+
+</li><li>
+If the active dataset variable is numeric or short string, then value
+labels and missing values, if any, will be copied to the active dataset
+variable.  If the system file variable does not have value labels or
+missing values, then those in the active dataset variable, if any, will not
+be disturbed.
+</li></ul>
+
+<p>In addition to properties of variables, some properties of the active
+file dictionary as a whole are updated:
+</p>
+<ul>
+<li>
+If the system file has custom attributes (@pxref{DATAFILE ATTRIBUTE}),
+then those attributes replace the active dataset variable&rsquo;s custom
+attributes.
+
+</li><li>
+If the active dataset has a weighting variable (@pxref{WEIGHT}), and the
+system file does not, or if the weighting variable in the system file
+does not exist in the active dataset, then the active dataset weighting
+variable, if any, is retained.  Otherwise, the weighting variable in
+the system file becomes the active dataset weighting variable.
+</li></ul>
+
+<p>@cmd{APPLY DICTIONARY} takes effect immediately.  It does not read the
+active dataset.  The system file is not modified.
+</p>
+<hr size="6">
+<a name="EXPORT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#APPLY-DICTIONARY" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="EXPORT-1"></a>
+<h2 class="section">1.2 EXPORT</h2>
+<a name="index-EXPORT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">EXPORT
+        /OUTFILE=&rsquo;<var>file_name</var>&rsquo;
+        /UNSELECTED={RETAIN,DELETE}
+        /DIGITS=<var>n</var>
+        /DROP=<var>var_list</var>
+        /KEEP=<var>var_list</var>
+        /RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;
+        /TYPE={COMM,TAPE}
+        /MAP
+</pre></td></tr></table>
+
+<p>The @cmd{EXPORT} procedure writes the active dataset&rsquo;s dictionary and
+data to a specified portable file.
+</p>
+<p>By default, cases excluded with FILTER are written to the
+file.  These can be excluded by specifying DELETE on the @subcmd{UNSELECTED}
+subcommand.  Specifying RETAIN makes the default explicit.
+</p>
+<p>Portable files express real numbers in base 30.  Integers are always
+expressed to the maximum precision needed to make them exact.
+Non-integers are, by default, expressed to the machine&rsquo;s maximum
+natural precision (approximately 15 decimal digits on many machines).
+If many numbers require this many digits, the portable file may
+significantly increase in size.  As an alternative, the @subcmd{DIGITS}
+subcommand may be used to specify the number of decimal digits of
+precision to write.  @subcmd{DIGITS} applies only to non-integers.
+</p>
+<p>The @subcmd{OUTFILE} subcommand, which is the only required subcommand, specifies
+the portable file to be written as a file name string or
+a file handle (@pxref{File Handles}).
+</p>
+<p>@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} follow the same format as the 
+@subcmd{SAVE} procedure (see section <a href="#SAVE">SAVE</a>).
+</p>
+<p>The @subcmd{TYPE} subcommand specifies the character set for use in the
+portable file.  Its value is currently not used.
+</p>
+<p>The @subcmd{MAP} subcommand is currently ignored.
+</p>
+<p>@cmd{EXPORT} is a procedure.  It causes the active dataset to be read.
+</p>
+<hr size="6">
+<a name="GET"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#EXPORT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="GET-1"></a>
+<h2 class="section">1.3 GET</h2>
+<a name="index-GET"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET
+        /FILE={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}
+        /DROP=<var>var_list</var>
+        /KEEP=<var>var_list</var>
+        /RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;
+        /ENCODING=&rsquo;<var>encoding</var>&rsquo;
+</pre></td></tr></table>
+
+<p>@cmd{GET} clears the current dictionary and active dataset and
+replaces them with the dictionary and data from a specified file.
+</p>
+<p>The @subcmd{FILE} subcommand is the only required subcommand.  Specify
+the SPSS system file, SPSS/PC+ system file, or SPSS portable file to
+be read as a string file name or a file handle (@pxref{File Handles}).
+</p>
+<p>By default, all the variables in a file are read.  The DROP
+subcommand can be used to specify a list of variables that are not to be
+read.  By contrast, the @subcmd{KEEP} subcommand can be used to specify
+variable that are to be read, with all other variables not read.
+</p>
+<p>Normally variables in a file retain the names that they were
+saved under.  Use the @subcmd{RENAME} subcommand to change these names.
+Specify,
+within parentheses, a list of variable names followed by an equals sign
+(&lsquo;<samp>=</samp>&rsquo;) and the names that they should be renamed to.  Multiple
+parenthesized groups of variable names can be included on a single
+@subcmd{RENAME} subcommand.
+Variables&rsquo; names may be swapped using a @subcmd{RENAME}
+subcommand of the form @subcmd{/RENAME=(<var>A</var> <var>B</var>=<var>B</var> <var>A</var>)}.
+</p>
+<p>Alternate syntax for the @subcmd{RENAME} subcommand allows the parentheses to be
+eliminated.  When this is done, only a single variable may be renamed at
+once.  For instance, @subcmd{/RENAME=<var>A</var>=<var>B</var>}.  This alternate syntax is
+deprecated.
+</p>
+<p>@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} are executed in left-to-right order.  
+Each may be present any number of times.  @cmd{GET} never modifies a
+file on disk.  Only the active dataset read from the file
+is affected by these subcommands.
+</p>
+<p>@pspp{} automatically detects the encoding of string data in the file,
+when possible.  The character encoding of old SPSS system files cannot
+always be guessed correctly, and SPSS/PC+ system files do not include
+any indication of their encoding.  Specify the @subcmd{ENCODING}
+subcommand with an <acronym>IANA</acronym> character set name as its string
+argument to override the default.  Use @cmd{SYSFILE INFO} to analyze
+the encodings that might be valid for a system file.  The
+@subcmd{ENCODING} subcommand is a @pspp{} extension.
+</p>
+<p>@cmd{GET} does not cause the data to be read, only the dictionary.  The data
+is read later, when a procedure is executed.
+</p>
+<p>Use of @cmd{GET} to read a portable file is a @pspp{} extension.
+</p>
+<hr size="6">
+<a name="GET-DATA"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dGNM_002fODS" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="GET-DATA-1"></a>
+<h2 class="section">1.4 GET DATA</h2>
+<a name="index-GET-DATA"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET DATA
+        /TYPE={GNM,ODS,PSQL,TXT}
+        &hellip;additional subcommands depending on TYPE&hellip;
+</pre></td></tr></table>
+
+<p>The @cmd{GET DATA} command is used to read files and other data
+sources created by other applications.  When this command is executed,
+the current dictionary and active dataset are replaced with variables
+and data read from the specified source.
+</p>
+<p>The @subcmd{TYPE} subcommand is mandatory and must be the first subcommand
+specified.  It determines the type of the file or source to read.
+@pspp{} currently supports the following file types:
+</p>
+<dl compact="compact">
+<dt> GNM</dt>
+<dd><p>Spreadsheet files created by Gnumeric (<a href="http://gnumeric.org">http://gnumeric.org</a>).
+</p>
+</dd>
+<dt> ODS</dt>
+<dd><p>Spreadsheet files in OpenDocument format (<a href="http://opendocumentformat.org">http://opendocumentformat.org</a>).
+</p>
+</dd>
+<dt> PSQL</dt>
+<dd><p>Relations from PostgreSQL databases (<a href="http://postgresql.org">http://postgresql.org</a>).
+</p>
+</dd>
+<dt> TXT</dt>
+<dd><p>Textual data files in columnar and delimited formats.
+</p></dd>
+</dl>
+
+<p>Each supported file type has additional subcommands, explained in
+separate sections below.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#GET-DATA-_002fTYPE_003dGNM_002fODS">1.4.1 Spreadsheet Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     Spreadsheets
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GET-DATA-_002fTYPE_003dPSQL">1.4.2 Postgres Database Queries</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        Databases
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GET-DATA-_002fTYPE_003dTXT">1.4.3 Textual Data Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Delimited Text Files
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="GET-DATA-_002fTYPE_003dGNM_002fODS"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET-DATA" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dPSQL" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Spreadsheet-Files"></a>
+<h3 class="subsection">1.4.1 Spreadsheet Files</h3>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET DATA /TYPE={GNM, ODS}
+        /FILE={&rsquo;<var>file_name</var>&rsquo;}
+        /SHEET={NAME &rsquo;<var>sheet_name</var>&rsquo;, INDEX <var>n</var>}
+        /CELLRANGE={RANGE &rsquo;<var>range</var>&rsquo;, FULL}
+        /READNAMES={ON, OFF}
+        /ASSUMEDSTRWIDTH=<var>n</var>.
+</pre></td></tr></table>
+
+<a name="index-Gnumeric"></a>
+<a name="index-OpenDocument"></a>
+<a name="index-spreadsheet-files"></a>
+
+<p>Gnumeric spreadsheets (<a href="http://gnumeric.org">http://gnumeric.org</a>), and spreadsheets
+in OpenDocument format
+(<a href="http://libreplanet.org/wiki/Group:OpenDocument/Software">http://libreplanet.org/wiki/Group:OpenDocument/Software</a>)
+can be read using the @cmd{GET DATA} command.
+Use the @subcmd{TYPE} subcommand to indicate the file&rsquo;s format.  
+/TYPE=GNM indicates Gnumeric files,
+/TYPE=ODS indicates OpenDocument.
+The @subcmd{FILE} subcommand is mandatory.
+Use it to specify the name file to be read. 
+All other subcommands are optional.
+</p>
+<p>The format of each variable is determined by the format of the spreadsheet 
+cell containing the first datum for the variable.
+If this cell is of string (text) format, then the width of the variable is
+determined from the length of the string it contains, unless the 
+@subcmd{ASSUMEDSTRWIDTH} subcommand is given.
+</p>
+<p>The @subcmd{SHEET} subcommand specifies the sheet within the spreadsheet file to read.
+There are two forms of the @subcmd{SHEET} subcommand.
+In the first form,
+@subcmd{/SHEET=name <var>sheet_name</var>}, the string <var>sheet_name</var> is the
+name of the sheet to read.
+In the second form, @subcmd{/SHEET=index <var>idx</var>}, <var>idx</var> is a
+integer which is the index of the sheet to read.
+The first sheet has the index 1.
+If the @subcmd{SHEET} subcommand is omitted, then the command will read the
+first sheet in the file.
+</p>
+<p>The @subcmd{CELLRANGE} subcommand specifies the range of cells within the sheet to read.
+If the subcommand is given as @subcmd{/CELLRANGE=FULL}, then the entire
+sheet  is read.
+To read only part of a sheet, use the form 
+@subcmd{/CELLRANGE=range &rsquo;<var>top_left_cell</var>:<var>bottom_right_cell</var>&rsquo;}.
+For example, the subcommand @subcmd{/CELLRANGE=range &rsquo;C3:P19&rsquo;} reads 
+columns C&ndash;P, and rows 3&ndash;19 inclusive.
+If no @subcmd{CELLRANGE} subcommand is given, then the entire sheet is read.
+</p>
+<p>If @subcmd{/READNAMES=ON} is specified, then the contents of cells of
+the first row are used as the names of the variables in which to store
+the data from subsequent rows.  This is the default.
+If @subcmd{/READNAMES=OFF} is
+used, then the variables  receive automatically assigned names.
+</p>
+<p>The @subcmd{ASSUMEDSTRWIDTH} subcommand specifies the maximum width of string
+variables read  from the file.
+If omitted, the default value is determined from the length of the 
+string in the first spreadsheet cell for each variable.
+</p>
+
+<hr size="6">
+<a name="GET-DATA-_002fTYPE_003dPSQL"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dGNM_002fODS" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Postgres-Database-Queries"></a>
+<h3 class="subsection">1.4.2 Postgres Database Queries</h3>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET DATA /TYPE=PSQL
+         /CONNECT={<var>connection info</var>}
+         /SQL={<var>query</var>}
+         [/ASSUMEDSTRWIDTH=<var>w</var>]
+         [/UNENCRYPTED]
+         [/BSIZE=<var>n</var>].
+</pre></td></tr></table>
+
+<a name="index-postgres"></a>
+<a name="index-databases"></a>
+
+<p>The PSQL type is used to import data from a postgres database server.
+The server may be located locally or remotely.
+Variables are automatically created based on the table column names 
+or the names specified in the SQL query.
+Postgres data types of high precision, will loose precision when 
+imported into @pspp{}.
+Not all the postgres data types are able to be represented in @pspp{}.
+If a datum cannot be represented a warning will be issued and that 
+datum will be set to SYSMIS.
+</p>
+<p>The @subcmd{CONNECT} subcommand is mandatory.
+It is a string specifying the parameters of the database server from
+which the data should be fetched.
+The format of the string is given in the postgres manual
+<a href="http://www.postgresql.org/docs/8.0/static/libpq.html#LIBPQ-CONNECT">http://www.postgresql.org/docs/8.0/static/libpq.html#LIBPQ-CONNECT</a>.
+</p>
+<p>The @subcmd{SQL} subcommand is mandatory.
+It must be a valid SQL string to retrieve data from the database.
+</p>
+<p>The @subcmd{ASSUMEDSTRWIDTH} subcommand specifies the maximum width of string
+variables read  from the database.
+If omitted, the default value is determined from the length of the 
+string in the first value read for each variable.
+</p>
+<p>The @subcmd{UNENCRYPTED} subcommand allows data to be retrieved over an insecure
+connection.
+If the connection is not encrypted, and the @subcmd{UNENCRYPTED} subcommand is 
+not given, then an error will occur.
+Whether or not the connection is
+encrypted depends upon the underlying psql library and the 
+capabilities of the database server.
+</p>
+<p>The @subcmd{BSIZE} subcommand serves only to optimise the speed of data transfer.
+It specifies an upper limit on
+number of cases to fetch from the database at once.
+The default value is 4096.
+If your SQL statement fetches a large number of cases but only a small number of
+variables, then the data transfer may be faster if you increase this value.
+Conversely, if the number of variables is large, or if the machine on which 
+@pspp{} is running has only a
+small amount of memory, then a smaller value will be better.
+</p>
+
+<p>The following syntax is an example:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">GET DATA /TYPE=PSQL
+     /CONNECT='host=example.com port=5432 dbname=product user=fred passwd=xxxx'
+     /SQL='select * from manufacturer'.
+</pre></td></tr></table>
+
+
+<hr size="6">
+<a name="GET-DATA-_002fTYPE_003dTXT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dPSQL" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dDELIMITED" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Textual-Data-Files"></a>
+<h3 class="subsection">1.4.3 Textual Data Files</h3>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET DATA /TYPE=TXT
+        /FILE={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}
+        [ENCODING=&rsquo;<var>encoding</var>&rsquo;]
+        [/ARRANGEMENT={DELIMITED,FIXED}]
+        [/FIRSTCASE={<var>first_case</var>}]
+        [/IMPORTCASES=...]
+        &hellip;additional subcommands depending on ARRANGEMENT&hellip;
+</pre></td></tr></table>
+
+<a name="index-text-files"></a>
+<a name="index-data-files"></a>
+<p>When TYPE=TXT is specified, GET DATA reads data in a delimited or
+fixed columnar format, much like DATA LIST (@pxref{DATA LIST}).
+</p>
+<p>The @subcmd{FILE} subcommand is mandatory.  Specify the file to be read as 
+a string file name or (for textual data only) a
+file handle (@pxref{File Handles}).
+</p>
+<p>The @subcmd{ENCODING} subcommand specifies the character encoding of
+the file to be read.  @xref{INSERT}, for information on supported
+encodings.
+</p>
+<p>The @subcmd{ARRANGEMENT} subcommand determines the file&rsquo;s basic format.
+DELIMITED, the default setting, specifies that fields in the input
+data are separated by spaces, tabs, or other user-specified
+delimiters.  FIXED specifies that fields in the input data appear at
+particular fixed column positions within records of a case.
+</p>
+<p>By default, cases are read from the input file starting from the first
+line.  To skip lines at the beginning of an input file, set @subcmd{FIRSTCASE}
+to the number of the first line to read: 2 to skip the first line, 3
+to skip the first two lines, and so on.
+</p>
+<p>@subcmd{IMPORTCASES} is ignored, for compatibility.  Use @cmd{N OF
+CASES} to limit the number of cases read from a file (@pxref{N OF
+CASES}), or @cmd{SAMPLE} to obtain a random sample of cases
+(@pxref{SAMPLE}).
+</p>
+<p>The remaining subcommands apply only to one of the two file
+arrangements, described below.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dDELIMITED">1.4.3.1 Reading Delimited Data</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dFIXED">1.4.3.2 Reading Fixed Columnar Data</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dDELIMITED"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dFIXED" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Reading-Delimited-Data"></a>
+<h4 class="subsubsection">1.4.3.1 Reading Delimited Data</h4>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET DATA /TYPE=TXT
+        /FILE={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}
+        [/ARRANGEMENT={DELIMITED,FIXED}]
+        [/FIRSTCASE={<var>first_case</var>}]
+        [/IMPORTCASE={ALL,FIRST <var>max_cases</var>,PERCENT <var>percent</var>}]
+
+        /DELIMITERS=&quot;<var>delimiters</var>&quot;
+        [/QUALIFIER=&quot;<var>quotes</var>&quot;
+        [/DELCASE={LINE,VARIABLES <var>n_variables</var>}]
+        /VARIABLES=<var>del_var1</var> [<var>del_var2</var>]&hellip;
+where each <var>del_var</var> takes the form:
+        variable format
+</pre></td></tr></table>
+
+<p>The GET DATA command with TYPE=TXT and ARRANGEMENT=DELIMITED reads
+input data from text files in delimited format, where fields are
+separated by a set of user-specified delimiters.  Its capabilities are
+similar to those of DATA LIST FREE (@pxref{DATA LIST FREE}), with a
+few enhancements.
+</p>
+<p>The required @subcmd{FILE} subcommand and optional @subcmd{FIRSTCASE} and @subcmd{IMPORTCASE}
+subcommands are described above (see section <a href="#GET-DATA-_002fTYPE_003dTXT">Textual Data Files</a>).
+</p>
+<p>@subcmd{DELIMITERS}, which is required, specifies the set of characters that
+may separate fields.  Each character in the string specified on
+@subcmd{DELIMITERS} separates one field from the next.  The end of a line also
+separates fields, regardless of @subcmd{DELIMITERS}.  Two consecutive
+delimiters in the input yield an empty field, as does a delimiter at
+the end of a line.  A space character as a delimiter is an exception:
+consecutive spaces do not yield an empty field and neither does any
+number of spaces at the end of a line.
+</p>
+<p>To use a tab as a delimiter, specify &lsquo;<samp>\t</samp>&rsquo; at the beginning of the
+@subcmd{DELIMITERS} string.  To use a backslash as a delimiter, specify
+&lsquo;<samp>\\</samp>&rsquo; as the first delimiter or, if a tab should also be a
+delimiter, immediately following &lsquo;<samp>\t</samp>&rsquo;.  To read a data file in
+which each field appears on a separate line, specify the empty string
+for @subcmd{DELIMITERS}.
+</p>
+<p>The optional @subcmd{QUALIFIER} subcommand names one or more characters that
+can be used to quote values within fields in the input.  A field that
+begins with one of the specified quote characters ends at the next
+matching quote.  Intervening delimiters become part of the field,
+instead of terminating it.  The ability to specify more than one quote
+character is a @pspp{} extension.
+</p>
+<p>The character specified on @subcmd{QUALIFIER} can be embedded within a
+field that it quotes by doubling the qualifier.  For example, if
+&lsquo;<samp>'</samp>&rsquo; is specified on @subcmd{QUALIFIER}, then <code>'a''b'</code>
+specifies a field that contains &lsquo;<samp>a'b</samp>&rsquo;.
+</p>
+<p>The @subcmd{DELCASE} subcommand controls how data may be broken across lines in
+the data file.  With LINE, the default setting, each line must contain
+all the data for exactly one case.  For additional flexibility, to
+allow a single case to be split among lines or multiple cases to be
+contained on a single line, specify VARIABLES <i>n_variables</i>, where
+<i>n_variables</i> is the number of variables per case.
+</p>
+<p>The @subcmd{VARIABLES} subcommand is required and must be the last subcommand.
+Specify the name of each variable and its input format (@pxref{Input
+and Output Formats}) in the order they should be read from the input
+file.
+</p>
+<a name="Examples-1"></a>
+<h4 class="subsubheading">Examples</h4>
+
+<p>On a Unix-like system, the &lsquo;<samp>/etc/passwd</samp>&rsquo; file has a format
+similar to this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">root:$1$nyeSP5gD$pDq/:0:0:,,,:/root:/bin/bash
+blp:$1$BrP/pFg4$g7OG:1000:1000:Ben Pfaff,,,:/home/blp:/bin/bash
+john:$1$JBuq/Fioq$g4A:1001:1001:John Darrington,,,:/home/john:/bin/bash
+jhs:$1$D3li4hPL$88X1:1002:1002:Jason Stover,,,:/home/jhs:/bin/csh
+</pre></td></tr></table>
+
+<p>The following syntax reads a file in the format used by
+&lsquo;<samp>/etc/passwd</samp>&rsquo;:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">GET DATA /TYPE=TXT /FILE='/etc/passwd' /DELIMITERS=':'
+        /VARIABLES=username A20
+                   password A40
+                   uid F10
+                   gid F10
+                   gecos A40
+                   home A40
+                   shell A40.
+</pre></td></tr></table>
+
+<p>Consider the following data on used cars:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">model   year    mileage price   type    age
+Civic   2002    29883   15900   Si      2
+Civic   2003    13415   15900   EX      1
+Civic   1992    107000  3800    n/a     12
+Accord  2002    26613   17900   EX      1
+</pre></td></tr></table>
+
+<p>The following syntax can be used to read the used car data:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">GET DATA /TYPE=TXT /FILE='cars.data' /DELIMITERS=' ' /FIRSTCASE=2
+        /VARIABLES=model A8
+                   year F4
+                   mileage F6
+                   price F5
+                   type A4
+                   age F2.
+</pre></td></tr></table>
+
+<p>Consider the following information on animals in a pet store:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">'Pet''s Name', &quot;Age&quot;, &quot;Color&quot;, &quot;Date Received&quot;, &quot;Price&quot;, &quot;Height&quot;, &quot;Type&quot;
+, (Years), , , (Dollars), ,
+&quot;Rover&quot;, 4.5, Brown, &quot;12 Feb 2004&quot;, 80, '1''4&quot;', &quot;Dog&quot;
+&quot;Charlie&quot;, , Gold, &quot;5 Apr 2007&quot;, 12.3, &quot;3&quot;&quot;&quot;, &quot;Fish&quot;
+&quot;Molly&quot;, 2, Black, &quot;12 Dec 2006&quot;, 25, '5&quot;', &quot;Cat&quot;
+&quot;Gilly&quot;, , White, &quot;10 Apr 2007&quot;, 10, &quot;3&quot;&quot;&quot;, &quot;Guinea Pig&quot;
+</pre></td></tr></table>
+
+<p>The following syntax can be used to read the pet store data:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">GET DATA /TYPE=TXT /FILE='pets.data' /DELIMITERS=', ' /QUALIFIER='''&quot;' /ESCAPE
+        /FIRSTCASE=3
+        /VARIABLES=name A10
+                   age F3.1
+                   color A5
+                   received EDATE10
+                   price F5.2
+                   height a5
+                   type a10.
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dFIXED"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dDELIMITED" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#IMPORT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Reading-Fixed-Columnar-Data"></a>
+<h4 class="subsubsection">1.4.3.2 Reading Fixed Columnar Data</h4>
+
+
+<table><tr><td>&nbsp;</td><td><pre class="display">GET DATA /TYPE=TXT
+        /FILE={&rsquo;file_name&rsquo;,<var>file_handle</var>}
+        [/ARRANGEMENT={DELIMITED,FIXED}]
+        [/FIRSTCASE={<var>first_case</var>}]
+        [/IMPORTCASE={ALL,FIRST <var>max_cases</var>,PERCENT <var>percent</var>}]
+
+        [/FIXCASE=<var>n</var>]
+        /VARIABLES <var>fixed_var</var> [<var>fixed_var</var>]&hellip;
+            [/rec# <var>fixed_var</var> [<var>fixed_var</var>]&hellip;]&hellip;
+where each <var>fixed_var</var> takes the form:
+        <var>variable</var> <var>start</var>-<var>end</var> <var>format</var>
+</pre></td></tr></table>
+
+<p>The @cmd{GET DATA} command with TYPE=TXT and ARRANGEMENT=FIXED reads input
+data from text files in fixed format, where each field is located in
+particular fixed column positions within records of a case.  Its
+capabilities are similar to those of DATA LIST FIXED (@pxref{DATA LIST
+FIXED}), with a few enhancements.
+</p>
+<p>The required @subcmd{FILE} subcommand and optional @subcmd{FIRSTCASE} and @subcmd{IMPORTCASE}
+subcommands are described above (see section <a href="#GET-DATA-_002fTYPE_003dTXT">Textual Data Files</a>).
+</p>
+<p>The optional @subcmd{FIXCASE} subcommand may be used to specify the positive
+integer number of input lines that make up each case.  The default
+value is 1.
+</p>
+<p>The @subcmd{VARIABLES} subcommand, which is required, specifies the positions
+at which each variable can be found.  For each variable, specify its
+name, followed by its start and end column separated by &lsquo;<samp>-</samp>&rsquo;
+(e.g. &lsquo;<samp>0-9</samp>&rsquo;), followed by an input format type (e.g.
+&lsquo;<samp>F</samp>&rsquo;) or a full format specification (e.g. &lsquo;<samp>DOLLAR12.2</samp>&rsquo;).
+For this command, columns are numbered starting from 0 at
+the left column.  Introduce the variables in the second and later
+lines of a case by a slash followed by the number of the line within
+the case, e.g. &lsquo;<samp>/2</samp>&rsquo; for the second line.
+</p>
+<a name="Examples"></a>
+<h4 class="subsubheading">Examples</h4>
+
+<p>Consider the following data on used cars:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">model   year    mileage price   type    age
+Civic   2002    29883   15900   Si      2
+Civic   2003    13415   15900   EX      1
+Civic   1992    107000  3800    n/a     12
+Accord  2002    26613   17900   EX      1
+</pre></td></tr></table>
+
+<p>The following syntax can be used to read the used car data:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">GET DATA /TYPE=TXT /FILE='cars.data' /ARRANGEMENT=FIXED /FIRSTCASE=2
+        /VARIABLES=model 0-7 A
+                   year 8-15 F
+                   mileage 16-23 F
+                   price 24-31 F
+                   type 32-40 A
+                   age 40-47 F.
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="IMPORT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#GET-DATA-_002fTYPE_003dTXT-_002fARRANGEMENT_003dFIXED" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SAVE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="IMPORT-1"></a>
+<h2 class="section">1.5 IMPORT</h2>
+<a name="index-IMPORT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">IMPORT
+        /FILE=&rsquo;<var>file_name</var>&rsquo;
+        /TYPE={COMM,TAPE}
+        /DROP=<var>var_list</var>
+        /KEEP=<var>var_list</var>
+        /RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;
+</pre></td></tr></table>
+
+<p>The @cmd{IMPORT} transformation clears the active dataset dictionary and
+data and
+replaces them with a dictionary and data from a system file or
+portable file.
+</p>
+<p>The @subcmd{FILE} subcommand, which is the only required subcommand, specifies
+the portable file to be read as a file name string or a file handle
+(@pxref{File Handles}).
+</p>
+<p>The @subcmd{TYPE} subcommand is currently not used.
+</p>
+<p>@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} follow the syntax used by @cmd{GET} (see section <a href="#GET">GET</a>).
+</p>
+<p>@cmd{IMPORT} does not cause the data to be read; only the dictionary.  The
+data is read later, when a procedure is executed.
+</p>
+<p>Use of @cmd{IMPORT} to read a system file is a @pspp{} extension.
+</p>
+<hr size="6">
+<a name="SAVE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#IMPORT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SAVE-TRANSLATE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SAVE-1"></a>
+<h2 class="section">1.6 SAVE</h2>
+<a name="index-SAVE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SAVE
+        /OUTFILE={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}
+        /UNSELECTED={RETAIN,DELETE}
+        /{UNCOMPRESSED,COMPRESSED,ZCOMPRESSED}
+        /PERMISSIONS={WRITEABLE,READONLY}
+        /DROP=<var>var_list</var>
+        /KEEP=<var>var_list</var>
+        /VERSION=<var>version</var>
+        /RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;
+        /NAMES
+        /MAP
+</pre></td></tr></table>
+
+<p>The @cmd{SAVE} procedure causes the dictionary and data in the active
+dataset to
+be written to a system file.
+</p>
+<p>OUTFILE is the only required subcommand.  Specify the system file
+to be written as a string file name or a file handle
+(@pxref{File Handles}).
+</p>
+<p>By default, cases excluded with FILTER are written to the system file.
+These can be excluded by specifying @subcmd{DELETE} on the @subcmd{UNSELECTED}
+subcommand.  Specifying @subcmd{RETAIN} makes the default explicit.
+</p>
+<p>The @subcmd{UNCOMPRESSED}, @subcmd{COMPRESSED}, and
+@subcmd{ZCOMPRESSED} subcommand determine the system file&rsquo;s
+compression level:
+</p>
+<dl compact="compact">
+<dt> <code>UNCOMPRESSED</code></dt>
+<dd><p>Data is not compressed.  Each numeric value uses 8 bytes of disk
+space.  Each string value uses one byte per column width, rounded up
+to a multiple of 8 bytes.
+</p>
+</dd>
+<dt> <code>COMPRESSED</code></dt>
+<dd><p>Data is compressed with a simple algorithm.  Each integer numeric
+value between -99 and 151, inclusive, or system missing value
+uses one byte of disk space.  Each 8-byte segment of a string that
+consists only of spaces uses 1 byte.  Any other numeric value or
+8-byte string segment uses 9 bytes of disk space.
+</p>
+</dd>
+<dt> <code>ZCOMPRESSED</code></dt>
+<dd><p>Data is compressed with the &ldquo;deflate&rdquo; compression algorithm
+specified in RFC&nbsp;1951 (the same algorithm used by
+<code>gzip</code>).  Files written with this compression level cannot be
+read by PSPP 0.8.1 or earlier or by SPSS 20 or earlier.
+</p></dd>
+</dl>
+
+<p>@subcmd{COMPRESSED} is the default compression level.  The SET command
+(@pxref{SET}) can change this default.
+</p>
+<p>The @subcmd{PERMISSIONS} subcommand specifies permissions for the new system
+file.  WRITEABLE, the default, creates the file with read and write
+permission.  READONLY creates the file for read-only access.
+</p>
+<p>By default, all the variables in the active dataset dictionary are written
+to the system file.  The @subcmd{DROP} subcommand can be used to specify a list
+of variables not to be written.  In contrast, KEEP specifies variables
+to be written, with all variables not specified not written.
+</p>
+<p>Normally variables are saved to a system file under the same names they
+have in the active dataset.  Use the @subcmd{RENAME} subcommand to change these names.
+Specify, within parentheses, a list of variable names followed by an
+equals sign (&lsquo;<samp>=</samp>&rsquo;) and the names that they should be renamed to.
+Multiple parenthesized groups of variable names can be included on a
+single @subcmd{RENAME} subcommand.  Variables&rsquo; names may be swapped using a
+@subcmd{RENAME} subcommand of the 
+form @subcmd{/RENAME=(<var>A</var> <var>B</var>=<var>B</var> <var>A</var>)}.
+</p>
+<p>Alternate syntax for the @subcmd{RENAME} subcommand allows the parentheses to be
+eliminated.  When this is done, only a single variable may be renamed at
+once.  For instance, @subcmd{/RENAME=<var>A</var>=<var>B</var>}.  This alternate syntax is
+deprecated.
+</p>
+<p>@subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} are performed in
+left-to-right order.  They
+each may be present any number of times.  @cmd{SAVE} never modifies
+the active dataset.  @subcmd{DROP}, @subcmd{KEEP}, and @subcmd{RENAME} only
+affect the system file written to disk.
+</p>
+<p>The @subcmd{VERSION} subcommand specifies the version of the file format. Valid
+versions are 2 and 3.  The default version is 3.  In version 2 system
+files, variable names longer than 8 bytes will be truncated.  The two
+versions are otherwise identical.
+</p>
+<p>The @subcmd{NAMES} and @subcmd{MAP} subcommands are currently ignored.
+</p>
+<p>@cmd{SAVE} causes the data to be read.  It is a procedure.
+</p>
+<hr size="6">
+<a name="SAVE-TRANSLATE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SAVE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SAVE-TRANSLATE-_002fTYPE_003dCSV-and-TYPE_003dTAB" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SAVE-TRANSLATE-1"></a>
+<h2 class="section">1.7 SAVE TRANSLATE</h2>
+<a name="index-SAVE-TRANSLATE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SAVE TRANSLATE
+        /OUTFILE={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}
+        /TYPE={CSV,TAB}
+        [/REPLACE]
+        [/MISSING={IGNORE,RECODE}]
+
+        [/DROP=<var>var_list</var>]
+        [/KEEP=<var>var_list</var>]
+        [/RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;]
+        [/UNSELECTED={RETAIN,DELETE}]
+        [/MAP]
+
+        &hellip;additional subcommands depending on TYPE&hellip;
+</pre></td></tr></table>
+
+<p>The @cmd{SAVE TRANSLATE} command is used to save data into various
+formats understood by other applications.
+</p>
+<p>The @subcmd{OUTFILE} and @subcmd{TYPE} subcommands are mandatory.
+@subcmd{OUTFILE} specifies the file to be written, as a string file name or a file handle
+(@pxref{File Handles}).  @subcmd{TYPE} determines the type of the file or
+source to read.  It must be one of the following:
+</p>
+<dl compact="compact">
+<dt> CSV</dt>
+<dd><p>Comma-separated value format,
+</p>
+</dd>
+<dt> TAB</dt>
+<dd><p>Tab-delimited format.
+</p></dd>
+</dl>
+
+<p>By default, @cmd{SAVE TRANSLATE} will not overwrite an existing file.  Use
+@subcmd{REPLACE} to force an existing file to be overwritten.
+</p>
+<p>With MISSING=IGNORE, the default, @subcmd{SAVE TRANSLATE} treats user-missing
+values as if they were not missing.  Specify MISSING=RECODE to output
+numeric user-missing values like system-missing values and string
+user-missing values as all spaces.
+</p>
+<p>By default, all the variables in the active dataset dictionary are saved
+to the system file, but @subcmd{DROP} or @subcmd{KEEP} can select a subset of variable
+to save.  The @subcmd{RENAME} subcommand can also be used to change the names
+under which variables are saved.  @subcmd{UNSELECTED} determines whether cases
+filtered out by the @cmd{FILTER} command are written to the output file.
+These subcommands have the same syntax and meaning as on the
+@cmd{SAVE} command (see section <a href="#SAVE">SAVE</a>).
+</p>
+<p>Each supported file type has additional subcommands, explained in
+separate sections below.
+</p>
+<p>@cmd{SAVE TRANSLATE} causes the data to be read.  It is a procedure.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SAVE-TRANSLATE-_002fTYPE_003dCSV-and-TYPE_003dTAB">1.7.1 Writing Comma- and Tab-Separated Data Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="SAVE-TRANSLATE-_002fTYPE_003dCSV-and-TYPE_003dTAB"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SAVE-TRANSLATE" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SYSFILE-INFO" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SAVE-TRANSLATE" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="Writing-Comma_002d-and-Tab_002dSeparated-Data-Files"></a>
+<h3 class="subsection">1.7.1 Writing Comma- and Tab-Separated Data Files</h3>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SAVE TRANSLATE
+        /OUTFILE={&rsquo;<var>file_name</var>&rsquo;,<var>file_handle</var>}
+        /TYPE=CSV
+        [/REPLACE]
+        [/MISSING={IGNORE,RECODE}]
+
+        [/DROP=<var>var_list</var>]
+        [/KEEP=<var>var_list</var>]
+        [/RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;]
+        [/UNSELECTED={RETAIN,DELETE}]
+
+        [/FIELDNAMES]
+        [/CELLS={VALUES,LABELS}]
+        [/TEXTOPTIONS DELIMITER=&rsquo;<var>delimiter</var>&rsquo;]
+        [/TEXTOPTIONS QUALIFIER=&rsquo;<var>qualifier</var>&rsquo;]
+        [/TEXTOPTIONS DECIMAL={DOT,COMMA}]
+        [/TEXTOPTIONS FORMAT={PLAIN,VARIABLE}]
+</pre></td></tr></table>
+
+<p>The SAVE TRANSLATE command with TYPE=CSV or TYPE=TAB writes data in a
+comma- or tab-separated value format similar to that described by
+RFC&nbsp;4180.  Each variable becomes one output column, and each case
+becomes one line of output.  If FIELDNAMES is specified, an additional
+line at the top of the output file lists variable names.
+</p>
+<p>The CELLS and TEXTOPTIONS FORMAT settings determine how values are
+written to the output file:
+</p>
+<dl compact="compact">
+<dt> CELLS=VALUES FORMAT=PLAIN (the default settings)</dt>
+<dd><p>Writes variables to the output in &ldquo;plain&rdquo; formats that ignore the
+details of variable formats.  Numeric values are written as plain
+decimal numbers with enough digits to indicate their exact values in
+machine representation.  Numeric values include &lsquo;<samp>e</samp>&rsquo; followed by
+an exponent if the exponent value would be less than -4 or greater
+than 16.  Dates are written in MM/DD/YYYY format and times in HH:MM:SS
+format.  WKDAY and MONTH values are written as decimal numbers.
+</p>
+<p>Numeric values use, by default, the decimal point character set with
+SET DECIMAL (@pxref{SET DECIMAL}).  Use DECIMAL=DOT or DECIMAL=COMMA
+to force a particular decimal point character.
+</p>
+</dd>
+<dt> CELLS=VALUES FORMAT=VARIABLE</dt>
+<dd><p>Writes variables using their print formats.  Leading and trailing
+spaces are removed from numeric values, and trailing spaces are
+removed from string values.
+</p>
+</dd>
+<dt> CELLS=LABEL FORMAT=PLAIN</dt>
+<dt> CELLS=LABEL FORMAT=VARIABLE</dt>
+<dd><p>Writes value labels where they exist, and otherwise writes the values
+themselves as described above.
+</p></dd>
+</dl>
+
+<p>Regardless of CELLS and TEXTOPTIONS FORMAT, numeric system-missing
+values are output as a single space.
+</p>
+<p>For TYPE=TAB, tab characters delimit values.  For TYPE=CSV, the
+TEXTOPTIONS DELIMITER and DECIMAL settings determine the character
+that separate values within a line.  If DELIMITER is specified, then
+the specified string separate values.  If DELIMITER is not specified,
+then the default is a comma with DECIMAL=DOT or a semicolon with
+DECIMAL=COMMA.  If DECIMAL is not given either, it is implied by the
+decimal point character set with SET DECIMAL (@pxref{SET DECIMAL}).
+</p>
+<p>The TEXTOPTIONS QUALIFIER setting specifies a character that is output
+before and after a value that contains the delimiter character or the
+qualifier character.  The default is a double quote (&lsquo;<samp>&quot;</samp>&rsquo;).  A
+qualifier character that appears within a value is doubled.
+</p>
+<hr size="6">
+<a name="SYSFILE-INFO"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SAVE-TRANSLATE-_002fTYPE_003dCSV-and-TYPE_003dTAB" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#XEXPORT" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="SYSFILE-INFO-1"></a>
+<h2 class="section">1.8 SYSFILE INFO</h2>
+<a name="index-SYSFILE-INFO"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">SYSFILE INFO FILE=&rsquo;<var>file_name</var>&rsquo; [ENCODING=&rsquo;<var>encoding</var>&rsquo;].
+</pre></td></tr></table>
+
+<p>@cmd{SYSFILE INFO} reads the dictionary in an SPSS system file,
+SPSS/PC+ system file, or SPSS portable file, and displays the
+information in its dictionary.
+</p>
+<p>Specify a file name or file handle.  @cmd{SYSFILE INFO} reads that
+file and displays information on its dictionary.
+</p>
+<p>@pspp{} automatically detects the encoding of string data in the file,
+when possible.  The character encoding of old SPSS system files cannot
+always be guessed correctly, and SPSS/PC+ system files do not include
+any indication of their encoding.  Specify the @subcmd{ENCODING}
+subcommand with an <acronym>IANA</acronym> character set name as its string
+argument to override the default, or specify <code>ENCODING='DETECT'</code>
+to analyze and report possibly valid encodings for the system file.
+The @subcmd{ENCODING} subcommand is a @pspp{} extension.
+</p>
+<p>@cmd{SYSFILE INFO} does not affect the current active dataset.
+</p>
+<hr size="6">
+<a name="XEXPORT"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SYSFILE-INFO" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#XSAVE" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="XEXPORT-1"></a>
+<h2 class="section">1.9 XEXPORT</h2>
+<a name="index-XEXPORT"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">XEXPORT
+        /OUTFILE=&rsquo;<var>file_name</var>&rsquo;
+        /DIGITS=<var>n</var>
+        /DROP=<var>var_list</var>
+        /KEEP=<var>var_list</var>
+        /RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;
+        /TYPE={COMM,TAPE}
+        /MAP
+</pre></td></tr></table>
+
+<p>The @cmd{XEXPORT} transformation writes the active dataset dictionary and
+data to a specified portable file.
+</p>
+<p>This transformation is a @pspp{} extension.
+</p>
+<p>It is similar to the @cmd{EXPORT} procedure, with two differences:
+</p>
+<ul>
+<li>
+@cmd{XEXPORT} is a transformation, not a procedure.  It is executed when
+the data is read by a procedure or procedure-like command.
+
+</li><li>
+@cmd{XEXPORT} does not support the @subcmd{UNSELECTED} subcommand.
+</li></ul>
+
+<p>See section <a href="#EXPORT">EXPORT</a>, for more information.
+</p>
+<hr size="6">
+<a name="XSAVE"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#XEXPORT" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[ &gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[ &gt;&gt; ]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<a name="XSAVE-1"></a>
+<h2 class="section">1.10 XSAVE</h2>
+<a name="index-XSAVE"></a>
+
+<table><tr><td>&nbsp;</td><td><pre class="display">XSAVE
+        /OUTFILE=&rsquo;<var>file_name</var>&rsquo;
+        /{UNCOMPRESSED,COMPRESSED,ZCOMPRESSED}
+        /PERMISSIONS={WRITEABLE,READONLY}
+        /DROP=<var>var_list</var>
+        /KEEP=<var>var_list</var>
+        /VERSION=<var>version</var>
+        /RENAME=(<var>src_names</var>=<var>target_names</var>)&hellip;
+        /NAMES
+        /MAP
+</pre></td></tr></table>
+
+<p>The @cmd{XSAVE} transformation writes the active dataset&rsquo;s dictionary and
+data to a system file.  It is similar to the @cmd{SAVE}
+procedure, with two differences:
+</p>
+<ul>
+<li>
+@cmd{XSAVE} is a transformation, not a procedure.  It is executed when
+the data is read by a procedure or procedure-like command.
+
+</li><li>
+@cmd{XSAVE} does not support the @subcmd{UNSELECTED} subcommand.
+</li></ul>
+
+<p>See section <a href="#SAVE">SAVE</a>, for more information.
+</p><hr size="6">
+<a name="SEC_About"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#System-and-Portable-File-IO" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[Contents]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1>About This Document</h1>
+<p>
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+</p>
+<p>
+  The buttons in the navigation panels have the following meaning:
+</p>
+<table border="1">
+  <tr>
+    <th> Button </th>
+    <th> Name </th>
+    <th> Go to </th>
+    <th> From 1.2.3 go to</th>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt; ] </td>
+    <td align="center">Back</td>
+    <td>Previous section in reading order</td>
+    <td>1.2.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt; ] </td>
+    <td align="center">Forward</td>
+    <td>Next section in reading order</td>
+    <td>1.2.4</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &lt;&lt; ] </td>
+    <td align="center">FastBack</td>
+    <td>Beginning of this chapter or previous chapter</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td align="center"> [ Up ] </td>
+    <td align="center">Up</td>
+    <td>Up section</td>
+    <td>1.2</td>
+  </tr>
+  <tr>
+    <td align="center"> [ &gt;&gt; ] </td>
+    <td align="center">FastForward</td>
+    <td>Next chapter</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td align="center"> [Top] </td>
+    <td align="center">Top</td>
+    <td>Cover (top) of document</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Contents] </td>
+    <td align="center">Contents</td>
+    <td>Table of contents</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [Index] </td>
+    <td align="center">Index</td>
+    <td>Index</td>
+    <td> &nbsp; </td>
+  </tr>
+  <tr>
+    <td align="center"> [ ? ] </td>
+    <td align="center">About</td>
+    <td>About (help)</td>
+    <td> &nbsp; </td>
+  </tr>
+</table>
+
+<p>
+  where the <strong> Example </strong> assumes that the current position is at <strong> Subsubsection One-Two-Three </strong> of a document of the following structure:
+</p>
+
+<ul>
+  <li> 1. Section One
+    <ul>
+      <li>1.1 Subsection One-One
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.2 Subsection One-Two
+        <ul>
+          <li>1.2.1 Subsubsection One-Two-One</li>
+          <li>1.2.2 Subsubsection One-Two-Two</li>
+          <li>1.2.3 Subsubsection One-Two-Three &nbsp; &nbsp;
+            <strong>&lt;== Current Position </strong></li>
+          <li>1.2.4 Subsubsection One-Two-Four</li>
+        </ul>
+      </li>
+      <li>1.3 Subsection One-Three
+        <ul>
+          <li>...</li>
+        </ul>
+      </li>
+      <li>1.4 Subsection One-Four</li>
+    </ul>
+  </li>
+</ul>
+
+<hr size="1">
+<p>
+ <font size="-1">
+  This document was generated by <em>StatSoft</em> on <em>February 22, 2017</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>
