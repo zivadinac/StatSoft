@@ -1044,6 +1044,12 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
       break;
     case CT_BAR:
       break;
+    case CT_QQ:
+      break;
+    case CT_PP:
+      break;
+    case CT_PERCENTILES:
+	  break;
     case CT_NONE:
       lex_error_expecting (lexer, "HISTOGRAM", "SCATTERPLOT", "BAR", NULL);
       goto error;
