@@ -71,9 +71,10 @@ src/language/stats/graph.lo: src/language/stats/graph.c \
  src/math/order-stats.h src/output/charts/plot-hist.h \
  src/output/chart-item.h src/output/output-item.h \
  src/output/charts/scatterplot.h src/output/charts/barchart.h \
- src/libpspp/hmap.h src/language/command.h src/language/command.def \
- src/language/lexer/lexer.h gl/unistd.h /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ src/libpspp/hmap.h src/output/charts/percentiles.h \
+ src/output/charts/qq.h src/output/charts/pp.h src/language/command.h \
+ src/language/command.def src/language/lexer/lexer.h gl/unistd.h \
+ /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h src/data/identifier.h \
@@ -333,6 +334,12 @@ src/output/charts/scatterplot.h:
 src/output/charts/barchart.h:
 
 src/libpspp/hmap.h:
+
+src/output/charts/percentiles.h:
+
+src/output/charts/qq.h:
+
+src/output/charts/pp.h:
 
 src/language/command.h:
 
