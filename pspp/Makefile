@@ -431,7 +431,7 @@ lib_tukey_libtukey_la_LIBADD =
 am_lib_tukey_libtukey_la_OBJECTS = lib/tukey/ptukey.lo \
 	lib/tukey/qtukey.lo
 lib_tukey_libtukey_la_OBJECTS = $(am_lib_tukey_libtukey_la_OBJECTS)
-libglade_psppire_la_DEPENDENCIES = gl/libgl.la
+#libglade_psppire_la_DEPENDENCIES = gl/libgl.la
 am__libglade_psppire_la_SOURCES_DIST = src/ui/gui/helper.c \
 	src/ui/gui/dialog-common.c src/ui/gui/psppire-var-ptr.c \
 	src/data/format.c src/ui/gui/psppire-format.c \
@@ -444,33 +444,33 @@ am__libglade_psppire_la_SOURCES_DIST = src/ui/gui/helper.c \
 	src/ui/gui/psppire-val-chooser.c \
 	src/ui/gui/psppire-value-entry.c \
 	src/ui/gui/psppire-window-base.c
-am_libglade_psppire_la_OBJECTS =  \
-	src/ui/gui/libglade_psppire_la-helper.lo \
-	src/ui/gui/libglade_psppire_la-dialog-common.lo \
-	src/ui/gui/libglade_psppire_la-psppire-var-ptr.lo \
-	src/data/libglade_psppire_la-format.lo \
-	src/ui/gui/libglade_psppire_la-psppire-format.lo \
-	src/data/libglade_psppire_la-value-labels.lo \
-	src/ui/gui/libglade_psppire_la-psppire-conf.lo \
-	src/ui/gui/libglade_psppire_la-psppire-acr.lo \
-	src/ui/gui/libglade_psppire_la-psppire-buttonbox.lo \
-	src/ui/gui/libglade_psppire_la-psppire-dialog.lo \
-	src/ui/gui/libglade_psppire_la-psppire-keypad.lo \
-	src/ui/gui/libglade_psppire_la-psppire-dictview.lo \
-	src/ui/gui/libglade_psppire_la-psppire-selector.lo \
-	src/ui/gui/libglade_psppire_la-psppire-select-dest.lo \
-	src/ui/gui/libglade_psppire_la-psppire-var-view.lo \
-	src/ui/gui/libglade_psppire_la-psppire-checkbox-treeview.lo \
-	src/ui/gui/libglade_psppire_la-psppire-val-chooser.lo \
-	src/ui/gui/libglade_psppire_la-psppire-value-entry.lo \
-	src/ui/gui/libglade_psppire_la-psppire-window-base.lo
+#am_libglade_psppire_la_OBJECTS =  \
+#	src/ui/gui/libglade_psppire_la-helper.lo \
+#	src/ui/gui/libglade_psppire_la-dialog-common.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-var-ptr.lo \
+#	src/data/libglade_psppire_la-format.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-format.lo \
+#	src/data/libglade_psppire_la-value-labels.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-conf.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-acr.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-buttonbox.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-dialog.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-keypad.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-dictview.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-selector.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-select-dest.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-var-view.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-checkbox-treeview.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-val-chooser.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-value-entry.lo \
+#	src/ui/gui/libglade_psppire_la-psppire-window-base.lo
 libglade_psppire_la_OBJECTS = $(am_libglade_psppire_la_OBJECTS)
 libglade_psppire_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libglade_psppire_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am_libglade_psppire_la_rpath = -rpath \
-	$(moduledir)
+#am_libglade_psppire_la_rpath = -rpath \
+#	$(moduledir)
 am__DEPENDENCIES_1 =
 src_data_libdata_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -2262,8 +2262,8 @@ FGREP = /bin/grep -F
 FLOAT_H = 
 FLOOR_LIBM = 
 GETOPT_H = 
-GLADE_UI_CFLAGS = -pthread -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/mirclient -I/usr/include/mircommon -I/usr/include/mircookie -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/libxml2 -I/usr/include/libgladeui-2.0
-GLADE_UI_LIBS = -lgladeui-2 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lxml2
+GLADE_UI_CFLAGS = 
+GLADE_UI_LIBS = 
 GLIBC21 = yes
 GLIB_CFLAGS = -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 GLIB_COMPILE_RESOURCES = glib-compile-resources
@@ -5175,54 +5175,54 @@ TESTSUITE = $(srcdir)/tests/testsuite
 AUTOTEST_PATH = tests/data:tests/language/lexer:tests/libpspp:tests/output:src/ui/terminal:utilities
 AUTOM4TE = $(SHELL) $(srcdir)/build-aux/missing --run autom4te
 AUTOTEST = $(AUTOM4TE) --language=autotest
-module_LTLIBRARIES = libglade-psppire.la
-moduledir = `pkg-config --variable=moduledir gladeui-2.0`
-catalogdir = `pkg-config --variable=catalogdir gladeui-2.0`
-pixmapdir = `pkg-config --variable=pixmapdir gladeui-2.0`
-small_pixmapdir = $(pixmapdir)/hicolor/16x16/actions
-large_pixmapdir = $(pixmapdir)/hicolor/22x22/actions
+#module_LTLIBRARIES = libglade-psppire.la
+#moduledir = `pkg-config --variable=moduledir gladeui-2.0`
+#catalogdir = `pkg-config --variable=catalogdir gladeui-2.0`
+#pixmapdir = `pkg-config --variable=pixmapdir gladeui-2.0`
+#small_pixmapdir = $(pixmapdir)/hicolor/16x16/actions
+#large_pixmapdir = $(pixmapdir)/hicolor/22x22/actions
 
 # format.c for psppire-value-entry.c
-libglade_psppire_la_SOURCES = \
-	src/ui/gui/helper.c \
-	src/ui/gui/dialog-common.c \
-	src/ui/gui/psppire-var-ptr.c \
-	src/data/format.c \
-	src/ui/gui/psppire-format.c \
-	src/data/value-labels.c \
-	src/ui/gui/psppire-conf.c \
-	src/ui/gui/psppire-acr.c \
-	src/ui/gui/psppire-buttonbox.c \
-	src/ui/gui/psppire-dialog.c \
-	src/ui/gui/psppire-keypad.c \
-	src/ui/gui/psppire-dictview.c \
-	src/ui/gui/psppire-selector.c \
-	src/ui/gui/psppire-select-dest.c \
-	src/ui/gui/psppire-var-view.c \
-	src/ui/gui/psppire-checkbox-treeview.c \
-	src/ui/gui/psppire-val-chooser.c \
-	src/ui/gui/psppire-value-entry.c \
-	src/ui/gui/psppire-window-base.c
+#libglade_psppire_la_SOURCES = \
+#	src/ui/gui/helper.c \
+#	src/ui/gui/dialog-common.c \
+#	src/ui/gui/psppire-var-ptr.c \
+#	src/data/format.c \
+#	src/ui/gui/psppire-format.c \
+#	src/data/value-labels.c \
+#	src/ui/gui/psppire-conf.c \
+#	src/ui/gui/psppire-acr.c \
+#	src/ui/gui/psppire-buttonbox.c \
+#	src/ui/gui/psppire-dialog.c \
+#	src/ui/gui/psppire-keypad.c \
+#	src/ui/gui/psppire-dictview.c \
+#	src/ui/gui/psppire-selector.c \
+#	src/ui/gui/psppire-select-dest.c \
+#	src/ui/gui/psppire-var-view.c \
+#	src/ui/gui/psppire-checkbox-treeview.c \
+#	src/ui/gui/psppire-val-chooser.c \
+#	src/ui/gui/psppire-value-entry.c \
+#	src/ui/gui/psppire-window-base.c
 
-dist_catalog_DATA = \
-	glade/psppire.xml
+#dist_catalog_DATA = \
+#	glade/psppire.xml
 
-dist_small_pixmap_DATA = \
-	glade/icons/16x16/widget-psppire-psppire-acr.png \
-	glade/icons/16x16/widget-psppire-psppire-dialog.png \
-	glade/icons/16x16/widget-psppire-psppire-keypad.png \
-	glade/icons/16x16/widget-psppire-psppire-selector.png
+#dist_small_pixmap_DATA = \
+#	glade/icons/16x16/widget-psppire-psppire-acr.png \
+#	glade/icons/16x16/widget-psppire-psppire-dialog.png \
+#	glade/icons/16x16/widget-psppire-psppire-keypad.png \
+#	glade/icons/16x16/widget-psppire-psppire-selector.png
 
-dist_large_pixmap_DATA = \
-	glade/icons/22x22/widget-psppire-psppire-acr.png \
-	glade/icons/22x22/widget-psppire-psppire-dialog.png \
-	glade/icons/22x22/widget-psppire-psppire-keypad.png \
-	glade/icons/22x22/widget-psppire-psppire-selector.png
+#dist_large_pixmap_DATA = \
+#	glade/icons/22x22/widget-psppire-psppire-acr.png \
+#	glade/icons/22x22/widget-psppire-psppire-dialog.png \
+#	glade/icons/22x22/widget-psppire-psppire-keypad.png \
+#	glade/icons/22x22/widget-psppire-psppire-selector.png
 
-libglade_psppire_la_CFLAGS = $(GLADE_UI_CFLAGS) $(GLADE_CFLAGS) \
-	$(GTKSOURCEVIEW_CFLAGS) -I $(top_srcdir)/src/ui/gui -DDEBUGGING
+#libglade_psppire_la_CFLAGS = $(GLADE_UI_CFLAGS) $(GLADE_CFLAGS) \
+#	$(GTKSOURCEVIEW_CFLAGS) -I $(top_srcdir)/src/ui/gui -DDEBUGGING
 
-libglade_psppire_la_LIBADD = gl/libgl.la
+#libglade_psppire_la_LIBADD = gl/libgl.la
 module_sources = \
  perl-module/Changes \
  perl-module/COPYING \

@@ -85,7 +85,7 @@ refresh (PsppireDialogAction *rd_)
 
 static gboolean on_unselect_all(gpointer data)
 {
-	g_print("IDEMOOOo");
+	
 	PsppireDialogActionPercentiles* act = PSPPIRE_DIALOG_ACTION_PERCENTILES (data);
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_change), FALSE);
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_remove), FALSE);
@@ -148,7 +148,7 @@ on_select_row(GtkWidget *w, PsppireDialogActionPercentiles *act)
 	gchar* str;
 	if(!get_selected_value(act,&str))
 		return;
-	g_print("%s",str);	
+		
 	gtk_entry_set_text (act->percentiles_entry, str);	
 }
 

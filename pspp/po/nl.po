@@ -173,7 +173,7 @@ msgstr "Euro"
 msgid "Custom"
 msgstr "Aangepast"
 
-#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:173
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:200
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -182,11 +182,11 @@ msgstr "Toevoegen"
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:199
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:187
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:246
+#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:288
 #: src/ui/gui/qq-plot.ui:300
 msgid "OK"
 msgstr "OK"
@@ -208,7 +208,7 @@ msgstr "Plak"
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:258
+#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:273
 #: src/ui/gui/qq-plot.ui:335
 msgid "Cancel"
 msgstr "Afbreken"
@@ -3537,7 +3537,7 @@ msgstr ""
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
-#: src/ui/gui/percentiles.ui:104
+#: src/ui/gui/percentiles.ui:103
 msgid "Percentiles"
 msgstr "Percentiles"
 
@@ -8196,35 +8196,39 @@ msgstr "Statistieken"
 msgid "Percentile Values"
 msgstr "Percentiles"
 
-#: src/ui/gui/percentiles.ui:48
+#: src/ui/gui/percentiles.ui:47
 #, fuzzy
 msgid "Sextiles"
 msgstr "Tekstbestanden"
 
-#: src/ui/gui/percentiles.ui:62
+#: src/ui/gui/percentiles.ui:61
 #, fuzzy
 msgid "Quintiles"
 msgstr "_Variabelen..."
 
-#: src/ui/gui/percentiles.ui:76
+#: src/ui/gui/percentiles.ui:75
 #, fuzzy
 msgid "Quartiles"
 msgstr "_Variabelen..."
 
-#: src/ui/gui/percentiles.ui:90
+#: src/ui/gui/percentiles.ui:89
 #, fuzzy
 msgid "Deciles"
 msgstr "Decimalen"
 
-#: src/ui/gui/percentiles.ui:145
+#: src/ui/gui/percentiles.ui:144
 #, fuzzy
 msgid "Percentiles Values"
 msgstr "Percentiles"
 
-#: src/ui/gui/percentiles.ui:187
+#: src/ui/gui/percentiles.ui:174
 #, fuzzy
 msgid "Change"
 msgstr "Wijzi_g"
+
+#: src/ui/gui/percentiles.ui:216
+msgid "Discard"
+msgstr ""
 
 #: src/ui/gui/qq-plot.ui:8
 msgid "QQ Plot"
