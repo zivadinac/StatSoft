@@ -16,6 +16,12 @@ src_output_liboutput_la_SOURCES = \
 	src/output/charts/np-plot.h \
 	src/output/charts/barchart.c \
 	src/output/charts/barchart.h \
+	src/output/charts/percentiles.c \
+	src/output/charts/percentiles.h \
+	src/output/charts/qq.c \
+	src/output/charts/qq.h \
+	src/output/charts/pp.c \
+	src/output/charts/pp.h \
 	src/output/charts/piechart.c \
 	src/output/charts/piechart.h \
 	src/output/charts/plot-hist.c \

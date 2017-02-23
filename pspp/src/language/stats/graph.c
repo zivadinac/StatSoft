@@ -50,6 +50,9 @@
 #include "output/charts/plot-hist.h"
 #include "output/charts/scatterplot.h"
 #include "output/charts/barchart.h"
+#include "output/charts/percentiles.h"
+#include "output/charts/qq.h"
+#include "output/charts/pp.h"
 
 #include "language/command.h"
 #include "language/lexer/lexer.h"
@@ -74,7 +77,10 @@ enum chart_type
     CT_HILO,
     CT_HISTOGRAM,
     CT_SCATTERPLOT,
-    CT_PARETO
+    CT_PARETO,
+    CT_PP,
+    CT_QQ,
+    CT_PERCENTILES
   };
 
 enum scatter_type
@@ -282,6 +288,119 @@ parse_function (struct lexer *lexer, struct graph *graph)
   return false;
 }
 
+static void
+show_percentiles (const struct graph *cmd, struct casereader *input)
+{
+	struct string title;
+	struct percentiles *percentiles;
+	bool byvar_overflow = false;
+
+	ds_init_empty (&title);
+
+	if (cmd->n_by_vars > 0)
+	{
+		ds_put_format (&title, _("%s vs. %s by %s"),
+				var_to_string (cmd->dep_vars[1]),
+				var_to_string (cmd->dep_vars[0]),
+				var_to_string (cmd->by_var[0]));
+	}
+	else
+	{
+		ds_put_format (&title, _("%s vs. %s"),
+				var_to_string (cmd->dep_vars[1]),
+				var_to_string (cmd->dep_vars[0]));
+	}
+
+	/* percentiles = percentiles_create (input,
+			var_to_string(cmd->dep_vars[0]),
+			var_to_string(cmd->dep_vars[1]),
+			(cmd->n_by_vars > 0) ? cmd->by_var[0] : NULL,
+			&byvar_overflow,
+			ds_cstr (&title),
+			cmd->es[0].minimum, cmd->es[0].maximum,
+			cmd->es[1].minimum, cmd->es[1].maximum); */ //TODO call
+
+	g_print("show_percentiles not implemented");
+
+	percentiles_submit (percentiles);
+	ds_destroy (&title);
+}
+
+static void
+show_qq (const struct graph *cmd, struct casereader *input)
+{
+	struct string title;
+	struct qq *qq;
+	bool byvar_overflow = false;
+
+	ds_init_empty (&title);
+
+	if (cmd->n_by_vars > 0)
+	{
+		ds_put_format (&title, _("%s vs. %s by %s"),
+				var_to_string (cmd->dep_vars[1]),
+				var_to_string (cmd->dep_vars[0]),
+				var_to_string (cmd->by_var[0]));
+	}
+	else
+	{
+		ds_put_format (&title, _("%s vs. %s"),
+				var_to_string (cmd->dep_vars[1]),
+				var_to_string (cmd->dep_vars[0]));
+	}
+
+	/* qq = qq_create (input,
+			var_to_string(cmd->dep_vars[0]),
+			var_to_string(cmd->dep_vars[1]),
+			(cmd->n_by_vars > 0) ? cmd->by_var[0] : NULL,
+			&byvar_overflow,
+			ds_cstr (&title),
+			cmd->es[0].minimum, cmd->es[0].maximum,
+			cmd->es[1].minimum, cmd->es[1].maximum); */ //TODO call
+
+	g_print("show_qq not implemented");
+
+	qq_submit (qq);
+	ds_destroy (&title);
+}
+
+static void
+show_pp (const struct graph *cmd, struct casereader *input)
+{
+	struct string title;
+	struct pp *pp;
+	bool byvar_overflow = false;
+
+	ds_init_empty (&title);
+
+	if (cmd->n_by_vars > 0)
+	{
+		ds_put_format (&title, _("%s vs. %s by %s"),
+				var_to_string (cmd->dep_vars[1]),
+				var_to_string (cmd->dep_vars[0]),
+				var_to_string (cmd->by_var[0]));
+	}
+	else
+	{
+		ds_put_format (&title, _("%s vs. %s"),
+				var_to_string (cmd->dep_vars[1]),
+				var_to_string (cmd->dep_vars[0]));
+	}
+
+	/* pp = pp_create (input,
+			var_to_string(cmd->dep_vars[0]),
+			var_to_string(cmd->dep_vars[1]),
+			(cmd->n_by_vars > 0) ? cmd->by_var[0] : NULL,
+			&byvar_overflow,
+			ds_cstr (&title),
+			cmd->es[0].minimum, cmd->es[0].maximum,
+			cmd->es[1].minimum, cmd->es[1].maximum); */ //TODO call
+
+	g_print("show_pp not implemented");
+
+	pp_submit (pp);
+	ds_destroy (&title);
+}
 
 static void
 show_scatterplot (const struct graph *cmd, struct casereader *input)
@@ -597,6 +716,15 @@ run_graph (struct graph *cmd, struct casereader *input)
     case CT_SCATTERPLOT:
       show_scatterplot (cmd,reader);
       break;
+    case CT_PP:
+      show_pp(cmd,reader);
+      break;
+    case CT_QQ:
+      show_qq(cmd,reader);
+      break;
+    case CT_PERCENTILES:
+      show_percentiles(cmd,reader);
+      break;
     default:
       NOT_REACHED ();
       break;
@@ -712,6 +840,36 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
 	  if (! parse_function (lexer, &graph))
 	    goto error;
 	}
+      else if(lex_match_id(lexer, "QQ"))
+	{
+	  if (graph.chart_type != CT_NONE)
+	    {
+	      lex_error (lexer, _("Only one chart type is allowed."));
+	      goto error;
+	    }
+	  graph.chart_type = CT_QQ;
+	  g_print("lexer id: QQ)");
+	}
+      else if(lex_match_id(lexer, "PP"))
+	{
+	  if (graph.chart_type != CT_NONE)
+	    {
+	      lex_error (lexer, _("Only one chart type is allowed."));
+	      goto error;
+	    }
+	  graph.chart_type = CT_PP;
+	  g_print("lexer id: PP)");
+	}
+      else if(lex_match_id(lexer, "PERCENTILES"))
+	{
+	  if (graph.chart_type != CT_NONE)
+	    {
+	      lex_error (lexer, _("Only one chart type is allowed."));
+	      goto error;
+	    }
+	  graph.chart_type = CT_PERCENTILES;
+	  g_print("lexer id: PERCENTILES)");
+        }
       else if (lex_match_id (lexer, "SCATTERPLOT"))
 	{
 	  if (graph.chart_type != CT_NONE)
