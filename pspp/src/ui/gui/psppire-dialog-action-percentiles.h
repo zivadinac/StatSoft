@@ -63,7 +63,7 @@ struct _PsppireDialogActionPercentiles
 	GtkWidget *sextiles_checkbox;
 	GtkWidget *deciles_checkbox;
 	GtkWidget *percentiles_checkbox;
-  
+	int list_size;
 	/* Entry Box */
 	GtkWidget *percentiles_entry;
   
@@ -71,8 +71,8 @@ struct _PsppireDialogActionPercentiles
 	GtkWidget *percentiles_add;
 	GtkWidget *percentiles_change;
 	GtkWidget *percentiles_remove;
-	GtkWidget *percentiles_ok;
-	GtkWidget *percentiles_cancel;
+	//GtkWidget *percentiles_ok;
+	//GtkWidget *percentiles_cancel;
 	GtkWidget *percentiles_discard;
 	
 	/* Treeview */

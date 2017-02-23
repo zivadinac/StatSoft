@@ -83,7 +83,7 @@ refresh (PsppireDialogAction *rd_)
   gtk_entry_set_text (GTK_ENTRY (rd->parameter1_entry), "");
   gtk_entry_set_text (GTK_ENTRY (rd->parameter2_entry), "");
   
-  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->estimate_from_data_checkbox), TRUE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->estimate_from_data_checkbox), FALSE);
   
   gtk_widget_set_sensitive  (rd->parameter1_entry, FALSE);
   gtk_widget_set_sensitive  (rd->parameter2_entry, FALSE);
@@ -95,36 +95,36 @@ refresh (PsppireDialogAction *rd_)
   
 }
 
-static void
-qq_plot_ok_onclick (GtkButton* ok, PsppireDialogActionQQPlot *act)
-{
-	g_print("KLIK NA OK \n");		
-}
+//static void
+//qq_plot_ok_onclick (GtkButton* ok, PsppireDialogActionQQPlot *act)
+//{
+//	g_print("KLIK NA OK \n");		
+//}
 
-static void
-qq_plot_reset_onclick (GtkButton* reset, PsppireDialogActionQQPlot *act)
-{
-	g_print("KLIK NA RESET \n");
-}
+//static void
+//qq_plot_reset_onclick (GtkButton* reset, PsppireDialogActionQQPlot *act)
+//{
+//	g_print("KLIK NA RESET \n");
+//}
 
-static void
-qq_plot_cancel_onclick (GtkButton* cancel, PsppireDialogActionQQPlot *act)
-{
-	g_print("KLIK NA CANCEL \n");
-}
+//static void
+//qq_plot_cancel_onclick (GtkButton* cancel, PsppireDialogActionQQPlot *act)
+//{
+//	g_print("KLIK NA CANCEL \n");
+//}
 
 static void
 qq_plot_estimate_data_toggled (GtkCheckButton *estimate_from_data_checkbox, PsppireDialogActionQQPlot *rd)
 {
 	if(gtk_toggle_button_get_active(GTK_CHECK_BUTTON(rd->estimate_from_data_checkbox))){
 		
-		gtk_widget_set_sensitive  (rd->parameter1_entry, FALSE);
-		gtk_widget_set_sensitive  (rd->parameter2_entry, FALSE);
+		gtk_widget_set_sensitive  (rd->parameter1_entry, TRUE);
+		gtk_widget_set_sensitive  (rd->parameter2_entry, TRUE);
 		
 	}else {
 		
-		gtk_widget_set_sensitive  (rd->parameter1_entry, TRUE);
-		gtk_widget_set_sensitive  (rd->parameter2_entry, TRUE);
+		gtk_widget_set_sensitive  (rd->parameter1_entry, FALSE);
+		gtk_widget_set_sensitive  (rd->parameter2_entry, FALSE);
 		
 	}
 }
@@ -165,9 +165,9 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
      
      
        
-      act->qq_plot_ok=get_widget_assert(xml,"qq-plot-ok-button");
-      act->qq_plot_cancel=get_widget_assert(xml,"qq-plot-cancel-button");
-      act->qq_plot_reset=get_widget_assert(xml,"qq-plot-reset-button");
+    //  act->qq_plot_ok=get_widget_assert(xml,"qq-plot-ok-button");
+    //  act->qq_plot_cancel=get_widget_assert(xml,"qq-plot-cancel-button");
+    //  act->qq_plot_reset=get_widget_assert(xml,"qq-plot-reset-button");
       
       act->distribution_combobox=get_widget_assert(xml,"distribution-combobox");
       
@@ -180,9 +180,9 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
       
       
   
-      g_signal_connect(act->qq_plot_ok, "clicked", G_CALLBACK (qq_plot_ok_onclick), pda);
-	  g_signal_connect(act->qq_plot_reset, "clicked", G_CALLBACK (qq_plot_reset_onclick), pda);
-	  g_signal_connect(act->qq_plot_cancel, "clicked", G_CALLBACK (qq_plot_cancel_onclick), pda);
+     // g_signal_connect(act->qq_plot_ok, "clicked", G_CALLBACK (qq_plot_ok_onclick), pda);
+	 // g_signal_connect(act->qq_plot_reset, "clicked", G_CALLBACK (qq_plot_reset_onclick), pda);
+	 // g_signal_connect(act->qq_plot_cancel, "clicked", G_CALLBACK (qq_plot_cancel_onclick), pda);
 
 	  g_signal_connect(act->estimate_from_data_checkbox, "toggled", G_CALLBACK (qq_plot_estimate_data_toggled), act);
       
@@ -205,7 +205,9 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
 static char *
 generate_syntax (const PsppireDialogAction *a)
 {
- return NULL;
+ GString *string = g_string_new ("GRAPH /QQ ");
+ 
+ return string->str;
 }
 
 static void
