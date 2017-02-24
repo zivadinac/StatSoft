@@ -42,12 +42,24 @@ dialog_state_valid (gpointer rd_)
 { 
  PsppireDialogActionQQPlot *rd = PSPPIRE_DIALOG_ACTION_QQ_PLOT (rd_);
 
-  if (0 == g_strcmp0 ("", gtk_entry_get_text(GTK_ENTRY (rd->parameter1_entry))) && 0 == g_strcmp0 ("", gtk_entry_get_text(GTK_ENTRY (rd->parameter2_entry))))
-  {
-	return FALSE;
-  }
+	GtkTreeIter notused;
+	GtkTreeModel *vars =
+    gtk_tree_view_get_model (GTK_TREE_VIEW (rd->selected_variables_treeview));
 
-  return TRUE;
+	if(!(gtk_toggle_button_get_active(GTK_CHECK_BUTTON(rd->estimate_from_data_checkbox)))){
+		
+		if (0 != g_strcmp0 ("", gtk_entry_get_text(GTK_ENTRY (rd->parameter1_entry))) && 0 != g_strcmp0 ("", gtk_entry_get_text(GTK_ENTRY (rd->parameter2_entry))))
+
+		return gtk_tree_model_get_iter_first (vars, &notused);
+		
+		}
+		else {
+
+  return gtk_tree_model_get_iter_first (vars, &notused);
+
+}
+
+
 }
 
 static void
@@ -83,12 +95,28 @@ refresh (PsppireDialogAction *rd_)
   gtk_entry_set_text (GTK_ENTRY (rd->parameter1_entry), "");
   gtk_entry_set_text (GTK_ENTRY (rd->parameter2_entry), "");
   
-  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->estimate_from_data_checkbox), FALSE);
+  gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->estimate_from_data_checkbox), TRUE);
   
   gtk_widget_set_sensitive  (rd->parameter1_entry, FALSE);
   gtk_widget_set_sensitive  (rd->parameter2_entry, FALSE);
   
+  GtkListStore* list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(rd->selected_variables_treeview));
+  gtk_list_store_clear(GTK_LIST_STORE (list_store));
+  
+
+ // GtkListStore *store;
+ // store = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(rd->distribution_combobox)));
+ // gtk_list_store_clear(GTK_LIST_STORE(store));
+  
+ 
+  
+  if ( rd->not_first_run == 0 ) { //trenutni workaround, ako nadjem nekad kako se brise liststore iz comboboxa izbacicu ovo
+	  
   populate_combo_model (GTK_COMBO_BOX(rd->distribution_combobox));
+  rd->not_first_run++;
+  
+  }
+   
    
   gtk_combo_box_set_active (GTK_COMBO_BOX (rd->distribution_combobox), 0);
   
@@ -118,13 +146,13 @@ qq_plot_estimate_data_toggled (GtkCheckButton *estimate_from_data_checkbox, Pspp
 {
 	if(gtk_toggle_button_get_active(GTK_CHECK_BUTTON(rd->estimate_from_data_checkbox))){
 		
-		gtk_widget_set_sensitive  (rd->parameter1_entry, TRUE);
-		gtk_widget_set_sensitive  (rd->parameter2_entry, TRUE);
+		gtk_widget_set_sensitive  (rd->parameter1_entry, FALSE);
+		gtk_widget_set_sensitive  (rd->parameter2_entry, FALSE);
 		
 	}else {
 		
-		gtk_widget_set_sensitive  (rd->parameter1_entry, FALSE);
-		gtk_widget_set_sensitive  (rd->parameter2_entry, FALSE);
+		gtk_widget_set_sensitive  (rd->parameter1_entry, TRUE);
+		gtk_widget_set_sensitive  (rd->parameter2_entry, TRUE);
 		
 	}
 }
@@ -171,6 +199,7 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
       
       act->distribution_combobox=get_widget_assert(xml,"distribution-combobox");
       
+     
       
       gtk_entry_set_visibility (GTK_ENTRY(act->parameter1_entry), true);
       gtk_entry_set_input_purpose(GTK_ENTRY(act->parameter1_entry), GTK_INPUT_PURPOSE_NUMBER);
@@ -186,7 +215,7 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
 
 	  g_signal_connect(act->estimate_from_data_checkbox, "toggled", G_CALLBACK (qq_plot_estimate_data_toggled), act);
       
-    
+     //populate_combo_model (GTK_COMBO_BOX(act->distribution_combobox));
             
       psppire_dialog_action_set_refresh (pda, refresh);
 
@@ -195,6 +224,7 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
 	  renderer = gtk_cell_renderer_text_new ();
 
       column = gtk_tree_view_column_new_with_attributes ("Values", renderer, "text", 0, NULL);
+      
       
       
 

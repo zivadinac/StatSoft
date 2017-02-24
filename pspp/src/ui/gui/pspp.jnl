@@ -24,3 +24,6 @@ quit
 
 quit
 
+warning: Data is not valid as format F: Field contents are not numeric.
+GRAPH SCATTERPLOT(BIVARIATE) = Var0002 WITH Var0001.
+
