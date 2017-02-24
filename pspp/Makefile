@@ -730,9 +730,13 @@ am__src_output_liboutput_la_SOURCES_DIST = src/output/ascii.c \
 	src/output/charts/boxplot.c src/output/charts/boxplot.h \
 	src/output/charts/np-plot.c src/output/charts/np-plot.h \
 	src/output/charts/barchart.c src/output/charts/barchart.h \
-	src/output/charts/piechart.c src/output/charts/piechart.h \
-	src/output/charts/plot-hist.c src/output/charts/plot-hist.h \
-	src/output/charts/roc-chart.c src/output/charts/roc-chart.h \
+	src/output/charts/percentiles.c \
+	src/output/charts/percentiles.h src/output/charts/qq.c \
+	src/output/charts/qq.h src/output/charts/pp.c \
+	src/output/charts/pp.h src/output/charts/piechart.c \
+	src/output/charts/piechart.h src/output/charts/plot-hist.c \
+	src/output/charts/plot-hist.h src/output/charts/roc-chart.c \
+	src/output/charts/roc-chart.h \
 	src/output/charts/spreadlevel-plot.c \
 	src/output/charts/spreadlevel-plot.h src/output/charts/scree.c \
 	src/output/charts/scree.h src/output/charts/scatterplot.c \
@@ -780,6 +784,9 @@ am_src_output_liboutput_la_OBJECTS =  \
 	src/output/charts/src_output_liboutput_la-boxplot.lo \
 	src/output/charts/src_output_liboutput_la-np-plot.lo \
 	src/output/charts/src_output_liboutput_la-barchart.lo \
+	src/output/charts/src_output_liboutput_la-percentiles.lo \
+	src/output/charts/src_output_liboutput_la-qq.lo \
+	src/output/charts/src_output_liboutput_la-pp.lo \
 	src/output/charts/src_output_liboutput_la-piechart.lo \
 	src/output/charts/src_output_liboutput_la-plot-hist.lo \
 	src/output/charts/src_output_liboutput_la-roc-chart.lo \
@@ -3926,9 +3933,13 @@ src_output_liboutput_la_SOURCES = src/output/ascii.c \
 	src/output/charts/boxplot.c src/output/charts/boxplot.h \
 	src/output/charts/np-plot.c src/output/charts/np-plot.h \
 	src/output/charts/barchart.c src/output/charts/barchart.h \
-	src/output/charts/piechart.c src/output/charts/piechart.h \
-	src/output/charts/plot-hist.c src/output/charts/plot-hist.h \
-	src/output/charts/roc-chart.c src/output/charts/roc-chart.h \
+	src/output/charts/percentiles.c \
+	src/output/charts/percentiles.h src/output/charts/qq.c \
+	src/output/charts/qq.h src/output/charts/pp.c \
+	src/output/charts/pp.h src/output/charts/piechart.c \
+	src/output/charts/piechart.h src/output/charts/plot-hist.c \
+	src/output/charts/plot-hist.h src/output/charts/roc-chart.c \
+	src/output/charts/roc-chart.h \
 	src/output/charts/spreadlevel-plot.c \
 	src/output/charts/spreadlevel-plot.h src/output/charts/scree.c \
 	src/output/charts/scree.h src/output/charts/scatterplot.c \
@@ -6203,6 +6214,15 @@ src/output/charts/src_output_liboutput_la-np-plot.lo:  \
 src/output/charts/src_output_liboutput_la-barchart.lo:  \
 	src/output/charts/$(am__dirstamp) \
 	src/output/charts/$(DEPDIR)/$(am__dirstamp)
+src/output/charts/src_output_liboutput_la-percentiles.lo:  \
+	src/output/charts/$(am__dirstamp) \
+	src/output/charts/$(DEPDIR)/$(am__dirstamp)
+src/output/charts/src_output_liboutput_la-qq.lo:  \
+	src/output/charts/$(am__dirstamp) \
+	src/output/charts/$(DEPDIR)/$(am__dirstamp)
+src/output/charts/src_output_liboutput_la-pp.lo:  \
+	src/output/charts/$(am__dirstamp) \
+	src/output/charts/$(DEPDIR)/$(am__dirstamp)
 src/output/charts/src_output_liboutput_la-piechart.lo:  \
 	src/output/charts/$(am__dirstamp) \
 	src/output/charts/$(DEPDIR)/$(am__dirstamp)
@@ -7480,10 +7500,13 @@ include src/output/charts/$(DEPDIR)/src_output_liboutput_la-boxplot-cairo.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-boxplot.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-np-plot-cairo.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-np-plot.Plo
+include src/output/charts/$(DEPDIR)/src_output_liboutput_la-percentiles.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-piechart-cairo.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-piechart.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-plot-hist-cairo.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-plot-hist.Plo
+include src/output/charts/$(DEPDIR)/src_output_liboutput_la-pp.Plo
+include src/output/charts/$(DEPDIR)/src_output_liboutput_la-qq.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-roc-chart-cairo.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-roc-chart.Plo
 include src/output/charts/$(DEPDIR)/src_output_liboutput_la-scatterplot-cairo.Plo
@@ -8605,6 +8628,27 @@ src/output/charts/src_output_liboutput_la-barchart.lo: src/output/charts/barchar
 #	$(AM_V_CC)source='src/output/charts/barchart.c' object='src/output/charts/src_output_liboutput_la-barchart.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/output/charts/src_output_liboutput_la-barchart.lo `test -f 'src/output/charts/barchart.c' || echo '$(srcdir)/'`src/output/charts/barchart.c
+
+src/output/charts/src_output_liboutput_la-percentiles.lo: src/output/charts/percentiles.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/output/charts/src_output_liboutput_la-percentiles.lo -MD -MP -MF src/output/charts/$(DEPDIR)/src_output_liboutput_la-percentiles.Tpo -c -o src/output/charts/src_output_liboutput_la-percentiles.lo `test -f 'src/output/charts/percentiles.c' || echo '$(srcdir)/'`src/output/charts/percentiles.c
+	$(AM_V_at)$(am__mv) src/output/charts/$(DEPDIR)/src_output_liboutput_la-percentiles.Tpo src/output/charts/$(DEPDIR)/src_output_liboutput_la-percentiles.Plo
+#	$(AM_V_CC)source='src/output/charts/percentiles.c' object='src/output/charts/src_output_liboutput_la-percentiles.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/output/charts/src_output_liboutput_la-percentiles.lo `test -f 'src/output/charts/percentiles.c' || echo '$(srcdir)/'`src/output/charts/percentiles.c
+
+src/output/charts/src_output_liboutput_la-qq.lo: src/output/charts/qq.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/output/charts/src_output_liboutput_la-qq.lo -MD -MP -MF src/output/charts/$(DEPDIR)/src_output_liboutput_la-qq.Tpo -c -o src/output/charts/src_output_liboutput_la-qq.lo `test -f 'src/output/charts/qq.c' || echo '$(srcdir)/'`src/output/charts/qq.c
+	$(AM_V_at)$(am__mv) src/output/charts/$(DEPDIR)/src_output_liboutput_la-qq.Tpo src/output/charts/$(DEPDIR)/src_output_liboutput_la-qq.Plo
+#	$(AM_V_CC)source='src/output/charts/qq.c' object='src/output/charts/src_output_liboutput_la-qq.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/output/charts/src_output_liboutput_la-qq.lo `test -f 'src/output/charts/qq.c' || echo '$(srcdir)/'`src/output/charts/qq.c
+
+src/output/charts/src_output_liboutput_la-pp.lo: src/output/charts/pp.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/output/charts/src_output_liboutput_la-pp.lo -MD -MP -MF src/output/charts/$(DEPDIR)/src_output_liboutput_la-pp.Tpo -c -o src/output/charts/src_output_liboutput_la-pp.lo `test -f 'src/output/charts/pp.c' || echo '$(srcdir)/'`src/output/charts/pp.c
+	$(AM_V_at)$(am__mv) src/output/charts/$(DEPDIR)/src_output_liboutput_la-pp.Tpo src/output/charts/$(DEPDIR)/src_output_liboutput_la-pp.Plo
+#	$(AM_V_CC)source='src/output/charts/pp.c' object='src/output/charts/src_output_liboutput_la-pp.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/output/charts/src_output_liboutput_la-pp.lo `test -f 'src/output/charts/pp.c' || echo '$(srcdir)/'`src/output/charts/pp.c
 
 src/output/charts/src_output_liboutput_la-piechart.lo: src/output/charts/piechart.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_output_liboutput_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/output/charts/src_output_liboutput_la-piechart.lo -MD -MP -MF src/output/charts/$(DEPDIR)/src_output_liboutput_la-piechart.Tpo -c -o src/output/charts/src_output_liboutput_la-piechart.lo `test -f 'src/output/charts/piechart.c' || echo '$(srcdir)/'`src/output/charts/piechart.c

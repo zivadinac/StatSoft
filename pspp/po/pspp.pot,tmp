@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pspp 0.10.4\n"
 "Report-Msgid-Bugs-To: pspp-dev@gnu.org\n"
-"POT-Creation-Date: 2017-02-22 19:48+0100\n"
+"POT-Creation-Date: 2017-02-24 17:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:200
+#: src/ui/gui/psppire-acr.c:266 src/ui/gui/percentiles.ui:201
 msgid "Add"
 msgstr ""
 
@@ -144,12 +144,11 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:187
+#: src/ui/gui/psppire-acr.c:268 src/ui/gui/percentiles.ui:188
 msgid "Remove"
 msgstr ""
 
-#: src/ui/gui/psppire-buttonbox.c:322 src/ui/gui/percentiles.ui:288
-#: src/ui/gui/qq-plot.ui:300
+#: src/ui/gui/psppire-buttonbox.c:322
 msgid "OK"
 msgstr ""
 
@@ -170,8 +169,7 @@ msgstr ""
 #: src/ui/gui/psppire-dialog-action-aggregate.c:216
 #: src/ui/gui/psppire-output-window.c:360
 #: src/ui/gui/psppire-syntax-window.c:559 src/ui/gui/psppire-window.c:472
-#: src/ui/gui/psppire-window.c:651 src/ui/gui/percentiles.ui:273
-#: src/ui/gui/qq-plot.ui:335
+#: src/ui/gui/psppire-window.c:651
 msgid "Cancel"
 msgstr ""
 
@@ -180,7 +178,6 @@ msgid "Close"
 msgstr ""
 
 #: src/ui/gui/psppire-buttonbox.c:369 src/ui/gui/psppire-import-assistant.c:939
-#: src/ui/gui/qq-plot.ui:370
 msgid "Reset"
 msgstr ""
 
@@ -1691,13 +1688,13 @@ msgid ""
 "system-missing, zero, or negative.  These case(s) were ignored."
 msgstr ""
 
-#: src/language/command.c:207 src/language/stats/graph.c:691
-#: src/language/stats/graph.c:697 src/language/stats/graph.c:731
-#: src/language/stats/graph.c:736 src/language/stats/graph.c:741
-#: src/language/stats/graph.c:794 src/language/stats/graph.c:799
-#: src/language/stats/graph.c:804 src/language/stats/graph.c:809
-#: src/language/stats/graph.c:814 src/language/stats/graph.c:819
-#: src/language/stats/graph.c:824 src/language/utilities/set.q:236
+#: src/language/command.c:207 src/language/stats/graph.c:819
+#: src/language/stats/graph.c:825 src/language/stats/graph.c:889
+#: src/language/stats/graph.c:894 src/language/stats/graph.c:899
+#: src/language/stats/graph.c:952 src/language/stats/graph.c:957
+#: src/language/stats/graph.c:962 src/language/stats/graph.c:967
+#: src/language/stats/graph.c:972 src/language/stats/graph.c:977
+#: src/language/stats/graph.c:982 src/language/utilities/set.q:236
 #, c-format
 msgid "%s is not yet implemented."
 msgstr ""
@@ -3091,7 +3088,7 @@ msgstr ""
 
 #: src/language/stats/correlations.c:118 src/language/stats/descriptives.c:108
 #: src/language/stats/examine.c:890 src/language/stats/factor.c:2115
-#: src/language/stats/frequencies.c:141 src/language/stats/graph.c:212
+#: src/language/stats/frequencies.c:141 src/language/stats/graph.c:218
 #: src/language/stats/ks-one-sample.c:302 src/language/stats/means.c:407
 #: src/language/stats/npar-summary.c:126 src/language/stats/oneway.c:1078
 #: src/language/stats/t-test-indep.c:212
@@ -3199,7 +3196,7 @@ msgid "Range"
 msgstr ""
 
 #: src/language/stats/descriptives.c:117 src/language/stats/examine.c:994
-#: src/language/stats/frequencies.c:152 src/language/stats/graph.c:215
+#: src/language/stats/frequencies.c:152 src/language/stats/graph.c:221
 #: src/language/stats/ks-one-sample.c:311 src/language/stats/npar-summary.c:132
 #: src/language/stats/oneway.c:1092
 #: src/ui/gui/psppire-dialog-action-descriptives.c:41
@@ -3208,7 +3205,7 @@ msgid "Minimum"
 msgstr ""
 
 #: src/language/stats/descriptives.c:118 src/language/stats/examine.c:1008
-#: src/language/stats/frequencies.c:153 src/language/stats/graph.c:214
+#: src/language/stats/frequencies.c:153 src/language/stats/graph.c:220
 #: src/language/stats/ks-one-sample.c:313 src/language/stats/npar-summary.c:135
 #: src/language/stats/oneway.c:1093
 #: src/ui/gui/psppire-dialog-action-descriptives.c:42
@@ -3217,7 +3214,7 @@ msgid "Maximum"
 msgstr ""
 
 #: src/language/stats/descriptives.c:119 src/language/stats/frequencies.c:154
-#: src/language/stats/graph.c:213 src/language/stats/means.c:415
+#: src/language/stats/graph.c:219 src/language/stats/means.c:415
 #: src/ui/gui/psppire-dialog-action-descriptives.c:44
 #: src/ui/gui/psppire-dialog-action-frequencies.c:53
 msgid "Sum"
@@ -3307,7 +3304,7 @@ msgstr ""
 
 #: src/language/stats/examine.c:611 src/language/stats/examine.c:629
 #: src/language/stats/frequencies.c:1616 src/language/stats/npar-summary.c:142
-#: src/ui/gui/percentiles.ui:103
+#: src/ui/gui/percentiles.ui:104
 msgid "Percentiles"
 msgstr ""
 
@@ -3682,7 +3679,7 @@ msgstr ""
 msgid "Omitting pie chart for %s, which has over 50 unique values."
 msgstr ""
 
-#: src/language/stats/frequencies.c:1500 src/language/stats/graph.c:207
+#: src/language/stats/frequencies.c:1500 src/language/stats/graph.c:213
 #: src/ui/gui/psppire-dialog-action-crosstabs.c:88
 #: src/language/stats/crosstabs.q:763
 msgid "Count"
@@ -3753,54 +3750,57 @@ msgstr ""
 msgid "Corrected Total"
 msgstr ""
 
-#: src/language/stats/graph.c:208
+#: src/language/stats/graph.c:214
 msgid "Percentage"
 msgstr ""
 
-#: src/language/stats/graph.c:209
+#: src/language/stats/graph.c:215
 msgid "Cumulative Count"
 msgstr ""
 
-#: src/language/stats/graph.c:210
+#: src/language/stats/graph.c:216
 msgid "Cumulative Percent"
 msgstr ""
 
-#: src/language/stats/graph.c:297
+#: src/language/stats/graph.c:302 src/language/stats/graph.c:340
+#: src/language/stats/graph.c:378 src/language/stats/graph.c:416
 #, c-format
 msgid "%s vs. %s by %s"
 msgstr ""
 
-#: src/language/stats/graph.c:304
+#: src/language/stats/graph.c:309 src/language/stats/graph.c:347
+#: src/language/stats/graph.c:385 src/language/stats/graph.c:423
 #, c-format
 msgid "%s vs. %s"
 msgstr ""
 
-#: src/language/stats/graph.c:322
+#: src/language/stats/graph.c:441
 msgid ""
 "Maximum number of scatterplot categories reached. Your BY variable has too "
 "many distinct values. The coloring of the plot will not be correct."
 msgstr ""
 
-#: src/language/stats/graph.c:493 src/language/stats/rank.c:637
+#: src/language/stats/graph.c:612 src/language/stats/rank.c:637
 #, c-format
 msgid "%s of %s"
 msgstr ""
 
-#: src/language/stats/graph.c:640 src/language/stats/graph.c:671
-#: src/language/stats/graph.c:719
+#: src/language/stats/graph.c:768 src/language/stats/graph.c:799
+#: src/language/stats/graph.c:847 src/language/stats/graph.c:857
+#: src/language/stats/graph.c:867 src/language/stats/graph.c:877
 msgid "Only one chart type is allowed."
 msgstr ""
 
-#: src/language/stats/graph.c:663 src/language/stats/graph.c:762
-#: src/language/stats/graph.c:776
+#: src/language/stats/graph.c:791 src/language/stats/graph.c:920
+#: src/language/stats/graph.c:934
 msgid "Only one variable is allowed."
 msgstr ""
 
-#: src/language/stats/graph.c:785
+#: src/language/stats/graph.c:943
 msgid "Variable expected"
 msgstr ""
 
-#: src/language/stats/graph.c:825
+#: src/language/stats/graph.c:983
 msgid "FOOTNOTE is not implemented yet for GRAPH"
 msgstr ""
 
@@ -7806,63 +7806,63 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:8
+#: src/ui/gui/percentiles.ui:9
 msgid "Percentile Values"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:47
+#: src/ui/gui/percentiles.ui:48
 msgid "Sextiles"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:61
+#: src/ui/gui/percentiles.ui:62
 msgid "Quintiles"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:75
+#: src/ui/gui/percentiles.ui:76
 msgid "Quartiles"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:89
+#: src/ui/gui/percentiles.ui:90
 msgid "Deciles"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:144
+#: src/ui/gui/percentiles.ui:145
 msgid "Percentiles Values"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:174
+#: src/ui/gui/percentiles.ui:175
 msgid "Change"
 msgstr ""
 
-#: src/ui/gui/percentiles.ui:216
+#: src/ui/gui/percentiles.ui:217
 msgid "Discard"
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:8
+#: src/ui/gui/qq-plot.ui:9
 msgid "QQ Plot"
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:84
+#: src/ui/gui/qq-plot.ui:85
 msgid "Selected Variables: "
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:179
+#: src/ui/gui/qq-plot.ui:180
 msgid "Estimate from data"
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:195
+#: src/ui/gui/qq-plot.ui:196
 msgid "Location: "
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:206
+#: src/ui/gui/qq-plot.ui:207
 msgid "Scale: "
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:247
+#: src/ui/gui/qq-plot.ui:248
 msgid "Distribution parameters:"
 msgstr ""
 
-#: src/ui/gui/qq-plot.ui:274
+#: src/ui/gui/qq-plot.ui:275
 msgid "Test distribution:"
 msgstr ""
 
