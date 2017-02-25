@@ -132,7 +132,8 @@ enum
     FRQ_ST_MINIMUM,
     FRQ_ST_MAXIMUM,
     FRQ_ST_SUM,
-    FRQ_ST_count
+    FRQ_ST_count,
+    FRQ_ST_PERCENTILES
   };
 
 /* Description of statistics. */
@@ -781,6 +782,8 @@ cmd_frequencies (struct lexer *lexer, struct dataset *ds)
 		  lex_get (lexer);
 		  frq.n_percentiles++;
 		  frq.n_show_percentiles++;
+		  frq.stats |= BIT_INDEX (FRQ_ST_PERCENTILES);
+		  frq.n_stats++;
 		}
 	      else
 		{

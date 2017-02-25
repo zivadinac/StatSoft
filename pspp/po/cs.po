@@ -1,22 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the pspp package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Auxilliary translation of pspp to Czech
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: pspp 0.10.4\n"
+"Project-Id-Version: pspp-0.7.9\n"
 "Report-Msgid-Bugs-To: pspp-dev@gnu.org\n"
-"POT-Creation-Date: 2017-02-22 19:48+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2011-07-20 21:10+0300\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: src/ui/gui/gen-dot-desktop.sh:12
+msgid "Statistical Software"
+msgstr "Statistický program"
+
+#: src/ui/gui/gen-dot-desktop.sh:21
+msgid "Analyze statistical data with a free alternative to SPSS"
+msgstr "Analyzuj statistická data se svobodnou variantou SPSS"
 
 #: src/ui/gui/helper.c:203
 msgid "Sorry. The help system hasn't yet been implemented."
@@ -223,8 +224,9 @@ msgstr ""
 #: src/ui/gui/psppire-checkbox-treeview.c:103 src/language/stats/examine.c:808
 #: src/language/stats/crosstabs.q:1310 src/language/stats/crosstabs.q:1340
 #: src/language/stats/crosstabs.q:1364 src/language/stats/crosstabs.q:1389
+#, fuzzy
 msgid "Statistic"
-msgstr ""
+msgstr "Statistický program"
 
 #: src/ui/gui/psppire-val-chooser.c:301
 msgid "through"
@@ -7803,8 +7805,9 @@ msgid "Crosstabs: Statistics"
 msgstr ""
 
 #: src/ui/gui/crosstabs.ui:481 src/ui/gui/oneway.ui:452
+#, fuzzy
 msgid "Statistics"
-msgstr ""
+msgstr "Statistický program"
 
 #: src/ui/gui/percentiles.ui:8
 msgid "Percentile Values"
@@ -8240,8 +8243,9 @@ msgid "_Variable(s):"
 msgstr ""
 
 #: src/ui/gui/frequencies.ui:812
+#, fuzzy
 msgid "_Statistics:"
-msgstr ""
+msgstr "Statistický program"
 
 #: src/ui/gui/frequencies.ui:826
 msgid "Include _missing values"
@@ -9375,12 +9379,4 @@ msgstr ""
 
 #: src/ui/gui/weight.ui:182
 msgid "Current Status: "
-msgstr ""
-
-#: src/ui/gui/gen-dot-desktop.sh:14
-msgid "Statistical Software"
-msgstr ""
-
-#: src/ui/gui/gen-dot-desktop.sh:15
-msgid "Analyze statistical data with a free alternative to SPSS"
 msgstr ""
