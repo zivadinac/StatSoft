@@ -72,14 +72,28 @@ populate_combo_model (GtkComboBox *cb)
 
 	//nekad ce mozda biti potrebno da se izdvoji kao resurs combobox podaci, ali za sad neka bude ovako
   gtk_list_store_append (list, &iter);
-  gtk_list_store_set (list, &iter, 0, "Normal", 1, "Normal", -1); //Normal distribution combobox
-      
+  gtk_list_store_set (list, &iter, 0, "Normal", 0, "Normal", -1); //Normal distribution combobox
+  
+
   renderer = gtk_cell_renderer_text_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (cb), renderer, FALSE);
 
   gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (cb), renderer, "text", 0);
 
   gtk_combo_box_set_model (GTK_COMBO_BOX (cb), GTK_TREE_MODEL (list));
+  
+  gtk_list_store_append (list, &iter);
+  gtk_list_store_set (list, &iter, 0, "Student", 0, "Student", -1); 
+   gtk_combo_box_set_model (GTK_COMBO_BOX (cb), GTK_TREE_MODEL (list));
+   
+   gtk_list_store_append (list, &iter);
+  gtk_list_store_set (list, &iter, 0, "Laplace", 0, "Laplace", -1); 
+   gtk_combo_box_set_model (GTK_COMBO_BOX (cb), GTK_TREE_MODEL (list));
+   
+   gtk_list_store_append (list, &iter);
+  gtk_list_store_set (list, &iter, 0, "Uniform", 0, "Uniform", -1); 
+   gtk_combo_box_set_model (GTK_COMBO_BOX (cb), GTK_TREE_MODEL (list));
+   
   g_object_unref (list);
 }
 
@@ -232,12 +246,77 @@ psppire_dialog_action_qq_plot_activate (PsppireDialogAction *a)
     
 }
 
+enum 
+  {
+    NORMAL = 0,
+    STUDENT = 1,
+    LAPLACE = 2,
+    UNIFORM = 3
+  };
+
 static char *
 generate_syntax (const PsppireDialogAction *a)
 {
- GString *string = g_string_new ("GRAPH /QQ ");
- 
- return string->str;
+	
+  PsppireDialogActionQQPlot *act = PSPPIRE_DIALOG_ACTION_QQ_PLOT (a);
+  gchar *text;
+  GString *string = g_string_new ("GRAPH /QQ =");
+  
+  psppire_var_view_append_names (PSPPIRE_VAR_VIEW (act->selected_variables_treeview), 0, string);
+
+  g_string_append (string, "\n\t/DISTRIBUTION = ");
+
+	
+  switch(gtk_combo_box_get_active (GTK_COMBO_BOX (act->distribution_combobox))) {
+
+   case NORMAL:
+      
+      g_string_append (string, "NORMAL"); 
+      if(gtk_toggle_button_get_active(GTK_CHECK_BUTTON(act->estimate_from_data_checkbox))){
+		  
+		  g_string_append (string, "(0,1)");
+		  
+		  }
+	  else {
+		  
+		  gchar* meanVal = gtk_entry_get_text(GTK_ENTRY(act->parameter1_entry));
+		  gchar* varianceVal = gtk_entry_get_text(GTK_ENTRY(act->parameter2_entry));
+		  g_string_append (string, "(");
+		  g_string_append (string, meanVal);
+		  g_string_append (string, ",");
+		  g_string_append (string, varianceVal);
+		  g_string_append (string, ")");
+		  
+		  }
+		  
+      break; 
+	
+   case STUDENT:
+     
+      g_string_append (string, "STUDENT");
+      break; 
+   
+   case LAPLACE:
+      
+      g_string_append (string, "LAPLACE");
+      break;
+      
+   case UNIFORM:
+     
+      g_string_append (string, "UNIFORM");
+      break;  
+   
+   default : 
+   return "Error";
+}
+
+  g_string_append (string, ".\n");
+	
+  text = string->str;
+  g_print(string->str);
+  
+  return text;	
+	
 }
 
 static void
