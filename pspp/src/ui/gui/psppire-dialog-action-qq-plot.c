@@ -106,8 +106,8 @@ refresh (PsppireDialogAction *rd_)
   PsppireDialogActionQQPlot *rd = PSPPIRE_DIALOG_ACTION_QQ_PLOT (rd_);
   
 
-  gtk_entry_set_text (GTK_ENTRY (rd->parameter1_entry), "");
-  gtk_entry_set_text (GTK_ENTRY (rd->parameter2_entry), "");
+  gtk_entry_set_text (GTK_ENTRY (rd->parameter1_entry), "0");
+  gtk_entry_set_text (GTK_ENTRY (rd->parameter2_entry), "1");
   
   gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->estimate_from_data_checkbox), TRUE);
   
