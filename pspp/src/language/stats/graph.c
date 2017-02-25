@@ -848,7 +848,23 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
 	      goto error;
 	    }
 	  graph.chart_type = CT_QQ;
-	  g_print("lexer id: QQ)");
+	  g_print("lexer id: QQ");
+
+	  if (!lex_force_match (lexer, T_EQUALS))
+	    goto error;
+
+	  if (!parse_variables_const (lexer, graph.dict,
+				  &graph.dep_vars, &graph.n_dep_vars,
+				  PV_NO_DUPLICATE | PV_NUMERIC))
+	    goto error;
+
+	  if (graph.n_dep_vars < 1)
+	    {
+	      lex_error(lexer, _("No variables."));
+	      goto error;
+	    }
+
+	  g_print("QQ var num: %d\n", graph.n_dep_vars);
 	}
       else if(lex_match_id(lexer, "PP"))
 	{
@@ -858,18 +874,24 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
 	      goto error;
 	    }
 	  graph.chart_type = CT_PP;
-	  g_print("lexer id: PP)");
-	}
-      else if(lex_match_id(lexer, "PERCENTILES"))
-	{
-	  if (graph.chart_type != CT_NONE)
+	  g_print("lexer id: PP");
+
+	  if (!lex_force_match (lexer, T_EQUALS))
+	    goto error;
+
+	  if (!parse_variables_const (lexer, graph.dict,
+				  &graph.dep_vars, &graph.n_dep_vars,
+				  PV_NO_DUPLICATE | PV_NUMERIC))
+	    goto error;
+
+	  if (graph.n_dep_vars < 1)
 	    {
-	      lex_error (lexer, _("Only one chart type is allowed."));
+	      lex_error(lexer, _("No variables."));
 	      goto error;
 	    }
-	  graph.chart_type = CT_PERCENTILES;
-	  g_print("lexer id: PERCENTILES)");
-        }
+
+	  g_print("PP var num: %d\n", graph.n_dep_vars);
+	}
       else if (lex_match_id (lexer, "SCATTERPLOT"))
 	{
 	  if (graph.chart_type != CT_NONE)
