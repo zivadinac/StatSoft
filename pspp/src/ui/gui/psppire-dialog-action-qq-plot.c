@@ -260,10 +260,8 @@ generate_syntax (const PsppireDialogAction *a)
 	
   PsppireDialogActionQQPlot *act = PSPPIRE_DIALOG_ACTION_QQ_PLOT (a);
   gchar *text;
-  GString *string = g_string_new ("GRAPH /QQ =");
+  GString *string = g_string_new ("GRAPH /QQ");
   
-  psppire_var_view_append_names (PSPPIRE_VAR_VIEW (act->selected_variables_treeview), 0, string);
-
   g_string_append (string, "\n\t/DISTRIBUTION = ");
 
 	
@@ -310,8 +308,12 @@ generate_syntax (const PsppireDialogAction *a)
    return "Error";
 }
 
-  g_string_append (string, ".\n");
+  g_string_append (string, "\n\t");
 	
+  g_string_append (string, "/VARIABLES = ");
+  psppire_var_view_append_names (PSPPIRE_VAR_VIEW (act->selected_variables_treeview), 0, string);
+  g_string_append (string, ".\n");
+
   text = string->str;
   g_print(string->str);
   

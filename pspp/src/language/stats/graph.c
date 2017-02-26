@@ -735,6 +735,86 @@ run_graph (struct graph *cmd, struct casereader *input)
 }
 
 
+/* Parse params of normal distribution for QQ and PP plot. */
+bool parse_qq_pp_normal_distribution(struct lexer *lexer, double *mean, double *variance)
+{
+	if (!lex_force_match (lexer, T_LPAREN))
+		return false;
+
+	*mean = lex_number (lexer);
+	lex_get (lexer);
+
+	if (!lex_force_match(lexer, T_COMMA))
+		return false;
+
+	*variance = lex_number (lexer);
+	lex_get (lexer);
+
+	if (!lex_force_match (lexer, T_RPAREN))
+		return false;
+
+	return true;
+}
+
+
+/* Parse variables for QQ and PP plot. */
+bool parse_qq_pp_variables(struct lexer *lexer, struct dataset *ds, struct graph *graph)
+{
+	if (!lex_force_match (lexer, T_SLASH))
+		return false;
+
+	if (!lex_force_match_id (lexer, "VARIABLES"))
+		return false;
+
+	if (!lex_force_match (lexer, T_EQUALS))
+		return false;
+
+	if (!parse_variables_const (lexer, dataset_dict(ds),
+				&graph->dep_vars, &graph->n_dep_vars,
+				PV_NO_DUPLICATE))
+		return false;
+
+	if (graph->n_dep_vars < 1)
+	{
+		lex_error(lexer, _("No variables."));
+		return false;
+	}
+
+	if (!lex_force_match (lexer, T_ENDCMD))
+		return false;
+
+	return true;
+}
+
+
+/* Parse syntax for QQ and PP plot. */
+bool parse_qq_pp(struct lexer *lexer, struct dataset *ds, struct graph *graph)
+{
+	if (!lex_force_match(lexer, T_SLASH))
+		return false;
+
+	if (!lex_force_match_id(lexer, "DISTRIBUTION"))
+		return false;
+
+	if (!lex_force_match (lexer, T_EQUALS))
+		return false;
+
+	if (lex_match_phrase(lexer, "NORMAL"))
+	{
+		double mean, variance;
+		if (!parse_qq_pp_normal_distribution(lexer, &mean, &variance))
+			return false;
+
+		g_print("\nMean: %f, Variance: %f\n", mean, variance);
+	}
+	else
+	{
+		//test for other distribution types
+		return false;
+	}
+	return parse_qq_pp_variables(lexer, ds, graph);
+}
+
 int
 cmd_graph (struct lexer *lexer, struct dataset *ds)
 {
@@ -848,23 +928,9 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
 	      goto error;
 	    }
 	  graph.chart_type = CT_QQ;
-	  g_print("lexer id: QQ");
 
-	  if (!lex_force_match (lexer, T_EQUALS))
-	    goto error;
-
-	  if (!parse_variables_const (lexer, graph.dict,
-				  &graph.dep_vars, &graph.n_dep_vars,
-				  PV_NO_DUPLICATE | PV_NUMERIC))
-	    goto error;
-
-	  if (graph.n_dep_vars < 1)
-	    {
-	      lex_error(lexer, _("No variables."));
+	  if (!parse_qq_pp(lexer, ds, &graph))
 	      goto error;
-	    }
-
-	  g_print("QQ var num: %d\n", graph.n_dep_vars);
 	}
       else if(lex_match_id(lexer, "PP"))
 	{
@@ -874,23 +940,9 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
 	      goto error;
 	    }
 	  graph.chart_type = CT_PP;
-	  g_print("lexer id: PP");
 
-	  if (!lex_force_match (lexer, T_EQUALS))
-	    goto error;
-
-	  if (!parse_variables_const (lexer, graph.dict,
-				  &graph.dep_vars, &graph.n_dep_vars,
-				  PV_NO_DUPLICATE | PV_NUMERIC))
-	    goto error;
-
-	  if (graph.n_dep_vars < 1)
-	    {
-	      lex_error(lexer, _("No variables."));
+	  if (!parse_qq_pp(lexer, ds, &graph))
 	      goto error;
-	    }
-
-	  g_print("PP var num: %d\n", graph.n_dep_vars);
 	}
       else if (lex_match_id (lexer, "SCATTERPLOT"))
 	{
@@ -1105,6 +1157,7 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
   return CMD_SUCCESS;
 
  error:
+  g_print("\nERROR  Token string: %s\n", lex_tokcstr(lexer));
   subcase_destroy (&graph.ordering);
   caseproto_unref (graph.gr_proto);
   free (graph.dep_vars);
