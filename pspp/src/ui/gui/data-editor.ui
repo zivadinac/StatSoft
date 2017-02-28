@@ -375,7 +375,7 @@
 	</item>
 	<item>
 	  <attribute name="label" translatable="yes">_PP plot</attribute>
-	  <attribute name="action">win.PsppireDialogActionQQPlot</attribute>
+	  <attribute name="action">win.PsppireDialogActionPPPlot</attribute>
 	</item>
       </section>
     </submenu>
