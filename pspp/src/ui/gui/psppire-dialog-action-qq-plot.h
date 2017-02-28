@@ -79,7 +79,9 @@ struct _PsppireDialogActionQQPlot
  // GtkWidget *qq_plot_cancel;
  // GtkWidget *qq_plot_reset;
   
-   
+  
+  /* Workaround za combobox */
+   int not_first_run;
   
  	
 };

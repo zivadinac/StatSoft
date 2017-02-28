@@ -686,6 +686,7 @@ src/ui/gui/src_ui_gui_psppire-widgets.o: src/ui/gui/widgets.c \
  src/ui/gui/psppire-dialog-action-crosstabs.h \
  src/ui/gui/psppire-dialog-action-percentiles.h \
  src/ui/gui/psppire-dialog-action-qq-plot.h \
+ src/ui/gui/psppire-dialog-action-pp-plot.h \
  src/ui/gui/psppire-dialog-action-descriptives.h \
  src/ui/gui/psppire-dialog-action-examine.h \
  src/ui/gui/psppire-dialog-action-flip.h \
@@ -2268,6 +2269,8 @@ src/ui/gui/psppire-dialog-action-crosstabs.h:
 src/ui/gui/psppire-dialog-action-percentiles.h:
 
 src/ui/gui/psppire-dialog-action-qq-plot.h:
+
+src/ui/gui/psppire-dialog-action-pp-plot.h:
 
 src/ui/gui/psppire-dialog-action-descriptives.h:
 

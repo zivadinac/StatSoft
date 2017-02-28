@@ -24,3 +24,96 @@ quit
 
 quit
 
+warning: Data is not valid as format F: Field contents are not numeric.
+GRAPH SCATTERPLOT(BIVARIATE) = Var0002 WITH Var0001.
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ =  Var0001 Var0002
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ =  Var0001 Var0002.
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002.
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0002.
+
+GRAPH /HISTOGRAM  = Var0001.
+
+warning: Not creating histogram because the data contains less than 2 distinct values
+GRAPH /HISTOGRAM (NORMAL) = Var0001.
+
+warning: Not creating histogram because the data contains less than 2 distinct values
+RELIABILITY
+	/VARIABLES= Var0001 Var0002
+	/MODEL=ALPHA.
+
+GRAPH /HISTOGRAM (NORMAL) = Var0001.
+
+warning: Not creating histogram because the data contains less than 2 distinct values
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0002.
+
+GRAPH /HISTOGRAM (NORMAL) = Var0001.
+
+.1-5: error: Unknown command `Error'.
+Error
+
+.1-5: error: Unknown command `Error'.
+Error
+
+.1-5: error: Unknown command `Error'.
+Error
+
+.1-5: error: Unknown command `Error'.
+Error
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001
+	/DISTRIBUTION=.
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001
+	/DISTRIBUTION=NORMAL(0,1).
+
+warning: Data is not valid as format F: Field contents are not numeric.
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002 Var0003
+	/DISTRIBUTION=NORMAL(0,1).
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002 Var0003
+	/DISTRIBUTION=STUDENT.
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002 Var0003
+	/DISTRIBUTION=NORMAL(0,1).
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002 Var0003
+	/DISTRIBUTION=NORMAL(,).
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002
+	/DISTRIBUTION=NORMAL(124,4).
+
+.11: error: GRAPH: Syntax error at `='.
+GRAPH /QQ = Var0001 Var0002
+	/DISTRIBUTION = NORMAL(2,5).
+
+REGRESSION
+	/VARIABLES= Var0002
+	/DEPENDENT= Var0001
+	/METHOD=ENTER
+	/STATISTICS=COEFF R ANOVA.
+
+GRAPH SCATTERPLOT(BIVARIATE) = Var0001 WITH Var0002.
+
+GRAPH /HISTOGRAM  = Var0001.
+
+warning: Not creating histogram because the data contains less than 2 distinct values
+GRAPH /HISTOGRAM  = Var0001.
+
+GRAPH /BAR = CUFREQ BY Var0001 BY Var0002.
+
