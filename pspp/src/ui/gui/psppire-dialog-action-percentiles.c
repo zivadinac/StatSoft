@@ -37,37 +37,40 @@ psppire_dialog_action_percentiles_class_init (PsppireDialogActionPercentilesClas
 
 G_DEFINE_TYPE (PsppireDialogActionPercentiles, psppire_dialog_action_percentiles, PSPPIRE_TYPE_DIALOG_ACTION);
 
+
+static GObject *psppire_dialog_action_percentiles_constructor (GType, guint,
+                                                  GObjectConstructParam *);
+
+static void psppire_dialog_action_percentiles_finalize (GObject *);
+
+static gboolean remove_selected (PsppireDialogActionPercentiles *);
+
+static gboolean change_elem (PsppireDialogActionPercentiles *, gchar* sr);
+
+static gboolean get_selected_value (PsppireDialogActionPercentiles *, gchar**);
+
+static void checkbox_toggled (GtkCheckButton *, PsppireDialogActionPercentiles *);
+
 static gboolean
 dialog_state_valid (gpointer rd_)
 {
   PsppireDialogActionPercentiles *rd = PSPPIRE_DIALOG_ACTION_PERCENTILES (rd_);
   GtkTreeIter notused;
-  GtkTreeModel *model= gtk_tree_view_get_model(GTK_TREE_VIEW(rd->percentiles_treeview));
-	
-  if (gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->quantiles_checkbox)) || 
+  GtkTreeModel *model_percentiles= gtk_tree_view_get_model (GTK_TREE_VIEW (rd->percentiles_treeview));
+	GtkTreeModel *model_variables = gtk_tree_view_get_model (GTK_TREE_VIEW (rd->selected_variables_treeview));
+  if ((gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->quantiles_checkbox)) || 
 				gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->quintiles_checkbox)) || 
 					gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->sextiles_checkbox)) || 
 						gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->deciles_checkbox)) || 
-							(gtk_tree_model_get_iter_first (model, &notused) && 
-								gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox))))
+							(gtk_tree_model_get_iter_first (model_percentiles, &notused) && 
+								gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox)))) && 
+			gtk_tree_model_get_iter_first (model_variables, &notused))
 		{
 			return TRUE;
 		}
   
   return FALSE;
 }
-static GObject *psppire_dialog_action_percentiles_constructor (GType type, guint,
-                                                     GObjectConstructParam *);
-
-static void psppire_dialog_action_percentiles_finalize (GObject *);
-
-static gboolean remove_selected (PsppireDialogActionPercentiles *act);
-
-static gboolean change_elem (PsppireDialogActionPercentiles *act,gchar* str);
-
-static gboolean get_selected_value (PsppireDialogActionPercentiles *act,gchar** str);
-
-static void checkbox_toggled (GtkCheckButton *checkbox, PsppireDialogActionPercentiles *rd);
   
 static void
 refresh (PsppireDialogAction *rd_)
@@ -85,6 +88,7 @@ refresh (PsppireDialogAction *rd_)
 	gtk_widget_set_sensitive (GTK_BUTTON (rd->percentiles_change), FALSE);
 	gtk_widget_set_sensitive (GTK_BUTTON (rd->percentiles_remove), FALSE);
 	gtk_widget_set_sensitive (GTK_BUTTON (rd->percentiles_discard), FALSE);
+	
 	gtk_widget_set_sensitive (GTK_ENTRY (rd->percentiles_entry), FALSE);
     
 	gtk_toggle_button_set_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox), FALSE);
@@ -97,7 +101,7 @@ refresh (PsppireDialogAction *rd_)
 static void
 checkbox_toggled (GtkCheckButton *checkbox, PsppireDialogActionPercentiles *rd)
 {
-	if(gtk_toggle_button_get_active(GTK_CHECK_BUTTON (rd->percentiles_checkbox)))
+	if(gtk_toggle_button_get_active (GTK_CHECK_BUTTON (rd->percentiles_checkbox)))
 		{
 			gtk_widget_set_sensitive  (rd->percentiles_entry, TRUE);		
 		}
@@ -135,7 +139,7 @@ percentiles_discard_onclick (GtkWidget *w, PsppireDialogActionPercentiles *act)
 }
 
 static void 
-percentiles_change_onclick(GtkWidget *w, PsppireDialogActionPercentiles *act)
+percentiles_change_onclick (GtkWidget *w, PsppireDialogActionPercentiles *act)
 {
 	gchar* str=gtk_entry_get_text (GTK_ENTRY (act->percentiles_entry));
 	change_elem (act, str);
@@ -145,7 +149,7 @@ percentiles_change_onclick(GtkWidget *w, PsppireDialogActionPercentiles *act)
 }
 
 static void 
-on_select_row(GtkWidget *w, PsppireDialogActionPercentiles *act)
+on_select_row (GtkWidget *w, PsppireDialogActionPercentiles *act)
 {
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_change), TRUE);
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_remove), TRUE);
@@ -184,7 +188,7 @@ percentiles_add_onclick (GtkButton* add, PsppireDialogActionPercentiles *act)
 	
 			return;
 		}
-	if (g_list_find(act->custom_percentiles, GINT_TO_POINTER(int_data)) != NULL)
+	if (g_list_find (act->custom_percentiles, GINT_TO_POINTER (int_data)) != NULL)
 		{
 		
 			GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
@@ -213,7 +217,7 @@ percentiles_add_onclick (GtkButton* add, PsppireDialogActionPercentiles *act)
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_change), FALSE);
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_remove), FALSE);
 	gtk_widget_set_sensitive (GTK_BUTTON (act->percentiles_discard), FALSE);
-	act->custom_percentiles=g_list_append (act->custom_percentiles, GINT_TO_POINTER (int_data));			
+	act->custom_percentiles = g_list_append (act->custom_percentiles, GINT_TO_POINTER (int_data));			
 }
 
 static void
@@ -224,7 +228,7 @@ psppire_dialog_action_percentiles_activate (PsppireDialogAction *a)
 static char *
 generate_syntax (const PsppireDialogAction *a)
 {
-	PsppireDialogActionPercentiles *rd = PSPPIRE_DIALOG_ACTION_PERCENTILES (a);
+  PsppireDialogActionPercentiles *rd = PSPPIRE_DIALOG_ACTION_PERCENTILES (a);
 	gchar *text;
 	GString *string = g_string_new ("FREQUENCIES \n \t /VARIABLES =  ");
   gchar *str_data;
@@ -234,6 +238,7 @@ generate_syntax (const PsppireDialogAction *a)
 	GtkTreeModel *model;
 	
 	psppire_var_view_append_names (PSPPIRE_VAR_VIEW (rd->selected_variables_treeview), 0, string);
+	
 	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->frequency_checkbox)))
     {
 			g_string_append (string, "\n \t /FORMAT = NOTABLE");
@@ -254,7 +259,7 @@ generate_syntax (const PsppireDialogAction *a)
 		
 			g_string_append (string, "25 75 ");
 		
-			if(!(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->deciles_checkbox))))
+			if (!(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->deciles_checkbox))))
 				{
 					list=g_list_append (list, GINT_TO_POINTER (75));
 					g_string_append (string, "50 ");
@@ -262,7 +267,7 @@ generate_syntax (const PsppireDialogAction *a)
 		}
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->quintiles_checkbox)))
 		{
-			if(!(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->deciles_checkbox))))
+			if (!(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rd->deciles_checkbox))))
 				{
 					list=g_list_append (list, GINT_TO_POINTER (20));
 					list=g_list_append (list, GINT_TO_POINTER (40));
@@ -298,13 +303,14 @@ generate_syntax (const PsppireDialogAction *a)
 			GList *l;
 			for (l = rd->custom_percentiles; l != NULL; l = l->next)
 				{
-					if(g_list_find (list, GINT_TO_POINTER (l->data)) == NULL)
+					if (g_list_find (list, GINT_TO_POINTER (l->data)) == NULL)
 						{
 							gchar *my_string = g_strdup_printf ("%i", l->data);
 							g_string_append (string, my_string);
 							g_string_append (string, " ");
 						}
 				}
+			g_object_unref(l);	
 		}
 	  	  
 	g_string_append (string, ".");	
@@ -338,11 +344,13 @@ psppire_dialog_action_percentiles_constructor (GType                  type,
 		
 	GObject *obj;
 	
-	GtkBuilder *xml = gtk_builder_new_from_file ("percentiles.ui");
-	obj = G_OBJECT_CLASS (psppire_dialog_action_percentiles_parent_class)->constructor (
-    type, n_properties, properties);
+	
+	obj = G_OBJECT_CLASS (psppire_dialog_action_percentiles_parent_class)->constructor ( type, 
+																																n_properties, properties);
 	act = PSPPIRE_DIALOG_ACTION_PERCENTILES (obj);
 	pda = PSPPIRE_DIALOG_ACTION (obj);
+	
+	GtkBuilder *xml = gtk_builder_new_from_file ("percentiles.ui");
 	
 	GHashTable *thing = psppire_dialog_action_get_hash_table (pda);
 	g_hash_table_insert (thing, act, xml);
@@ -368,7 +376,7 @@ psppire_dialog_action_percentiles_constructor (GType                  type,
   act->percentiles_discard=get_widget_assert (xml, "percentiles-discard");  
       
 	gtk_entry_set_visibility (GTK_ENTRY (act->percentiles_entry), true);
-  gtk_entry_set_input_purpose(GTK_ENTRY (act->percentiles_entry), GTK_INPUT_PURPOSE_NUMBER);
+  gtk_entry_set_input_purpose (GTK_ENTRY (act->percentiles_entry), GTK_INPUT_PURPOSE_NUMBER);
   
   g_signal_connect (act->percentiles_add, "clicked",
 			G_CALLBACK (percentiles_add_onclick), pda);
@@ -396,6 +404,8 @@ psppire_dialog_action_percentiles_constructor (GType                  type,
 	GtkListStore* list_store = gtk_list_store_new (1, G_TYPE_STRING);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (act->percentiles_treeview), GTK_TREE_MODEL (list_store));
 	act->custom_percentiles = NULL;
+	
+	g_object_unref(list_store);
 	
 	return obj;	
  }
@@ -433,7 +443,7 @@ static gboolean remove_selected (PsppireDialogActionPercentiles *act)
 	return TRUE;
 }
  
-static gboolean get_selected_value(PsppireDialogActionPercentiles *act,gchar** str)
+static gboolean get_selected_value (PsppireDialogActionPercentiles *act, gchar** str)
 {
 	GtkTreeIter iter;
 	GValue value = {0};
@@ -454,7 +464,7 @@ static gboolean get_selected_value(PsppireDialogActionPercentiles *act,gchar** s
 	return TRUE;
 }
 
-static gboolean change_elem(PsppireDialogActionPercentiles *act,gchar * str)
+static gboolean change_elem (PsppireDialogActionPercentiles *act, gchar * str)
 {
 	GtkTreeIter iter ;
 	

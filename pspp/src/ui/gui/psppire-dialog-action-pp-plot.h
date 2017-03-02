@@ -73,12 +73,6 @@ struct _PsppireDialogActionPPPlot
   
   /* Combobox */
   GtkWidget *distribution_combobox;
-   
-  
-  /* Workaround za combobox */
-   int not_first_run;
-  
- 	
 };
 
 

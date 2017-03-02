@@ -73,19 +73,7 @@ struct _PsppireDialogActionQQPlot
   
   /* Combobox */
   GtkWidget *distribution_combobox;
-  
-  /* Actions */
-//  GtkWidget *qq_plot_ok;
- // GtkWidget *qq_plot_cancel;
- // GtkWidget *qq_plot_reset;
-  
-  
-  /* Workaround za combobox */
-   int not_first_run;
-  
- 	
 };
-
 
 struct _PsppireDialogActionQQPlotClass
 {
