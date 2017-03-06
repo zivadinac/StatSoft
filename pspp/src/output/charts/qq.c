@@ -24,69 +24,109 @@
 #include "libpspp/cast.h"
 #include "libpspp/str.h"
 #include "libpspp/array.h"
+#include "libpspp/assertion.h"
+
+#include "data/variable.h"
+#include "data/case.h"
+#include "data/casereader.h"
+#include "language/stats/freq.h"
+
 #include "output/chart-item-provider.h"
 
 #include "gl/xalloc.h"
-#include "data/variable.h"
-#include "language/stats/freq.h"
+#include <gsl/gsl_cdf.h>
 
 
-static int
-compare_category_3way (const void *a_, const void *b_, const void *bc_)
+struct qq_chart *
+qq_chart_create (struct casereader *reader,
+	   const char *xlabel, const char *xlabel_detrended,
+	   const char *ylabel, const char *ylabel_detrended,
+	   const struct variable *byvar,
+	   const char *label,
+	   const int distribution,
+	   const double *distribution_params,
+	   const int value_num,
+	   double xmin, double xmax, double ymin, double ymax)
 {
-	return 0; //just for compilation
-}
+  struct qq_chart *qqc;
 
+  qqc = xzalloc (sizeof *qqc);
+  chart_item_init (&qqc->chart_item, &qq_chart_class, label);
+  qqc->data = reader;
 
-static unsigned int
-hash_freq_2level_ptr (const void *a_, const void *bc_)
-{
-	return 0; //just for compilation
-}
+  qqc->y_min = ymin;
+  qqc->y_max = ymax;
 
+  qqc->x_min = xmin;
+  qqc->x_max = xmax;
+  
+  qqc->value_num = value_num;
 
-static int
-compare_freq_2level_ptr_3way (const void *a_, const void *b_, const void *bc_)
-{
-	return 0; //just for compilation
-}
+  qqc->distribution = distribution;
+  qqc->distribution_params = distribution_params;
+  qqc->distribution_percentiles = xzalloc (sizeof(double) * value_num);
+  calculate_distribution_percentiles (qqc);
+  qqc->deviation = xzalloc (sizeof(double) * value_num);
+  calculate_deviation_qq(qqc);
 
+  qqc->draw_detrended = false;
 
+  qqc->xlabel = xstrdup (xlabel);
+  qqc->xlabel_detrended = xstrdup (xlabel_detrended);
+  qqc->ylabel = xstrdup (ylabel);
+  qqc->ylabel_detrended = xstrdup (ylabel_detrended);
+  qqc->byvar = byvar != NULL ? var_clone (byvar) : NULL;
 
-/* Creates and returns a chart that will render a qq with
-   the given TITLE and the N_CATS described in CATS. 
-
-   VAR is an array containing the categorical variables, and N_VAR 
-   the number of them. N_VAR must be exactly 1 or 2.
-
-   CATS are the counts of the values of those variables. N_CATS is the
-   number of distinct values.
-*/
-struct qq *
-qq_create (const struct variable **var, int n_vars,
-		 const char *ylabel, bool percent, 
-		 struct freq *const *cats, int n_cats)
-{
-  struct qq *bar;
-  chart_item_init (&bar->chart_item, &qq_class, var_to_string (var[0]));
-  return bar;
-}
-
-static void
-destroy_cat_map (struct hmap *m)
-{
-  //deleted code just for compilation
-  hmap_destroy (m);
+  return qqc;
 }
 
 static void
-qq_destroy (struct chart_item *chart_item)
+qq_chart_destroy (struct chart_item *chart_item)
 {
-  struct qq *bar = to_qq (chart_item);
-  free (bar);
+  struct qq_chart *spc = to_qq_chart (chart_item);
+  casereader_destroy (spc->data);
+  free (spc->xlabel);
+  free (spc->xlabel_detrended);
+  free (spc->ylabel);
+  free (spc->ylabel_detrended);
+  if (spc->byvar)
+    var_destroy (spc->byvar);
+  free (spc);
 }
 
-const struct chart_item_class qq_class =
+const struct chart_item_class qq_chart_class =
   {
-    qq_destroy
+    qq_chart_destroy
   };
+
+void calculate_distribution_percentiles (struct qq_chart *qqc)
+{
+	switch (qqc->distribution)
+	{
+		case NORMAL:
+			calculate_normal_percentiles(qqc->distribution_percentiles, qqc->value_num, qqc->distribution_params[NORMAL_MEAN], qqc->distribution_params[NORMAL_VAR]);
+			break;
+		default:
+			NOT_REACHED();
+			break;
+	}
+}
+
+void calculate_normal_percentiles(double* distribution_percentiles, const int value_num, const double mean, const double variance)
+{
+	for (int i = 1; i <= value_num; i++)
+		distribution_percentiles[i-1] = mean + gsl_cdf_gaussian_Pinv((i-0.5)/value_num, variance);
+}
+
+void calculate_deviation_qq(struct qq_chart *qqc)
+{
+  struct casereader *data = casereader_clone (qqc->data);
+  struct ccase *c;
+  int i = 0;
+
+  for (; (c = casereader_read (data)) != NULL; case_unref (c))
+    {
+      qqc->deviation[i] = case_data_idx (c, 0)->f - qqc->distribution_percentiles[i++];
+    }
+  casereader_destroy (data);  
+}

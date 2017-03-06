@@ -37,6 +37,8 @@
 #include "output/charts/spreadlevel-plot.h"
 #include "output/charts/scree.h"
 #include "output/charts/scatterplot.h"
+#include "output/charts/qq.h"
+#include "output/charts/pp.h"
 #include "output/driver-provider.h"
 #include "output/message-item.h"
 #include "output/options.h"
@@ -1424,6 +1426,10 @@ xr_draw_chart (const struct chart_item *chart_item, cairo_t *cr,
     xrchart_draw_spreadlevel (chart_item, cr, &geom);
   else if (is_scatterplot_chart (chart_item))
     xrchart_draw_scatterplot (chart_item, cr, &geom);
+  else if (is_qq_chart (chart_item))
+    xrchart_draw_qq(chart_item, cr, &geom);
+  else if (is_pp_chart (chart_item))
+    xrchart_draw_pp(chart_item, cr, &geom);
   else
     NOT_REACHED ();
   xrchart_geometry_free (cr, &geom);

@@ -82,7 +82,9 @@ src_output_liboutput_la_SOURCES += \
 	src/output/charts/roc-chart-cairo.c \
 	src/output/charts/scree-cairo.c \
 	src/output/charts/spreadlevel-cairo.c \
-	src/output/charts/scatterplot-cairo.c
+	src/output/charts/scatterplot-cairo.c \
+	src/output/charts/pp-cairo.c \
+	src/output/charts/qq-cairo.c
 endif
 if ODF_WRITE_SUPPORT
 src_output_liboutput_la_SOURCES += src/output/odt.c

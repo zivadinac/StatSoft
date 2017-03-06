@@ -38,6 +38,7 @@
 #include "data/casewriter.h"
 #include "data/caseproto.h"
 #include "data/subcase.h"
+#include "data/value-labels.h"
 
 
 #include "data/format.h"
@@ -53,6 +54,7 @@
 #include "output/charts/percentiles.h"
 #include "output/charts/qq.h"
 #include "output/charts/pp.h"
+#include "output/charts/np-plot.h"
 
 #include "language/command.h"
 #include "language/lexer/lexer.h"
@@ -139,6 +141,10 @@ struct graph
   const struct dictionary *dict;
 
   bool missing_pw;
+
+  /* For QQ and PP plot */
+  int distribution;
+  double *distribution_params;
 
   /* ------------ Graph ---------------- */
   bool normal; /* For histograms, draw the normal curve */
@@ -288,118 +294,82 @@ parse_function (struct lexer *lexer, struct graph *graph)
   return false;
 }
 
-static void
-show_percentiles (const struct graph *cmd, struct casereader *input)
+
+struct casereader*
+sort_input(struct casereader *input, struct variable *byvar, int direction)
 {
-	struct string title;
-	struct percentiles *percentiles;
-	bool byvar_overflow = false;
-
-	ds_init_empty (&title);
-
-	if (cmd->n_by_vars > 0)
-	{
-		ds_put_format (&title, _("%s vs. %s by %s"),
-				var_to_string (cmd->dep_vars[1]),
-				var_to_string (cmd->dep_vars[0]),
-				var_to_string (cmd->by_var[0]));
-	}
-	else
-	{
-		ds_put_format (&title, _("%s vs. %s"),
-				var_to_string (cmd->dep_vars[1]),
-				var_to_string (cmd->dep_vars[0]));
-	}
-
-	/* percentiles = percentiles_create (input,
-			var_to_string(cmd->dep_vars[0]),
-			var_to_string(cmd->dep_vars[1]),
-			(cmd->n_by_vars > 0) ? cmd->by_var[0] : NULL,
-			&byvar_overflow,
-			ds_cstr (&title),
-			cmd->es[0].minimum, cmd->es[0].maximum,
-			cmd->es[1].minimum, cmd->es[1].maximum); */ //TODO call
-
-	g_print("show_percentiles not implemented");
-
-	percentiles_submit (percentiles);
-	ds_destroy (&title);
+	struct subcase ordering;
+	subcase_init_empty(&ordering);
+	subcase_add_var (&ordering, byvar, direction);
+	return sort_execute(input, &ordering);
 }
 
 static void
 show_qq (const struct graph *cmd, struct casereader *input)
 {
 	struct string title;
-	struct qq *qq;
-	bool byvar_overflow = false;
+	struct qq_chart *qq;
 
-	ds_init_empty (&title);
-
-	if (cmd->n_by_vars > 0)
+	for (int i = 0; i < cmd->n_dep_vars; ++i)
 	{
-		ds_put_format (&title, _("%s vs. %s by %s"),
-				var_to_string (cmd->dep_vars[1]),
-				var_to_string (cmd->dep_vars[0]),
-				var_to_string (cmd->by_var[0]));
+		ds_init_empty (&title);
+		ds_put_format (&title, _("for %s"), var_to_string (cmd->dep_vars[i]));
+
+		struct casereader *sorted = sort_input(input, cmd->dep_vars[i], SC_ASCEND);
+		
+		double mean = cmd->distribution_params[NORMAL_MEAN];
+		double var = cmd->distribution_params[NORMAL_VAR];
+
+		qq = qq_chart_create (sorted,
+				X_LABEL, X_LABEL_DETRENDED,
+				Y_LABEL, Y_LABEL_DETRENDED,
+				cmd->dep_vars[i],
+				ds_cstr (&title),
+				cmd->distribution,
+				cmd->distribution_params,
+				cmd->es[i].cc,
+				cmd->es[i].minimum, cmd->es[i].maximum,
+				mean-2*var, mean+2*var + 0.1); //+ 0.1 is for upper bound to be included
+
+		qq->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
+		qq_chart_submit (qq);
+		qq_chart_submit (qq);
+		ds_destroy (&title);
 	}
-	else
-	{
-		ds_put_format (&title, _("%s vs. %s"),
-				var_to_string (cmd->dep_vars[1]),
-				var_to_string (cmd->dep_vars[0]));
-	}
-
-	/* qq = qq_create (input,
-			var_to_string(cmd->dep_vars[0]),
-			var_to_string(cmd->dep_vars[1]),
-			(cmd->n_by_vars > 0) ? cmd->by_var[0] : NULL,
-			&byvar_overflow,
-			ds_cstr (&title),
-			cmd->es[0].minimum, cmd->es[0].maximum,
-			cmd->es[1].minimum, cmd->es[1].maximum); */ //TODO call
-
-	g_print("show_qq not implemented");
-
-	qq_submit (qq);
-	ds_destroy (&title);
 }
 
 static void
 show_pp (const struct graph *cmd, struct casereader *input)
 {
 	struct string title;
-	struct pp *pp;
-	bool byvar_overflow = false;
+	struct pp_chart *pp;
 
-	ds_init_empty (&title);
-
-	if (cmd->n_by_vars > 0)
+	for (int i = 0; i < cmd->n_dep_vars; ++i)
 	{
-		ds_put_format (&title, _("%s vs. %s by %s"),
-				var_to_string (cmd->dep_vars[1]),
-				var_to_string (cmd->dep_vars[0]),
-				var_to_string (cmd->by_var[0]));
+		ds_init_empty (&title);
+		ds_put_format (&title, _("for %s"), var_to_string (cmd->dep_vars[i]));
+
+		struct casereader *sorted = sort_input(input, cmd->dep_vars[i], SC_ASCEND);
+		
+		double mean = cmd->distribution_params[NORMAL_MEAN];
+		double var = cmd->distribution_params[NORMAL_VAR];
+
+		pp = pp_chart_create (sorted,
+				X_LABEL, X_LABEL_DETRENDED,
+				Y_LABEL, Y_LABEL_DETRENDED,
+				cmd->dep_vars[i],
+				ds_cstr (&title),
+				cmd->distribution,
+				cmd->distribution_params,
+				cmd->es[i].cc,
+				cmd->es[i].minimum, cmd->es[i].maximum,
+				0, 100); //+ 0.1 is for upper bound to be included
+
+		pp->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
+		pp_chart_submit (pp);
+		pp_chart_submit (pp);
+		ds_destroy (&title);
 	}
-	else
-	{
-		ds_put_format (&title, _("%s vs. %s"),
-				var_to_string (cmd->dep_vars[1]),
-				var_to_string (cmd->dep_vars[0]));
-	}
-
-	/* pp = pp_create (input,
-			var_to_string(cmd->dep_vars[0]),
-			var_to_string(cmd->dep_vars[1]),
-			(cmd->n_by_vars > 0) ? cmd->by_var[0] : NULL,
-			&byvar_overflow,
-			ds_cstr (&title),
-			cmd->es[0].minimum, cmd->es[0].maximum,
-			cmd->es[1].minimum, cmd->es[1].maximum); */ //TODO call
-
-	g_print("show_pp not implemented");
-
-	pp_submit (pp);
-	ds_destroy (&title);
 }
 
 static void
@@ -630,6 +600,14 @@ run_barchart (struct graph *cmd, struct casereader *input)
 }
 
 
+static int compare_val_labs_asc (const void *a_, const void *b_, const void *aux UNUSED)
+{
+  const struct val_lab *a = a_;
+  const struct val_lab *b = b_;
+
+  return a->value.f < b->value.f ? -1 : a->value.f > b->value.f;
+}
+
 static void
 run_graph (struct graph *cmd, struct casereader *input)
 {
@@ -675,6 +653,7 @@ run_graph (struct graph *cmd, struct casereader *input)
 	value_copy (case_data_rw_idx (outcase, SP_IDX_BY),
 		    case_data (c, cmd->by_var[0]),
 		    var_get_width (cmd->by_var[0]));
+
       for(int v=0;v<cmd->n_dep_vars;v++)
 	{
 	  const struct variable *var = cmd->dep_vars[v];
@@ -722,9 +701,6 @@ run_graph (struct graph *cmd, struct casereader *input)
     case CT_QQ:
       show_qq(cmd,reader);
       break;
-    case CT_PERCENTILES:
-      show_percentiles(cmd,reader);
-      break;
     default:
       NOT_REACHED ();
       break;
@@ -736,19 +712,27 @@ run_graph (struct graph *cmd, struct casereader *input)
 
 
 /* Parse params of normal distribution for QQ and PP plot. */
-bool parse_qq_pp_normal_distribution(struct lexer *lexer, double *mean, double *variance)
+bool parse_qq_pp_normal_distribution(struct lexer *lexer, double *mean, double *variance, bool *estimate)
 {
 	if (!lex_force_match (lexer, T_LPAREN))
 		return false;
 
-	*mean = lex_number (lexer);
-	lex_get (lexer);
+	if (lex_match_phrase(lexer, "ESTIMATE"))
+	{
+		*estimate = true;
+	}
+	else
+	{
+		estimate = false;
+		*mean = lex_number (lexer);
+		lex_get (lexer);
 
-	if (!lex_force_match(lexer, T_COMMA))
-		return false;
+		if (!lex_force_match(lexer, T_COMMA))
+			return false;
 
-	*variance = lex_number (lexer);
-	lex_get (lexer);
+		*variance = lex_number (lexer);
+		lex_get (lexer);
+	}
 
 	if (!lex_force_match (lexer, T_RPAREN))
 		return false;
@@ -802,10 +786,24 @@ bool parse_qq_pp(struct lexer *lexer, struct dataset *ds, struct graph *graph)
 	if (lex_match_phrase(lexer, "NORMAL"))
 	{
 		double mean, variance;
-		if (!parse_qq_pp_normal_distribution(lexer, &mean, &variance))
+		bool estimate = false;
+		if (!parse_qq_pp_normal_distribution(lexer, &mean, &variance, &estimate))
 			return false;
 
-		g_print("\nMean: %f, Variance: %f\n", mean, variance);
+		graph->distribution = NORMAL;
+		graph->distribution_params = xzalloc(NORMAL_PARAMS_NUM * sizeof(double));
+		
+		if (estimate)
+		{
+			//estimate from dataset
+  			g_print("\n%s\n", "Estimate not implemented yet.");
+			free(NULL);
+		}
+		else
+		{
+			graph->distribution_params[NORMAL_MEAN] = mean;
+			graph->distribution_params[NORMAL_VAR] = variance;
+		}
 	}
 	else
 	{
@@ -1119,11 +1117,13 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
     case CT_BAR:
       break;
     case CT_QQ:
+      /* See scatterplot.h for the setup of the case prototype */
+      graph.gr_proto = caseproto_add_width (graph.gr_proto, 0); /* x value - SP_IDX_X*/
+      graph.gr_proto = caseproto_add_width (graph.gr_proto, 0); /* y value - SP_IDX_Y*/
+      /* The by_var contains the plot categories for the different xy plot colors */
       break;
     case CT_PP:
       break;
-    case CT_PERCENTILES:
-	  break;
     case CT_NONE:
       lex_error_expecting (lexer, "HISTOGRAM", "SCATTERPLOT", "BAR", NULL);
       goto error;
@@ -1157,7 +1157,6 @@ cmd_graph (struct lexer *lexer, struct dataset *ds)
   return CMD_SUCCESS;
 
  error:
-  g_print("\nERROR  Token string: %s\n", lex_tokcstr(lexer));
   subcase_destroy (&graph.ordering);
   caseproto_unref (graph.gr_proto);
   free (graph.dep_vars);

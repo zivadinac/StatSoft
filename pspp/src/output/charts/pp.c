@@ -17,7 +17,6 @@
 #include <config.h>
 
 #include "output/charts/pp.h"
-#include "output/charts/piechart.h"
 
 #include <stdlib.h>
 
@@ -26,67 +25,109 @@
 #include "libpspp/array.h"
 #include "output/chart-item-provider.h"
 
+#include "data/variable.h"
+#include "data/case.h"
+#include "data/casereader.h"
+
 #include "gl/xalloc.h"
 #include "data/variable.h"
 #include "language/stats/freq.h"
 
 
-static int
-compare_category_3way (const void *a_, const void *b_, const void *bc_)
+#define X_LABEL "Observed value"
+#define X_LABEL_DETRENDED "Observed value"
+#define Y_LABEL "Expected value"
+#define Y_LABEL_DETRENDED "Deviation from normal"
+
+/* Constants for distribution params */
+#define NORMAL_PARAMS_NUM 2
+#define NORMAL_MEAN 0
+#define NORMAL_VAR 1
+
+enum
 {
-	return 0; //just for compilation
-}
+	NORMAL
+};
 
-
-static unsigned int
-hash_freq_2level_ptr (const void *a_, const void *bc_)
+struct pp_chart *
+pp_chart_create (struct casereader *reader,
+	   	 const char *xlabel, const char *xlabel_detrended,
+	   	 const char *ylabel, const char *ylabel_detrended,
+	   	 const struct variable *byvar,
+	   	 const char *label,
+		 const int distribution,
+		 const double *distribution_params,
+		 const int value_num,
+	   	 double xmin, double xmax, double ymin, double ymax)
 {
-	return 0; //just for compilation
-}
+  struct pp_chart *ppc;
 
+  ppc = xzalloc (sizeof *ppc);
+  chart_item_init (&ppc->chart_item, &pp_chart_class, label);
+  ppc->data = reader;
 
-static int
-compare_freq_2level_ptr_3way (const void *a_, const void *b_, const void *bc_)
-{
-	return 0; //just for compilation
-}
+  ppc->y_min = ymin;
+  ppc->y_max = ymax;
 
+  ppc->x_min = xmin;
+  ppc->x_max = xmax;
+  
+  ppc->value_num = value_num;
 
+  ppc->distribution = distribution;
+  ppc->distribution_params = distribution_params;
+  ppc->distribution_percentages = xzalloc (sizeof(double) * value_num);
+  calculate_distribution_percentages (ppc);
+  ppc->deviation = xzalloc (sizeof(double) * value_num);
+  calculate_deviation_pp(ppc);
 
-/* Creates and returns a chart that will render a pp with
-   the given TITLE and the N_CATS described in CATS. 
+  ppc->draw_detrended = false;
 
-   VAR is an array containing the categorical variables, and N_VAR 
-   the number of them. N_VAR must be exactly 1 or 2.
+  ppc->xlabel = xstrdup (xlabel);
+  ppc->xlabel_detrended = xstrdup (xlabel_detrended);
+  ppc->ylabel = xstrdup (ylabel);
+  ppc->ylabel_detrended = xstrdup (ylabel_detrended);
+  ppc->byvar = byvar != NULL ? var_clone (byvar) : NULL;
 
-   CATS are the counts of the values of those variables. N_CATS is the
-   number of distinct values.
-*/
-struct pp *
-pp_create (const struct variable **var, int n_vars,
-		 const char *ylabel, bool percent, 
-		 struct freq *const *cats, int n_cats)
-{
-  struct pp *bar;
-  chart_item_init (&bar->chart_item, &pp_class, var_to_string (var[0]));
-  return bar;
+  return ppc;
 }
 
 static void
-destroy_cat_map (struct hmap *m)
+pp_chart_destroy (struct chart_item *chart_item)
 {
-  //deleted code just for compilation
-  hmap_destroy (m);
+  struct pp_chart *pp = to_pp_chart (chart_item);
+  casereader_destroy (pp->data);
+  free (pp->xlabel);
+  free (pp->xlabel_detrended);
+  free (pp->ylabel);
+  free (pp->ylabel_detrended);
+  if (pp->byvar)
+    var_destroy (pp->byvar);
+  free (pp);
 }
 
-static void
-pp_destroy (struct chart_item *chart_item)
-{
-  struct pp *bar = to_pp (chart_item);
-  free (bar);
-}
-
-const struct chart_item_class pp_class =
+const struct chart_item_class pp_chart_class =
   {
-    pp_destroy
+    pp_chart_destroy
   };
+
+void
+calculate_distribution_percentages(struct pp_chart *ppc)
+{
+  for (int i = 1; i <= ppc->value_num; i++)
+	  ppc->distribution_percentages[i-1] = (i-0.5) / ppc->value_num;
+}
+
+void 
+calculate_deviation_pp(struct pp_chart *ppc)
+{
+  struct casereader *data = casereader_clone (ppc->data);
+  struct ccase *c;
+  int i = 0;
+
+  for (; (c = casereader_read (data)) != NULL; case_unref (c))
+    {
+      ppc->deviation[i] = case_data_idx (c, 0)->f - ppc->distribution_percentages[i++];
+    }
+  casereader_destroy (data);  
+}

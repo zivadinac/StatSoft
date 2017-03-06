@@ -36,6 +36,7 @@
 #include "libpspp/message.h"
 #include "libpspp/misc.h"
 #include "libpspp/str.h"
+#include "libpspp/array.h"
 
 #include "gl/minmax.h"
 #include "gl/xalloc.h"
@@ -1337,4 +1338,9 @@ var_force_valid_weight (const struct variable *wv, double w, bool *warn_on_inval
     }
 
   return w;
+}
+
+void var_sort_val_labs(const struct variable *var, const int count, algo_compare_func *compare)
+{
+	sort(var->val_labs, count, sizeof(struct val_lab), compare, NULL);
 }

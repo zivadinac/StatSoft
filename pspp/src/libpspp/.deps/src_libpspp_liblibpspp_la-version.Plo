@@ -1,6 +1,0 @@
-src/libpspp/src_libpspp_liblibpspp_la-version.lo: src/libpspp/version.c \
- /usr/include/stdc-predef.h src/libpspp/version.h
-
-/usr/include/stdc-predef.h:
-
-src/libpspp/version.h:
