@@ -224,7 +224,7 @@ generate_syntax (const PsppireDialogAction *a)
 				g_string_append (string, "NORMAL"); 
 				if (gtk_toggle_button_get_active(GTK_CHECK_BUTTON (act->estimate_from_data_checkbox)))
 					{
-						g_string_append (string, "(0,1)");
+						g_string_append (string, "(ESTIMATE)");
 					}
 				else 
 					{

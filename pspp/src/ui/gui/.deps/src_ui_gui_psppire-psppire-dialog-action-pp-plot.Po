@@ -139,7 +139,7 @@ src/ui/gui/src_ui_gui_psppire-psppire-dialog-action-pp-plot.o: \
  /usr/include/x86_64-linux-gnu/bits/string3.h gl/xalloc.h \
  gl/xalloc-oversized.h src/libpspp/cast.h gl/verify.h \
  src/data/dict-class.h src/data/variable.h src/data/missing-values.h \
- src/data/val-type.h src/libpspp/float-format.h \
+ src/data/val-type.h src/libpspp/float-format.h src/libpspp/array.h \
  src/ui/gui/psppire-dialog.h src/ui/gui/include/gtk/gtk.h \
  /usr/include/gtk-3.0/gtk/gtk.h /usr/include/gtk-3.0/gdk/gdk.h \
  /usr/include/gtk-3.0/gdk/gdkconfig.h \
@@ -1011,6 +1011,8 @@ src/data/missing-values.h:
 src/data/val-type.h:
 
 src/libpspp/float-format.h:
+
+src/libpspp/array.h:
 
 src/ui/gui/psppire-dialog.h:
 
