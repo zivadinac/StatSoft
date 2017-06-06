@@ -312,10 +312,11 @@ show_qq (const struct graph *cmd, struct casereader *input)
 
 	for (int i = 0; i < cmd->n_dep_vars; ++i)
 	{
+		struct casereader *aux = casereader_clone(input);
 		ds_init_empty (&title);
 		ds_put_format (&title, _("for %s"), var_to_string (cmd->dep_vars[i]));
 
-		struct casereader *sorted = sort_input(input, cmd->dep_vars[i], SC_ASCEND);
+		struct casereader *sorted = sort_input(aux, cmd->dep_vars[i], SC_ASCEND);
 		
 		double mean = cmd->distribution_params[NORMAL_MEAN];
 		double var = cmd->distribution_params[NORMAL_VAR];
