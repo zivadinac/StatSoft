@@ -6,3 +6,8 @@
 *.lo
 *.po
 *.3pm
+*.Po
+*.Plo
+*.plo
+pspp/src/ui/gui/.libs/*
+pspp/src/ui/gui/.deps/*
