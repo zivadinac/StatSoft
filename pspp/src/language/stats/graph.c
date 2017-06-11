@@ -144,6 +144,7 @@ struct graph
 
   /* For QQ and PP plot */
   int distribution;
+  bool estimate; // estimate distribution params from data
   double *distribution_params;
 
   /* ------------ Graph ---------------- */
@@ -305,10 +306,9 @@ sort_input(struct casereader *input, struct variable *byvar, int direction)
 }
 
 static void
-show_qq (const struct graph *cmd, struct casereader *input)
+show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type type)
 {
 	struct string title;
-	struct qq_chart *qq;
 
 	for (int i = 0; i < cmd->n_dep_vars; ++i)
 	{
@@ -317,58 +317,65 @@ show_qq (const struct graph *cmd, struct casereader *input)
 		ds_put_format (&title, _("for %s"), var_to_string (cmd->dep_vars[i]));
 
 		struct casereader *sorted = sort_input(aux, cmd->dep_vars[i], SC_ASCEND);
-		
-		double mean = cmd->distribution_params[NORMAL_MEAN];
-		double var = cmd->distribution_params[NORMAL_VAR];
+		double n, mean, var;
 
-		qq = qq_chart_create (sorted,
-				X_LABEL, X_LABEL_DETRENDED,
-				Y_LABEL, Y_LABEL_DETRENDED,
-				cmd->dep_vars[i],
-				ds_cstr (&title),
-				cmd->distribution,
-				cmd->distribution_params,
-				cmd->es[i].cc,
-				cmd->es[i].minimum, cmd->es[i].maximum,
-				mean-2*var, mean+2*var + 0.1); //+ 0.1 is for upper bound to be included
+		if (cmd->estimate)
+		{
+  			struct ccase *c;
+		        struct casereader *pass_two_clone = casereader_clone(input);
 
-		qq->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
-		qq_chart_submit (qq);
-		qq_chart_submit (qq);
-		ds_destroy (&title);
-	}
-}
+			for (;(c = casereader_read (pass_two_clone)) != NULL; case_unref (c))
+			{
+				const double x      = case_data_idx (c, HG_IDX_X)->f;
+				moments_pass_two (cmd->es[0].mom, x, 1);
+			}
 
-static void
-show_pp (const struct graph *cmd, struct casereader *input)
-{
-	struct string title;
-	struct pp_chart *pp;
+			moments_calculate (cmd->es[0].mom, &n, &mean, &var, NULL, NULL);
+		}
+		else
+		{
+			mean = cmd->distribution_params[NORMAL_MEAN];
+			var = cmd->distribution_params[NORMAL_VAR];
+		}
 
-	for (int i = 0; i < cmd->n_dep_vars; ++i)
-	{
-		ds_init_empty (&title);
-		ds_put_format (&title, _("for %s"), var_to_string (cmd->dep_vars[i]));
+		if (type = CT_QQ)
+		{
+			struct qq_chart *qq;
+			qq = qq_chart_create (sorted,
+					X_LABEL, X_LABEL_DETRENDED,
+					Y_LABEL, Y_LABEL_DETRENDED,
+					cmd->dep_vars[i],
+					ds_cstr (&title),
+					cmd->distribution,
+					cmd->distribution_params,
+					cmd->es[i].cc,
+					cmd->es[i].minimum, cmd->es[i].maximum,
+					mean-2*var, mean+2*var + 0.1); //+ 0.1 is for upper bound to be included
 
-		struct casereader *sorted = sort_input(input, cmd->dep_vars[i], SC_ASCEND);
-		
-		double mean = cmd->distribution_params[NORMAL_MEAN];
-		double var = cmd->distribution_params[NORMAL_VAR];
+			qq->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
+			qq_chart_submit (qq);
+			qq_chart_submit (qq);
+		}
 
-		pp = pp_chart_create (sorted,
-				X_LABEL, X_LABEL_DETRENDED,
-				Y_LABEL, Y_LABEL_DETRENDED,
-				cmd->dep_vars[i],
-				ds_cstr (&title),
-				cmd->distribution,
-				cmd->distribution_params,
-				cmd->es[i].cc,
-				cmd->es[i].minimum, cmd->es[i].maximum,
-				0, 100); //+ 0.1 is for upper bound to be included
+		if (type = CT_PP)
+		{
+			struct pp_chart *pp;
+			pp = pp_chart_create (sorted,
+					X_LABEL, X_LABEL_DETRENDED,
+					Y_LABEL, Y_LABEL_DETRENDED,
+					cmd->dep_vars[i],
+					ds_cstr (&title),
+					cmd->distribution,
+					cmd->distribution_params,
+					cmd->es[i].cc,
+					cmd->es[i].minimum, cmd->es[i].maximum,
+					0, 100); //+ 0.1 is for upper bound to be included
 
-		pp->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
-		pp_chart_submit (pp);
-		pp_chart_submit (pp);
+			pp->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
+			pp_chart_submit (pp);
+			pp_chart_submit (pp);
+		}
+
 		ds_destroy (&title);
 	}
 }
@@ -697,10 +704,8 @@ run_graph (struct graph *cmd, struct casereader *input)
       show_scatterplot (cmd,reader);
       break;
     case CT_PP:
-      show_pp(cmd,reader);
-      break;
     case CT_QQ:
-      show_qq(cmd,reader);
+      show_qq_pp(cmd, reader, cmd->chart_type);
       break;
     default:
       NOT_REACHED ();
@@ -786,25 +791,16 @@ bool parse_qq_pp(struct lexer *lexer, struct dataset *ds, struct graph *graph)
 
 	if (lex_match_phrase(lexer, "NORMAL"))
 	{
-		double mean, variance;
+		double weight, mean, variance;
 		bool estimate = false;
 		if (!parse_qq_pp_normal_distribution(lexer, &mean, &variance, &estimate))
 			return false;
 
 		graph->distribution = NORMAL;
 		graph->distribution_params = xzalloc(NORMAL_PARAMS_NUM * sizeof(double));
-		
-		if (estimate)
-		{
-			//estimate from dataset
-  			g_print("\n%s\n", "Estimate not implemented yet.");
-			free(NULL);
-		}
-		else
-		{
-			graph->distribution_params[NORMAL_MEAN] = mean;
-			graph->distribution_params[NORMAL_VAR] = variance;
-		}
+		graph->estimate = estimate;
+		graph->distribution_params[NORMAL_MEAN] = mean;
+		graph->distribution_params[NORMAL_VAR] = variance;
 	}
 	else
 	{
