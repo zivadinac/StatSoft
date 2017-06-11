@@ -55,6 +55,7 @@ void xrchart_draw_qq_ (const struct qq_chart *qqc, cairo_t *cr,
   const struct xrchart_colour *colour;
 
   xrchart_write_xscale (cr, geom, qqc->x_min, qqc->x_max);
+  g_print(" y_min: %f y_max:%f\n",qqc->y_min, qqc->y_max);
   xrchart_write_yscale (cr, geom, qqc->y_min, qqc->y_max);
   xrchart_write_title (cr, geom, _("QQ plot %s"), qqc->chart_item.title);
   xrchart_write_xlabel (cr, geom, qqc->xlabel);
@@ -69,10 +70,11 @@ void xrchart_draw_qq_ (const struct qq_chart *qqc, cairo_t *cr,
                             colour->red / 255.0,
                             colour->green / 255.0,
                             colour->blue / 255.0);
-    
+    double x=case_data_idx (c, SP_IDX_X)->f;
       xrchart_datum (cr, geom, 0,
-		     case_data_idx (c, SP_IDX_X)->f,
+		     x,
 		     qqc->distribution_percentiles[i++]);
+		     g_print("distp: %f+%f\t", x,qqc->distribution_percentiles[i-1]);
     }
 
   draw_distribuiton_line(qqc, cr, geom);
@@ -130,11 +132,11 @@ void draw_deviation_line (struct qq_chart *qqc, cairo_t *cr, struct xrchart_geom
 
 void draw_normal_deviation_line (struct qq_chart *qqc, cairo_t *cr, struct xrchart_geometry *geom)
 {
-  //xrchart_line (cr, geom, 90, qqc->distribution_params[NORMAL_MEAN], qqc->x_min, qqc->x_max, XRCHART_DIM_X);
-
-  cairo_move_to (cr, qqc->x_min, qqc->distribution_params[NORMAL_MEAN]);
-  cairo_line_to (cr, qqc->x_max, qqc->distribution_params[NORMAL_MEAN]);
-  cairo_stroke (cr);
+  double mean = qqc->distribution_params[NORMAL_MEAN];
+  double stddev = sqrt(qqc->distribution_params[NORMAL_VAR]);
+  double intercept = (mean/stddev);
+  
+  xrchart_line (cr, geom, 0, intercept, qqc->x_min, qqc->x_max, XRCHART_DIM_X);
 }
 
 void draw_distribuiton_line(struct qq_chart *qqc, cairo_t *cr, struct xrchart_geometry *geom)
@@ -144,40 +146,17 @@ void draw_distribuiton_line(struct qq_chart *qqc, cairo_t *cr, struct xrchart_ge
   else xrchart_label(cr, 'l', 'b', geom->font_size, "Not supported distribution type.");
 }
 
-void change_geom_axis(struct xrchart_geometry *geom, enum tick_orientation orientation, double min, double max)
-{
-  double lower, interval;
-  int ticks;
-  chart_get_scale (max, min, &lower, &interval, &ticks);
-  double upper = lower+interval*(ticks+1);
-
-  geom->axis[orientation].min = lower;
-  geom->axis[orientation].max = upper;
-  geom->axis[orientation].scale = (fabs (geom->axis[orientation].data_max - geom->axis[orientation].data_min)
-			      / fabs (geom->axis[orientation].max - geom->axis[orientation].min));
-}
-
 void draw_normal_distribution_line(struct qq_chart *qqc, cairo_t *cr, struct xrchart_geometry *geom)
 {
   double mean = qqc->distribution_params[NORMAL_MEAN];
   double var = qqc->distribution_params[NORMAL_VAR];
   double stddev = sqrt(var);
-
-  double oldGeomMin = geom->axis[XRCHART_DIM_Y].min;
-  double oldGeomMax = geom->axis[XRCHART_DIM_Y].max;
-
-  change_geom_axis(geom, XRCHART_DIM_Y, qqc->x_min, qqc->x_max);
-//  double y_len = qqc->y_max - qqc->y_min;
-//  double scale_ratio = (geom->axis[XRCHART_DIM_Y].max - geom->axis[XRCHART_DIM_Y].min)/y_len;
+  g_print("mean: %f var: %f\n",mean,var);
 
   double slope = 1.0 / (stddev);
-  double intercept = (-mean / stddev);
+  double intercept = mean / stddev - mean;
 
-g_print("\nslope: %f\n", slope);
-  //xrchart_write_yscale (cr, geom, qqc->x_min, qqc->x_max);
   xrchart_line (cr, geom, slope, intercept, qqc->x_min, qqc->x_max, XRCHART_DIM_X);
-  //xrchart_write_yscale (cr, geom, qqc->y_min, qqc->y_max);
-  change_geom_axis(geom, XRCHART_DIM_Y, qqc->y_min, qqc->y_max);
 
 }
 

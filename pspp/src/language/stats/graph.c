@@ -317,10 +317,10 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 		ds_put_format (&title, _("for %s"), var_to_string (cmd->dep_vars[i]));
 
 		struct casereader *sorted = sort_input(aux, cmd->dep_vars[i], SC_ASCEND);
-		double n, mean, var;
-
+		
 		if (cmd->estimate)
 		{
+			double n, mean, var;
   			struct ccase *c;
 		        struct casereader *pass_two_clone = casereader_clone(input);
 
@@ -331,14 +331,11 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 			}
 
 			moments_calculate (cmd->es[0].mom, &n, &mean, &var, NULL, NULL);
+			cmd->distribution_params[NORMAL_MEAN] = mean;
+			cmd->distribution_params[NORMAL_VAR] = var;
 		}
-		else
-		{
-			mean = cmd->distribution_params[NORMAL_MEAN];
-			var = cmd->distribution_params[NORMAL_VAR];
-		}
-
-		if (type = CT_QQ)
+		
+		if (type == CT_QQ)
 		{
 			struct qq_chart *qq;
 			qq = qq_chart_create (sorted,
@@ -349,15 +346,16 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 					cmd->distribution,
 					cmd->distribution_params,
 					cmd->es[i].cc,
-					cmd->es[i].minimum, cmd->es[i].maximum,
-					mean-2*var, mean+2*var + 0.1); //+ 0.1 is for upper bound to be included
+					cmd->es[i].minimum-0.2, cmd->es[i].maximum+0.2,
+					cmd->distribution_params[NORMAL_MEAN]-2*cmd->distribution_params[NORMAL_VAR]-0.1, cmd->distribution_params[NORMAL_MEAN]+2*cmd->distribution_params[NORMAL_VAR] + 0.1); //+ 0.1 is for upper bound to be included
 
 			qq->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
+			
 			qq_chart_submit (qq);
 			qq_chart_submit (qq);
 		}
 
-		if (type = CT_PP)
+		if (type == CT_PP)
 		{
 			struct pp_chart *pp;
 			pp = pp_chart_create (sorted,
@@ -368,7 +366,7 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 					cmd->distribution,
 					cmd->distribution_params,
 					cmd->es[i].cc,
-					cmd->es[i].minimum, cmd->es[i].maximum,
+					cmd->es[i].minimum-0.2, cmd->es[i].maximum+0.2,
 					0, 100); //+ 0.1 is for upper bound to be included
 
 			pp->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
@@ -742,7 +740,7 @@ bool parse_qq_pp_normal_distribution(struct lexer *lexer, double *mean, double *
 
 	if (!lex_force_match (lexer, T_RPAREN))
 		return false;
-
+	
 	return true;
 }
 
