@@ -92,6 +92,26 @@ void xrchart_draw_pp_ ( struct pp_chart *ppc, cairo_t *cr,
   
 }
 
+double findMaxPP(const double *array, int n)
+{
+  double max = array[0];
+
+  for (int i=0; i<n; ++i)
+    max = (array[i] > max) ? array[i] : max;
+
+  return max;
+}
+
+double findMinPP(const double *array, int n)
+{
+  double min = array[0];
+
+  for (int i=0; i<n; ++i)
+    min = (array[i] < min) ? array[i] : min;
+
+  return min;
+}
+
 void
 xrchart_draw_pp_detrended (const struct pp_chart *ppc, cairo_t *cr,
 			  struct xrchart_geometry *geom)
@@ -102,7 +122,9 @@ xrchart_draw_pp_detrended (const struct pp_chart *ppc, cairo_t *cr,
   const struct xrchart_colour *colour;
 
   xrchart_write_xscale (cr, geom, ppc->x_min, ppc->x_max);
-  xrchart_write_yscale (cr, geom, ppc->deviation[0], ppc->deviation[ppc->value_num-1]);
+  double y_min = findMinPP(ppc->deviation, ppc->value_num);
+  double y_max = findMaxPP(ppc->deviation, ppc->value_num);
+  xrchart_write_yscale (cr, geom, y_min, y_max);
   xrchart_write_title (cr, geom, _("Detrended PP plot %s"), ppc->chart_item.title);
   xrchart_write_xlabel (cr, geom, ppc->xlabel_detrended);
   xrchart_write_ylabel (cr, geom, ppc->ylabel_detrended);

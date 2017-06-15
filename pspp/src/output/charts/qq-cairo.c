@@ -55,7 +55,6 @@ void xrchart_draw_qq_ (const struct qq_chart *qqc, cairo_t *cr,
   const struct xrchart_colour *colour;
 
   xrchart_write_xscale (cr, geom, qqc->x_min, qqc->x_max);
-  g_print(" y_min: %f y_max:%f\n",qqc->y_min, qqc->y_max);
   xrchart_write_yscale (cr, geom, qqc->y_min, qqc->y_max);
   xrchart_write_title (cr, geom, _("QQ plot %s"), qqc->chart_item.title);
   xrchart_write_xlabel (cr, geom, qqc->xlabel);
@@ -85,6 +84,26 @@ void xrchart_draw_qq_ (const struct qq_chart *qqc, cairo_t *cr,
   cairo_restore (cr);
 }
 
+double findMaxQQ(const double *array, int n)
+{
+  double max = array[0];
+
+  for (int i=0; i<n; ++i)
+    max = (array[i] > max) ? array[i] : max;
+
+  return max;
+}
+
+double findMinQQ(const double *array, int n)
+{
+  double min = array[0];
+
+  for (int i=0; i<n; ++i)
+    min = (array[i] < min) ? array[i] : min;
+
+  return min;
+}
+
 void
 xrchart_draw_qq_detrended (const struct qq_chart *qqc, cairo_t *cr,
 			  struct xrchart_geometry *geom)
@@ -95,7 +114,9 @@ xrchart_draw_qq_detrended (const struct qq_chart *qqc, cairo_t *cr,
   const struct xrchart_colour *colour;
 
   xrchart_write_xscale (cr, geom, qqc->x_min, qqc->x_max);
-  xrchart_write_yscale (cr, geom, qqc->deviation[0], qqc->deviation[qqc->value_num-1]);
+  double y_min = findMinQQ(qqc->deviation, qqc->value_num);
+  double y_max = findMaxQQ(qqc->deviation, qqc->value_num);
+  xrchart_write_yscale (cr, geom, y_min, y_max);
   xrchart_write_title (cr, geom, _("Detrended QQ plot %s"), qqc->chart_item.title);
   xrchart_write_xlabel (cr, geom, qqc->xlabel_detrended);
   xrchart_write_ylabel (cr, geom, qqc->ylabel_detrended);
