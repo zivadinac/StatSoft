@@ -132,11 +132,7 @@ void draw_deviation_line (struct qq_chart *qqc, cairo_t *cr, struct xrchart_geom
 
 void draw_normal_deviation_line (struct qq_chart *qqc, cairo_t *cr, struct xrchart_geometry *geom)
 {
-  double mean = qqc->distribution_params[NORMAL_MEAN];
-  double stddev = sqrt(qqc->distribution_params[NORMAL_VAR]);
-  double intercept = (mean/stddev);
-  
-  xrchart_line (cr, geom, 0, intercept, qqc->x_min, qqc->x_max, XRCHART_DIM_X);
+  xrchart_line (cr, geom, 0, 0, qqc->x_min, qqc->x_max, XRCHART_DIM_X);
 }
 
 void draw_distribuiton_line(struct qq_chart *qqc, cairo_t *cr, struct xrchart_geometry *geom)
@@ -154,7 +150,7 @@ void draw_normal_distribution_line(struct qq_chart *qqc, cairo_t *cr, struct xrc
   g_print("mean: %f var: %f\n",mean,var);
 
   double slope = 1.0 / (stddev);
-  double intercept = mean / stddev - mean;
+  double intercept = -mean / stddev;
 
   xrchart_line (cr, geom, slope, intercept, qqc->x_min, qqc->x_max, XRCHART_DIM_X);
 

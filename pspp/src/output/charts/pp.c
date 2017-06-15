@@ -30,6 +30,7 @@
 #include "data/casereader.h"
 
 #include "gl/xalloc.h"
+#include <gsl/gsl_cdf.h>
 #include "data/variable.h"
 #include "language/stats/freq.h"
 
@@ -58,16 +59,13 @@ pp_chart_create (struct casereader *reader,
 		 const int distribution,
 		 const double *distribution_params,
 		 const int value_num,
-	   	 double xmin, double xmax, double ymin, double ymax)
+	   	 double xmin, double xmax)
 {
   struct pp_chart *ppc;
 
   ppc = xzalloc (sizeof *ppc);
   chart_item_init (&ppc->chart_item, &pp_chart_class, label);
   ppc->data = reader;
-
-  ppc->y_min = ymin;
-  ppc->y_max = ymax;
 
   ppc->x_min = xmin;
   ppc->x_max = xmax;
@@ -77,9 +75,17 @@ pp_chart_create (struct casereader *reader,
   ppc->distribution = distribution;
   ppc->distribution_params = distribution_params;
   ppc->distribution_percentages = xzalloc (sizeof(double) * value_num);
+  ppc->distribution_percentiles = xzalloc (sizeof(double) * value_num);
+
+  ppc->cfd_values = xzalloc (sizeof(double) * value_num);
+  g_print("Create\n");
+  calculate_distribution_percentiles_pp (ppc);
   calculate_distribution_percentages (ppc);
   ppc->deviation = xzalloc (sizeof(double) * value_num);
-  calculate_deviation_pp(ppc);
+  calculate_deviation_cfd_values_pp(ppc);
+
+  ppc->y_min = 0;
+  ppc->y_max = ppc->cfd_values[ppc->value_num - 1];
 
   ppc->draw_detrended = false;
 
@@ -119,15 +125,34 @@ calculate_distribution_percentages(struct pp_chart *ppc)
 }
 
 void 
-calculate_deviation_pp(struct pp_chart *ppc)
+calculate_deviation_cfd_values_pp(struct pp_chart *ppc)
 {
+	
   struct casereader *data = casereader_clone (ppc->data);
+  g_print("data: %d\n",ppc->data);
   struct ccase *c;
   int i = 0;
+  float mean = ppc->distribution_params[NORMAL_MEAN];
+  float variance = ppc->distribution_params[NORMAL_VAR];
 
+g_print("casereader calc deviation pp");
   for (; (c = casereader_read (data)) != NULL; case_unref (c))
     {
-      ppc->deviation[i] = case_data_idx (c, 0)->f - ppc->distribution_percentages[i++];
+      float x = case_data_idx (c, 0)->f;
+      ppc->deviation[i] =  x - ppc->distribution_percentiles[i];
+      ppc->cfd_values[i++] = mean + gsl_cdf_gaussian_P(x, variance);
+
     }
   casereader_destroy (data);  
+}
+void calculate_distribution_percentiles_pp (struct pp_chart *qqc)
+{
+	switch (qqc->distribution)
+	{
+		case NORMAL:
+			calculate_normal_percentiles(qqc->distribution_percentiles, qqc->value_num, qqc->distribution_params[NORMAL_MEAN], qqc->distribution_params[NORMAL_VAR]);
+			break;
+		default:
+			break;
+	}
 }
