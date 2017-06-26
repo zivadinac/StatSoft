@@ -47,9 +47,10 @@ xrchart_draw_pp (const struct chart_item *chart_item, cairo_t *cr,
 {
   struct pp_chart *ppc = to_pp_chart (chart_item);
 
-  if (ppc->draw_detrended)
+  /* if (ppc->draw_detrended)
     xrchart_draw_pp_detrended(ppc, cr, geom);
-  else xrchart_draw_pp_(ppc, cr, geom);
+  else */
+    xrchart_draw_pp_(ppc, cr, geom);
 
   ppc->draw_detrended = !ppc->draw_detrended;
 }

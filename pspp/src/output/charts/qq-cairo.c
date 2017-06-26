@@ -39,9 +39,10 @@ xrchart_draw_qq (const struct chart_item *chart_item, cairo_t *cr,
 {
   struct qq_chart *qqc = to_qq_chart (chart_item);
 
-  if (qqc->draw_detrended)
+  /* if (qqc->draw_detrended)
     xrchart_draw_qq_detrended(qqc, cr, geom);
-  else xrchart_draw_qq_(qqc, cr, geom);
+  else */
+    xrchart_draw_qq_(qqc, cr, geom);
 
   qqc->draw_detrended = !qqc->draw_detrended;
 }
@@ -53,6 +54,10 @@ void xrchart_draw_qq_ (const struct qq_chart *qqc, cairo_t *cr,
   struct ccase *c;
   int i = 0;
   const struct xrchart_colour *colour;
+
+g_print("OBICAN\n");
+g_print("\tx_min: %f, x_max: %f\n", qqc->x_min, qqc->x_max);
+g_print("\ty_min: %f, y_max: %f\n", qqc->y_min, qqc->y_max);
 
   xrchart_write_xscale (cr, geom, qqc->x_min, qqc->x_max);
   xrchart_write_yscale (cr, geom, qqc->y_min, qqc->y_max);
@@ -113,6 +118,10 @@ xrchart_draw_qq_detrended (const struct qq_chart *qqc, cairo_t *cr,
   int i = 0;
   const struct xrchart_colour *colour;
 
+g_print("DETRENDED\n");
+g_print("\tx_min: %f, x_max: %f\n", qqc->x_min, qqc->x_max);
+g_print("\ty_min: %f, y_max: %f\n", qqc->deviation[0], qqc->deviation[qqc->value_num-1]);
+
   xrchart_write_xscale (cr, geom, qqc->x_min, qqc->x_max);
   double y_min = findMinQQ(qqc->deviation, qqc->value_num);
   double y_max = findMaxQQ(qqc->deviation, qqc->value_num);
@@ -171,7 +180,7 @@ void draw_normal_distribution_line(struct qq_chart *qqc, cairo_t *cr, struct xrc
   g_print("mean: %f var: %f\n",mean,var);
 
   double slope = 1.0 / (stddev);
-  double intercept = -mean / stddev;
+  double intercept = -mean / stddev + mean;
 
   xrchart_line (cr, geom, slope, intercept, qqc->x_min, qqc->x_max, XRCHART_DIM_X);
 

@@ -308,7 +308,6 @@ sort_input(struct casereader *input, struct variable *byvar, int direction)
 static void
 show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type type)
 {
-	g_print("PPQQ\n");
 
 	struct string title;
 
@@ -339,7 +338,6 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 		
 		if (type == CT_QQ)
 		{
-			g_print("QQ\n");
 			struct qq_chart *qq;
 			qq = qq_chart_create (sorted,
 					X_LABEL, X_LABEL_DETRENDED,
@@ -353,13 +351,12 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 					cmd->distribution_params[NORMAL_MEAN]-2*cmd->distribution_params[NORMAL_VAR]-0.1, cmd->distribution_params[NORMAL_MEAN]+2*cmd->distribution_params[NORMAL_VAR] + 0.1); //+ 0.1 is for upper bound to be included
 
 			qq->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
-			qq_chart_submit (qq);
+			// qq_chart_submit (qq);
 			qq_chart_submit (qq);
 		}
 
 		if (type == CT_PP)
 		{
-			g_print("PP\n");
 			struct pp_chart *pp;
 			pp = pp_chart_create (sorted,
 					X_LABEL, X_LABEL_DETRENDED,
@@ -372,7 +369,7 @@ show_qq_pp (const struct graph *cmd, struct casereader *input, enum chart_type t
 					0, 1 + 0.001); //+ 0.1 is for upper bound to be included
 			pp->draw_detrended = false; // one submit for basic plot, one for detrended, draw_detrended will become true in after ploting
 			pp_chart_submit (pp);			
-			pp_chart_submit (pp);
+			// pp_chart_submit (pp);
 		}
 
 		ds_destroy (&title);
@@ -618,7 +615,6 @@ static int compare_val_labs_asc (const void *a_, const void *b_, const void *aux
 static void
 run_graph (struct graph *cmd, struct casereader *input)
 {
-	g_print("run_graph start");
   struct ccase *c;
   struct casereader *reader;
   struct casewriter *writer;
@@ -650,7 +646,6 @@ run_graph (struct graph *cmd, struct casereader *input)
   /*                 y is assumed in dep_vars[1]    */
   /* For Histogram   x is assumed in dep_vars[0]    */
   assert(SP_IDX_X == 0 && SP_IDX_Y == 1 && HG_IDX_X == 0);
-g_print("run_graph for");	
   for (;(c = casereader_read (input)) != NULL; case_unref (c))
     {
       struct ccase *outcase = case_create (cmd->gr_proto);
@@ -673,9 +668,7 @@ g_print("run_graph for");
 	      continue;
 	    }
 	  /* Magically v value fits to SP_IDX_X, SP_IDX_Y, HG_IDX_X */
-	  g_print("run_graph case data");
 	  case_data_rw_idx (outcase, v)->f = x;
-		g_print("run_graph case data");
 	  if (x > cmd->es[v].maximum)
 	    cmd->es[v].maximum = x;
 
@@ -705,7 +698,6 @@ g_print("run_graph for");
       show_scatterplot (cmd,reader);
       break;
     case CT_PP:  
-      g_print("show pp");
       show_qq_pp(cmd, reader, cmd->chart_type);
       break;
     case CT_QQ:

@@ -126,7 +126,7 @@ void calculate_deviation_qq(struct qq_chart *qqc)
 
   for (; (c = casereader_read (data)) != NULL; case_unref (c))
     {
-      qqc->deviation[i] = case_data_idx (c, 0)->f - qqc->distribution_percentiles[i++];
+      qqc->deviation[i] =  qqc->distribution_percentiles[i++] - case_data_idx (c, 0)->f;
     }
   casereader_destroy (data);  
 }

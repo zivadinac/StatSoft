@@ -135,12 +135,11 @@ calculate_deviation_cfd_values_pp(struct pp_chart *ppc)
   float mean = ppc->distribution_params[NORMAL_MEAN];
   float variance = ppc->distribution_params[NORMAL_VAR];
 
-g_print("casereader calc deviation pp");
   for (; (c = casereader_read (data)) != NULL; case_unref (c))
     {
       float x = case_data_idx (c, 0)->f;
-      ppc->deviation[i] =  x - ppc->distribution_percentiles[i];
-      ppc->cfd_values[i++] = mean + gsl_cdf_gaussian_P(x, variance);
+      ppc->cfd_values[i] = mean + gsl_cdf_gaussian_P(x, variance);
+      ppc->deviation[i] =  ppc->cfd_values[i] - ppc->distribution_percentiles[i++];
 
     }
   casereader_destroy (data);  
